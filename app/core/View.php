@@ -8,5 +8,8 @@ namespace app\core;
  * @author Tobi
  */
 class View {
-    //put your code here
+
+    public $header;
+    public $content;
+
 }

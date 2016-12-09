@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\core\Request;
+
 /**
  * Description of kernel
  *
@@ -10,7 +12,11 @@ namespace app\core;
 class Kernel {
 
     public function __construct() {
-        ;
+
+    }
+
+    public function handle(Request $req) {
+
     }
 
 }
