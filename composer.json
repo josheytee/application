@@ -1,0 +1,16 @@
+{
+    "name": "tobi/application",
+    "description": "demo of ecommerce",
+    "type": "project",
+    "license": "mit",
+    "authors": [{
+            "name": "josheytee",
+            "email": "t_josh24@hotmail.com"
+        }],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "app\\": "app"
+        }
+    }
+}
