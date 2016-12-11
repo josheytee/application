@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core;
+namespace app\core\template;
 
 /**
  * Description of Template
@@ -9,8 +9,28 @@ namespace app\core;
  */
 class Template {
 
-    public $layout;
-    public $grid;
-    public $name;
+    protected $layout;
+    protected $grid;
+    protected $name;
+
+    public function __construct($name) {
+        $this->name = $name;
+    }
+
+    public function getLayout() {
+        return $this->layout;
+    }
+
+    public function getGrid() {
+        return $this->grid;
+    }
+
+    public function setLayout($layout) {
+        $this->layout = $layout;
+    }
+
+    public function setGrid($grid) {
+        $this->grid = $grid;
+    }
 
 }
