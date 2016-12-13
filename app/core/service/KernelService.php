@@ -33,4 +33,12 @@ class KernelService implements KernelServiceInterface {
 
     }
 
+    public function subscribe() {
+
+    }
+
+    public function unsubscribe() {
+
+    }
+
 }
