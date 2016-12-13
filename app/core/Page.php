@@ -2,7 +2,7 @@
 
 namespace app\core;
 
-use app\core\Component;
+use app\core\component\Component;
 use app\core\template\Template;
 
 /**
@@ -36,9 +36,8 @@ class Page {
         $this->template[] = $template;
     }
 
-    public function display() {
+    public function create() {
         $this->init();
-        var_dump($this->components);
         foreach ($this->components as $component) {
             echo $component->render();
         }

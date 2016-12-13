@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core;
+namespace app\core\component;
 
 use app\core\event\EventDispatcherInterface;
 
@@ -11,10 +11,18 @@ use app\core\event\EventDispatcherInterface;
  */
 class Component {
 
+    const TYPE_SYSTEM = 'SYSTEM';
+    const TYPE_USER = 'USER';
+
     protected $dispatcher;
+    protected $type;
 
     public function __construct(EventDispatcherInterface $dispatcher) {
         $this->dispatcher = $dispatcher;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
     }
 
     public function notify($dispatcher) {
@@ -26,7 +34,7 @@ class Component {
     }
 
     public function render() {
-        echo "hello render";
+
     }
 
 }

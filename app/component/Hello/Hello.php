@@ -1,8 +1,8 @@
 <?php
 
-namespace app\component\Hello\Hello;
+namespace app\component\Hello;
 
-use app\core\Component;
+use app\core\component\Component;
 
 /**
  * Description of Hello

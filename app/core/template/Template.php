@@ -33,4 +33,8 @@ class Template {
         $this->grid = $grid;
     }
 
+    public function create() {
+
+    }
+
 }
