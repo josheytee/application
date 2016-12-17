@@ -19,9 +19,11 @@ class Page {
     protected $name;
     protected $components;
     protected $template;
+    protected $url;
 
-    public function __construct($name) {
-
+    public function __construct($name = '', $title = '') {
+        $this->name = $name;
+        $this->title = $title;
     }
 
     public function registerComponent(Component $component, $position = null) {
@@ -39,7 +41,7 @@ class Page {
     public function create() {
         $this->init();
         foreach ($this->components as $component) {
-            echo $component->render();
+            echo $component->renderComponent();
         }
     }
 

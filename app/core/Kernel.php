@@ -20,11 +20,15 @@ class Kernel {
     }
 
     public function installService(KernelService $service) {
-        $service->install();
+        $this->services[$service->name] = $service;
     }
 
     public function uninstallService(KernelService $service) {
-        $service->uninstall();
+        if (!array_key_exists($service->name, $this->services)) {
+            echo "{$service->name} is not installed";
+            return FALSE;
+        }
+        $this->services[$service->name] = null;
     }
 
     public function getInstalledServices() {

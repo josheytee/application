@@ -3,6 +3,7 @@
 namespace app\core\component;
 
 use app\core\event\EventDispatcherInterface;
+use app\core\service\KernelServiceInterface;
 
 /**
  * Description of Component
@@ -25,6 +26,12 @@ class Component {
         $this->type = $type;
     }
 
+    public function postProcess() {
+        if (!empty($_POST) /* || isset($_GET) */) {
+            var_dump($_POST);
+        }
+    }
+
     public function notify($dispatcher) {
 
     }
@@ -35,6 +42,11 @@ class Component {
 
     public function render() {
 
+    }
+
+    public function renderComponent() {
+        $this->postProcess();
+        $this->render();
     }
 
 }

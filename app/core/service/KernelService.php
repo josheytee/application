@@ -11,34 +11,49 @@ use app\core\service\KernelServiceInterface;
  */
 class KernelService implements KernelServiceInterface {
 
-    public $running;
+    public static $running;
+    public $name;
+    public $log;
+    public $service_list = [];
+    private static $instance;
 
     public function __construct() {
-        $this->running = FALSE;
+        $this->name = get_class($this);
     }
 
-    public function start() {
-        $this->running = TRUE;
+    private static function getInstance() {
+        if (!isset(self::$instance)) {
+            self::$instance = new static();
+        }
+        return self::$instance;
+    }
+
+    public static function start() {
+        if (!self::$running) {
+            self::$running = TRUE;
+            return self::getInstance();
+        }
     }
 
     public function stop() {
         $this->running = FALSE;
     }
 
-    public function install() {
-
-    }
-
-    public function uninstall() {
-
-    }
-
-    public function subscribe() {
-
+    public static function subscribe($object = null) {
+        return self::start();
     }
 
     public function unsubscribe() {
+        $this->stop();
+    }
 
+    public function log($status = null) {
+        if ($status) {
+            return $this->log[date("Y-M-d H:i:s")] = $status;
+        }
+        foreach ($this->log as $key => $value) {
+            echo "<br/>$key --- $value";
+        }
     }
 
 }

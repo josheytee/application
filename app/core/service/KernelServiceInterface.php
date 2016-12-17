@@ -9,15 +9,11 @@ namespace app\core\service;
  */
 interface KernelServiceInterface {
 
-    public function install();
-
-    public function uninstall();
-
-    public function start();
+    public static function start();
 
     public function stop();
 
-    public function subscribe();
+    public static function subscribe();
 
     public function unsubscribe();
 }

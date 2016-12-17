@@ -1,22 +1,73 @@
 <?php
 
-namespace app\core\database;
+use app\core\service\KernelService;
 
 /**
+ * Description of DatabaseManagementServise
  *
  * @author Tobi
  */
-interface DBMS {
+class DatabaseManagementService extends KernelService {
 
-    public function connect($param);
+    private $conn;
 
-    public function disconnect($param);
+    public function __construct() {
+        parent::__construct();
+        $this->connect();
+    }
 
-    public function query($sql);
+    public function start() {
+        return parent::start();
+    }
 
-    public function getAll();
+    public function connect() {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
 
-    public function insertID();
+// Create connection
+        $this->conn = new \mysqli($servername, $username, $password);
 
-    public function numRows($result);
+// Check connection
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $this->log("Connected successfully");
+        $this->conn->select_db('ntc');
+    }
+
+    public function getConnection() {
+        return $this->conn;
+    }
+
+    public function disconnect() {
+        return $this->conn->close();
+    }
+
+    public function getAll() {
+
+    }
+
+    public function insertID() {
+        return $this->conn->insert_id;
+    }
+
+    public function query($sql) {
+        return $this->conn->query($sql);
+    }
+
+    public function numRows($result) {
+        return $result->num_rows;
+    }
+
+    public function subscribe() {
+        parent::subscribe();
+        return $this;
+    }
+
+    public function unsubscribe() {
+        parent::unsubscribe();
+        return$this->disconnect();
+    }
+
 }
