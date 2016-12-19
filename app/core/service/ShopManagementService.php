@@ -16,9 +16,9 @@ class ShopManagementService extends KernelService {
 
     public function __construct() {
         parent::__construct();
-        $this->database = DatabaseManagementService::subscribe($this);
+        $this->database = KernelService::getService("DatabaseManagementService");
         $this->fileds = $this->database->fetchAllQuery("DESCRIBE shop");
-        var_dump($this->fileds);
+//        var_dump($this->fileds);
     }
 
     public function newShop() {

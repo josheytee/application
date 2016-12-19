@@ -14,25 +14,26 @@ class KernelService implements KernelServiceInterface {
     public static $running;
     public $name;
     public $log;
-    public $service_list = [];
-    private static $instance;
+    public static $service_list = [];
+    public static $instances = [];
 
     public function __construct() {
-        $this->name = get_class($this);
+        $this->name = get_called_class();
     }
 
-    private static function getInstance() {
-        if (!isset(self::$instance)) {
-            self::$instance = new static();
+    public static function getService($service) {
+        $service = "\app\core\service\\" . $service;
+        if (!array_key_exists($service, self::$instances)) {
+            self::$instances[$service] = new $service();
         }
-        return self::$instance;
+        return self::$instances[$service];
     }
 
     public static function start() {
-        if (!self::$running) {
-            self::$running = TRUE;
-            return self::getInstance();
-        }
+//        if (!self::$running) {
+//            self::$running = TRUE;
+        return self::getInstance();
+//        }
     }
 
     public function stop() {

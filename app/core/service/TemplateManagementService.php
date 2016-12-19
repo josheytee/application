@@ -19,8 +19,21 @@ class TemplateManagementService extends KernelService {
         $this->setTemplateEngine(new \app\core\template\SmartyTemplateEngine);
     }
 
+    public function __call($method, $args) {
+        $this->templateEngine->$method($args[0]);
+    }
+
     public function setTemplateEngine(TemplateEngineInterface $templateEngine) {
         $this->templateEngine = $templateEngine;
+    }
+
+    public static function subscribe($object = null) {
+        parent::subscribe($object);
+        return new \app\core\template\SmartyTemplateEngine();
+    }
+
+    public static function start() {
+        parent::start();
     }
 
 }
