@@ -31,7 +31,7 @@ class DatabaseManagementService extends KernelService {
             // set the PDO error mode to exception
             $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->connected = true;
-            echo "Connected successfully ";
+            $this->log("Connected successfully to database");
         } catch (\PDOException $e) {
             $this->connected = FALSE;
             echo "Connection failed: " . $e->getMessage();

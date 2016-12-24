@@ -17,6 +17,8 @@ class Component {
 
     protected $dispatcher;
     protected $type;
+    public $dir_name;
+    public $name;
 
     public function __construct(EventDispatcherInterface $dispatcher) {
         $this->dispatcher = $dispatcher;
@@ -24,6 +26,16 @@ class Component {
 
     public function setType($type) {
         $this->type = $type;
+    }
+
+    public function getTemplatePath($template) {
+        $path = _COMPONENT_DIR_ . $this->dir_name . \DIRECTORY_SEPARATOR . $this->name . \DIRECTORY_SEPARATOR . $template . '.tpl';
+//        var_dump($path);
+        return $path;
+    }
+
+    public function init() {
+
     }
 
     public function postProcess() {
@@ -40,13 +52,11 @@ class Component {
 
     }
 
-    public function render() {
-
-    }
-
     public function renderComponent() {
+        $this->init();
+        $this->getTemplatePath("");
         $this->postProcess();
-        $this->render();
+        return $this->render();
     }
 
 }

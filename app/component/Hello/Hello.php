@@ -18,11 +18,8 @@ class Hello extends Component {
 
     public function __construct(\app\core\event\EventDispatcherInterface $dispatcher) {
         parent::__construct($dispatcher);
-//        $this->database = \app\core\service\DatabaseManagementService::subscribe($this);
-//        var_dump($this->database);
         $this->database = KernelService::getService("DatabaseManagementService");
         $this->sms = KernelService::getService("ShopManagementService");
-        var_dump($this->database);
         $this->initSmarty();
     }
 
@@ -35,7 +32,7 @@ class Hello extends Component {
     }
 
     public function render() {
-        $this->smarty->display('hello.tpl');
+        return $this->smarty->display('hello.tpl');
     }
 
 }
