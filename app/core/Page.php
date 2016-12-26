@@ -3,20 +3,16 @@
 namespace app\core;
 
 use app\core\component\Component;
-use app\core\template\Template;
+use app\core\theme\Theme;
 use app\core\service\KernelService;
 
 /**
- * Description of Page
- *
+ * Page is a container of components related to perform a particular task
+ * it needs the @uses \app\core\theme\Theme  for layouts and positioning of the components\
+ * @see Theme;
  * @author Tobi
  */
 class Page {
-
-    const POSITION_HEADER = '';
-    const POSITION_CONTENT = '';
-    const POSITION_FOOTER = '';
-    const LAYOUT_LEFT = 'left';
 
     protected $title;
     protected $meta = [];
@@ -24,7 +20,7 @@ class Page {
     protected $css = [];
     protected $name;
     protected $components;
-    protected $template;
+    protected $theme;
     protected $url;
     public $smarty;
 
@@ -34,27 +30,24 @@ class Page {
     }
 
     public function registerComponent(Component $component, $position = null) {
-        $this->components[$position] = $component;
+        if (isset($position)) {
+            $this->components[$position] = $component;
+        }
+        $this->components[] = $component;
     }
 
-    public function init() {
-        $this->smarty = KernelService::getService("TemplateManagementService");
-//        $smarty
+    public function initPage() {
+        $this->smarty = KernelService::getService("SmartyTemplateManagementService");
     }
 
-    public function setTemplate(Template $template) {
-        $this->template[] = $template;
+    public function setTheme(Theme $theme) {
+        $this->theme = $theme;
     }
 
     public function create() {
-        $this->init();
-//        var_dump($this->components);
-        foreach ($this->components as $component) {
-            $component->renderComponent();
-//            var_dump($this->smarty);
-//            $tpl = $this->smarty->createTemplate($component->renderComponent());
-//            $tpl->display();
-        }
+        $this->initPage();
+        $this->theme->addComponents($this->components);
+        $this->theme->publish();
     }
 
 }

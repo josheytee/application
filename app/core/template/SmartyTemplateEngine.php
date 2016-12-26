@@ -21,6 +21,7 @@ class SmartyTemplateEngine extends \Smarty implements TemplateEngineInterface {
         $this->setConfigDir(__DIR__ . \DIRECTORY_SEPARATOR . 'config');
         $this->setCacheDir('./app/misc/smarty/cache/');
         $this->setTemplateDir($this->findTemplateDir());
+        $this->debugging = TRUE;
     }
 
     public function findTemplateDir() {

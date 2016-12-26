@@ -29,7 +29,7 @@ class Component {
     }
 
     public function getTemplatePath($template) {
-        $path = _COMPONENT_DIR_ . $this->dir_name . \DIRECTORY_SEPARATOR . $this->name . \DIRECTORY_SEPARATOR . $template . '.tpl';
+        $path = _COMPONENT_DIR_ . $this->dir_name . \DIRECTORY_SEPARATOR . $this->name . \DIRECTORY_SEPARATOR . $template;
 //        var_dump($path);
         return $path;
     }

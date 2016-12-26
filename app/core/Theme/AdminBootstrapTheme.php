@@ -1,20 +1,21 @@
 <?php
 
-namespace app\core\template;
+namespace app\core\theme;
 
-use app\core\template\Template;
+use app\core\theme\Theme;
 
 /**
  * Description of BootstrapTemplate
  *
  * @author Tobi
  */
-class BootstrapTemplate extends Template {
+class AdminBootstrapTheme extends Theme {
 
     protected $name = "Bootstrap";
 
     public function __construct() {
         parent::__construct($this->name);
+        $this->dir = _THEME_ADMIN_DIR_ . 'master\\';
     }
 
 }

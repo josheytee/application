@@ -9,11 +9,11 @@ $kernel = new app\core\Kernel();
 $request = new app\core\Request();
 $page = new \app\core\Page();
 
-$page->setTemplate(new \app\core\template\BootstrapTemplate());
-$component = new \app\component\Hello\Hello(new app\core\event\EventDispatcher());
+$page->setTheme(new \app\core\theme\AdminBootstrapTheme());
+$component = new \app\component\Hello\Hello\Hello(new app\core\event\EventDispatcher());
 $register = new app\component\defaultbootstrap\Register\Register(new app\core\event\EventDispatcher());
 $page->registerComponent($register);
-//$page->registerComponent($component);
+$page->registerComponent($component);
 $page->create();
 
 class index {

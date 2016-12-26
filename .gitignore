@@ -1,3 +1,6 @@
 vendor/
 nbproject/
-app/misc/
+app/cache/
+test.php
+test.tpl
+child.tpl

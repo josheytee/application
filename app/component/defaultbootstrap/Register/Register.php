@@ -26,15 +26,16 @@ class Register extends Component {
     }
 
     public function initSmarty() {
-        $this->smarty = KernelService::getService("TemplateManagementService");
-        $this->smarty->setCompileDir('./app/misc/smarty/compile/');
-        $this->smarty->setConfigDir(__DIR__ . \DIRECTORY_SEPARATOR . 'config');
-        $this->smarty->setCacheDir('./app/misc/smarty/cache/');
-        $this->smarty->setTemplateDir(__DIR__);
+        $this->smarty = KernelService::getService("SmartyTemplateManagementService");
+//        $this->smarty->setCompileDir('./app/misc/smarty/compile/');
+//        $this->smarty->setConfigDir(__DIR__ . \DIRECTORY_SEPARATOR . 'config');
+//        $this->smarty->setCacheDir('./app/misc/smarty/cache/');
+//        $this->smarty->setTemplateDir(__DIR__);
     }
 
     public function render() {
-        return $this->smarty->display('register.tpl');
+        $tpl = $this->smarty->createTemplate($this->getTemplatePath('register.tpl'));
+        return $tpl->fetch();
     }
 
 }

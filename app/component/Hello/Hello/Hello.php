@@ -1,6 +1,6 @@
 <?php
 
-namespace app\component\Hello;
+namespace app\component\Hello\Hello;
 
 use app\core\component\Component;
 use app\core\service\KernelService;
@@ -23,16 +23,22 @@ class Hello extends Component {
         $this->initSmarty();
     }
 
+    public function init() {
+        parent::init();
+        $this->name = 'Hello';
+        $this->dir_name = 'Hello';
+    }
+
     public function initSmarty() {
-        $this->smarty = KernelService::getService("TemplateManagementService");
-        $this->smarty->setCompileDir('./app/misc/smarty/compile/');
-        $this->smarty->setConfigDir(__DIR__ . \DIRECTORY_SEPARATOR . 'config');
-        $this->smarty->setCacheDir('./app/misc/smarty/cache/');
-        $this->smarty->setTemplateDir(__DIR__);
+        $this->smarty = KernelService::getService("SmartyTemplateManagementService");
+//        $this->smarty->setCompileDir('./app/misc/smarty/compile/');
+//        $this->smarty->setConfigDir(__DIR__ . \DIRECTORY_SEPARATOR . 'config');
+//        $this->smarty->setCacheDir('./app/misc/smarty/cache/');
+//        $this->smarty->setTemplateDir(__DIR__);
     }
 
     public function render() {
-        return $this->smarty->display('hello.tpl');
+        return $this->smarty->fetch($this->getTemplatePath('hello.tpl'));
     }
 
 }
