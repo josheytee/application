@@ -16,24 +16,23 @@ class Page {
 
     protected $title;
     protected $meta = [];
-    protected $javasripts = [];
-    protected $css = [];
     protected $name;
     protected $components;
     protected $theme;
     protected $url;
     public $smarty;
 
+    const POSITION_HEADER = 'HEADER';
+    const POSITION_CONTENT = 'CONTENT';
+    const POSITION_FOOTER = 'FOOTER';
+
     public function __construct($name = '', $title = '') {
         $this->name = $name;
         $this->title = $title;
     }
 
-    public function registerComponent(Component $component, $position = null) {
-        if (isset($position)) {
-            $this->components[$position] = $component;
-        }
-        $this->components[] = $component;
+    public function registerComponent(Component $component, $position = self::POSITION_CONTENT) {
+        $this->components[$position][] = $component;
     }
 
     public function initPage() {
@@ -42,6 +41,10 @@ class Page {
 
     public function setTheme(Theme $theme) {
         $this->theme = $theme;
+    }
+
+    public function setMedia() {
+
     }
 
     public function create() {

@@ -41,7 +41,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default" name="register">Create</button>
+                <button type="submit" class="btn btn-default" name="register">Register</button>
             </div>
         </div>
     </form>

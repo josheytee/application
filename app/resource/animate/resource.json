@@ -1,0 +1,6 @@
+{
+    "name": "animate",
+    "main": [
+        "animate.min.css"
+    ]
+}

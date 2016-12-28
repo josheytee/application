@@ -1,0 +1,6 @@
+{
+    "name": "font-awesome",
+    "main": [
+        "font-awesome.min.css"
+    ]
+}

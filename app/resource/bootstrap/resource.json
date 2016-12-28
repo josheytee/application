@@ -1,0 +1,9 @@
+{
+    "name": "bootstrap",
+    "main": [
+        "bootstrap.min.css","bootstrap.min.css"
+    ],
+    "dependencies":{
+      "jquery":""
+    }
+}

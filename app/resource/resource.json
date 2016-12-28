@@ -1,0 +1,9 @@
+{
+  "name":"application",
+    "resource": {
+        "animate": "",
+        "bootstrap": "",
+        "font-awesome": "",
+        "jquery": ""
+    }
+}

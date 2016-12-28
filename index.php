@@ -2,6 +2,10 @@
 
 require_once './vendor/autoload.php';
 require './app/config/config.inc.php';
+$json = file_get_contents("app/resource/resource.json");
+$d = json_decode($json);
+//var_dump($d->main);
+//var_dump(array_keys(get_object_vars($d->resource)));
 
 $kernel = new app\core\Kernel();
 //$kernel->installService(new \app\core\service\UserAccountService());

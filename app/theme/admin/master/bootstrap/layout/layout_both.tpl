@@ -2,13 +2,14 @@
 <html lang="">
     <head>
         {block name='head'}
-            {*            {include file='_partials/head.tpl'}*}
+            {include file='../_partials/head.tpl'}
         {/block}
     </head>
     <body>
         <main>
             <header id="header">
                 {block name='header'}
+                    {$header}
                 {/block}
             </header>
             <div class="container">
@@ -22,9 +23,8 @@
                 {/block}
                 {block name="content_wrapper"}
                     <div id="content-wrapper" class="left-column right-column">
-                        {$content}
                         {block name="content"}
-                            <p>Hello world! This is HTML5 Boilerplate.</p>
+                            {$content}
                         {/block}
                     </div>
                 {/block}
@@ -32,6 +32,7 @@
 
             <footer id="footer">
                 {block name="footer"}
+                    {$footer}
                 {/block}
             </footer>
 
