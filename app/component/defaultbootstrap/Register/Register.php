@@ -14,8 +14,8 @@ class Register extends Component {
 
     protected $smarty;
 
-    public function __construct(\app\core\event\EventDispatcherInterface $dispatcher) {
-        parent::__construct($dispatcher);
+    public function __construct() {
+        parent::__construct();
         $this->initSmarty();
     }
 

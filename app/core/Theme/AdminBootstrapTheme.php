@@ -15,7 +15,7 @@ class AdminBootstrapTheme extends Theme {
 
     public function __construct() {
         parent::__construct($this->name);
-        $this->dir = _THEME_ADMIN_DIR_ . 'master\\';
+        $this->dir = _THEME_ADMIN_DIR_ . 'master/';
     }
 
 }

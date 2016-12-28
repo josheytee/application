@@ -19,8 +19,9 @@ class Component {
     protected $type;
     public $dir_name;
     public $name;
+    public $pack_name;
 
-    public function __construct(EventDispatcherInterface $dispatcher) {
+    public function __construct(EventDispatcherInterface $dispatcher = null) {
         $this->dispatcher = $dispatcher;
     }
 
@@ -29,8 +30,12 @@ class Component {
     }
 
     public function getTemplatePath($template) {
-        $path = _COMPONENT_DIR_ . $this->dir_name . \DIRECTORY_SEPARATOR . $this->name . \DIRECTORY_SEPARATOR . $template;
-//        var_dump($path);
+        $path = '';
+        if (isset($this->pack_name)) {
+            $path = _COMPONENT_DIR_ . $this->dir_name . '/' . $this->pack_name . '/' . $this->name . '/' . $template;
+        } else {
+            $path = _COMPONENT_DIR_ . $this->dir_name . \DIRECTORY_SEPARATOR . $this->name . \DIRECTORY_SEPARATOR . $template;
+        }
         return $path;
     }
 
