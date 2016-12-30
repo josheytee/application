@@ -57,7 +57,7 @@ class DatabaseManagementService extends KernelService {
 
     public function fetchQuery($sql) {
         $q = $this->query($sql);
-        return $q->fetch();
+        return $q->fetch(\PDO::FETCH_ASSOC);
     }
 
 }

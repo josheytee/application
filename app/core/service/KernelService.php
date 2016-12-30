@@ -40,14 +40,6 @@ class KernelService implements KernelServiceInterface {
         $this->running = FALSE;
     }
 
-    public static function subscribe($object = null) {
-        return self::start();
-    }
-
-    public function unsubscribe() {
-        $this->stop();
-    }
-
     public function log($status = null) {
         if ($status) {
             return $this->log[date("Y-M-d H:i:s")] = $status;

@@ -24,7 +24,18 @@ class EntityPack extends ComponentPack {
         $this->name = 'entitypack';
         $this->dir_name = 'defaultbootstrap';
         $this->default_component = 'listView';
-        $this->addComponent(new ListView\ListView());
+        $options = [
+            'fields' => [
+                'id_product' => [
+                    'titile' => 'ID',
+                    'class' => 'xs',
+                    'type' => 'int'
+                ]
+            ], 'shop_url' => 'default',
+            'entity' => 'product',
+            'user_token' => "mk"
+        ];
+        $this->addComponent(new ListView\ListView($options));
         $this->addComponent(new View\View());
         $this->smarty = KernelService::getService("SmartyTemplateManagementService");
     }

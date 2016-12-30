@@ -16,7 +16,7 @@ class Hello extends Component {
     private $smarty;
     private $sms;
 
-    public function __construct(\app\core\event\EventDispatcherInterface $dispatcher) {
+    public function __construct(\app\core\event\EventDispatcherInterface $dispatcher = null) {
         parent::__construct($dispatcher);
         $this->database = KernelService::getService("DatabaseManagementService");
         $this->sms = KernelService::getService("ShopManagementService");

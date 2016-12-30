@@ -12,8 +12,4 @@ interface KernelServiceInterface {
     public static function start();
 
     public function stop();
-
-    public static function subscribe();
-
-    public function unsubscribe();
 }

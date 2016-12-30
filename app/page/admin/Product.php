@@ -3,18 +3,17 @@
 namespace app\page\admin;
 
 use app\core\Page;
-use app\component\Hello\Hello\Hello;
 
 /**
- * Description of Index
+ * Description of Product
  *
  * @author Tobi
  */
-class Index extends Page {
+class Product extends Page {
 
     public function initPage() {
         parent::initPage();
-        $this->registerComponent(new Hello());
+        $this->registerComponent(new \app\component\defaultbootstrap\Register\Register());
         $this->setTheme(new \app\core\theme\AdminBootstrapTheme());
     }
 

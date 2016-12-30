@@ -28,15 +28,7 @@ class SmartyTemplateManagementService extends \Smarty implements KernelServiceIn
 
     }
 
-    public function unsubscribe() {
-
-    }
-
     public static function start() {
-
-    }
-
-    public static function subscribe() {
 
     }
 

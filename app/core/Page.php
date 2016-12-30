@@ -25,10 +25,18 @@ class Page {
     const POSITION_HEADER = 'HEADER';
     const POSITION_CONTENT = 'CONTENT';
     const POSITION_FOOTER = 'FOOTER';
+    const TYPE_ADMIN = 'admin';
+    const TYPE_FRONT = 'front';
 
     public function __construct($name = '', $title = '') {
         $this->name = $name;
         $this->title = $title;
+    }
+
+    public static function getPage($page, $type = self::TYPE_FRONT) {
+        $p = "app\page\\$type\\" . $page;
+
+        return new $p();
     }
 
     public function registerComponent(Component $component, $position = self::POSITION_CONTENT) {
