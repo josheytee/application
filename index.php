@@ -37,15 +37,16 @@ $route->add('/contact', 'Contact');
 //echo '<pre>';
 //print_r($route);
 //echo '</pre>';
-$route->run();
-
+//$route->run();
 //$page->setTheme(new \app\core\theme\AdminBootstrapTheme());
 //$component = new \app\component\defaultbootstrap\EntityPack\EntityPack();
 //$register = new app\component\defaultbootstrap\Register\Register();
 //$page->registerComponent($register);
 //$page->registerComponent($component);
 //$page->create();
-var_dump($_SERVER);
+var_dump(app\model\Db::g());
+
+//var_dump(app\model\Db::table('users')->where('id', '=', 1)->get());
 
 class index {
 
