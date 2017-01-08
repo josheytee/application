@@ -22,6 +22,7 @@ $route->add('/admin/', function() {
 $route->add('/admin/product', 'Product');
 $route->add('/login(.*)', 'Login');
 $route->add('/contact', 'Contact');
+
 //$route->add('/shop(.*)', function ($name = '') {
 //    $shop = new \beta\web\controller\ShopController($name);
 //    $shop->run();
@@ -44,10 +45,6 @@ $route->add('/contact', 'Contact');
 //$page->registerComponent($register);
 //$page->registerComponent($component);
 //$page->create();
-var_dump(app\model\Db::g());
-
-//var_dump(app\model\Db::table('users')->where('id', '=', 1)->get());
-
 class index {
 
 }

@@ -3,11 +3,11 @@
 require 'config.php';
 return [
     'paths' => [
-        'migrations' => 'migrations',
-        'seeds' => 'migrations/seeds',
+        'migrations' => 'app/model/migrations',
+        'seeds' => 'app/model/seeds',
     ],
-    'migration_base_class' => '\app\migration\Migration',
-    'seed_base_class' => '\app\migration\Seed',
+    'migration_base_class' => 'app\core\database\Migration',
+    'seed_base_class' => 'app\core\database\Seeder',
     'environments' => [
         'default_migration_table' => 'phinxlog',
         'default_database' => 'ntc',

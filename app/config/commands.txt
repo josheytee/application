@@ -1,0 +1,2 @@
+vendor/bin/phinx create MyFirstMigration -c config-phinx.php
+vendor/bin/phinx seed:create EntitySeeder -c config-phinx.php

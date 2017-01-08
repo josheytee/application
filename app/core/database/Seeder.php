@@ -1,19 +1,18 @@
 <?php
 
-namespace app\migration;
+namespace app\core\database;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Phinx\Migration\AbstractMigration;
+use Phinx\Seed\AbstractSeed;
 
-class Migration extends AbstractMigration {
+/**
+ * Description of Seed
+ *
+ * @author Tobi
+ */
+class Seeder extends AbstractSeed {
 
-    /** @var \Illuminate\Database\Capsule\Manager $capsule */
-    public $capsule;
-
-    /** @var \Illuminate\Database\Schema\Builder $capsule */
-    public $schema;
-
-    public function init() {
+    protected function init() {
         $this->capsule = new Capsule;
         $this->capsule->addConnection([
             'driver' => 'mysql',
@@ -29,7 +28,6 @@ class Migration extends AbstractMigration {
 
         $this->capsule->bootEloquent();
         $this->capsule->setAsGlobal();
-        $this->schema = $this->capsule->schema();
     }
 
 }
