@@ -21,7 +21,7 @@ class Product extends Model {
     }
 
     public function section() {
-        return $this->hasOne('app\model\Section', 'id_section', 'id_product');
+        return $this->belongsTo('app\model\Section', 'id_product', 'id_section');
     }
 
 }

@@ -2,6 +2,7 @@
 
 require_once './vendor/autoload.php';
 require './app/config/config.inc.php';
+include_once './init.illuminate.php';
 include_once './test.php';
 //$kernel = new app\core\Kernel();
 //$request = new app\core\Request();
@@ -45,6 +46,11 @@ $route->add('/contact', 'Contact');
 //$page->registerComponent($register);
 //$page->registerComponent($component);
 //$page->create();
+//for ($index = 1; $index < 101; $index++) {
+echo'<pre>' . (app\model\Section::find(1)->products) . '</pre>';
+
+//}
+
 class index {
 
 }

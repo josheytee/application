@@ -29,7 +29,7 @@ class Shop extends Model {
         return $this->belongsTo('app\model\Product', 'id_shop', 'id_product');
     }
 
-    public function user() {
+    public function users() {
         return $this->belongsToMany('app\model\User', 'user_shop', 'id_shop', 'id_user');
     }
 

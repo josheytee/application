@@ -20,4 +20,21 @@ class Section extends Model {
         return $this->belongsTo('app\model\Shop', 'id_section', 'id_shop');
     }
 
+    public function products() {
+        return $this->hasMany('app\model\Product', 'id_section');
+    }
+
+    public function parent() {
+    return $this->hasOne($this, 'id_parent', 'id_section');
+
+
+
+
+
+
+
+
+
+    }
+
 }
