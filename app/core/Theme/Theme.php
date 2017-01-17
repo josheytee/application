@@ -77,7 +77,7 @@ class Theme {
 
     public function addCSS($css, $media = 'all') {
         $media_uri = str_replace('//', '/', $css);
-        $this->css[$media_uri] = $media;
+        $this->css[DOMAIN . $media_uri] = $media;
     }
 
     public function addJS($js_url) {
@@ -86,7 +86,7 @@ class Theme {
                 $this->js[] = $value;
             }
         } else {
-            $this->js[] = $js_url;
+            $this->js[] = DOMAIN . $js_url;
         }
     }
 
@@ -117,7 +117,9 @@ class Theme {
         $layout->assign('content', $this->initContent());
         $layout->assign('footer', $this->initFooter());
         $layout_tpl = $layout->fetch();
-        echo trim($layout_tpl);
+        return new \Symfony\Component\HttpFoundation\Response(
+                printf("%s", trim($layout_tpl))
+                , 200);
     }
 
 }

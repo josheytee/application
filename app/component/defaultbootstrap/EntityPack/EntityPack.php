@@ -37,7 +37,7 @@ class EntityPack extends ComponentPack {
         ];
         $this->addComponent(new ListView\ListView($options));
         $this->addComponent(new View\View());
-        $this->smarty = KernelService::getService("SmartyTemplateManagementService");
+        $this->smarty = $this->get("SmartyTemplateManagementService");
     }
 
     public function render() {

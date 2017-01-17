@@ -12,14 +12,10 @@ use app\core\service\KernelService;
  */
 class Login extends Component {
 
-    private $database;
     private $smarty;
-    private $sms;
 
     public function __construct() {
         parent::__construct();
-        $this->database = KernelService::getService("DatabaseManagementService");
-        $this->sms = KernelService::getService("ShopManagementService");
         $this->initSmarty();
     }
 
@@ -31,6 +27,14 @@ class Login extends Component {
 
     public function initSmarty() {
         $this->smarty = KernelService::getService("SmartyTemplateManagementService");
+    }
+
+    public function procesLogin() {
+
+    }
+
+    public function postProcess() {
+        parent::postProcess();
     }
 
     public function render() {

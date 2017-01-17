@@ -56,16 +56,12 @@ class Query extends ObjectType {
     }
 
     public function shop($shop, $args) {
-//        var_dump($shop);
-//        var_dump($args);
         if (isset($args['id'])) {
             return \app\model\Shop::find($args['id']);
         }
     }
 
     public function shops($shops, $args) {
-//        var_dump($shops);
-//        var_dump($args);
         return \app\model\Shop::all();
     }
 

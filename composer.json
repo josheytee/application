@@ -17,7 +17,12 @@
         "fzaninotto/faker": "^1.6",
         "illuminate/events": "^5.3",
         "ivome/graphql-relay-php": "^0.3.1",
-        "robmorgan/phinx": "^0.6.5"
+        "robmorgan/phinx": "^0.6.5",
+        "symfony/http-kernel": "^3.2",
+        "symfony/http-foundation": "^3.2",
+        "symfony/routing": "^3.2",
+        "guzzlehttp/guzzle": "^6.2",
+        "shudrum/array-finder": "^1.1"
     },
     "autoload": {
         "psr-4": {

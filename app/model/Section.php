@@ -27,14 +27,6 @@ class Section extends Model {
     public function parent() {
     return $this->hasOne($this, 'id_parent', 'id_section');
 
-
-
-
-
-
-
-
-
     }
 
 }

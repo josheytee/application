@@ -3,7 +3,7 @@
 // Test this using following command
 // php -S localhost:8080 ./graphql.php
 require_once '../vendor/autoload.php';
-require_once '../init.illuminate.php';
+require_once '../app/config/init.illuminate.php';
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;

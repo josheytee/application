@@ -58,7 +58,7 @@ class Page {
     public function create() {
         $this->initPage();
         $this->theme->addComponents($this->components);
-        $this->theme->publish();
+        return $this->theme->publish();
     }
 
 }

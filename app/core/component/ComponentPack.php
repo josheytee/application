@@ -8,7 +8,7 @@ use app\core\component\Component;
  *
  * @author Tobi
  */
-class ComponentPack extends Component {
+abstract class ComponentPack extends Component {
 
     public $components;
     public $default_component;

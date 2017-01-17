@@ -4,13 +4,14 @@ namespace app\core\component;
 
 use app\core\event\EventDispatcherInterface;
 use app\core\service\KernelServiceInterface;
+use app\core\service\KernelService;
 
 /**
  * Description of Component
  *
  * @author Tobi
  */
-class Component {
+abstract class Component {
 
     const TYPE_SYSTEM = 'SYSTEM';
     const TYPE_USER = 'USER';
@@ -43,10 +44,16 @@ class Component {
 
     }
 
+    abstract public function render();
+
     public function postProcess() {
         if (!empty($_POST) /* || isset($_GET) */) {
             var_dump($_POST);
         }
+    }
+
+    public function get($service) {
+        return KernelService::getService($service);
     }
 
     public function notify($dispatcher) {

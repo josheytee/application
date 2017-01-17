@@ -3,7 +3,6 @@
 namespace app\component\defaultbootstrap\EntityPack\ListView;
 
 use app\core\component\Component;
-use app\core\service\KernelService;
 
 /**
  * Description of List
@@ -15,7 +14,7 @@ class ListView extends Component {
     public $smarty;
     private $db;
     private $options;
-    private $shop;
+    private $graphql;
     private $product;
 
     public function __construct($options = null) {
@@ -24,9 +23,8 @@ class ListView extends Component {
 
     public function init() {
         parent::init();
-        $this->smarty = KernelService::getService('SmartyTemplateManagementService');
-        $this->shop = KernelService::getService('ShopManagementService');
-        $this->product = KernelService::getService('ProductManagementService');
+        $this->smarty = $this->get('SmartyTemplateManagementService');
+        $this->graphql = $this->get('Graphql');
         $this->name = 'listview';
         $this->pack_name = 'entitypack';
         $this->dir_name = 'defaultbootstrap';

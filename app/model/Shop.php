@@ -14,7 +14,6 @@ class Shop extends Model {
      *
      * @var string
      */
-//    protected $table = 'shop';
     protected $fillable = ['id_user', 'id_category', 'name', 'description', 'url'];
 
     public function category() {
@@ -22,7 +21,7 @@ class Shop extends Model {
     }
 
     public function sections() {
-        return $this->hasMany('app\model\Section', 'id_section', 'id_shop');
+        return $this->hasMany('app\model\Section', 'id_section');
     }
 
     public function product() {
