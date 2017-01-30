@@ -16,14 +16,18 @@ class Graphql {
     }
 
     public function query($GQL) {
-        $s = preg_replace("[\n,\r,' ']", '', $GQL);
-        $client = new Client();
-        $res = $client->request('GET', 'http://localhost:8080/graphql.php', [
-            'query' => ['query' => $s]
-                ]
-        );
-        $r = $res->getBody();
-        return $r;
+        try {
+            $query_string = preg_replace("[\n,\r,' ']", '', $GQL);
+            $client = new Client();
+            $res = $client->request('GET', 'http://localhost:8080/graphql.php', [
+                'query' => ['query' => $query_string]
+                    ]
+            );
+            return $res->getBody();
+        } catch (\GuzzleHttp\Exception\ConnectException $exc) {
+            echo $exc->getMessage();
+            return '';
+        }
     }
 
 }

@@ -20,4 +20,5 @@ $argumentResolver = new ArgumentResolver();
 
 $framework = new app\core\ntc\App($matcher, $controllerResolver, $argumentResolver);
 $response = $framework->handle($request);
+$response->send();
 

@@ -60,4 +60,7 @@ class User extends ObjectType {
         parent::__construct($config);
     }
 
+//    public function shop($user, $args) {
+//        return \app\model\Shop::find($args['id']);
+//    }
 }

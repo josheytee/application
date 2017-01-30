@@ -20,10 +20,14 @@ abstract class Component {
     protected $type;
     public $dir_name;
     public $name;
-    public $pack_name;
+    public $schema;
+    public $data;
+    public $options;
 
-    public function __construct(EventDispatcherInterface $dispatcher = null) {
-        $this->dispatcher = $dispatcher;
+    function __construct($schema = null, $data = null, $options = null) {
+        $this->schema = $schema;
+        $this->data = $data;
+        $this->options = $options;
     }
 
     public function setType($type) {

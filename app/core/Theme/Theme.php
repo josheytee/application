@@ -118,7 +118,7 @@ class Theme {
         $layout->assign('footer', $this->initFooter());
         $layout_tpl = $layout->fetch();
         return new \Symfony\Component\HttpFoundation\Response(
-                printf("%s", trim($layout_tpl))
+                sprintf("%s", trim($layout_tpl))
                 , 200);
     }
 

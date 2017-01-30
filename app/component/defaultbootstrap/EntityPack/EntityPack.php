@@ -15,8 +15,8 @@ class EntityPack extends ComponentPack {
 
     public $smarty;
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct($schema = null, $data = null, $options = null) {
+        parent::__construct($schema, $data, $options);
     }
 
     public function init() {
@@ -24,28 +24,24 @@ class EntityPack extends ComponentPack {
         $this->name = 'entitypack';
         $this->dir_name = 'defaultbootstrap';
         $this->default_component = 'listView';
-        $options = [
-            'fields' => [
-                'id_product' => [
-                    'titile' => 'ID',
-                    'class' => 'xs',
-                    'type' => 'int'
-                ]
-            ], 'shop_url' => 'default',
-            'entity' => 'product',
-            'user_token' => "mk"
-        ];
-        $this->addComponent(new ListView\ListView($options));
-        $this->addComponent(new View\View());
+        $this->addComponent(new ListView\ListView($this->schema, $this->data, $this->options), 'list');
+        $this->addComponent(new Form\Form($this->schema, $this->data, $this->options), 'form');
+        $this->addComponent(new View\View($this->schema, $this->data, $this->options), 'view');
         $this->smarty = $this->get("SmartyTemplateManagementService");
     }
 
     public function render() {
-        $tpl = $this->smarty->createTemplate($this->getTemplatePath('entitypack.tpl'));
         $components = '';
-        foreach ($this->components as $component) {
-            $components .= $component->renderComponent();
+        if (isset($_GET['add'])) {
+            $components = $this->renderComponent('form');
+        } elseif (isset($_GET['update']) && isset($_GET['id'])) {
+            $components = $this->renderComponent('form');
+        } elseif (isset($_GET['view']) && isset($_GET['id'])) {
+            $components = $this->renderComponent('view');
+        } else {
+            $components = $this->renderComponent('list');
         }
+        $tpl = $this->smarty->createTemplate($this->getTemplatePath('entitypack.tpl'));
         $tpl->assign('component', $components);
         return $tpl->fetch();
     }

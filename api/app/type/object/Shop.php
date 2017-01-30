@@ -56,12 +56,16 @@ class Shop extends ObjectType {
                     'updated_at' => Type::string()
                 ];
             },
-            'resolveField' => function($value, $args, $context, ResolveInfo $info) {
-                if (method_exists($this, $info->fieldName)) {
-                    return $this->{$info->fieldName}($value, $args, $context, $info);
-                } else {
-                    return $value->{$info->fieldName};
-                }
+//            'resolveField' => function($value, $args, $context, ResolveInfo $info) {
+//                if (method_exists($this, $info->fieldName)) {
+//                    return $this->{$info->fieldName}($value, $args, $context, $info);
+//                } else {
+//                    return $value->{$info->fieldName};
+//                }
+//            },
+            'resolve' => function ($shop, $args, $context, ResolveInfo $info) {
+                var_dump($info);
+                echo "not found";
             }
         ];
         parent::__construct($config);

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\component\defaultbootstrap\EntityPack\ListView;
+namespace app\component\defaultbootstrap\EntityPack\Form;
 
 use app\core\component\Component;
 
@@ -9,7 +9,7 @@ use app\core\component\Component;
  *
  * @author Tobi
  */
-class ListView extends Component {
+class Form extends Component {
 
     public $smarty;
     private $graphql;
@@ -22,25 +22,18 @@ class ListView extends Component {
         parent::init();
         $this->smarty = $this->get('SmartyTemplateManagementService');
         $this->graphql = $this->get('Graphql');
-        $this->name = 'listview';
+        $this->name = 'form';
         $this->pack_name = 'entitypack';
         $this->dir_name = 'defaultbootstrap';
     }
 
     public function render() {
-
-        $tpl = $this->smarty->createTemplate($this->getTemplatePath('listview.tpl'));
+        $tpl = $this->smarty->createTemplate($this->getTemplatePath('form.tpl'));
         $tpl->assign('schema', $this->schema);
         $tpl->assign('data', $this->data);
         $tpl->assign('options', $this->options);
-        //extract ids form the data array
-        $ids = [];
-        foreach ($this->data as $id) {
-            $ids[] = $id['id'];
-        }
         $tpl->assign([
             'end' => count($this->data),
-            'ids' => $ids,
         ]);
         return $tpl->fetch();
     }
