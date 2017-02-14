@@ -14,7 +14,7 @@ class User extends Model {
      * @var string
      */
     protected $table = 'user';
-    protected $fillable = ['firstname', 'lastname', 'username', 'email', 'phone', 'password', 'remember_token'];
+    protected $fillable = ['id_current_shop', 'firstname', 'lastname', 'username', 'email', 'phone', 'password', 'remember_token'];
 
     /**
      * The attributes excluded from the model's JSON form.

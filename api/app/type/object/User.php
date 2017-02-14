@@ -6,7 +6,8 @@ use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ResolveInfo;
 use api\app\Types;
-use app\model\User;
+use app\core\Context;
+use app\model\Shop;
 
 /**
  * Description of TypeUser
@@ -26,6 +27,9 @@ class User extends ObjectType {
                         'resolve' => function ($user) {
                             return $user->id_user;
                         }
+                    ],
+                    'current_shop' => [
+                        'type' => Types::shop()
                     ], 'firstname' => [
                         'type' => Type::string(),
                     ],
@@ -42,10 +46,7 @@ class User extends ObjectType {
                         ]
                     ],
                     'shops' => [
-                        'type' => Type::listOf(Types::shop()),
-//                        'args' => [
-//                            'id' => Type::id()
-//                        ]
+                        'type' => Type::listOf(Types::shop())
                     ],
                 ];
             },
@@ -60,7 +61,8 @@ class User extends ObjectType {
         parent::__construct($config);
     }
 
-//    public function shop($user, $args) {
-//        return \app\model\Shop::find($args['id']);
-//    }
+    function current_shop($user, $args, Context $context) {
+        return Shop::find($context->user->id_user);
+    }
+
 }

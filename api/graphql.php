@@ -3,13 +3,14 @@
 // Test this using following command
 // php -S localhost:8080 ./graphql.php
 require_once '../vendor/autoload.php';
-require_once '../app/config/init.illuminate.php';
+require_once '../app/config/config.inc.php';
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Schema;
 use GraphQL\GraphQL;
 use api\app\Types;
+use app\core\Cookie;
 
 try {
     $mutationType = new ObjectType([
@@ -27,7 +28,13 @@ try {
             ],
         ],
     ]);
+    $cookie = new Cookie('sh-c', '');
 
+
+    $context = new app\core\Context();
+   $context->user = \app\model\User::find(1);
+   $context->request = $_REQUEST;
+   $context->rootUrl = 'http://localhost:8080';
     $schema = new Schema([
         'query' => Types::query(),
         'mutation' => $mutationType,
@@ -46,7 +53,7 @@ try {
         $data['query'] = '{hello}';
     }
     $rootValue = ['prefix' => 'You said: '];
-    $result = GraphQL::execute($schema, $data['query'], $rootValue);
+    $result = GraphQL::execute($schema, $data['query'], $rootValue, $context, (array)$data['variables']);
 } catch (\Exception $e) {
     $result = [
         'error' => [

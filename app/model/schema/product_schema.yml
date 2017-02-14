@@ -1,0 +1,32 @@
+table: product
+primary: id_product
+multilang_shop: true
+multilang: true
+fields:
+    id_category: { type: 1, validate: isUnsignedId }
+    name: { type: 3, validate: isCatalogName, required: true, size: 128 }
+    description: { type: 3, validate: isCleanHtml }
+    short_description: { type: 3, validate: isCleanHtml }
+    wholesale_price: { type: 4, shop: true, validate: isPrice }
+    location: { type: 3, validate: isReference, size: 64 }
+    width: { type: 4, validate: isUnsignedFloat }
+    height: { type: 4, validate: isUnsignedFloat }
+    depth: { type: 4, validate: isUnsignedFloat }
+    weight: { type: 4, validate: isUnsignedFloat }
+    quantity_discount: { type: 2, validate: isBool }
+    is_virtual: { type: 2, validate: isBool }
+    active: { type: 2, shop: true, validate: isBool }
+    minimal_quantity: { type: 1, shop: true, validate: isUnsignedInt }
+    quantity: { type: 1, shop: true, validate: isUnsignedInt }
+    price: { type: 4, shop: true, validate: isPrice, required: true }
+    online_only: { type: 2, shop: true, validate: isBool }
+    meta_description: { type: 3, validate: isGenericName, size: 255 }
+    show_price: { type: 2, shop: true, validate: isBool }
+    available_date: { type: 5, shop: true, validate: isDateFormat }
+    available_for_order: { type: 2, shop: true, validate: isBool }
+    condition: { type: 3, shop: true, validate: isGenericName, values: [new, used, refurbished], default: new }
+    meta_keywords: { type: 3, validate: isGenericName, size: 255 }
+    meta_title: { type: 3, validate: isGenericName, size: 128 }
+    link_rewrite: { type: 3, validate: isLinkRewrite, size: 128 }
+    date_add: { type: 5, validate: isDate }
+    date_upd: { type: 5, validate: isDate }

@@ -53,7 +53,7 @@ class Cookie {
 //        $this->_path = rawurlencode($this->_path);
 //        $this->_path = str_replace('%2F', '/', $this->_path);
 //        $this->_path = str_replace('%7E', '~', $this->_path);
-        $this->_domain = $this->getDomain();
+//        $this->_domain = $this->getDomain();
         $this->_name = 'ntc-' . md5(($this->_standalone ? '' : _VERSION_) . $name . $this->_domain);
         $this->_allow_writing = true;
         $this->_salt = $this->_standalone ? str_pad('', 8, md5('ps' . __FILE__)) : _COOKIE_IV_;

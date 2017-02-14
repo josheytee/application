@@ -17,6 +17,7 @@ class UserSeeder extends Seeder {
         $faker = Faker\Factory::create();
         for ($i = 0; $i < 100; $i++) {
             app\model\User::create([
+                'id_current_shop' => random_int(1, 100),
                 'firstname' => $faker->firstName,
                 'lastname' => $faker->lastName,
                 'username' => $faker->userName,

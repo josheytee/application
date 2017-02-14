@@ -20,7 +20,7 @@ class Form extends Component {
 
     public function init() {
         parent::init();
-        $this->smarty = $this->get('SmartyTemplateManagementService');
+        $this->smarty = $this->get('SmartyCustom');
         $this->graphql = $this->get('Graphql');
         $this->name = 'form';
         $this->pack_name = 'entitypack';

@@ -16,7 +16,7 @@ class View extends Component {
 
     public function init() {
         parent::init();
-        $this->smarty = KernelService::getService('SmartyTemplateManagementService');
+        $this->smarty = KernelService::getService('SmartyCustom');
         $this->name = 'view';
         $this->pack_name = 'entitypack';
         $this->dir_name = 'defaultbootstrap';

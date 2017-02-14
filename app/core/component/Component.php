@@ -44,6 +44,10 @@ abstract class Component {
         return $path;
     }
 
+    public function setErrorTemplate($template) {
+        $this->getTemplatePath($template);
+    }
+
     public function init() {
 
     }

@@ -3,6 +3,7 @@
 namespace app\core\service;
 
 use GuzzleHttp\Client;
+use app\core\exception\GraphqlException;
 
 /**
  * Description of Graphql
@@ -23,7 +24,13 @@ class Graphql {
                 'query' => ['query' => $query_string]
                     ]
             );
-            return $res->getBody();
+            $response = $res->getBody();
+            $json_decode = json_decode($response, true);
+            if (isset($json_decode['errors'])) {
+                throw new GraphqlException($json_decode['errors'][0]['message']);
+                return null;
+            }
+            return $response;
         } catch (\GuzzleHttp\Exception\ConnectException $exc) {
             echo $exc->getMessage();
             return '';

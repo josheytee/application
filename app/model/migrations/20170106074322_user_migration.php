@@ -9,6 +9,7 @@ class UserMigration extends Migration {
             $table->engine = 'InnoDB';
             // Auto-increment id
             $table->increments('id_user');
+            $table->integer('id_current_shop')->unsigned();
             $table->string('firstname');
             $table->string('lastname');
             $table->string('username');

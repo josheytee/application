@@ -5,6 +5,7 @@ namespace api\app\type;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use app\core\Context;
 use api\app\Types;
 
 class Query extends ObjectType {
@@ -16,10 +17,7 @@ class Query extends ObjectType {
             'fields' => [
                 'user' => [
                     'type' => Types::user(),
-                    'description' => 'Returns user by id',
-                    'args' => [
-                        'id' => Type::nonNull(Type::id())
-                    ]
+                    'description' => 'Returns user details of the current user'
                 ],
                 'users' => [
                     'type' => Type::listOf(Types::user()),
@@ -34,7 +32,11 @@ class Query extends ObjectType {
                 ],
                 'shops' => [
                     'type' => Type::listOf(Types::shop()),
-                    'description' => 'Returns the list of assocated shops for a user',
+                    'description' => 'Returns the list of assocated shops for the current user',
+                ],
+                'me' => [
+                    'description' => 'Return the name of the current user',
+                    'type' => Type::string()
                 ],
                 'hello' => Type::string()
             ],
@@ -45,10 +47,13 @@ class Query extends ObjectType {
         parent::__construct($config);
     }
 
-    public function user($user, $args) {
-        if (isset($args['id'])) {
-            return \app\model\User::find($args['id']);
-        }
+    public function user($user, $args, Context $context) {
+
+        return \app\model\User::find($context->user->id_user);
+    }
+
+    public function me($user, $args, Context $context) {
+        return $context->user->firstname . ' ' . $context->user->lastname;
     }
 
     public function users($user, $args) {

@@ -44,7 +44,7 @@ class Page {
     }
 
     public function initPage() {
-        $this->smarty = KernelService::getService("SmartyTemplateManagementService");
+
     }
 
     public function setTheme(Theme $theme) {
@@ -57,8 +57,11 @@ class Page {
 
     public function create() {
         $this->initPage();
+//        var_dump($this->components);
+//        if ($this->components != null) {
         $this->theme->addComponents($this->components);
         return $this->theme->publish();
+//        }
     }
 
 }

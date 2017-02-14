@@ -32,7 +32,7 @@ class Theme {
 
     public function __construct($name) {
         $this->name = $name;
-        $this->template_engine = KernelService::getService('SmartyTemplateManagementService');
+        $this->template_engine = KernelService::getService('SmartyCustom');
         $this->initTheme();
     }
 

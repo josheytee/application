@@ -9,7 +9,7 @@ use app\core\service\KernelServiceInterface;
  *
  * @author Tobi
  */
-class SmartyTemplateManagementService extends \Smarty implements KernelServiceInterface {
+class SmartyCustom extends \Smarty implements KernelServiceInterface {
 
     public function __construct() {
         parent::__construct();

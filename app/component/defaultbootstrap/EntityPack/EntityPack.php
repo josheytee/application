@@ -27,7 +27,7 @@ class EntityPack extends ComponentPack {
         $this->addComponent(new ListView\ListView($this->schema, $this->data, $this->options), 'list');
         $this->addComponent(new Form\Form($this->schema, $this->data, $this->options), 'form');
         $this->addComponent(new View\View($this->schema, $this->data, $this->options), 'view');
-        $this->smarty = $this->get("SmartyTemplateManagementService");
+        $this->smarty = $this->get("SmartyCustom");
     }
 
     public function render() {
@@ -41,7 +41,11 @@ class EntityPack extends ComponentPack {
         } else {
             $components = $this->renderComponent('list');
         }
-        $tpl = $this->smarty->createTemplate($this->getTemplatePath('entitypack.tpl'));
+        if ($this->components != null) {
+            $tpl = $this->smarty->createTemplate($this->getTemplatePath('entitypack.tpl'));
+        } else {
+            $tpl = $this->smarty->createTemplate($this->getTemplatePath('error.tpl'));
+        }
         $tpl->assign('component', $components);
         return $tpl->fetch();
     }
