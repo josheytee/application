@@ -1,6 +1,6 @@
 <?php
 
-require_once './vendor/autoload.php';
+//require_once './vendor/autoload.php';
 require './app/config/config.inc.php';
 include_once './test.php';
 
@@ -9,6 +9,7 @@ use Symfony\Component\Routing;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
+error_reporting(0);
 $request = Request::createFromGlobals();
 $routes = require_once './app/config/route.php';
 

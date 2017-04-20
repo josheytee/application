@@ -37,11 +37,12 @@ class App {
 
             return call_user_func_array($controller, $arguments);
         } catch (ResourceNotFoundException $e) {
+            echo $e->getMessage();
             return new Response('Not Found', 404);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            return new Response('An error occurred', 500);
         }
-//        catch (\Exception $e) {
-//            return new Response('An error occurred', 500);
-//        }
     }
 
 }

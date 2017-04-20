@@ -6,11 +6,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 $routes = new Routing\RouteCollection();
 $routes->add('index', new Routing\Route('_', array(
-    'name' => null,
-    '_controller' => 'app\page\admin\Index::create',
+    '_controller' => 'app\admin\page\Index::create',
 )));
 $routes->add('adminproduct', new Routing\Route('_/product/{name}', array(
     'name' => null,
-    '_controller' => 'app\page\admin\Product::create',
+    '_controller' => 'app\admin\page\Product::create',
 )));
 return $routes;

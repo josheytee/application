@@ -11,11 +11,12 @@ use app\core\theme\Theme;
  */
 class AdminBootstrapTheme extends Theme {
 
-    protected $name = "Bootstrap";
+    protected $name = "bootstrap";
 
     public function __construct() {
         parent::__construct($this->name);
-        $this->dir = _THEME_ADMIN_DIR_ . 'master/';
+        $this->dir = _ADMIN_THEME_DIR_ . 'master/';
+//        var_dump($this->getThemeDir());
     }
 
 }

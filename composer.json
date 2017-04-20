@@ -24,7 +24,9 @@
         "guzzlehttp/guzzle": "^6.2",
         "shudrum/array-finder": "^1.1",
         "doctrine/orm": "^2.5",
-        "doctrine/data-fixtures": "1.0.*"
+        "doctrine/data-fixtures": "1.0.*",
+        "leafo/scssphp": "^0.6.7",
+        "ezyang/htmlpurifier": "^4.9"
     },
     "autoload": {
         "psr-4": {

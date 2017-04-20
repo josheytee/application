@@ -1,0 +1,57 @@
+<?php
+
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
+
+/**
+ * @Entity
+ *
+ */
+class Occupation {
+
+    /**
+     * @Column(type="integer")
+     * @Id
+     * @GeneratedValue
+     */
+    protected $id_occupation;
+
+    /**
+     * @ManyToOne(targetEntity="User", inversedBy="occupation")
+     * @JoinColumn(name="id_user", referencedColumnName="id_user", nullable=FALSE)
+     */
+    protected $user;
+
+    /**
+     * @ManyToOne(targetEntity="Shop", inversedBy="occupation")
+     * @JoinColumn(name="id_shop", referencedColumnName="id_shop", nullable=FALSE)
+     */
+    protected $shop;
+
+    /**
+     * @ManyToOne(targetEntity="Profile", inversedBy="occupation")
+     * @JoinColumn(name="id_profile", referencedColumnName="id_profile", nullable=FALSE)
+     */
+    protected $profile;
+
+    /**
+     * @Column(type="date", name="started_on")
+     */
+    protected $startedOn;
+
+    /**
+     * @Column(type="integer", name="monthly_salary")
+     */
+    protected $monthlySalary;
+
+}

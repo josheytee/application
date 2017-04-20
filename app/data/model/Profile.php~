@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Description of Profile
+ * @Entity
+ * @author adapter
+ */
+class Profile {
+
+    /**
+     * @var int
+     *
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    protected $id_profile;
+
+    /**
+     * @var Occupation
+     *
+     * @OneToMany(targetEntity="Occupation", mappedBy="profile", cascade={"remove"})
+     */
+    protected $occupation;
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    protected $name;
+}

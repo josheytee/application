@@ -13,7 +13,6 @@ class Context {
      * @var string
      */
     public $rootUrl;
-
     /**
      * @var User
      */

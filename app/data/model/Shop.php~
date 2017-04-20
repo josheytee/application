@@ -1,0 +1,82 @@
+<?php
+
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
+
+/**
+ * Shop entity
+ *
+ * @Entity(repositoryClass="ShopRepository")
+ * @Table(indexes={
+ * @Index(name="category_url_idx",  columns={"id_category","url"})
+ * })
+ */
+class Shop {
+
+    /**
+     * @var int
+     *
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    protected $id_shop;
+
+    /**
+     * @OneToOne(targetEntity="Category")
+     * @JoinColumn(name="id_category",referencedColumnName="id_category")
+     */
+    protected $id_category;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    protected $name;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string",unique=true)
+     */
+    protected $description;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    protected $url;
+
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    protected $created_at;
+
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    protected $updated_at;
+
+    /**
+     * @var user[]
+     * @OneToMany(targetEntity="Occupation", mappedBy="shop", cascade={"remove"})
+     */
+    protected $occupation;
+
+}
