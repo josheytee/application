@@ -1,8 +1,9 @@
 <?php
 
+namespace model;
+
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
@@ -11,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\JoinColumn;
+use model\Occupation;
 
 /**
  * User entity
@@ -29,83 +31,89 @@ class User {
      * @GeneratedValue
      * @Column(type="integer")
      */
-    protected $id_user;
+    public $id_user;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $firstname;
+    public $firstname;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $lastname;
+    public $lastname;
 
     /**
      * @var string
      *
-     * @Column(type="string",unique=true)
+     * @Column(type="string",unique=true,nullable=true)
      */
-    protected $username;
+    public $username;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $password;
+    public $password;
 
     /**
      * @var string
      *
      * @Column(type="string",nullable=true)
      */
-    protected $remember_token;
+    public $remember_token;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $email;
+    public $email;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $phone;
+    public $phone;
 
     /**
      * @var \DateTime
      *
      * @Column(type="datetime")
      */
-    protected $created_at;
+    public $created;
 
     /**
      * @var \DateTime
      *
      * @Column(type="datetime")
      */
-    protected $updated_at;
+    public $updated;
 
     /**
-     * @var Shop
+     * @var Occupation
      *
-     * @OneToMany(targetEntity="Occupation", mappedBy="user", cascade={"remove"})
+     * @OneToMany(targetEntity="Occupation", mappedBy="user", cascade={"persist","remove"},orphanRemoval=TRUE)
      */
-    protected $occupations;
+    public $occupations;
+
+    /**
+     * @var route[]
+     *
+     * @ManyToMany(targetEntity="Route", mappedBy="user")
+     */
+    protected $route;
 
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->occupations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -114,8 +122,7 @@ class User {
      *
      * @return integer
      */
-    public function getIdUser()
-    {
+    public function getIdUser() {
         return $this->id_user;
     }
 
@@ -126,8 +133,7 @@ class User {
      *
      * @return User
      */
-    public function setFirstname($firstname)
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
 
         return $this;
@@ -138,8 +144,7 @@ class User {
      *
      * @return string
      */
-    public function getFirstname()
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
@@ -150,8 +155,7 @@ class User {
      *
      * @return User
      */
-    public function setLastname($lastname)
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
 
         return $this;
@@ -162,8 +166,7 @@ class User {
      *
      * @return string
      */
-    public function getLastname()
-    {
+    public function getLastname() {
         return $this->lastname;
     }
 
@@ -174,8 +177,7 @@ class User {
      *
      * @return User
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
 
         return $this;
@@ -186,8 +188,7 @@ class User {
      *
      * @return string
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->username;
     }
 
@@ -198,8 +199,7 @@ class User {
      *
      * @return User
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
 
         return $this;
@@ -210,8 +210,7 @@ class User {
      *
      * @return string
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
@@ -222,8 +221,7 @@ class User {
      *
      * @return User
      */
-    public function setRememberToken($rememberToken)
-    {
+    public function setRememberToken($rememberToken) {
         $this->remember_token = $rememberToken;
 
         return $this;
@@ -234,8 +232,7 @@ class User {
      *
      * @return string
      */
-    public function getRememberToken()
-    {
+    public function getRememberToken() {
         return $this->remember_token;
     }
 
@@ -246,8 +243,7 @@ class User {
      *
      * @return User
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -258,8 +254,7 @@ class User {
      *
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -270,8 +265,7 @@ class User {
      *
      * @return User
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
 
         return $this;
@@ -282,57 +276,8 @@ class User {
      *
      * @return string
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return User
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return User
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updated_at = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
     }
 
     /**
@@ -342,10 +287,12 @@ class User {
      *
      * @return User
      */
-    public function addOccupation(\Occupation $occupation)
-    {
-        $this->occupations[] = $occupation;
-
+    public function addOccupation(Occupation $occupation) {
+//        $this->occupations[] = $occupation;
+        if (!$this->occupations->contains($occupation)) {
+            $this->occupations->add($occupation);
+            $occupation->setUser($this);
+        }
         return $this;
     }
 
@@ -354,9 +301,21 @@ class User {
      *
      * @param \Occupation $occupation
      */
-    public function removeOccupation(\Occupation $occupation)
-    {
-        $this->occupations->removeElement($occupation);
+    public function removeOccupation(\Occupation $occupation) {
+//        $this->occupations->removeElement($occupation);
+        if (!$this->occupations->contains($occupation)) {
+            $this->occupations->removeElement($occupation);
+            $occupation->setUser(null);
+        }
+        return $this;
+    }
+
+    public function getShops() {
+        return array_map(
+                function ($occupation) {
+            return $occupation->getCompany();
+        }, $this->occupations->toArray()
+        );
     }
 
     /**
@@ -364,8 +323,83 @@ class User {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getOccupations()
-    {
+    public function getOccupations() {
         return $this->occupations;
     }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return User
+     */
+    public function setCreated($created) {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated() {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return User
+     */
+    public function setUpdated($updated) {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated() {
+        return $this->updated;
+    }
+
+    /**
+     * Add route
+     *
+     * @param \model\Route $route
+     *
+     * @return User
+     */
+    public function addRoute(\model\Route $route) {
+        $this->route[] = $route;
+
+        return $this;
+    }
+
+    /**
+     * Remove route
+     *
+     * @param \model\Route $route
+     */
+    public function removeRoute(\model\Route $route) {
+        $this->route->removeElement($route);
+    }
+
+    /**
+     * Get route
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRoute() {
+        return $this->route;
+    }
+
 }

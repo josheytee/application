@@ -2,7 +2,8 @@
 
 // Doctrine CLI configuration file
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use app\core\Context;
 
-//require_once './bootstrap.php';
-require_once __DIR__ . '/../app/config/init.doctrine.php';
-return ConsoleRunner::createHelperSet($entityManager);
+require_once __DIR__ . '/../app/data/init.doctrine.php';
+
+return ConsoleRunner::createHelperSet(Context::getContext()->manager);

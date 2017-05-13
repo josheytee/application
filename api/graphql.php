@@ -11,6 +11,7 @@ use GraphQL\Schema;
 use GraphQL\GraphQL;
 use api\app\Types;
 use app\core\Cookie;
+use app\core\Context;
 
 try {
     $mutationType = new ObjectType([
@@ -31,10 +32,10 @@ try {
     $cookie = new Cookie('sh-c', '');
 
 
-    $context = new app\core\Context();
-   $context->user = \app\model\User::find(1);
-   $context->request = $_REQUEST;
-   $context->rootUrl = 'http://localhost:8080';
+    $context = Context::getContext();
+    $context->user = \app\model\User::find(1);
+    $context->request = $_REQUEST;
+    $context->rootUrl = 'http://localhost:8080';
     $schema = new Schema([
         'query' => Types::query(),
         'mutation' => $mutationType,
@@ -53,7 +54,7 @@ try {
         $data['query'] = '{hello}';
     }
     $rootValue = ['prefix' => 'You said: '];
-    $result = GraphQL::execute($schema, $data['query'], $rootValue, $context, (array)$data['variables']);
+    $result = GraphQL::execute($schema, $data['query'], $rootValue, $context, (array) $data['variables']);
 } catch (\Exception $e) {
     $result = [
         'error' => [

@@ -1,0 +1,281 @@
+<?php
+
+namespace model;
+
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
+
+/**
+ * Module Entity
+ *
+ * @Entity(repositoryClass="ModuleRepository")
+ * @Table(indexes={
+ * @Index(name="id_module_name_version_idx",  columns={"id_module","name","version"})
+ * })
+
+ * @author adapter
+ */
+class Module {
+
+    /**
+     * @var int
+     *
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    public $id_module;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $name;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $description;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $version;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $icon;
+
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $updated;
+
+    /**
+     * @var moduleHook[]
+     * @OneToMany(targetEntity="ModuleHook", mappedBy="module", cascade={"remove"})
+     */
+    public $moduleHook;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->moduleHook = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get idModule
+     *
+     * @return integer
+     */
+    public function getIdModule()
+    {
+        return $this->id_module;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Module
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Module
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set version
+     *
+     * @param string $version
+     *
+     * @return Module
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Set icon
+     *
+     * @param string $icon
+     *
+     * @return Module
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Get icon
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Module
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Module
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Add moduleHook
+     *
+     * @param \model\ModuleHook $moduleHook
+     *
+     * @return Module
+     */
+    public function addModuleHook(\model\ModuleHook $moduleHook)
+    {
+        $this->moduleHook[] = $moduleHook;
+
+        return $this;
+    }
+
+    /**
+     * Remove moduleHook
+     *
+     * @param \model\ModuleHook $moduleHook
+     */
+    public function removeModuleHook(\model\ModuleHook $moduleHook)
+    {
+        $this->moduleHook->removeElement($moduleHook);
+    }
+
+    /**
+     * Get moduleHook
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModuleHook()
+    {
+        return $this->moduleHook;
+    }
+}

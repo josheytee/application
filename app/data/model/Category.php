@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Index;
@@ -29,58 +31,56 @@ class Category {
      * @GeneratedValue
      * @Column(type="integer")
      */
-    protected $id_category;
+    public $id_category;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $name;
+    public $name;
 
     /**
      * @var string
      *
      * @Column(type="string",unique=true)
      */
-    protected $description;
+    public $description;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $url;
+    public $url;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $icon;
+    public $icon;
 
     /**
      * @var \DateTime
      *
      * @Column(type="datetime")
      */
-    protected $created_at;
+    public $created;
 
     /**
      * @var \DateTime
      *
      * @Column(type="datetime")
      */
-    protected $updated_at;
-
+    public $updated;
 
     /**
      * Get idCategory
      *
      * @return integer
      */
-    public function getIdCategory()
-    {
+    public function getIdCategory() {
         return $this->id_category;
     }
 
@@ -91,8 +91,7 @@ class Category {
      *
      * @return Category
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -103,8 +102,7 @@ class Category {
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -115,8 +113,7 @@ class Category {
      *
      * @return Category
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -127,8 +124,7 @@ class Category {
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -139,8 +135,7 @@ class Category {
      *
      * @return Category
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
 
         return $this;
@@ -151,8 +146,7 @@ class Category {
      *
      * @return string
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -163,8 +157,7 @@ class Category {
      *
      * @return Category
      */
-    public function setIcon($icon)
-    {
+    public function setIcon($icon) {
         $this->icon = $icon;
 
         return $this;
@@ -175,56 +168,52 @@ class Category {
      *
      * @return string
      */
-    public function getIcon()
-    {
+    public function getIcon() {
         return $this->icon;
     }
 
     /**
-     * Set createdAt
+     * Set created
      *
-     * @param \DateTime $createdAt
+     * @param \DateTime $created
      *
      * @return Category
      */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
+    public function setCreated($created) {
+        $this->created = $created;
 
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get created
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
+    public function getCreated() {
+        return $this->created;
     }
 
     /**
-     * Set updatedAt
+     * Set updated
      *
-     * @param \DateTime $updatedAt
+     * @param \DateTime $updated
      *
      * @return Category
      */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updated_at = $updatedAt;
+    public function setUpdated($updated) {
+        $this->updated = $updated;
 
         return $this;
     }
 
     /**
-     * Get updatedAt
+     * Get updated
      *
      * @return \DateTime
      */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
+    public function getUpdated() {
+        return $this->updated;
     }
+
 }

@@ -8,6 +8,7 @@
  */
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use model\User;
 
 class LoadUserData implements FixtureInterface {
 
@@ -22,12 +23,13 @@ class LoadUserData implements FixtureInterface {
             $user->setRememberToken($faker->windowsPlatformToken);
             $user->setEmail($faker->email);
             $user->setPhone($faker->phoneNumber);
-            $user->setCreatedAt($faker->dateTime);
-            $user->setUpdatedAt($faker->dateTime);
+            $user->setCreated($faker->dateTime);
+            $user->setUpdated($faker->dateTime);
 
             $manager->persist($user);
         }
         $manager->flush();
+        $manager->clear();
 
 //        for ($i = 0; $i < 100; $i++) {
 //            app\model\User::create([

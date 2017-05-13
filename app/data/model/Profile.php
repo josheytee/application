@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 /**
  * Description of Profile
  * @Entity
@@ -14,26 +16,27 @@ class Profile {
      * @GeneratedValue
      * @Column(type="integer")
      */
-    protected $id_profile;
+    public $id_profile;
 
     /**
      * @var Occupation
      *
      * @OneToMany(targetEntity="Occupation", mappedBy="profile", cascade={"remove"})
      */
-    protected $occupation;
+    public $occupations;
+
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $name;
+    public $name;
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
-        $this->occupation = new \Doctrine\Common\Collections\ArrayCollection();
+    public function __construct() {
+        $this->occupations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -41,8 +44,7 @@ class Profile {
      *
      * @return integer
      */
-    public function getIdProfile()
-    {
+    public function getIdProfile() {
         return $this->id_profile;
     }
 
@@ -53,8 +55,7 @@ class Profile {
      *
      * @return Profile
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -65,21 +66,21 @@ class Profile {
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
     /**
-     * Add occupation
+     * Add occupations
      *
-     * @param \Occupation $occupation
+     * @param \Occupation $occupations
      *
      * @return Profile
      */
-    public function addOccupation(\Occupation $occupation)
-    {
-        $this->occupation[] = $occupation;
+    public function addOccupation(\Occupation $occupation) {
+        if (!$this->occupations->contains($occupation)) {
+            $this->occupations->add($occupation);
+        }
 
         return $this;
     }
@@ -87,20 +88,29 @@ class Profile {
     /**
      * Remove occupation
      *
-     * @param \Occupation $occupation
+     * @param \Occupation $occupations
      */
-    public function removeOccupation(\Occupation $occupation)
-    {
-        $this->occupation->removeElement($occupation);
+    public function removeOccupation(\Occupation $occupation) {
+        $this->occupations->removeElement($occupation);
     }
 
     /**
-     * Get occupation
+     * Get occupations
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getOccupation()
+    public function getOccupation() {
+        return $this->occupations;
+    }
+
+
+    /**
+     * Get occupations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOccupations()
     {
-        return $this->occupation;
+        return $this->occupations;
     }
 }

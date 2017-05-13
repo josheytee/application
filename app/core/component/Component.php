@@ -37,9 +37,9 @@ abstract class Component {
     public function getTemplatePath($template) {
         $path = '';
         if (isset($this->pack_name)) {
-            $path = _ADMIN_COMPONENT_DIR_ . $this->dir_name . '/' . $this->pack_name . '/' . $this->name . '/' . $template;
+            $path = _ADMIN_COMPONENT_DIR_ . $this->dir_name . DS . $this->pack_name . DS . $this->name . DS . $template;
         } else {
-            $path = _ADMIN_COMPONENT_DIR_ . $this->dir_name . \DIRECTORY_SEPARATOR . $this->name . \DIRECTORY_SEPARATOR . $template;
+            $path = _ADMIN_COMPONENT_DIR_ . $this->dir_name . DS . $template;
         }
         return $path;
     }

@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Index;
@@ -24,69 +26,43 @@ class Occupation {
      * @Id
      * @GeneratedValue
      */
-    protected $id_occupation;
+    public $id_occupation;
 
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="occupation")
+     * @ManyToOne(targetEntity="User", inversedBy="occupations")
      * @JoinColumn(name="id_user", referencedColumnName="id_user", nullable=FALSE)
      */
-    protected $user;
+    public $user;
 
     /**
-     * @ManyToOne(targetEntity="Shop", inversedBy="occupation")
+     * @ManyToOne(targetEntity="Shop", inversedBy="occupations")
      * @JoinColumn(name="id_shop", referencedColumnName="id_shop", nullable=FALSE)
      */
-    protected $shop;
+    public $shop;
 
     /**
-     * @ManyToOne(targetEntity="Profile", inversedBy="occupation")
+     * @ManyToOne(targetEntity="Profile", inversedBy="occupations")
      * @JoinColumn(name="id_profile", referencedColumnName="id_profile", nullable=FALSE)
      */
-    protected $profile;
+    public $profile;
 
     /**
      * @Column(type="date", name="started_on")
      */
-    protected $startedOn;
+    public $started;
 
     /**
      * @Column(type="integer", name="monthly_salary")
      */
-    protected $monthlySalary;
-
+    public $monthlySalary;
 
     /**
      * Get idOccupation
      *
      * @return integer
      */
-    public function getIdOccupation()
-    {
+    public function getIdOccupation() {
         return $this->id_occupation;
-    }
-
-    /**
-     * Set startedOn
-     *
-     * @param \DateTime $startedOn
-     *
-     * @return Occupation
-     */
-    public function setStartedOn($startedOn)
-    {
-        $this->startedOn = $startedOn;
-
-        return $this;
-    }
-
-    /**
-     * Get startedOn
-     *
-     * @return \DateTime
-     */
-    public function getStartedOn()
-    {
-        return $this->startedOn;
     }
 
     /**
@@ -96,8 +72,7 @@ class Occupation {
      *
      * @return Occupation
      */
-    public function setMonthlySalary($monthlySalary)
-    {
+    public function setMonthlySalary($monthlySalary) {
         $this->monthlySalary = $monthlySalary;
 
         return $this;
@@ -108,8 +83,7 @@ class Occupation {
      *
      * @return integer
      */
-    public function getMonthlySalary()
-    {
+    public function getMonthlySalary() {
         return $this->monthlySalary;
     }
 
@@ -120,8 +94,7 @@ class Occupation {
      *
      * @return Occupation
      */
-    public function setUser(\User $user)
-    {
+    public function setUser(User $user) {
         $this->user = $user;
 
         return $this;
@@ -132,8 +105,7 @@ class Occupation {
      *
      * @return \User
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
@@ -144,8 +116,7 @@ class Occupation {
      *
      * @return Occupation
      */
-    public function setShop(\Shop $shop)
-    {
+    public function setShop(Shop $shop) {
         $this->shop = $shop;
 
         return $this;
@@ -156,8 +127,7 @@ class Occupation {
      *
      * @return \Shop
      */
-    public function getShop()
-    {
+    public function getShop() {
         return $this->shop;
     }
 
@@ -168,8 +138,7 @@ class Occupation {
      *
      * @return Occupation
      */
-    public function setProfile(\Profile $profile)
-    {
+    public function setProfile(Profile $profile) {
         $this->profile = $profile;
 
         return $this;
@@ -180,8 +149,30 @@ class Occupation {
      *
      * @return \Profile
      */
-    public function getProfile()
-    {
+    public function getProfile() {
         return $this->profile;
     }
+
+    /**
+     * Set started
+     *
+     * @param \DateTime $started
+     *
+     * @return Occupation
+     */
+    public function setStarted($started) {
+        $this->started = $started;
+
+        return $this;
+    }
+
+    /**
+     * Get started
+     *
+     * @return \DateTime
+     */
+    public function getStarted() {
+        return $this->started;
+    }
+
 }

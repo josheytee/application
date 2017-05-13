@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Index;
@@ -30,61 +32,60 @@ class Shop {
      * @GeneratedValue
      * @Column(type="integer")
      */
-    protected $id_shop;
+    public $id_shop;
 
     /**
      * @OneToOne(targetEntity="Category")
      * @JoinColumn(name="id_category",referencedColumnName="id_category")
      */
-    protected $id_category;
+    public $category;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $name;
+    public $name;
 
     /**
      * @var string
      *
      * @Column(type="string",unique=true)
      */
-    protected $description;
+    public $description;
 
     /**
      * @var string
      *
      * @Column(type="string")
      */
-    protected $url;
+    public $url;
 
     /**
      * @var \DateTime
      *
      * @Column(type="datetime")
      */
-    protected $created_at;
+    public $created;
 
     /**
      * @var \DateTime
      *
      * @Column(type="datetime")
      */
-    protected $updated_at;
+    public $updated;
 
     /**
      * @var user[]
      * @OneToMany(targetEntity="Occupation", mappedBy="shop", cascade={"remove"})
      */
-    protected $occupation;
+    public $occupations;
 
     /**
      * Constructor
      */
-    public function __construct()
-    {
-        $this->occupation = new \Doctrine\Common\Collections\ArrayCollection();
+    public function __construct() {
+        $this->occupations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -92,8 +93,7 @@ class Shop {
      *
      * @return integer
      */
-    public function getIdShop()
-    {
+    public function getIdShop() {
         return $this->id_shop;
     }
 
@@ -104,8 +104,7 @@ class Shop {
      *
      * @return Shop
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -116,8 +115,7 @@ class Shop {
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -128,8 +126,7 @@ class Shop {
      *
      * @return Shop
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -140,8 +137,7 @@ class Shop {
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -152,8 +148,7 @@ class Shop {
      *
      * @return Shop
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
 
         return $this;
@@ -164,57 +159,8 @@ class Shop {
      *
      * @return string
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Shop
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Shop
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updated_at = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
     }
 
     /**
@@ -224,8 +170,7 @@ class Shop {
      *
      * @return Shop
      */
-    public function setIdCategory(\Category $idCategory = null)
-    {
+    public function setIdCategory(\Category $idCategory = null) {
         $this->id_category = $idCategory;
 
         return $this;
@@ -236,8 +181,7 @@ class Shop {
      *
      * @return \Category
      */
-    public function getIdCategory()
-    {
+    public function getIdCategory() {
         return $this->id_category;
     }
 
@@ -248,9 +192,12 @@ class Shop {
      *
      * @return Shop
      */
-    public function addOccupation(\Occupation $occupation)
-    {
-        $this->occupation[] = $occupation;
+    public function addOccupation(Occupation $occupation) {
+//        $this->occupations[] = $occupation;
+        if (!$this->occupations->contains($occupation)) {
+            $this->occupations->add($occupation);
+            $occupation->setShop($this);
+        }
 
         return $this;
     }
@@ -260,18 +207,105 @@ class Shop {
      *
      * @param \Occupation $occupation
      */
-    public function removeOccupation(\Occupation $occupation)
-    {
-        $this->occupation->removeElement($occupation);
+    public function removeOccupation(\Occupation $occupation) {
+//        $this->occupations->removeElement($occupation);
+        if ($this->occupations->contains($occupation)) {
+            $this->occupations->removeElement($occupation);
+            $occupation->setShop(null);
+        }
+        return $this;
     }
 
+    public function getPeople() {
+        return array_map(
+                function ($occupation) {
+            return $occupation->getUser();
+        }, $this->occupations->toArray()
+        );
+    }
+
+//    /**
+//     * Get occupation
+//     *
+//     * @return \Doctrine\Common\Collections\Collection
+//     */
+//    public function getOccupation() {
+//        return $this->occupations;
+//    }
+
     /**
-     * Get occupation
+     * Get occupations
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getOccupation()
-    {
-        return $this->occupation;
+    public function getOccupations() {
+        return $this->occupations;
     }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Shop
+     */
+    public function setCreated($created) {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated() {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Shop
+     */
+    public function setUpdated($updated) {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated() {
+        return $this->updated;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \model\Category $category
+     *
+     * @return Shop
+     */
+    public function setCategory(\model\Category $category = null) {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \model\Category
+     */
+    public function getCategory() {
+        return $this->category;
+    }
+
 }

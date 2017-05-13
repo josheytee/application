@@ -3,7 +3,7 @@
 namespace app\admin\page;
 
 use app\core\Page;
-use app\admin\component\Hello\Hello\Hello;
+use app\admin\component\Hello\Hello;
 
 /**
  * Description of Index

@@ -1,0 +1,1 @@
+This is a config directory used only by doctrine for cli

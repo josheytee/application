@@ -1,0 +1,17 @@
+admin.index:
+  path: '_'
+  defaults:
+    _title: 'Amin | Home'
+    _controller: 'app\admin\page\Index::create'
+  requirements:
+    _permission: 'administer actions'
+
+admin.product:
+  path: '_/product/{name}'
+  defaults:
+    name: 'default'
+    _title: 'Amin | Product'
+    _controller: 'NTC\administrator\controller\AdminController::hello'
+  requirements:
+    _permission: 'administer actions'
+

@@ -1,0 +1,146 @@
+<?php
+
+namespace model;
+
+/**
+ * Description of Router
+ * @Entity
+ * @author adapter
+ */
+class Router {
+
+    /**
+     * @var int
+     *
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    public $id_route;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $name;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $url;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $state;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $params;
+
+    /**
+     * Get idRoute
+     *
+     * @return integer
+     */
+    public function getIdRoute() {
+        return $this->id_route;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Route
+     */
+    public function setName($name) {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Route
+     */
+    public function setUrl($url) {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl() {
+        return $this->url;
+    }
+
+    /**
+     * Set state
+     *
+     * @param string $state
+     *
+     * @return Route
+     */
+    public function setState($state) {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return string
+     */
+    public function getState() {
+        return $this->state;
+    }
+
+    /**
+     * Set params
+     *
+     * @param string $params
+     *
+     * @return Route
+     */
+    public function setParams($params) {
+        $this->params = $params;
+
+        return $this;
+    }
+
+    /**
+     * Get params
+     *
+     * @return string
+     */
+    public function getParams() {
+        return $this->params;
+    }
+
+}
