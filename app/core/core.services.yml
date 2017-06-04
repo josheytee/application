@@ -1,0 +1,46 @@
+parameters:
+ db.params:
+    driver: pdo_mysql
+    dbname: ntc_doctrine
+    host: localhost
+    user: root
+    password: ~
+ doctrine.dev:
+    true
+ doctrine.entities.path:
+     -  'C:\wamp\www\application\app\data\model'
+services:
+    doctrine.setup:
+        class: Doctrine\ORM\Tools\Setup
+        factory: [Doctrine\ORM\Tools\Setup,createAnnotationMetadataConfiguration]
+        arguments:
+            - '%doctrine.entities.path%'
+            - '%doctrine.dev%'
+    entity.manager:
+        class:  Doctrine\ORM\EntityManager
+        factory: [Doctrine\ORM\EntityManager, create]
+        arguments:
+            - '%db.params%'
+            - '@doctrine.setup'
+        public: true
+    smarty:
+        class: app\core\template\SmartyTemplateEngine
+
+    event_dispatcher:
+        class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
+        arguments: ['@service_container']
+    controller_resolver:
+        class: app\core\controller\ControllerResolver
+        arguments: ['@class_resolver']
+    class_resolver:
+        class: app\core\dependencyInjection\ClassResolver
+        calls:
+          - [setContainer, ['@service_container']]
+    request_stack:
+        class: Symfony\Component\HttpFoundation\RequestStack
+        tags:
+        - { name: persist }
+    http_kernel:
+        class: Symfony\Component\HttpKernel\HttpKernel
+        arguments: ['@event_dispatcher', '@controller_resolver', '@request_stack']
+

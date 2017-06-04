@@ -107,11 +107,6 @@ class User {
      * @var route[]
      *
      * @ManyToMany(targetEntity="Route", mappedBy="user")
-     * @JoinTable(
-     * name="user_route",
-     * joinColumns={@JoinColumn(name="id_route",
-     * referencedColumnName="id_route")}
-     * )
      */
     protected $route;
 

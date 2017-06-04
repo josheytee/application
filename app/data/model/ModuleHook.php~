@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 /**
  * Category entity
  *
- * @Entity(repositoryClass="ModuleSHookRepository")
+ * @Entity
  * @Table(indexes={
  * @Index(name="id_hook_id_module_idx",  columns={"id_module","id_hook"})
  * })

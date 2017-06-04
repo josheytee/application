@@ -1,0 +1,14 @@
+name: Shop
+type: module
+description: 'Manages Shop '
+package: Core
+# version: VERSION
+# core: 8.x
+configure: admin.settings
+dependencies:
+  required:
+  - administrator
+  - product
+  optional:
+  - file
+

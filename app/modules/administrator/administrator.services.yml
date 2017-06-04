@@ -1,0 +1,4 @@
+services:
+ admin.manager:
+  class: ntc\administrator\AdminManager
+  

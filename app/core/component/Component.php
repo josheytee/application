@@ -2,50 +2,52 @@
 
 namespace app\core\component;
 
-use app\core\event\EventDispatcherInterface;
-use app\core\service\KernelServiceInterface;
-use app\core\service\KernelService;
+use Symfony\Component\Finder\Finder;
+use app\core\component\ComponentProvider;
+use app\core\Context;
+use app\core\controller\ControllerBase;
 
 /**
  * Description of Component
  *
  * @author Tobi
  */
-abstract class Component {
+abstract class Component extends ControllerBase {
 
-    const TYPE_SYSTEM = 'SYSTEM';
-    const TYPE_USER = 'USER';
+    use \app\core\template\Displayable;
 
-    protected $dispatcher;
-    protected $type;
-    public $dir_name;
     public $name;
-    public $schema;
-    public $data;
-    public $options;
+    public $description;
+    public $icon;
+    public $version;
+    public $region;
+    public $dependency = [];
 
-    function __construct($schema = null, $data = null, $options = null) {
-        $this->schema = $schema;
-        $this->data = $data;
-        $this->options = $options;
+    function __construct() {
+
+        $details = ComponentProvider::getComponentData(lcfirst(get_class($this)));
+        $details += [
+            'name' => '',
+            'description' => '',
+            'icon' => '',
+            'version' => '',
+            'dependency' => [],
+            'region' => '',
+        ];
+        $this->name = $details['name'];
+        $this->description = $details['description'];
+        $this->icon = $details['icon'];
+        $this->version = $details['version'];
+        $this->dependency = $details['dependency'];
+        $this->region = $details['region'];
     }
 
     public function setType($type) {
         $this->type = $type;
     }
 
-    public function getTemplatePath($template) {
-        $path = '';
-        if (isset($this->pack_name)) {
-            $path = _ADMIN_COMPONENT_DIR_ . $this->dir_name . DS . $this->pack_name . DS . $this->name . DS . $template;
-        } else {
-            $path = _ADMIN_COMPONENT_DIR_ . $this->dir_name . DS . $template;
-        }
-        return $path;
-    }
-
     public function setErrorTemplate($template) {
-        $this->getTemplatePath($template);
+//        $this->getTemplatePath($template);
     }
 
     public function init() {
@@ -60,23 +62,30 @@ abstract class Component {
         }
     }
 
-    public function get($service) {
-        return KernelService::getService($service);
+    public function getTemplate($dir, $file = null) {
+        $finder = new Finder();
+        $finder->depth(0)->directories()->in($dir);
+        foreach ($finder as $dir) {
+            if (file_exists($dir->getPathName() . DS . $file)) {
+                return $dir->getPathName() . DS . $file;
+            } else {
+                echo "invalid template" . $file;
+            }
+        }
     }
 
-    public function notify($dispatcher) {
+    public function show($template, $data = null) {
+        $smarty = Context::smarty();
 
-    }
+        $tpl = $smarty->createAndFetch($template, $data);
 
-    public function notifyAll() {
-
+        return $tpl;
     }
 
     public function renderComponent() {
         $this->init();
-        $this->getTemplatePath("");
         $this->postProcess();
-        return $this->render();
+        return $this->display(['component' => $this->render()], 'layout/component.tpl');
     }
 
 }

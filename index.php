@@ -2,7 +2,6 @@
 
 $autoloader = require_once './vendor/autoload.php';
 require './app/config/config.inc.php';
-include_once './test.php';
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,4 +11,4 @@ $request = Request::createFromGlobals();
 $response = $framework->handle($request);
 //var_dump($autoloader);
 $response->send();
-
+include_once './test.php';

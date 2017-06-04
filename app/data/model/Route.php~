@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Description of Route
- * @Entity
- * @author adapter
+ * @Entity(repositoryClass="RouteRepository")
+ *
  */
 class Route {
 
@@ -38,7 +38,7 @@ class Route {
      *
      * @Column(type="string")
      */
-    public $url;
+    public $path;
 
     /**
      * @var string
@@ -58,14 +58,23 @@ class Route {
      * @var user[]
      *
      * @ManyToMany(targetEntity="User", inversedBy="route",
-     * fetch="EAGER", cascade={"persist"}, orphanRemoval=true),
+     * fetch="EAGER", cascade={"persist"}, orphanRemoval=true)
      * @JoinTable(
      * name="user_route",
      * inverseJoinColumns={@JoinColumn(name="id_user",
-     * referencedColumnName="id_user")}
+     * referencedColumnName="id_user")},
+     * joinColumns={@JoinColumn(name="id_route",
+     * referencedColumnName="id_route")}
      * )
      */
     protected $user;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get idRoute
@@ -162,13 +171,6 @@ class Route {
      */
     public function getParams() {
         return $this->params;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

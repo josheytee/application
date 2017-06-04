@@ -6,10 +6,11 @@ define('DS', \DIRECTORY_SEPARATOR);
 $root = dirname(__DIR__);
 define('SCHEME', 'http://localhost/');
 define('DOMAIN', SCHEME . 'application/');
+define('_ABSOLUTE_ROOT_DIR_', $root);
 define('_ROOT_DIR_', 'app/');
 define('_MODULES_DIR_', $root . '/modules');
 define('_ADMIN_DIR_', _ROOT_DIR_ . 'admin' . '/');
-define('_THEME_DIR_', _ROOT_DIR_ . 'theme' . '/');
+define('_THEMES_DIR_', _ROOT_DIR_ . 'themes');
 define("_RESOURCE_DIR_", _ROOT_DIR_ . 'resource' . '/');
 
 define('_RIJNDAEL_KEY_', 'diTesdwELQKtE1cC5nS1OA3BJjLrfPin');

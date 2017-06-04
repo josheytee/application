@@ -1,0 +1,84 @@
+<?php
+
+namespace model;
+
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
+
+/**
+ * Section entity
+ *
+ * @Entity(repositoryClass="SectionRepository")
+ * @Table(indexes={
+ * @Index(name="section_url_idx",  columns={"id_section","url"})
+ * })
+ */
+class Section {
+
+    /**
+     * @var int
+     *
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    public $id_section;
+
+    /**
+     * @OneToOne(targetEntity="Section")
+     * @JoinColumn(name="id_section",referencedColumnName="id_section")
+     */
+    public $parent;
+
+    /**
+     * @OneToOne(targetEntity="Shop")
+     * @JoinColumn(name="id_shop",referencedColumnName="id_shop")
+     */
+    public $shop;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $name;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $description;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $url;
+
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $updated;
+
+}

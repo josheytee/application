@@ -1,0 +1,13 @@
+name: User
+type: module
+description: 'Helps manage user related functions'
+package: Core
+# version: VERSION
+# core: 8.x
+configure: admin.settings
+dependencies:
+  required:
+  - administrator
+  optional:
+  - file
+

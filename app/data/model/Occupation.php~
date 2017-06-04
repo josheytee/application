@@ -41,7 +41,7 @@ class Occupation {
     public $shop;
 
     /**
-     * @ManyToOne(targetEntity="Profile", inversedBy="occupation")
+     * @ManyToOne(targetEntity="Profile", inversedBy="occupations")
      * @JoinColumn(name="id_profile", referencedColumnName="id_profile", nullable=FALSE)
      */
     public $profile;

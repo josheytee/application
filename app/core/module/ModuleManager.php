@@ -3,6 +3,7 @@
 namespace app\core\module;
 
 use app\core\Context;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -40,8 +41,19 @@ class ModuleManager implements ModuleManagerInterafce {
 
     }
 
-    public function getModuleDirectory() {
+    public function getModules() {
 
+    }
+
+    public static function getModulesDirectory() {
+        $finder = new Finder();
+        $finder->depth(0)->directories()->in(_MODULES_DIR_);
+        foreach ($finder as $dir) {
+            if (file_exists($dir->getPathName() . DS . $dir->getFileName() . '.info.yml')) {
+                $moduleDirectories [$dir->getFileName()] = ($dir->getPathName());
+            }
+        }
+        return $moduleDirectories;
     }
 
 }

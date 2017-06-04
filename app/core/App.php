@@ -3,8 +3,6 @@
 namespace app\core;
 
 use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -12,9 +10,12 @@ use Symfony\Component\Routing;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use app\core\AppInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\Config\FileLocator;
+use app\core\Context;
 
 /**
  * Description of Framework
@@ -35,26 +36,56 @@ class App implements AppInterface, TerminableInterface {
      */
     protected $classLoader;
     private $root;
+    protected $enviroment;
+    private $booted;
 
     public function __construct($class_loader) {
+        $this->root = _ABSOLUTE_ROOT_DIR_;
         $this->classLoader = $class_loader;
-        $this->matcher = new UrlMatcher($this->getRoute(), new Routing\RequestContext());
-        $this->controllerResolver = new ControllerResolver();
-        $this->argumentResolver = new ArgumentResolver();
+    }
 
-        $module_filenames = $this->getModuleFileNames();
-        $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($module_filenames));
+    public function initializeRequest(Request $request) {
+        $this->matcher = new UrlMatcher($this->getRoute(), new Routing\RequestContext());
+        $this->matcher->getContext()->fromRequest($request);
+        $request->attributes->add($this->matcher->match($request->getPathInfo()));
+    }
+
+    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
+        $this->boot();
+        $this->initializeRequest($request);
+        try {
+            $response = $this->getHttpKernel()->handle($request, $type, $catch);
+            $response = new template\skeleton\TemplateSkeleton($response->getContent(), 200);
+        } catch (ResourceNotFoundException $e) {
+            echo $e->getMessage();
+            return new Response('Not Found', 404);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            return new Response('An error occurred', 500);
+        }
+        // Adapt response headers to the current request.
+        $response->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * return directory as key and its path as value
+     * @return array
+     */
+    public function getModulesDir() {
+        return module\ModuleManager::getModulesDirectory();
     }
 
     public function getRoute() {
-        $finder = new Finder();
-        $finder->directories()->in(_MODULES_DIR_)->depth(0);
-        foreach ($finder as $dir) {
-            $yml_route_files[] = $dir->getPathName() . DS . $dir->getFileName() . '.route.yml';
+        foreach ($this->getModulesDir() as $dir => $dir_path) {
+            $yml_route_files[] = $dir_path . DS . $dir . '.route.yml';
         }
         $parsed_yml_route_files = [];
         foreach ($yml_route_files as $yml_route_file) {
-            $parsed_yml_route_files += \Symfony\Component\Yaml\Yaml::parse(file_get_contents($yml_route_file));
+            if (file_exists($yml_route_file)) {
+                $parsed_yml_route_files += \Symfony\Component\Yaml\Yaml::parse(file_get_contents($yml_route_file));
+            }
         }
         $route_collection = new RouteCollection();
         foreach ($parsed_yml_route_files as $route_name => $route_info) {
@@ -73,29 +104,6 @@ class App implements AppInterface, TerminableInterface {
         return $route_collection;
     }
 
-    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
-        $this->matcher->getContext()->fromRequest($request);
-
-        try {
-            $request->attributes->add($this->matcher->match($request->getPathInfo()));
-
-            $controller = $this->controllerResolver->getController($request);
-            $arguments = $this->argumentResolver->getArguments($request, $controller);
-            $response = call_user_func_array($controller, $arguments);
-            if (!$response instanceof Response) {
-                $response = new Response($response, 200);
-                $response->prepare($request);
-            }
-            return $response;
-        } catch (ResourceNotFoundException $e) {
-            echo $e->getMessage();
-            return new Response('Not Found', 404);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-            return new Response('An error occurred', 500);
-        }
-    }
-
     /**
      * Gets the PSR-4 base directories for module namespaces.
      *
@@ -110,7 +118,7 @@ class App implements AppInterface, TerminableInterface {
     protected function getModuleNamespacesPsr4($module_file_names) {
         $namespaces = array();
         foreach ($module_file_names as $module => $filename) {
-            $namespaces["NTC\\$module"] = dirname($filename) . '/src';
+            $namespaces["ntc\\$module"] = dirname($filename) . '/src';
         }
         return $namespaces;
     }
@@ -124,7 +132,7 @@ class App implements AppInterface, TerminableInterface {
      *   associated with this namespace.
      */
     protected function classLoaderAddMultiplePsr4(array $namespaces = array()) {
-        var_dump($namespaces);
+//        var_dump($namespaces);
         foreach ($namespaces as $prefix => $paths) {
             if (is_array($paths)) {
                 foreach ($paths as $key => $value) {
@@ -143,9 +151,9 @@ class App implements AppInterface, TerminableInterface {
         if (isset($this->container)) {
             throw new \Exception('The container should not override an existing container.');
         }
-//        if ($this->booted) {
-//            throw new \Exception('The container cannot be set after a booted kernel.');
-//        }
+        if ($this->booted) {
+            throw new \Exception('The container cannot be set after a booted kernel.');
+        }
 
         $this->container = $container;
         return $this;
@@ -155,14 +163,93 @@ class App implements AppInterface, TerminableInterface {
 
     }
 
-    public function getModuleFileNames() {
-        $finder = new Finder();
-        $finder->depth(0)->directories()->in(_MODULES_DIR_);
-        foreach ($finder as $dir) {
-            $configDirectories [$dir->getFileName()] = ($dir->getPathName());
-            $route_files[$dir->getFileName()] = ($dir->getPathName() . DS . $dir->getFileName() . '.info.yml');
+    /**
+     * gets Module data using the module.info.yml file
+     * @return
+     */
+    public function getModuleData() {
+        foreach ($this->getModulesDir() as $dir => $dir_path) {
+            if (!file_exists($dir_path . DS . $dir . '.info.yml')) {
+                continue;
+            }
+            $module[$dir] = ($dir_path . DS . $dir . '.info.yml');
         }
-        return $route_files;
+        return $module;
+    }
+
+    public function getContainerBuilder() {
+        return new ContainerBuilder();
+    }
+
+    public function initializeContainer() {
+        if (isset($this->container)) {
+
+        }
+        $this->container = $this->compileContainer();
+    }
+
+    public function compileContainer() {
+        $container = $this->getContainerBuilder();
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
+
+        $container->set('kernel', $this);
+//        $container->setParameter('container.modules', $this->getModulesParameter());
+        // Register synthetic services.
+        $container->register('kernel', 'Symfony\Component\HttpKernel\KernelInterface')->setSynthetic(TRUE);
+        $container->register('service_container', 'Symfony\Component\DependencyInjection\ContainerInterface')->setSynthetic(TRUE);
+
+        $loader->load('core.services.yml');
+
+        $container->compile();
+//        var_dump($container);
+        Context::setContainer($container);
+        return $container;
+    }
+
+    /**
+     * Gets a http kernel from the container
+     *
+     * @return \Symfony\Component\HttpKernel\HttpKernelInterface
+     */
+    protected function getHttpKernel() {
+        return $this->container->get('http_kernel');
+    }
+
+    public function boot() {
+
+        $module_filenames = $this->getModuleData();
+        $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($module_filenames));
+        $this->initializeContainer();
+
+        $this->booted = true;
+    }
+
+    public function getContainer(): ContainerInterface {
+        return $this->container;
+    }
+
+    public function getEnvironment(): string {
+        return $this->enviroment;
+    }
+
+    public function getName(): string {
+
+    }
+
+    public function getRootDir(): string {
+
+    }
+
+    public function isDebug(): bool {
+
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader) {
+
+    }
+
+    public function shutdown() {
+
     }
 
 }

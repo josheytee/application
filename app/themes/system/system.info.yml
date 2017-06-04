@@ -1,0 +1,14 @@
+name: System
+type: theme
+description: A default base theme
+base theme: false
+hidden: true
+regions:
+  header: Header
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  sidebar_right: 'Sidebar Right'
+  container: Container
+  sidebar_left: 'Sidebar Left'
+  footer: Footer
+  

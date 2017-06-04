@@ -1,0 +1,9 @@
+admin.product:
+  path: 'admin/product/{name}'
+  defaults:
+    name: hello
+    _title: 'Amin | Product'
+    _controller: 'ntc\product\controller\ProductController::hello'
+  requirements:
+    _permission: 'administer actions'
+

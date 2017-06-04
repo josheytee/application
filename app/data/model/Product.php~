@@ -1,0 +1,91 @@
+<?php
+
+namespace model;
+
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
+
+/**
+ * Product entity
+ *
+ * @Entity(repositoryClass="ProductRepository")
+ * @Table(indexes={
+ * @Index(name="product_price_name_idx",  columns={"id_product","price","name"})
+ * })
+ */
+class Product {
+
+    /**
+     * @var int
+     *
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    public $id_product;
+
+    /**
+     * @OneToOne(targetEntity="Category")
+     * @JoinColumn(name="id_category",referencedColumnName="id_category")
+     */
+    public $category;
+
+    /**
+     * @OneToOne(targetEntity="Section")
+     * @JoinColumn(name="id_section",referencedColumnName="id_section")
+     */
+    public $section;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $name;
+
+    /**
+     * @var string
+     *
+     * @Column(type="string",unique=true)
+     */
+    public $description;
+
+    /**
+     * @var string
+     *
+     * @Column(type="number")
+     */
+    public $availability;
+
+    /**
+     * @var string
+     *
+     * @Column(type="decimal")
+     */
+    public $price;
+
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $updated;
+
+}
