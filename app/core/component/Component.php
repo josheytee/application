@@ -76,7 +76,6 @@ abstract class Component extends ControllerBase {
 
     public function show($template, $data = null) {
         $smarty = Context::smarty();
-
         $tpl = $smarty->createAndFetch($template, $data);
 
         return $tpl;

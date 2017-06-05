@@ -35,10 +35,10 @@ class Product {
     public $id_product;
 
     /**
-     * @OneToOne(targetEntity="Category")
-     * @JoinColumn(name="id_category",referencedColumnName="id_category")
+     * @OneToOne(targetEntity="Shop")
+     * @JoinColumn(name="id_shop",referencedColumnName="id_shop")
      */
-    public $category;
+    public $shop;
 
     /**
      * @OneToOne(targetEntity="Section")
@@ -56,21 +56,21 @@ class Product {
     /**
      * @var string
      *
-     * @Column(type="string",unique=true)
+     * @Column(type="string")
      */
     public $description;
 
     /**
      * @var string
      *
-     * @Column(type="number")
+     * @Column(type="boolean")
      */
     public $availability;
 
     /**
      * @var string
      *
-     * @Column(type="decimal")
+     * @Column(type="decimal",scale=4)
      */
     public $price;
 
@@ -87,5 +87,168 @@ class Product {
      * @Column(type="datetime")
      */
     public $updated;
+
+    /**
+     * Get idProduct
+     *
+     * @return integer
+     */
+    public function getIdProduct() {
+        return $this->id_product;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Product
+     */
+    public function setName($name) {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Product
+     */
+    public function setDescription($description) {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
+    /**
+     * Set availability
+     *
+     * @param \number $availability
+     *
+     * @return Product
+     */
+    public function setAvailability(\number $availability) {
+        $this->availability = $availability;
+
+        return $this;
+    }
+
+    /**
+     * Get availability
+     *
+     * @return \number
+     */
+    public function getAvailability() {
+        return $this->availability;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     *
+     * @return Product
+     */
+    public function setPrice($price) {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string
+     */
+    public function getPrice() {
+        return $this->price;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Product
+     */
+    public function setCreated($created) {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated() {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Product
+     */
+    public function setUpdated($updated) {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated() {
+        return $this->updated;
+    }
+
+    /**
+     * Set section
+     *
+     * @param \model\Section $section
+     *
+     * @return Product
+     */
+    public function setSection(\model\Section $section = null) {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * Get section
+     *
+     * @return \model\Section
+     */
+    public function getSection() {
+        return $this->section;
+    }
 
 }

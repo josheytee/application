@@ -204,4 +204,28 @@ class Route {
         return $this->user;
     }
 
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Route
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
 }

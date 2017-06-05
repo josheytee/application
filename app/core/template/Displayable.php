@@ -15,7 +15,7 @@ trait Displayable {
         $this->theme_manager = new ThemeManager();
         $smarty = Context::smarty();
         foreach ($this->theme_manager->getActiveTheme() as $path) {
-            $s = $path . DS . 'template' . DS . $tpl;
+            $s = $path . DS . 'templates' . DS . $tpl;
             $tpl = $smarty->createAndFetch($s, $content);
         }
         return $tpl;

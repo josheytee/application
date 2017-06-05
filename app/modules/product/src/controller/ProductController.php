@@ -25,10 +25,14 @@ class ProductController extends ControllerBase {
         return new static(new AdminManager());
     }
 
-    public function hello(Request $request, $name = null) {
-        var_dump($this->getDoctrine()->getRepository('model\Product')->findAll());
+    public function index() {
+        return new Response('hello index page');
+    }
 
-        return new Response($name);
+    public function add(Request $request) {
+//        var_dump($this->getDoctrine()->getRepository('model\Product')->findAll());
+        var_dump($_POST);
+        return new Response($this->show($this->getTemplate(__DIR__, 'add.tpl')));
     }
 
 }

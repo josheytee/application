@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
@@ -35,10 +34,10 @@ class Product {
     public $id_product;
 
     /**
-     * @OneToOne(targetEntity="Category")
-     * @JoinColumn(name="id_category",referencedColumnName="id_category")
+     * @OneToOne(targetEntity="Shop")
+     * @JoinColumn(name="id_shop",referencedColumnName="id_shop")
      */
-    public $category;
+    public $shop;
 
     /**
      * @OneToOne(targetEntity="Section")
@@ -230,28 +229,6 @@ class Product {
     }
 
     /**
-     * Set category
-     *
-     * @param \model\Category $category
-     *
-     * @return Product
-     */
-    public function setCategory(\model\Category $category = null) {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \model\Category
-     */
-    public function getCategory() {
-        return $this->category;
-    }
-
-    /**
      * Set section
      *
      * @param \model\Section $section
@@ -271,6 +248,28 @@ class Product {
      */
     public function getSection() {
         return $this->section;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param \model\Shop $shop
+     *
+     * @return Product
+     */
+    public function setShop(\model\Shop $shop = null) {
+        $this->shop = $shop;
+
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return \model\Shop
+     */
+    public function getShop() {
+        return $this->shop;
     }
 
 }

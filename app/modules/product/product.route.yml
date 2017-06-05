@@ -1,9 +1,17 @@
 admin.product:
-  path: 'admin/product/{name}'
+  path: 'admin/product'
   defaults:
-    name: hello
+    name: ~
     _title: 'Amin | Product'
-    _controller: 'ntc\product\controller\ProductController::hello'
+    _controller: 'ntc\product\controller\ProductController::index'
+  requirements:
+    _permission: 'administer actions'
+
+admin.product.add:
+  path: 'admin/product/add'
+  defaults:
+    _title: 'Amin | Product'
+    _controller: 'ntc\product\controller\ProductController::add'
   requirements:
     _permission: 'administer actions'
 

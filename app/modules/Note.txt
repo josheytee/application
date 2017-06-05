@@ -1,4 +1,5 @@
 when writing module dependencies inside the *.info.yml files
+
 if the required or optional keys are not specified then the default is optional
 but when one is specified then the other should be specified when needed...
 
