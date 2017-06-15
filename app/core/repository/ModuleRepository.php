@@ -9,4 +9,9 @@ namespace app\core\repository;
  */
 class ModuleRepository extends Repository {
 
+    public function __construct() {
+        $this->setDirectories([_MODULES_DIR_,]);
+        parent::__construct();
+    }
+
 }

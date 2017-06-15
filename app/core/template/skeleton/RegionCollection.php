@@ -5,7 +5,7 @@ namespace app\core\template\skeleton;
 use app\core\template\skeleton\Region;
 use app\core\theme\ThemeManager;
 use app\core\Context;
-use app\core\component\ComponentProvider;
+use app\core\component\ComponentManager;
 
 /**
  * Description of RegionCollection

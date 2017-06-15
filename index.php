@@ -2,13 +2,15 @@
 
 $autoloader = require_once './vendor/autoload.php';
 require './app/config/config.inc.php';
+include_once './test.php';
 
-use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\Request;
+use app\core\http\Request;
 
 error_reporting(E_ALL);
 $framework = new app\core\App($autoloader);
-$request = Request::createFromGlobals();
-$response = $framework->handle($request);
+$response = $framework->handle(
+        Request::capture()
+);
 //var_dump($autoloader);
 $response->send();
-include_once './test.php';

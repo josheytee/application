@@ -9,7 +9,7 @@ class Logo extends Component {
     }
 
     public function render() {
-        return "hello from my Logo cpomponent";
+        return "hello from my Logo component";
     }
 
 }

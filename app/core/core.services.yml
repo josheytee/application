@@ -10,37 +10,58 @@ parameters:
  doctrine.entities.path:
      -  'C:\wamp\www\application\app\data\model'
 services:
-    doctrine.setup:
-        class: Doctrine\ORM\Tools\Setup
-        factory: [Doctrine\ORM\Tools\Setup,createAnnotationMetadataConfiguration]
-        arguments:
-            - '%doctrine.entities.path%'
-            - '%doctrine.dev%'
-    entity.manager:
-        class:  Doctrine\ORM\EntityManager
-        factory: [Doctrine\ORM\EntityManager, create]
-        arguments:
-            - '%db.params%'
-            - '@doctrine.setup'
-        public: true
-    smarty:
-        class: app\core\template\SmartyTemplateEngine
+  doctrine.setup:
+    class: Doctrine\ORM\Tools\Setup
+    factory: [Doctrine\ORM\Tools\Setup,createAnnotationMetadataConfiguration]
+    arguments:
+        - '%doctrine.entities.path%'
+        - '%doctrine.dev%'
+  entity.manager:
+    class:  Doctrine\ORM\EntityManager
+    factory: [Doctrine\ORM\EntityManager, create]
+    arguments:
+        - '%db.params%'
+        - '@doctrine.setup'
+    public: true
 
-    event_dispatcher:
-        class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
-        arguments: ['@service_container']
-    controller_resolver:
-        class: app\core\controller\ControllerResolver
-        arguments: ['@class_resolver']
-    class_resolver:
-        class: app\core\dependencyInjection\ClassResolver
-        calls:
-          - [setContainer, ['@service_container']]
-    request_stack:
-        class: Symfony\Component\HttpFoundation\RequestStack
-        tags:
-        - { name: persist }
-    http_kernel:
-        class: Symfony\Component\HttpKernel\HttpKernel
-        arguments: ['@event_dispatcher', '@controller_resolver', '@request_stack']
+  smarty:
+    class: app\core\template\SmartyTemplateEngine
+    calls:
+      - [init, []]
 
+  event_dispatcher:
+    class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
+    arguments: ['@service_container']
+  controller_resolver:
+    class: app\core\controller\ControllerResolver
+    arguments: ['@class_resolver']
+  class_resolver:
+    class: app\core\dependencyInjection\ClassResolver
+    calls:
+      - [setContainer, ['@service_container']]
+  request_stack:
+    class: Symfony\Component\HttpFoundation\RequestStack
+    tags:
+    - { name: persist }
+  http_kernel:
+    class: Symfony\Component\HttpKernel\HttpKernel
+    arguments: ['@event_dispatcher', '@controller_resolver', '@request_stack']
+
+  module.repository:
+    class: app\core\repository\ModuleRepository
+  component.repository:
+    class: app\core\repository\ComponentRepository
+    arguments: ['@module.repository']
+  component.manager:
+    class: app\core\component\ComponentManager
+    arguments: ['@component.repository']
+  theme.repository:
+    class: app\core\repository\ThemeRepository
+  theme.manager:
+    class: app\core\theme\ThemeManager
+    arguments: ['@theme.repository']
+  template.engine:
+    class: app\core\template\SmartyTemplateEngine
+  view.manager:
+    class: app\core\view\ViewManager
+    arguments: ['@template.engine','@theme.manager']

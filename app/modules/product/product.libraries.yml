@@ -1,0 +1,8 @@
+product.add:
+  version: VERSION
+  js:
+    comment-entity-form.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.form

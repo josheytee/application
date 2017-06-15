@@ -2,66 +2,78 @@
 
 namespace app\core\theme;
 
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
+use app\core\theme\ThemeManagerInterface;
+use app\core\repository\ThemeRepository;
 
 /**
  * Description of ThemeProvider
  *
  * @author adapter
  */
-class ThemeManager {
+class ThemeManager implements ThemeManagerInterface {
 
-    public static function getInstalledThemes() {
-        $finder = new Finder();
-        $finder->depth(0)->directories()->in(_THEMES_DIR_);
-        foreach ($finder as $dir) {
-            if (file_exists($dir->getPathName() . DS . $dir->getFileName() . '.info.yml')) {
-                $themeDirectories [$dir->getFileName()] = ($dir->getPathName());
-            }
-        }
-        return $themeDirectories;
-    }
+  protected $theme_repository;
 
-    /**
-     * gets the data of all components in one single array
-     * @return Array of components data
-     */
-    public function getThemesData() {
-        $data = [];
-        foreach (static::getInstalledThemes() as $dir => $path) {
-            $data[$dir] = Yaml::parse(file_get_contents($path . DS . $dir . '.info.yml'));
-        }
-        return $data;
-    }
+  public function __construct(ThemeRepository $themeRepository) {
+    $this->theme_repository = $themeRepository;
+  }
 
-    /**
-     *
-     * @param Theme $theme
-     * @return type array of a single component information
-     */
-    public function getThemeData($theme) {
-        return isset($this->getThemesData()[$theme]) ? $this->getThemesData()[$theme] : null;
+  /**
+   * gets the data of all components in one single array
+   * @return Array of components data
+   */
+  public function getThemesData() {
+    $data = [];
+    foreach ($this->theme_repository->getRepositories() as $dir => $path) {
+      $data[$dir] = Yaml::parse(file_get_contents($path . DS . $dir . '.info.yml'));
     }
+    return $data;
+  }
 
-    /**
-     * Get the current user active theme with its data
-     * @return array of active theme information
-     */
-    public function getActiveThemeData() {
-        return $this->getThemeData('system');
-    }
+  /**
+   *
+   * @param Theme $theme
+   * @return type array of a single component information
+   */
+  public function getThemeData($theme) {
+    return isset($this->getThemesData()[$theme]) ? $this->getThemesData()[$theme] : null;
+  }
 
-    public function getActiveTheme() {
-        $data = [];
-        $active = 'system';
-        foreach (static::getInstalledThemes() as $dir => $path) {
-            if ($dir === $active) {
-                $data[$dir] = $path;
-                break;
-            }
-        }
-        return $data;
+  /**
+   * Get the current user active theme with its data
+   * @return array of active theme information
+   */
+  public function getActiveThemeData() {
+    return $this->getThemeData('system');
+  }
+
+  /**
+   *
+   * @return array of path and name of the active theme
+   */
+  public function getActiveTheme() {
+    $data = [];
+    $active = 'system';
+    foreach ($this->theme_repository->getRepositories() as $dir => $path) {
+      if ($dir === $active) {
+        $data[$dir] = $path;
+        break;
+      }
     }
+    return $data;
+  }
+
+  public function getTheme($name) {
+
+  }
+
+  public function getName($theme) {
+
+  }
+
+  public function themeExists($theme): bool {
+
+  }
 
 }

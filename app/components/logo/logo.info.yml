@@ -3,6 +3,6 @@ description: "lorep isum freeme lorep isum freeme lorep isum
 freeme lorep isum freeme lorep isum freeme "
 icon: hello.png
 version: 1.2.3
-region:  footer
+region:  header
 dependency:
     - type guesser

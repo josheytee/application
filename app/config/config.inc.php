@@ -9,6 +9,7 @@ define('DOMAIN', SCHEME . 'application/');
 define('_ABSOLUTE_ROOT_DIR_', $root);
 define('_ROOT_DIR_', 'app/');
 define('_MODULES_DIR_', $root . '/modules');
+define('_COMPONENT_DIR_', $root . '/components');
 define('_ADMIN_DIR_', _ROOT_DIR_ . 'admin' . '/');
 define('_THEMES_DIR_', _ROOT_DIR_ . 'themes');
 define("_RESOURCE_DIR_", _ROOT_DIR_ . 'resource' . '/');

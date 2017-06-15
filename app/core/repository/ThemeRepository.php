@@ -9,4 +9,9 @@ namespace app\core\repository;
  */
 class ThemeRepository extends Repository {
 
+  public function __construct() {
+    $this->setDirectories([_THEMES_DIR_,]);
+    parent::__construct();
+  }
+
 }

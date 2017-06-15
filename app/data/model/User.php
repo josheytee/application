@@ -24,382 +24,382 @@ use model\Occupation;
  */
 class User {
 
-    /**
-     * @var int
-     *
-     * @Id
-     * @GeneratedValue
-     * @Column(type="integer")
-     */
-    public $id_user;
+  /**
+   * @var int
+   *
+   * @Id
+   * @GeneratedValue
+   * @Column(type="integer")
+   */
+  public $id_user;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string")
-     */
-    public $firstname;
+  /**
+   * @var string
+   *
+   * @Column(type="string")
+   */
+  public $firstname;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string")
-     */
-    public $lastname;
+  /**
+   * @var string
+   *
+   * @Column(type="string")
+   */
+  public $lastname;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string",unique=true,nullable=true)
-     */
-    public $username;
+  /**
+   * @var string
+   *
+   * @Column(type="string",unique=true,nullable=true)
+   */
+  public $username;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string")
-     */
-    public $password;
+  /**
+   * @var string
+   *
+   * @Column(type="string")
+   */
+  public $password;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string",nullable=true)
-     */
-    public $remember_token;
+  /**
+   * @var string
+   *
+   * @Column(type="string",nullable=true)
+   */
+  public $remember_token;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string")
-     */
-    public $email;
+  /**
+   * @var string
+   *
+   * @Column(type="string")
+   */
+  public $email;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string")
-     */
-    public $phone;
+  /**
+   * @var string
+   *
+   * @Column(type="string")
+   */
+  public $phone;
 
-    /**
-     * @var \DateTime
-     *
-     * @Column(type="datetime")
-     */
-    public $created;
+  /**
+   * @var \DateTime
+   *
+   * @Column(type="datetime")
+   */
+  public $created;
 
-    /**
-     * @var \DateTime
-     *
-     * @Column(type="datetime")
-     */
-    public $updated;
+  /**
+   * @var \DateTime
+   *
+   * @Column(type="datetime")
+   */
+  public $updated;
 
-    /**
-     * @var Occupation
-     *
-     * @OneToMany(targetEntity="Occupation", mappedBy="user", cascade={"persist","remove"},orphanRemoval=TRUE)
-     */
-    public $occupations;
+  /**
+   * @var Occupation
+   *
+   * @OneToMany(targetEntity="Occupation", mappedBy="user", cascade={"persist","remove"},orphanRemoval=TRUE)
+   */
+  public $occupations;
 
-    /**
-     * @var route[]
-     *
-     * @ManyToMany(targetEntity="Route", mappedBy="user")
-     */
-    protected $route;
+  /**
+   * @var route[]
+   *
+   * @ManyToMany(targetEntity="Route", mappedBy="user")
+   */
+  protected $route;
 
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->occupations = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+  /**
+   * Constructor
+   */
+  public function __construct() {
+    $this->occupations = new \Doctrine\Common\Collections\ArrayCollection();
+  }
 
-    /**
-     * Get idUser
-     *
-     * @return integer
-     */
-    public function getIdUser() {
-        return $this->id_user;
-    }
+  /**
+   * Get idUser
+   *
+   * @return integer
+   */
+  public function getIdUser() {
+    return $this->id_user;
+  }
 
-    /**
-     * Set firstname
-     *
-     * @param string $firstname
-     *
-     * @return User
-     */
-    public function setFirstname($firstname) {
-        $this->firstname = $firstname;
+  /**
+   * Set firstname
+   *
+   * @param string $firstname
+   *
+   * @return User
+   */
+  public function setFirstname($firstname) {
+    $this->firstname = $firstname;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get firstname
-     *
-     * @return string
-     */
-    public function getFirstname() {
-        return $this->firstname;
-    }
+  /**
+   * Get firstname
+   *
+   * @return string
+   */
+  public function getFirstname() {
+    return $this->firstname;
+  }
 
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     *
-     * @return User
-     */
-    public function setLastname($lastname) {
-        $this->lastname = $lastname;
+  /**
+   * Set lastname
+   *
+   * @param string $lastname
+   *
+   * @return User
+   */
+  public function setLastname($lastname) {
+    $this->lastname = $lastname;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname() {
-        return $this->lastname;
-    }
+  /**
+   * Get lastname
+   *
+   * @return string
+   */
+  public function getLastname() {
+    return $this->lastname;
+  }
 
-    /**
-     * Set username
-     *
-     * @param string $username
-     *
-     * @return User
-     */
-    public function setUsername($username) {
-        $this->username = $username;
+  /**
+   * Set username
+   *
+   * @param string $username
+   *
+   * @return User
+   */
+  public function setUsername($username) {
+    $this->username = $username;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get username
-     *
-     * @return string
-     */
-    public function getUsername() {
-        return $this->username;
-    }
+  /**
+   * Get username
+   *
+   * @return string
+   */
+  public function getUsername() {
+    return $this->username;
+  }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password) {
-        $this->password = $password;
+  /**
+   * Set password
+   *
+   * @param string $password
+   *
+   * @return User
+   */
+  public function setPassword($password) {
+    $this->password = $password;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword() {
-        return $this->password;
-    }
+  /**
+   * Get password
+   *
+   * @return string
+   */
+  public function getPassword() {
+    return $this->password;
+  }
 
-    /**
-     * Set rememberToken
-     *
-     * @param string $rememberToken
-     *
-     * @return User
-     */
-    public function setRememberToken($rememberToken) {
-        $this->remember_token = $rememberToken;
+  /**
+   * Set rememberToken
+   *
+   * @param string $rememberToken
+   *
+   * @return User
+   */
+  public function setRememberToken($rememberToken) {
+    $this->remember_token = $rememberToken;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get rememberToken
-     *
-     * @return string
-     */
-    public function getRememberToken() {
-        return $this->remember_token;
-    }
+  /**
+   * Get rememberToken
+   *
+   * @return string
+   */
+  public function getRememberToken() {
+    return $this->remember_token;
+  }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email) {
-        $this->email = $email;
+  /**
+   * Set email
+   *
+   * @param string $email
+   *
+   * @return User
+   */
+  public function setEmail($email) {
+    $this->email = $email;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail() {
-        return $this->email;
-    }
+  /**
+   * Get email
+   *
+   * @return string
+   */
+  public function getEmail() {
+    return $this->email;
+  }
 
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     *
-     * @return User
-     */
-    public function setPhone($phone) {
-        $this->phone = $phone;
+  /**
+   * Set phone
+   *
+   * @param string $phone
+   *
+   * @return User
+   */
+  public function setPhone($phone) {
+    $this->phone = $phone;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get phone
-     *
-     * @return string
-     */
-    public function getPhone() {
-        return $this->phone;
-    }
+  /**
+   * Get phone
+   *
+   * @return string
+   */
+  public function getPhone() {
+    return $this->phone;
+  }
 
-    /**
-     * Add occupation
-     *
-     * @param \Occupation $occupation
-     *
-     * @return User
-     */
-    public function addOccupation(Occupation $occupation) {
+  /**
+   * Add occupation
+   *
+   * @param \Occupation $occupation
+   *
+   * @return User
+   */
+  public function addOccupation(Occupation $occupation) {
 //        $this->occupations[] = $occupation;
-        if (!$this->occupations->contains($occupation)) {
-            $this->occupations->add($occupation);
-            $occupation->setUser($this);
-        }
-        return $this;
+    if (!$this->occupations->contains($occupation)) {
+      $this->occupations->add($occupation);
+      $occupation->setUser($this);
     }
+    return $this;
+  }
 
-    /**
-     * Remove occupation
-     *
-     * @param \Occupation $occupation
-     */
-    public function removeOccupation(\Occupation $occupation) {
+  /**
+   * Remove occupation
+   *
+   * @param \Occupation $occupation
+   */
+  public function removeOccupation(Occupation $occupation) {
 //        $this->occupations->removeElement($occupation);
-        if (!$this->occupations->contains($occupation)) {
-            $this->occupations->removeElement($occupation);
-            $occupation->setUser(null);
-        }
-        return $this;
+    if (!$this->occupations->contains($occupation)) {
+      $this->occupations->removeElement($occupation);
+      $occupation->setUser(null);
     }
+    return $this;
+  }
 
-    public function getShops() {
-        return array_map(
-                function ($occupation) {
-            return $occupation->getCompany();
-        }, $this->occupations->toArray()
-        );
-    }
+  public function getShops() {
+    return array_map(
+            function ($occupation) {
+      return $occupation->getCompany();
+    }, $this->occupations->toArray()
+    );
+  }
 
-    /**
-     * Get occupations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getOccupations() {
-        return $this->occupations;
-    }
+  /**
+   * Get occupations
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getOccupations() {
+    return $this->occupations;
+  }
 
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return User
-     */
-    public function setCreated($created) {
-        $this->created = $created;
+  /**
+   * Set created
+   *
+   * @param \DateTime $created
+   *
+   * @return User
+   */
+  public function setCreated($created) {
+    $this->created = $created;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated() {
-        return $this->created;
-    }
+  /**
+   * Get created
+   *
+   * @return \DateTime
+   */
+  public function getCreated() {
+    return $this->created;
+  }
 
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return User
-     */
-    public function setUpdated($updated) {
-        $this->updated = $updated;
+  /**
+   * Set updated
+   *
+   * @param \DateTime $updated
+   *
+   * @return User
+   */
+  public function setUpdated($updated) {
+    $this->updated = $updated;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated() {
-        return $this->updated;
-    }
+  /**
+   * Get updated
+   *
+   * @return \DateTime
+   */
+  public function getUpdated() {
+    return $this->updated;
+  }
 
-    /**
-     * Add route
-     *
-     * @param \model\Route $route
-     *
-     * @return User
-     */
-    public function addRoute(\model\Route $route) {
-        $this->route[] = $route;
+  /**
+   * Add route
+   *
+   * @param \model\Route $route
+   *
+   * @return User
+   */
+  public function addRoute(\model\Route $route) {
+    $this->route[] = $route;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Remove route
-     *
-     * @param \model\Route $route
-     */
-    public function removeRoute(\model\Route $route) {
-        $this->route->removeElement($route);
-    }
+  /**
+   * Remove route
+   *
+   * @param \model\Route $route
+   */
+  public function removeRoute(\model\Route $route) {
+    $this->route->removeElement($route);
+  }
 
-    /**
-     * Get route
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRoute() {
-        return $this->route;
-    }
+  /**
+   * Get route
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getRoute() {
+    return $this->route;
+  }
 
 }

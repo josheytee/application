@@ -12,5 +12,5 @@ interface RepositoryInterface {
      * Scans the repository using regex if provider
      * @param type $reg
      */
-    public function scan($dir = null, $reg = null);
+    public function scan();
 }

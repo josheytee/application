@@ -1,3 +1,7 @@
+user.authorize:
+  path: '/authorize'
+  defaults:
+    _controller: ''
 user.register:
   path: '/user/register'
   defaults:
