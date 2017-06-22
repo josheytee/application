@@ -2,7 +2,6 @@
 
 namespace app\core\template;
 
-use app\core\theme\ThemeManager;
 use app\core\Context;
 use app\core\http\Response;
 
