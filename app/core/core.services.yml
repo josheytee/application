@@ -32,6 +32,8 @@ services:
   event_dispatcher:
     class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
     arguments: ['@service_container']
+  argument_resolver:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver
   controller_resolver:
     class: app\core\controller\ControllerResolver
     arguments: ['@class_resolver']
@@ -45,7 +47,7 @@ services:
     - { name: persist }
   http_kernel:
     class: Symfony\Component\HttpKernel\HttpKernel
-    arguments: ['@event_dispatcher', '@controller_resolver', '@request_stack']
+    arguments: ['@event_dispatcher', '@controller_resolver', '@request_stack','@argument_resolver']
 
   module.repository:
     class: app\core\repository\ModuleRepository
@@ -65,3 +67,28 @@ services:
   view.manager:
     class: app\core\view\ViewManager
     arguments: ['@template.engine','@theme.manager']
+  testing:
+    class: app\core\event\subscriber\TestSubscriber
+    tags:
+      - { name: event_subscriber }
+
+#  route_resolver:
+#    class: app\core\controller\argument\resolver\RouteResolver
+#    tags:
+#      - { name : argument.value_resolver}
+  default.value_resolver:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver
+    tags:
+      - { name : argument.value_resolver}
+  request.value_resolver:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver
+    tags:
+      - { name : argument.value_resolver}
+  request_attribute.value_resolver:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver
+    tags:
+      - { name : argument.value_resolver}
+  variadic.value_resolver:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver
+    tags:
+      - { name : argument.value_resolver}

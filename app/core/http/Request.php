@@ -93,6 +93,16 @@ class Request extends BaseRequest {
     return $this->getMethod() == 'GET' ? $this->query : $this->request;
   }
 
+  /**
+   * Check if an input element is set on the request.
+   *
+   * @param  string  $key
+   * @return bool
+   */
+  public function __isset($key) {
+    return !is_null($this->__get($key));
+  }
+
   public function __get($key) {
     $all = $this->all();
 

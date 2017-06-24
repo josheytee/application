@@ -59,7 +59,6 @@ class App implements AppInterface, TerminableInterface {
     $this->initializeRequest($request);
     try {
       $response = $this->getHttpKernel()->handle($request, $type, $catch);
-      $response = new template\skeleton\TemplateSkeleton($response->getContent(), 200);
     } catch (ResourceNotFoundException $e) {
       echo $e->getMessage();
       return new Response('Not Found', 404);
@@ -204,11 +203,23 @@ class App implements AppInterface, TerminableInterface {
     $container->register('service_container', 'Symfony\Component\DependencyInjection\ContainerInterface')->setSynthetic(TRUE);
 
     $loader->load('core.services.yml');
-
+    $this->loadModuleServices($loader);
+    $this->registerPass($container);
     $container->compile();
 //        var_dump($container);
     Context::setContainer($container);
     return $container;
+  }
+
+  public function loadModuleServices(&$loader) {
+    foreach ((new ModuleRepository())->getServices() as $service => $path) {
+      $loader->load($path);
+    }
+  }
+
+  public function registerPass(&$container) {
+    $container->addCompilerPass(new dependencyInjection\compiler\RegisterEventSubscribersPass());
+    $container->addCompilerPass(new dependencyInjection\compiler\ArgumentResolverPass());
   }
 
   /**
