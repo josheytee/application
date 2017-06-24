@@ -6,6 +6,9 @@ use app\core\html\form\elements;
 use app\core\html\form\FormBuilderInterface;
 use app\core\dependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use app\core\html\form\elements\Select;
+use app\core\http\Request;
+use app\core\Context;
 
 /**
  * Description of FormBuilder
@@ -22,12 +25,16 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
   protected $attributes;
   protected $method = 'POST';
 
-  abstract public function formID();
-
   public static function inject(ContainerInterface $container) {
     return new static();
   }
 
+  /**
+   * adds label for a element with the same name
+   * @param type $for
+   * @param type $value
+   * @return type
+   */
   public function label($for, $value = '') {
     $this->labels[$for] = 'id_' . $for;
     return $this->elements[md5($for)] = $this->element('label', $for, $value);
@@ -76,8 +83,8 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
     return $this->elements[$name] = $this->element('checkbox', $name, $value, $attributes);
   }
 
-  public function select($name, $value = '', $attributes = []) {
-    return $this->elements[$name] = $this->element('select', $name, $value, $attributes);
+  public function select($name, $value = '', $default = null, $attributes = []) {
+    return $this->elements[$name] = new Select($name, $value, $default, $attributes);
   }
 
   public function block($attributes = [], ...$elements) {
@@ -86,7 +93,6 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
     $block = new elements\Block($name, $attributes);
     if (isset($elements)) {
       $block->addElements($elements);
-      var_dump($elements);
       foreach ($elements as $element) {
         if (is_array($element)) {
           unset($element);
@@ -125,13 +131,18 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
                     ], 'form/form.tpl');
   }
 
-  public function create() {
+  public function create(Request $request) {
+    $this->process($request);
     $this->build();
     return $this->render();
   }
 
   public function getMethod() {
     return $this->method;
+  }
+
+  protected function getContainer() {
+    return Context::getContainer();
   }
 
 }

@@ -31,13 +31,9 @@ abstract class InputElement extends FormElement {
       $this->id = lcfirst($this->name);
     }
     if (!array_key_exists('placehoder', $this->getAttributes())) {
-      $this->addAtribute('placeholder', ucwords($this->name));
+      $this->addAtribute('placeholder', $this->toCamelCase($this->name));
     }
     $this->normalize();
-//    $attributes = $this->processArray(
-//                    ['name' => $this->name,
-//                        'id' => $this->id])
-//            . $this->processAttribute();
     return['value' => $this->value, 'attributes' => $this->processAttribute()];
   }
 

@@ -13,6 +13,7 @@ abstract class FormElement implements ElementInterface {
 
   use \app\core\template\Displayable;
   use \app\core\utility\ArrayHelper;
+  use \app\core\utility\StringHelper;
 
   protected $name;
   protected $class = [];
@@ -68,6 +69,7 @@ abstract class FormElement implements ElementInterface {
   }
 
   public function render() {
+    $this->normalize();
     return $this->display($this->compact(), 'form/' . $this->getTemplate());
   }
 

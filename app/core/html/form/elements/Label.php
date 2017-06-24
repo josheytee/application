@@ -22,7 +22,7 @@ class Label extends FormElement {
 
   public function initialize() {
     if (empty($this->value)) {
-      $this->value = ucwords($this->for);
+      $this->value = $this->toCamelCase($this->for, true);
     }
     //used by form build to remove element after added to a block
     $this->name = md5($this->for);
