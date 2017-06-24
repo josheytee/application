@@ -55,7 +55,14 @@ class Product {
   /**
    * @var string
    *
-   * @Column(type="text")
+   * @Column(type="text",length=320)
+   */
+  public $short_description;
+
+  /**
+   * @var string
+   *
+   * @Column(type="text", length=700)
    */
   public $description;
 
@@ -415,6 +422,28 @@ class Product {
    */
   public function getType() {
     return $this->type;
+  }
+
+  /**
+   * Set shortDescription
+   *
+   * @param string $shortDescription
+   *
+   * @return Product
+   */
+  public function setShortDescription($shortDescription) {
+    $this->short_description = $shortDescription;
+
+    return $this;
+  }
+
+  /**
+   * Get shortDescription
+   *
+   * @return string
+   */
+  public function getShortDescription() {
+    return $this->short_description;
   }
 
 }

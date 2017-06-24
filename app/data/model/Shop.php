@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
  *
  * @Entity(repositoryClass="ShopRepository")
  * @Table(indexes={
- * @Index(name="category_url_idx",  columns={"id_category","url"})
+ * @Index(name="activity_url_idx",  columns={"id_activity","url"})
  * })
  */
 class Shop {
@@ -35,10 +35,10 @@ class Shop {
   public $id_shop;
 
   /**
-   * @OneToOne(targetEntity="Category")
-   * @JoinColumn(name="id_category",referencedColumnName="id_category")
+   * @OneToOne(targetEntity="Activity")
+   * @JoinColumn(name="id_activity",referencedColumnName="id_activity")
    */
-  public $category;
+  public $activity;
 
   /**
    * @var string
@@ -50,7 +50,7 @@ class Shop {
   /**
    * @var string
    *
-   * @Column(type="string",unique=true)
+   * @Column(type="text",length=320)
    */
   public $description;
 
@@ -164,28 +164,6 @@ class Shop {
   }
 
   /**
-   * Set idCategory
-   *
-   * @param \Category $idCategory
-   *
-   * @return Shop
-   */
-  public function setIdCategory(Category $idCategory = null) {
-    $this->id_category = $idCategory;
-
-    return $this;
-  }
-
-  /**
-   * Get idCategory
-   *
-   * @return \Category
-   */
-  public function getIdCategory() {
-    return $this->id_category;
-  }
-
-  /**
    * Add occupation
    *
    * @param \Occupation $occupation
@@ -287,25 +265,25 @@ class Shop {
   }
 
   /**
-   * Set category
+   * Set activity
    *
-   * @param \model\Category $category
+   * @param \model\Activity $activity
    *
    * @return Shop
    */
-  public function setCategory(\model\Category $category = null) {
-    $this->category = $category;
+  public function setActivity(\model\Activity $activity = null) {
+    $this->activity = $activity;
 
     return $this;
   }
 
   /**
-   * Get category
+   * Get activity
    *
-   * @return \model\Category
+   * @return \model\Activity
    */
-  public function getCategory() {
-    return $this->category;
+  public function getActivity() {
+    return $this->activity;
   }
 
 }

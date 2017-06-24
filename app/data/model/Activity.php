@@ -7,17 +7,16 @@ use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\OneToOne;
 
 /**
- * Section entity
+ * Category entity
  *
- * @Entity(repositoryClass="SectionRepository")
+ * @Entity(repositoryClass="ActivityRepository")
  * @Table(indexes={
- * @Index(name="section_url_idx",  columns={"id_section","url"})
+ * @Index(name="id_activity_url_idx",  columns={"id_activity","url"})
  * })
  */
-class Section {
+class Activity {
 
   /**
    * @var int
@@ -26,19 +25,7 @@ class Section {
    * @GeneratedValue
    * @Column(type="integer")
    */
-  public $id_section;
-
-  /**
-   * @OneToOne(targetEntity="Section")
-   * @JoinColumn(name="id_section",referencedColumnName="id_section")
-   */
-  public $parent;
-
-  /**
-   * @OneToOne(targetEntity="Shop")
-   * @JoinColumn(name="id_shop",referencedColumnName="id_shop")
-   */
-  public $shop;
+  public $id_activity;
 
   /**
    * @var string
@@ -50,7 +37,7 @@ class Section {
   /**
    * @var string
    *
-   * @Column(type="string")
+   * @Column(type="text", length=320)
    */
   public $description;
 
@@ -60,6 +47,13 @@ class Section {
    * @Column(type="string")
    */
   public $url;
+
+  /**
+   * @var string
+   *
+   * @Column(type="string")
+   */
+  public $icon;
 
   /**
    * @var \DateTime
@@ -76,20 +70,11 @@ class Section {
   public $updated;
 
   /**
-   * Get idSection
-   *
-   * @return integer
-   */
-  public function getIdSection() {
-    return $this->id_section;
-  }
-
-  /**
    * Set name
    *
    * @param string $name
    *
-   * @return Section
+   * @return Activity
    */
   public function setName($name) {
     $this->name = $name;
@@ -111,7 +96,7 @@ class Section {
    *
    * @param string $description
    *
-   * @return Section
+   * @return Activity
    */
   public function setDescription($description) {
     $this->description = $description;
@@ -133,7 +118,7 @@ class Section {
    *
    * @param string $url
    *
-   * @return Section
+   * @return Activity
    */
   public function setUrl($url) {
     $this->url = $url;
@@ -151,11 +136,33 @@ class Section {
   }
 
   /**
+   * Set icon
+   *
+   * @param string $icon
+   *
+   * @return Activity
+   */
+  public function setIcon($icon) {
+    $this->icon = $icon;
+
+    return $this;
+  }
+
+  /**
+   * Get icon
+   *
+   * @return string
+   */
+  public function getIcon() {
+    return $this->icon;
+  }
+
+  /**
    * Set created
    *
    * @param \DateTime $created
    *
-   * @return Section
+   * @return Activity
    */
   public function setCreated($created) {
     $this->created = $created;
@@ -177,7 +184,7 @@ class Section {
    *
    * @param \DateTime $updated
    *
-   * @return Section
+   * @return Activity
    */
   public function setUpdated($updated) {
     $this->updated = $updated;
@@ -195,47 +202,12 @@ class Section {
   }
 
   /**
-   * Set parent
+   * Get idActivity
    *
-   * @param \model\Section $parent
-   *
-   * @return Section
+   * @return integer
    */
-  public function setParent(\model\Section $parent = null) {
-    $this->parent = $parent;
-
-    return $this;
-  }
-
-  /**
-   * Get parent
-   *
-   * @return \model\Section
-   */
-  public function getParent() {
-    return $this->parent;
-  }
-
-  /**
-   * Set shop
-   *
-   * @param \model\Shop $shop
-   *
-   * @return Section
-   */
-  public function setShop(\model\Shop $shop = null) {
-    $this->shop = $shop;
-
-    return $this;
-  }
-
-  /**
-   * Get shop
-   *
-   * @return \model\Shop
-   */
-  public function getShop() {
-    return $this->shop;
+  public function getIdActivity() {
+    return $this->id_activity;
   }
 
 }
