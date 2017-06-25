@@ -1,19 +1,19 @@
 <?php
 
-namespace app\core\html\form\elements;
+namespace app\core\view\form\elements;
 
-use app\core\html\form\InputElement;
+use app\core\view\form\InputElement;
 
 /**
- * Description of Reset
+ * Description of Text
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Reset extends InputElement {
+class Text extends InputElement {
 
   public function __construct($name, $value = null, $attribute = null) {
     parent::__construct($name, $value, $attribute);
-    $this->addAtribute('type', 'reset');
+    $this->addAtribute('type', 'text');
   }
 
 }

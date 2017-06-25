@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core\html\form;
+namespace app\core\view\form;
 
-use app\core\html\form\FormElement;
+use app\core\view\form\FormElement;
 
 /**
  * Description of InputElement

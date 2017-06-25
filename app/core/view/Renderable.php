@@ -10,7 +10,8 @@ interface Renderable {
 
   /**
    * renders template object
-   * @return String
+   * @return \String
    */
-  public function render($template, $data = null);
+//  public function render($template, $data = null);
+  public function render();
 }

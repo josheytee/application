@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core\html\form\elements;
+namespace app\core\view\form\elements;
 
-use app\core\html\form\elements\Option;
+use app\core\view\form\elements\Option;
 
 /**
  * Description of PHPClass

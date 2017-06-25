@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core\html\form;
+namespace app\core\view\form;
 
-use app\core\html\form\ElementInterface;
+use app\core\view\form\ElementInterface;
 
 /**
  * Description of ElementBase

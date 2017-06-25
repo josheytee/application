@@ -1,12 +1,12 @@
 <?php
 
-namespace app\core\html\form;
+namespace app\core\view\form;
 
-use app\core\html\form\elements;
-use app\core\html\form\FormBuilderInterface;
+use app\core\view\form\elements;
+use app\core\view\form\FormBuilderInterface;
 use app\core\dependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use app\core\html\form\elements\Select;
+use app\core\view\form\elements\Select;
 use app\core\http\Request;
 use app\core\Context;
 
@@ -106,7 +106,7 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
 
   private function element($type, $name, $value = '', $attributes = []) {
     $type = \ucfirst($type);
-    $el_class = "app\\core\\html\\form\\elements\\{$type}";
+    $el_class = "app\\core\\view\\form\\elements\\{$type}";
     return new $el_class($name, $value, $attributes);
   }
 

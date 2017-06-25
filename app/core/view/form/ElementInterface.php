@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core\html\form;
+namespace app\core\view\form;
 
 /**
  *

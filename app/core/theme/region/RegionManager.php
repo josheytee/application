@@ -1,10 +1,9 @@
 <?php
 
-namespace app\core\template\skeleton;
+namespace app\core\theme\region;
 
 use app\core\component\Component;
-use app\core\theme\ThemeManager;
-use app\core\template\skeleton\RegionInterface;
+use app\core\theme\region\RegionManagerInterface;
 use app\core\Context;
 
 /**
@@ -12,7 +11,7 @@ use app\core\Context;
  *
  * @author adapter
  */
-class Region implements RegionInterface {
+class RegionManager implements RegionManagerInterface {
 
   use \app\core\template\Displayable;
 

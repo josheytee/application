@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core\html\form\elements;
+namespace app\core\view\form\elements;
 
-//use app\core\html\form\elements\OptionGroup;
+//use app\core\view\form\elements\OptionGroup;
 
 /**
  * Description of Option
