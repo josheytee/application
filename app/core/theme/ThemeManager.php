@@ -5,6 +5,11 @@ namespace app\core\theme;
 use Symfony\Component\Yaml\Yaml;
 use app\core\theme\ThemeManagerInterface;
 use app\core\repository\ThemeRepository;
+use app\core\theme\ActiveTheme;
+use app\core\config\ConfigManager;
+use app\core\Context;
+use app\core\theme\ActiveThemeResolverInterface;
+use app\core\routing\RouteMatchInterface;
 
 /**
  * Description of ThemeProvider
@@ -13,10 +18,51 @@ use app\core\repository\ThemeRepository;
  */
 class ThemeManager implements ThemeManagerInterface {
 
-  protected $theme_repository;
+  /**
+   * @var ActiveThemeResolverInterface
+   */
+  private $theme_resolver;
 
-  public function __construct(ThemeRepository $themeRepository) {
+  /**
+   * @var ConfigManager
+   */
+  private $config;
+  protected $theme_repository;
+  private $active_theme;
+
+  public function __construct(ThemeRepository $themeRepository, ActiveThemeResolverInterface $theme_resolver, ConfigManager $config = null) {
     $this->theme_repository = $themeRepository;
+    $this->config = $config;
+    $this->theme_resolver = $theme_resolver;
+  }
+
+  /**
+   * Initializes the active theme for a given route match.
+   *
+   * @param \app\core\routing\RouteMatchInterface $route_match
+   *   The current route match.
+   */
+  protected function initTheme(RouteMatchInterface $route_match = NULL) {
+    // Determine the active theme for the theme negotiator service. This includes
+    // the default theme as well as really specific ones like the ajax base theme.
+    if (!$route_match) {
+      $route_match = Context::routeMatch();
+    }
+//    if ($route_match instanceof StackedRouteMatchInterface) {
+//      $route_match = $route_match->getMasterRouteMatch();
+//    }
+    $theme = $this->theme_resolver->resolveActiveTheme($route_match);
+    $this->active_theme = $this->loadTheme($theme);
+  }
+
+  public function loadTheme($theme) {
+    $theme_data = $this->getThemeData($theme)['info'];
+    $value = ['name' => $theme_data['name'],
+        'regions' => $theme_data['regions'],
+        'libraries' => $theme_data['libraries'],
+        'path' => $this->getThemeData($theme)['path']
+    ];
+    return new ActiveTheme($value);
   }
 
   /**
@@ -26,7 +72,7 @@ class ThemeManager implements ThemeManagerInterface {
   public function getThemesData() {
     $data = [];
     foreach ($this->theme_repository->getRepositories() as $dir => $path) {
-      $data[$dir] = Yaml::parse(file_get_contents($path . DS . $dir . '.info.yml'));
+      $data[$dir] = ['info' => Yaml::parse(file_get_contents($path . DS . $dir . '.info.yml')), 'path' => $path];
     }
     return $data;
   }
@@ -41,27 +87,18 @@ class ThemeManager implements ThemeManagerInterface {
   }
 
   /**
-   * Get the current user active theme with its data
-   * @return array of active theme information
+   *
+   * @return ActiveTheme
    */
-  public function getActiveThemeData() {
-    return $this->getThemeData('system');
+  public function getActiveTheme(RouteMatchInterface $route_match = NULL) {
+    if (!isset($this->active_theme)) {
+      $this->initTheme($route_match);
+    }
+    return $this->active_theme;
   }
 
-  /**
-   *
-   * @return array of path and name of the active theme
-   */
-  public function getActiveTheme() {
-    $data = [];
-    $active = 'system';
-    foreach ($this->theme_repository->getRepositories() as $dir => $path) {
-      if ($dir === $active) {
-        $data[$dir] = $path;
-        break;
-      }
-    }
-    return $data;
+  public function render() {
+
   }
 
   public function getTheme($name) {
