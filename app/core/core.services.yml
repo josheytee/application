@@ -29,53 +29,132 @@ services:
     calls:
       - [init, []]
 
-  event_dispatcher:
+#symfony classes
+  event.dispatcher:
     class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
     arguments: ['@service_container']
   argument_resolver:
     class: Symfony\Component\HttpKernel\Controller\ArgumentResolver
-  controller_resolver:
-    class: app\core\controller\ControllerResolver
-    arguments: ['@class_resolver']
-  class_resolver:
-    class: app\core\dependencyInjection\ClassResolver
-    calls:
-      - [setContainer, ['@service_container']]
   request_stack:
     class: Symfony\Component\HttpFoundation\RequestStack
     tags:
     - { name: persist }
   http_kernel:
     class: Symfony\Component\HttpKernel\HttpKernel
-    arguments: ['@event_dispatcher', '@controller_resolver', '@request_stack','@argument_resolver']
+    arguments: ['@event.dispatcher', '@controller_resolver', '@request_stack','@argument_resolver']
+  request.context:
+    class: Symfony\Component\Routing\RequestContext
 
+  class.resolver:
+    class: app\core\dependencyInjection\ClassResolver
+    calls:
+      - [setContainer, ['@service_container']]
+  controller_resolver:
+    class: app\core\controller\ControllerResolver
+    arguments: ['@class.resolver']
   module.repository:
     class: app\core\repository\ModuleRepository
   component.repository:
     class: app\core\repository\ComponentRepository
     arguments: ['@module.repository']
+  component.initializer:
+    class: app\core\component\ComponentInitializer
+    arguments: ['@class.resolver','@component.repository']
+  context.admin:
+    class: app\core\routing\AdminContext
+    arguments: ['@current.route.match']
+  url.matcher:
+    class:  app\core\routing\UrlMatcher
+  route.match:
+    class: app\core\routing\RouteMatch
+    arguments: ['@route.manager']
+  current.route.match:
+    class: app\core\routing\CurrentRouteMatch
+    arguments: ['@request_stack']
+  router.routes:
+    class: app\core\routing\RouteManager
+    arguments: ['@module.repository']
+  url.generator:
+    class: app\core\routing\UrlGenerator
+    arguments: ['@router.provider','@request.context']
+  router.provider:
+    class: app\core\routing\RouteProvider
+    arguments: ['@entity.manager']
+  router.dumper:
+    class: app\core\routing\Dumper
+    arguments: ['@entity.manager']
+  router.builder:
+    class: app\core\routing\RouteBuilder
+    arguments: ['@module.manager','@router.dumper','@event.dispatcher']
+  router.access:
+    class: app\core\routing\AccessAwareRouter
+    arguments: ['@router.no_access_checks']
+#    arguments: ['@router.no_access_checks', '@access_manager', '@current_user']
+  router.matcher:
+    class: \Symfony\Cmf\Component\Routing\NestedMatcher\NestedMatcher
+    arguments: ['@router.provider','@url.matcher']
+  router.dynamic:
+    class: Symfony\Cmf\Component\Routing\DynamicRouter
+    arguments: ['@request.context', '@router.matcher', '@url.generator']
+    tags:
+      - { name: service_collector, tag: non_lazy_route_enhancer, call: addRouteEnhancer }
+  router.no_access_checks:
+    class: Symfony\Cmf\Component\Routing\ChainRouter
+    calls:
+      - [setContext, ['@request.context']]
+      - [add, ['@router.dynamic']]
+  template.engine:
+    class: app\core\template\SmartyTemplateEngine
+#    handlers
+  theme.handler:
+    class: app\core\theme\ThemeHandler
+#    managers
   component.manager:
     class: app\core\component\ComponentManager
-    arguments: ['@component.repository']
+    arguments: ['@component.initializer','@theme.manager']
   theme.repository:
     class: app\core\repository\ThemeRepository
   theme.manager:
     class: app\core\theme\ThemeManager
-    arguments: ['@theme.repository']
-  template.engine:
-    class: app\core\template\SmartyTemplateEngine
+    arguments: ['@theme.repository','@active.theme.resolver']
   view.manager:
     class: app\core\view\ViewManager
     arguments: ['@template.engine','@theme.manager']
-  testing:
-    class: app\core\event\subscriber\TestSubscriber
+  cache.manager:
+    class: app\core\cache\CacheManager
+  route.manager:
+    class: app\core\routing\RouteManager
+    arguments: ['@module.repository']
+  link.manager:
+    class: app\core\view\link\LinkManager
+    arguments: ['@route.manager','@cache.manager']
+  block.manager:
+    class: app\core\view\block\BlockManager
+    arguments: ['@theme.manager','@component.manager']
+  module.manager:
+    class: app\core\module\ModuleManager
+    arguments: ['@module.repository']
+
+#    subscribers
+  response.handler:
+    class: app\core\event\subscriber\DefaultResponseHandlerSubscriber
+    arguments: ['@block.manager','@current.route.match']
+    tags:
+      - { name: event_subscriber }
+  router.handler:
+    class: Symfony\Component\HttpKernel\EventListener\RouterListener
+    arguments: ['@router.no_access_checks', '@request_stack', '@request.context', NULL]
     tags:
       - { name: event_subscriber }
 
-#  route_resolver:
-#    class: app\core\controller\argument\resolver\RouteResolver
-#    tags:
-#      - { name : argument.value_resolver}
+  active.theme.resolver:
+    class: app\core\theme\ActiveThemeResolver
+  front.theme.resolver:
+    class: app\core\theme\DefaultThemeResolver
+    tags:
+      - { name: 'theme_resolver' ,priority: 20}
+
+#   core argument resolvers
   default.value_resolver:
     class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver
     tags:
@@ -90,5 +169,9 @@ services:
       - { name : argument.value_resolver}
   variadic.value_resolver:
     class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver
+    tags:
+      - { name : argument.value_resolver}
+  route_match.value_resolver:
+    class: app\core\controller\argument\resolver\RouteMatchResolver
     tags:
       - { name : argument.value_resolver}

@@ -1,0 +1,8 @@
+home.index:
+  path: '/'
+  defaults:
+    name: ~
+    _title: 'Amin | Product'
+    _controller: 'ntc\home\controller\HomeController::index'
+  requirements:
+    _permission: 'administer actions'

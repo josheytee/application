@@ -13,7 +13,7 @@ use app\core\Context;
  */
 abstract class Component {
 
-  use \app\core\template\Displayable;
+  use \app\core\view\Renderabletrait;
 
   public $name;
   public $description;
@@ -21,13 +21,8 @@ abstract class Component {
   public $version;
   public $region;
   public $dependency = [];
-  //component manager
-  protected $component_manager;
 
-  function __construct(ComponentManager $componentManager) {
-    $this->component_manager = $componentManager;
-    $details = Context::componentManager()
-            ->getComponentData(lcfirst(get_class($this)));
+  function __construct($details) {
     $details += [
         'name' => '',
         'description' => '',
@@ -86,7 +81,7 @@ abstract class Component {
   public function renderComponent() {
     $this->init();
     $this->postProcess();
-    return $this->display(['component' => $this->render()], 'layout/component.tpl');
+    return $this->rendertrait(['component' => $this->render()], 'layout/component.tpl');
   }
 
   protected function getContainer() {

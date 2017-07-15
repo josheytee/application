@@ -2,145 +2,177 @@
 
 namespace model;
 
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
+
 /**
- * Description of Router
- * @Entity
- * @author adapter
+ * Description of Route
+ * @Entity(repositoryClass="RouterRepository")
+ *
  */
 class Router {
 
-    /**
-     * @var int
-     *
-     * @Id
-     * @GeneratedValue
-     * @Column(type="integer")
-     */
-    public $id_route;
+  /**
+   * @var int
+   *
+   * @Id
+   * @GeneratedValue
+   * @Column(type="integer")
+   */
+  public $id_route;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string")
-     */
-    public $name;
+  /**
+   * @var string
+   *
+   * @Column(type="string")
+   */
+  public $name;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string")
-     */
-    public $url;
+  /**
+   * @var string
+   *
+   * @Column(type="object")
+   */
+  public $route;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string")
-     */
-    public $state;
+  /**
+   * @var string
+   *
+   * @Column(type="string")
+   */
+  public $params;
 
-    /**
-     * @var string
-     *
-     * @Column(type="string")
-     */
-    public $params;
+  /**
+   * @var user[]
+   *
+   * @ManyToMany(targetEntity="User", inversedBy="route",
+   * fetch="EAGER", cascade={"persist"}, orphanRemoval=true)
+   * @JoinTable(
+   * name="user_route",
+   * inverseJoinColumns={@JoinColumn(name="id_user",
+   * referencedColumnName="id_user")},
+   * joinColumns={@JoinColumn(name="id_route",
+   * referencedColumnName="id_route")}
+   * )
+   */
+  protected $user;
 
-    /**
-     * Get idRoute
-     *
-     * @return integer
-     */
-    public function getIdRoute() {
-        return $this->id_route;
-    }
+  /**
+   * Constructor
+   */
+  public function __construct() {
+    $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+  }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Route
-     */
-    public function setName($name) {
-        $this->name = $name;
+  /**
+   * Get idRoute
+   *
+   * @return integer
+   */
+  public function getIdRoute() {
+    return $this->id_route;
+  }
 
-        return $this;
-    }
+  /**
+   * Set name
+   *
+   * @param string $name
+   *
+   * @return Router
+   */
+  public function setName($name) {
+    $this->name = $name;
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
+    return $this;
+  }
 
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Route
-     */
-    public function setUrl($url) {
-        $this->url = $url;
+  /**
+   * Get name
+   *
+   * @return string
+   */
+  public function getName() {
+    return $this->name;
+  }
 
-        return $this;
-    }
+  /**
+   * Set path
+   *
+   * @param string $path
+   *
+   * @return Router
+   */
+  public function setPath($path) {
+    $this->path = $path;
 
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl() {
-        return $this->url;
-    }
+    return $this;
+  }
 
-    /**
-     * Set state
-     *
-     * @param string $state
-     *
-     * @return Route
-     */
-    public function setState($state) {
-        $this->state = $state;
+  /**
+   * Get path
+   *
+   * @return string
+   */
+  public function getPath() {
+    return $this->path;
+  }
 
-        return $this;
-    }
+  /**
+   * Set route
+   *
+   * @param string $route
+   *
+   * @return Router
+   */
+  public function setRoute($route) {
+    $this->route = $route;
 
-    /**
-     * Get state
-     *
-     * @return string
-     */
-    public function getState() {
-        return $this->state;
-    }
+    return $this;
+  }
 
-    /**
-     * Set params
-     *
-     * @param string $params
-     *
-     * @return Route
-     */
-    public function setParams($params) {
-        $this->params = $params;
+  /**
+   * Get route
+   *
+   * @return string
+   */
+  public function getRoute() {
+    return $this->route;
+  }
 
-        return $this;
-    }
+  /**
+   * Add user
+   *
+   * @param \model\User $user
+   *
+   * @return Router
+   */
+  public function addUser(\model\User $user) {
+    $this->user[] = $user;
 
-    /**
-     * Get params
-     *
-     * @return string
-     */
-    public function getParams() {
-        return $this->params;
-    }
+    return $this;
+  }
+
+  /**
+   * Remove user
+   *
+   * @param \model\User $user
+   */
+  public function removeUser(\model\User $user) {
+    $this->user->removeElement($user);
+  }
+
+  /**
+   * Get user
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getUser() {
+    return $this->user;
+  }
 
 }

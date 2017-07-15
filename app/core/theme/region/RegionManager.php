@@ -14,6 +14,7 @@ use app\core\Context;
 class RegionManager implements RegionManagerInterface {
 
   use \app\core\template\Displayable;
+  use \app\core\utility\ArrayHelper;
 
   protected $name;
   protected $content;
@@ -24,6 +25,7 @@ class RegionManager implements RegionManagerInterface {
   protected $template = 'layout/region.tpl';
   protected $theme_manager;
   protected $component_manager;
+  protected $tag = 'div';
 
   public function __construct($name) {
     $this->name = $name;

@@ -1,15 +1,13 @@
 <?php
 
+namespace ntc\logo;
+
 use app\core\component\Component;
 
 class Logo extends Component {
 
-    function __construct() {
-
-    }
-
-    public function render() {
-        return "hello from my Logo component";
-    }
+  public function render() {
+    return "hello from my Logo component";
+  }
 
 }

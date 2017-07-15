@@ -16,13 +16,13 @@ class RegisterEventSubscribersPass implements CompilerPassInterface {
    * {@inheritdoc}
    */
   public function process(ContainerBuilder $container) {
-    if (!$container->hasDefinition('event_dispatcher')) {
+    if (!$container->hasDefinition('event.dispatcher')) {
       return;
     }
 
-//    $definition = $container->getDefinition('event_dispatcher');
-    $definition = $container->get('event_dispatcher');
-//    var_dump($definition);
+//    $definition = $container->getDefinition('event.dispatcher');
+    $definition = $container->get('event.dispatcher');
+//    dump($definition);
 //    $event_subscriber_info = [];
     foreach ($container->findTaggedServiceIds('event_subscriber') as $id => $attributes) {
 

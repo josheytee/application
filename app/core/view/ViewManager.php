@@ -6,6 +6,7 @@ use app\core\view\Renderable;
 use app\core\template\TemplateEngineInterface;
 use app\core\theme\ThemeManagerInterface;
 use app\core\http\Response;
+use app\core\component\ComponentManager;
 
 /**
  * Description of ViewManager
@@ -14,13 +15,16 @@ use app\core\http\Response;
  */
 class ViewManager implements Renderable {
 
+  /**
+   * @var app\core\component\ComponentManager
+   */
+  private $component_manager;
   protected $template_engine;
   protected $theme_manager;
 
-  public function __construct(TemplateEngineInterface $templateEngine, ThemeManagerInterface
-  $themeManager) {
-    $this->template_engine = $templateEngine;
+  public function __construct(ThemeManagerInterface $themeManager, ComponentManager $component_manager) {
     $this->theme_manager = $themeManager;
+    $this->component_manager = $component_manager;
   }
 
   public function display($content = null, $tpl = null) {
@@ -37,6 +41,16 @@ class ViewManager implements Renderable {
     $active_theme = $this->theme_manager->getActiveTheme();
 
     $this->template_engine->output($template, $data);
+  }
+
+  public function renderResponse($result, $request) {
+    $activeTheme = $this->theme_manager->getActiveTheme();
+    $regions = $activeTheme->getRegions();
+    if (is_array($result)) {
+      $reponse = new \Symfony\Component\HttpFoundation\JsonResponse($result);
+    }
+    $response = new Response();
+    return $response;
   }
 
 }

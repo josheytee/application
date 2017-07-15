@@ -139,4 +139,14 @@ class Context {
     return static::getContainer()->get('theme.manager');
   }
 
+  /**
+   * Retrieves the currently active route match object.
+   *
+   * @return \app\core\routing\RouteMatchInterface
+   *   The currently active route match object.
+   */
+  public static function routeMatch() {
+    return static::getContainer()->get('current.route.match');
+  }
+
 }

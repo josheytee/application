@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use app\core\dependencyInjection\ContainerInjectionInterface;
 use app\core\Context;
 use Symfony\Component\Finder\Finder;
-use app\core\http\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Description of Controller
@@ -15,9 +15,7 @@ use app\core\http\Response;
  */
 abstract class ControllerBase implements ContainerInjectionInterface {
 
-  use \app\core\template\Displayable;
-
-  protected $view_manager;
+  use \app\core\view\Renderabletrait;
 
   public static function inject(ContainerInterface $container) {
     return new static();
@@ -45,24 +43,32 @@ abstract class ControllerBase implements ContainerInjectionInterface {
       if ($file == $dir->getFileName() && file_exists($dir->getPathName())) {
         return $dir->getPathName();
       }
-//      else {
-//        echo "<br/> invalid template: " . $file;
-//      }
     }
   }
 
   public function redirect($url) {
-    return;
+    return new RedirectResponse($url);
   }
 
-  public function render($template, $data = null) {
+  public function route($route_name, ...$params) {
+    return $this->getContainer()->get('link.manager')->route($route_name, $params);
+  }
+
+  public function renderc($template, $data = null) {
     $smarty = Context::smarty();
     $tpl = $smarty->createAndFetch($template, $data);
-    return new Response($tpl);
+    return ($tpl);
   }
 
-//  public function render($template, $data = null) {
-//    $this->view_manager = $this->getContainer()->get('view.manager');
-//    var_dump($this->view_manager->render($template, $data));
-//  }
+  public function addLibrary($name) {
+
+  }
+
+  public function render($template, $content = '') {
+    $return = [];
+    $return['libraries'] = '';
+    $return['content'] = $this->renderc($template, $content);
+    return $return;
+  }
+
 }

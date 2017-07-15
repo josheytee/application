@@ -11,7 +11,7 @@ use app\core\view\form\ElementInterface;
  */
 abstract class FormElement implements ElementInterface {
 
-  use \app\core\template\Displayable;
+  use \app\core\view\Renderabletrait;
   use \app\core\utility\ArrayHelper;
   use \app\core\utility\StringHelper;
 
@@ -70,7 +70,7 @@ abstract class FormElement implements ElementInterface {
 
   public function render() {
     $this->normalize();
-    return $this->display($this->compact(), 'form/' . $this->getTemplate());
+    return $this->rendertrait($this->compact(), 'form/' . $this->getTemplate());
   }
 
 }

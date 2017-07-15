@@ -2,24 +2,19 @@
 
 namespace app\core;
 
-use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\HttpFoundation\Request as BaseRequest;
-use app\core\http\Request;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 use app\core\http\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Routing;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use app\core\AppInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Yaml\Yaml;
 use app\core\Context;
 use app\core\repository\ModuleRepository;
+use app\core\repository\ComponentRepository;
 
 /**
  * Description of Framework
@@ -28,9 +23,6 @@ use app\core\repository\ModuleRepository;
  */
 class App implements AppInterface, TerminableInterface {
 
-  protected $matcher;
-  protected $controllerResolver;
-  protected $argumentResolver;
   protected $container;
 
   /**
@@ -48,64 +40,19 @@ class App implements AppInterface, TerminableInterface {
     $this->classLoader = $class_loader;
   }
 
-  public function initializeRequest(BaseRequest $request) {
-    $this->matcher = new UrlMatcher($this->getRoute(), new Routing\RequestContext());
-    $this->matcher->getContext()->fromRequest($request);
-    $request->attributes->add($this->matcher->match($request->getPathInfo()));
-  }
-
   public function handle(BaseRequest $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
     $this->boot();
-    $this->initializeRequest($request);
     try {
       $response = $this->getHttpKernel()->handle($request, $type, $catch);
     } catch (ResourceNotFoundException $e) {
-      echo $e->getMessage();
-      return new Response('Not Found', 404);
+      return new Response('Not Found: <br/>' . $e->getMessage() . ' see trace: <br/ >' . $e->getTraceAsString(), 404);
     } catch (\Exception $e) {
-      echo $e->getMessage();
-      return new Response('An error occurred', 500);
+      return new Response('An error occurred: <br/>' . $e->getMessage() . ' see trace: <br/ >' . $e->getTraceAsString(), 500);
     }
     // Adapt response headers to the current request.
     $response->prepare($request);
 
     return $response;
-  }
-
-  /**
-   * return directory as key and its path as value
-   * @return array
-   */
-  public function getModulesDir() {
-    return (new ModuleRepository())->getRepositories();
-  }
-
-  public function getRoute() {
-    foreach ($this->getModulesDir() as $dir => $dir_path) {
-      $yml_route_files[] = $dir_path . DS . $dir . '.route.yml';
-    }
-    $parsed_yml_route_files = array();
-    foreach ($yml_route_files as $yml_route_file) {
-      if (file_exists($yml_route_file)) {
-        $parsed_yml_route_files = array_merge($parsed_yml_route_files, (array) Yaml::parse(file_get_contents($yml_route_file)));
-      }
-    }
-    $route_collection = new RouteCollection();
-    foreach ($parsed_yml_route_files as $route_name => $route_info) {
-      $route_info = array_merge(array(
-          'path' => '',
-          'defaults' => array(),
-          'requirements' => array(),
-          'options' => array(),
-          'host' => NULL,
-          'schemes' => array(),
-          'methods' => array(),
-          'condition' => '',
-              ), (array) $route_info);
-      $route_collection->add($route_name, new Route($route_info['path'], $route_info['defaults'], $route_info['requirements'], $route_info['options'], $route_info['host'], $route_info['schemes'], $route_info['methods'], $route_info['condition'])
-      );
-    }
-    return $route_collection;
   }
 
   /**
@@ -116,13 +63,32 @@ class App implements AppInterface, TerminableInterface {
    *   respective *.info.yml file.
    *
    * @return string[]
-   *   Array where each key is a module namespace like 'Drupal\system', and each
+   *   Array where each key is a module namespace like 'app\system', and each
    *   value is the PSR-4 base directory associated with the module namespace.
    */
   protected function getModuleNamespacesPsr4($module_file_names) {
     $namespaces = array();
     foreach ($module_file_names as $module => $filename) {
-      $namespaces["ntc\\$module"] = dirname($filename) . '/src';
+      $namespaces["ntc\\$module"] = $filename . '/src';
+    }
+    return $namespaces;
+  }
+
+  /**
+   * Gets the PSR-4 base directories for component namespaces.
+   *
+   * @param string[] $component_file_names
+   *   Array where each key is a module name, and each value is a path to the
+   *   respective *.info.yml file.
+   *
+   * @return string[]
+   *   Array where each key is a component namespace like 'app\system', and each
+   *   value is the PSR-4 base directory associated with the module namespace.
+   */
+  protected function getComponentNamespacesPsr4($component_file_names) {
+    $namespaces = array();
+    foreach ($component_file_names as $component => $filename) {
+      $namespaces["ntc\\$component"] = $filename;
     }
     return $namespaces;
   }
@@ -131,7 +97,7 @@ class App implements AppInterface, TerminableInterface {
    * Registers a list of namespaces with PSR-4 directories for class loading.
    *
    * @param array $namespaces
-   *   Array where each key is a namespace like 'Drupal\system', and each value
+   *   Array where each key is a namespace like 'app\system', and each value
    *   is either a PSR-4 base directory, or an array of PSR-4 base directories
    *   associated with this namespace.
    */
@@ -165,20 +131,6 @@ class App implements AppInterface, TerminableInterface {
 
   public function terminate(BaseRequest $request, BaseResponse $response) {
 
-  }
-
-  /**
-   * gets Module data using the module.info.yml file
-   * @return
-   */
-  public function getModuleData() {
-    foreach ($this->getModulesDir() as $dir => $dir_path) {
-      if (!file_exists($dir_path . DS . $dir . '.info.yml')) {
-        continue;
-      }
-      $module[$dir] = ($dir_path . DS . $dir . '.info.yml');
-    }
-    return $module;
   }
 
   public function getContainerBuilder() {
@@ -220,6 +172,9 @@ class App implements AppInterface, TerminableInterface {
   public function registerPass(&$container) {
     $container->addCompilerPass(new dependencyInjection\compiler\RegisterEventSubscribersPass());
     $container->addCompilerPass(new dependencyInjection\compiler\ArgumentResolverPass());
+    $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouteEnhancersPass());
+    $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRoutersPass());
+    $container->addCompilerPass(new dependencyInjection\compiler\ThemeResolverPass());
   }
 
   /**
@@ -232,9 +187,11 @@ class App implements AppInterface, TerminableInterface {
   }
 
   public function boot() {
-
-    $module_filenames = $this->getModuleData();
+    $module_repo = new ModuleRepository();
+    $module_filenames = $module_repo->getRepositories();
+    $component_filenames = (new ComponentRepository($module_repo))->getRepositories();
     $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($module_filenames));
+    $this->classLoaderAddMultiplePsr4($this->getComponentNamespacesPsr4($component_filenames));
     $this->initializeContainer();
 
     $this->booted = true;

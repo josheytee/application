@@ -27,7 +27,9 @@
         "doctrine/data-fixtures": "1.0.*",
         "leafo/scssphp": "^0.6.7",
         "ezyang/htmlpurifier": "^4.9",
-        "symfony/dependency-injection": "^3.2"
+        "symfony/dependency-injection": "^3.2",
+        "symfony/var-dumper": "^3.3",
+        "symfony-cmf/routing": "^2.0"
     },
     "autoload": {
 

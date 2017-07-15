@@ -1,4 +1,21 @@
 services:
- admin.manager:
-  class: ntc\administrator\AdminManager
-  
+  admin.manager:
+   class: ntc\administrator\AdminManager
+  admin.theme.resolver:
+   class: ntc\administrator\theme\AdminThemeResolver
+   arguments: ['@context.admin']
+   tags:
+     - { name: 'theme_resolver' ,priority : 30}
+  admin.block.manager:
+    class: ntc\administrator\block\AdminBlockManager
+    arguments: ['@theme.manager','@component.manager']
+  admin.request:
+    class: ntc\administrator\event\subscriber\AdminRouteSubscriber
+#    arguments: ['@router.provider']
+    tags:
+      - { name: event_subscriber }
+  admin.response.handler:
+    class: ntc\administrator\event\subscriber\AdminResponseHandlerSubscriber
+    arguments: ['@context.admin','@admin.block.manager','@current.route.match']
+    tags:
+      - { name: event_subscriber }

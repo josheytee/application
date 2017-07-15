@@ -104,11 +104,17 @@ class User {
   public $occupations;
 
   /**
-   * @var route[]
+   * @var router[]
    *
-   * @ManyToMany(targetEntity="Route", mappedBy="user")
+   * @ManyToMany(targetEntity="Router", mappedBy="user")
    */
-  protected $route;
+  protected $router;
+
+  /**
+   * @OneToOne(targetEntity="Config")
+   * @JoinColumn(name="id_config",referencedColumnName="id_config")
+   */
+  public $config;
 
   /**
    * Constructor
@@ -372,34 +378,59 @@ class User {
   }
 
   /**
-   * Add route
+   * Set config
    *
-   * @param \model\Route $route
+   * @param \model\Config $config
    *
    * @return User
    */
-  public function addRoute(\model\Route $route) {
-    $this->route[] = $route;
+  public function setConfig(\model\Config $config = null) {
+    $this->config = $config;
 
     return $this;
   }
 
   /**
-   * Remove route
+   * Get config
    *
-   * @param \model\Route $route
+   * @return \model\Config
    */
-  public function removeRoute(\model\Route $route) {
-    $this->route->removeElement($route);
+  public function getConfig() {
+    return $this->config;
   }
 
-  /**
-   * Get route
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getRoute() {
-    return $this->route;
-  }
 
+    /**
+     * Add router
+     *
+     * @param \model\Router $router
+     *
+     * @return User
+     */
+    public function addRouter(\model\Router $router)
+    {
+        $this->router[] = $router;
+
+        return $this;
+    }
+
+    /**
+     * Remove router
+     *
+     * @param \model\Router $router
+     */
+    public function removeRouter(\model\Router $router)
+    {
+        $this->router->removeElement($router);
+    }
+
+    /**
+     * Get router
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRouter()
+    {
+        return $this->router;
+    }
 }

@@ -92,8 +92,4 @@ class Response extends BaseResponse {
             is_array($content);
   }
 
-  public function __toString() {
-    return $this->getContent();
-  }
-
 }

@@ -1,0 +1,13 @@
+name: System
+type: theme
+description: A default base theme
+base theme: false
+hidden: true
+regions:
+  header: Header
+  breadcrumb: Breadcrumb
+  help: Help
+  sidebar: 'Sidebar'
+#  container: Container
+  footer: Footer
+libraries: makm.js

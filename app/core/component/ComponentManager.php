@@ -2,8 +2,8 @@
 
 namespace app\core\component;
 
-use Symfony\Component\Yaml\Yaml;
-use app\core\repository\ComponentRepository;
+use app\core\theme\ThemeManager;
+use app\core\component\ComponentInitializer;
 
 /**
  * Description of ComponentProvider
@@ -12,50 +12,33 @@ use app\core\repository\ComponentRepository;
  */
 class ComponentManager {
 
-  protected $component_repository;
-
-  public function __construct(ComponentRepository $componentRepository) {
-    $this->component_repository = $componentRepository;
-  }
-
-  public function getComponent($component) {
-    return $this->component_repository->getRepositories()[$component];
-  }
+  /**
+   * @var ComponentInitializer
+   */
+  private $initializer;
 
   /**
-   * gets the data of all components in one single array
-   * @return Array of components data
+   * @var ThemeManager
    */
-  public function getComponentsData() {
-    $data = [];
-    foreach ($this->component_repository->getRepositories() as $dir => $path) {
-      $data[$dir] = Yaml::parse(file_get_contents($path . DS . $dir . '.info.yml'));
-    }
-    return $data;
+  private $theme;
+
+  public function __construct(ComponentInitializer $initializer, ThemeManager $theme) {
+    $this->theme = $theme;
+    $this->initializer = $initializer;
   }
 
-  /**
-   *
-   * @param Component $component
-   * @return type array of a single component information
-   */
-  public function getComponentData($component) {
-    return isset($this->getComponentsData()[$component]) ? $this->getComponentsData()[$component] : null;
+  public function getComponents() {
+    return ($this->initializer->getComponents());
   }
 
-  /**
-   * Get components that belongs to a particular region in the theme
-   * @param type $region
-   * @return type
-   */
-  public function getRegionComponents($region) {
-    $region_component = [];
-    foreach ($this->getComponentsData() as $component => $data) {
-      if ($data['region'] == $region) {
-        $region_component[$component] = $this->getComponent($component);
+  public function getByRegion($region) {
+    $region_com = [];
+    foreach ($this->getComponents() as $component) {
+      if ($component->region == $region) {
+        $region_com[$component->name] = $component;
       }
     }
-    return $region_component;
+    return $region_com;
   }
 
 }

@@ -1,0 +1,8 @@
+component.index:
+  path: '/component'
+  defaults:
+    name: ~
+    _title: 'Amin | Product'
+    _controller: 'ntc\component\controller\ComponentController::index'
+  requirements:
+    _permission: 'administer actions'

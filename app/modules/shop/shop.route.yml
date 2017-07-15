@@ -1,8 +1,8 @@
 admin.shop.add:
-  path: 'admin/shop/add'
+  path: 'admin/shop/create'
   defaults:
     _title: 'Amin | Create Shop'
-    _controller: 'ntc\shop\controller\ShopController::add'
+    _controller: 'ntc\shop\form\CreateShopForm::create'
   requirements:
     _permission: 'administer actions'
 

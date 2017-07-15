@@ -1,0 +1,12 @@
+name: Product
+type: module
+description: 'Manages components accross the application'
+package: Core
+dependencies:
+  required:
+  - administrator
+  - user
+  - shop
+  optional:
+  - user
+

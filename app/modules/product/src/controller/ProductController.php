@@ -3,11 +3,12 @@
 namespace ntc\product\controller;
 
 use app\core\controller\ControllerBase;
-use Symfony\Component\HttpFoundation\Response;
+//use Symfony\Component\HttpFoundation\Response;
+use app\core\http\Response;
 use app\core\http\Request;
-use ntc\administrator\AdminManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use app\core\template\TemplateEngineInterface;
+use app\core\view\link\LinkManager;
 
 /**
  * Description of ProductController
@@ -16,7 +17,10 @@ use app\core\template\TemplateEngineInterface;
  */
 class ProductController extends ControllerBase {
 
-  protected $admin_manager;
+  /**
+   * @var LinkManager
+   */
+  private $link;
   protected $template_engine;
   protected $tab_display;
   private $default_tab = "Information";
@@ -24,9 +28,9 @@ class ProductController extends ControllerBase {
   private $tpl_form_vars;
   private $available_tabs;
 
-  public function __construct(TemplateEngineInterface $templateEngine, AdminManager $admin) {
-    $this->admin_manager = $admin;
+  public function __construct(TemplateEngineInterface $templateEngine, LinkManager $link) {
     $this->template_engine = $templateEngine;
+    $this->link = $link;
     $this->tab_display;
     $this->tpl_form_vars['identifier'] = 1;
     $this->available_tabs_lang = array(
@@ -68,7 +72,7 @@ class ProductController extends ControllerBase {
 
   public static function inject(ContainerInterface $container) {
     return new static(
-            $container->get('template.engine'), new AdminManager()
+            $container->get('template.engine'), $container->get('link.manager')
     );
   }
 
@@ -94,7 +98,7 @@ class ProductController extends ControllerBase {
           'id' => $product_tab,
           'selected' => (strtolower($product_tab) == strtolower($this->tab_display) ),
           'name' => $this->available_tabs_lang[$product_tab],
-          'href' => $product_tab,
+          'href' => $this->link->route('admin.product.add', $product_tab),
       );
     }
     $this->tpl_form_vars['product_tabs'] = $product_tabs;

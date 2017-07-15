@@ -17,7 +17,7 @@ use app\core\Context;
  */
 abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionInterface {
 
-  use \app\core\template\Displayable;
+  use \app\core\view\Renderabletrait;
   use \app\core\utility\ArrayHelper;
 
   protected $elements;
@@ -124,7 +124,7 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
     foreach ($this->elements as $element) {
       $form .= $element->render();
     }
-    return $this->display(
+    return $this->rendertrait(
                     [
                 'attributes' => $this->getAttributes(),
                 'form_body' => $form
@@ -134,7 +134,9 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
   public function create(Request $request) {
     $this->process($request);
     $this->build();
-    return $this->render();
+    $return = [];
+    $return['content'] = $this->render();
+    return $return;
   }
 
   public function getMethod() {
