@@ -38,7 +38,7 @@ class DefaultResponseHandlerSubscriber implements EventSubscriberInterface {
   public function controller(GetResponseForControllerResultEvent $event) {
     $result = $event->getControllerResult();
     $request = $event->getRequest();
-    dump($this->route_match);
+//    dump($this->route_match);
     $response = $this->block->generateResponse($result, $request, $this->route_match);
 
     $event->setResponse($response);

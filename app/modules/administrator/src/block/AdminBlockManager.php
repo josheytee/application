@@ -15,6 +15,8 @@ use app\core\component\ComponentManager;
  */
 class AdminBlockManager implements BlockManagerInterface {
 
+  use \app\core\view\Renderabletrait;
+
   /**
    * @var ConfigManager
    */
@@ -29,8 +31,6 @@ class AdminBlockManager implements BlockManagerInterface {
    * @var ThemeManager
    */
   private $theme;
-
-  use \app\core\view\Renderabletrait;
 
   public function __construct(ThemeManagerInterface $theme, ComponentManager $component_manager, ConfigManager $config = null) {
 

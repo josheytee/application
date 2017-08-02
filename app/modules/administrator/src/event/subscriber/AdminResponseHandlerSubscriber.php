@@ -46,7 +46,7 @@ class AdminResponseHandlerSubscriber implements EventSubscriberInterface {
     if (!$this->context->isAdminRoute()) {
       return;
     }
-    dump($this->route_match);
+//    dump($this->route_match);
     $result = $event->getControllerResult();
     $request = $event->getRequest();
     $response = $this->block->generateResponse($result, $request, $this->route_match);

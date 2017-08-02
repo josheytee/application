@@ -38,7 +38,11 @@ class UserForm extends FormBuilder {
   }
 
   public function process(Request $request) {
-
+//    if (isset($request->register))
+//      dump($request->all());
+//  }
+//
+    return $request->all();
   }
 
 }

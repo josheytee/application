@@ -5,6 +5,8 @@ namespace app\core\component;
 use app\core\dependencyInjection\ClassResolver;
 use Symfony\Component\Yaml\Yaml;
 use app\core\repository\ComponentRepository;
+use app\core\routing\RouteMatchInterface;
+use app\core\component\ComponentTargetResolver;
 
 /**
  * Description of ComponentInitailizer
@@ -14,9 +16,9 @@ use app\core\repository\ComponentRepository;
 class ComponentInitializer {
 
   /**
-   * @var ComponentRepository
+   * @var ComponentTargetResolverInterface
    */
-  private $repository;
+  private $target_resolver;
 
   /**
    * @var ClassResolver
@@ -25,11 +27,11 @@ class ComponentInitializer {
   protected $initialized;
   private $components;
 
-  public function __construct(ClassResolver $resolver, ComponentRepository $repository) {
+  public function __construct(ClassResolver $resolver, ComponentTargetResolver $target_resolver) {
 
     $this->resolver = $resolver;
-    $this->repository = $repository;
     $this->initialized = FALSE;
+    $this->target_resolver = $target_resolver;
   }
 
   public function initialize($component, $details) {
@@ -44,26 +46,33 @@ class ComponentInitializer {
   }
 
   /**
-   *
+   * @todo rewrite this method
    * @return type
    */
   public function initializeAll() {
     foreach ($this->getRepo() as $key => $value) {
-      $info = $value . DS . $key . '.info.yml';
-      $this->components[$key] = $this->initialize(
-              $this->getComponentsNamespace($key)
-              , Yaml::parse(file_get_contents($info))
-      );
+      $info = $value['path'] . DS . $key . '.info.yml';
+      $manifest = $value['path'] . DS . $key . '.manifest.yml';
+      if (file_exists($manifest)) {
+        $this->components[$key] = $this->resolver->getInstanceFromDefinition($this->getComponentsNamespace($key, $manifest), Yaml::parse(file_get_contents($info))
+        );
+      } else {
+        $this->components[$key] = $this->resolver->getInstanceFromDefinition($this->getComponentsNamespace($key), Yaml::parse(file_get_contents($info)));
+      }
+      $this->initialized = true;
     }
-    $this->initialized = true;
   }
 
-  public function getComponentsNamespace($component) {
+  public function getComponentsNamespace($component, $manifest = '') {
+    if ($manifest) {
+      $manifest = Yaml::parse(file_get_contents($manifest));
+      return $manifest['_class'];
+    }
     return 'ntc\\' . $component . '\\' . ucfirst($component);
   }
 
   public function getRepo() {
-    return $this->repository->getRepositories();
+    return $this->target_resolver->resolveTarget(\app\core\Context::routeMatch());
   }
 
   /**
@@ -72,7 +81,9 @@ class ComponentInitializer {
    * @return type
    */
   public function getByName($component_name) {
-
+    if (!$this->initialized) {
+      $this->initializeAll();
+    }
     return $this->components[$component_name];
   }
 

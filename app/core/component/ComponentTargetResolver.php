@@ -1,24 +1,21 @@
 <?php
 
-namespace app\core\theme;
+namespace app\core\component;
 
 use app\core\routing\RouteMatchInterface;
+use app\core\repository\ComponentRepository;
 
 /**
- * Description of ThemeHandler
+ * Description of ComponentTargetResolver
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ActiveThemeResolver implements ActiveThemeResolverInterface {
+class ComponentTargetResolver implements ComponentTargetResolverInterface {
 
-  private $sorted_resolvers;
   private $resolvers;
+  private $sorted_resolvers;
 
-  public function __construct($resolvers = []) {
-    $this->resolvers = $resolvers;
-  }
-
-  public function applies(RouteMatchInterface $route_match): bool {
+  public function appliesTo(RouteMatchInterface $route_match): bool {
     return true;
   }
 
@@ -30,7 +27,7 @@ class ActiveThemeResolver implements ActiveThemeResolverInterface {
    * @param int $priority
    *   Priority of the theme resolver.
    */
-  public function addResolver(ActiveThemeResolverInterface $resolver, $priority) {
+  public function addResolver(ComponentTargetResolverInterface $resolver, $priority) {
     $this->resolvers[$priority][] = $resolver;
 // Force the resolvers to be re-sorted.
     $this->sorted_resolvers = NULL;
@@ -48,25 +45,23 @@ class ActiveThemeResolver implements ActiveThemeResolverInterface {
   public function getSortedResolvers() {
 
     if (!isset($this->sorted_resolvers)) {
-// Sort the negotiators according to priority.
+// Sort the resolvers according to priority.
       krsort($this->resolvers);
 // Merge nested negotiators from $this->negotiators into
-// $this->sortedNegotiators.
       $this->sorted_resolvers = array();
-      foreach ($this->resolvers as $builders) {
-        $this->sorted_resolvers = array_merge($this->sorted_resolvers, $builders);
+      foreach ($this->resolvers as $resolver) {
+        $this->sorted_resolvers = array_merge($this->sorted_resolvers, $resolver);
       }
     }
     return $this->sorted_resolvers;
   }
 
-  public function resolveActiveTheme(RouteMatchInterface $route_match) {
-
+  public function resolveTarget(RouteMatchInterface $route_match) {
     foreach ($this->getSortedResolvers() as $resolver) {
-      if ($resolver->applies($route_match)) {
-        $theme = $resolver->resolveActiveTheme($route_match);
+      if ($resolver->appliesTo($route_match)) {
+        $components = $resolver->resolveTarget($route_match);
 //        if ($theme !== NULL && $this->themeAccess->checkAccess($theme)) {
-        return $theme;
+        return $components;
 //        }
       }
     }

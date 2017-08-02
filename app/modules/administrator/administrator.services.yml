@@ -5,7 +5,12 @@ services:
    class: ntc\administrator\theme\AdminThemeResolver
    arguments: ['@context.admin']
    tags:
-     - { name: 'theme_resolver' ,priority : 30}
+     - { name: 'resolver',tag: 'theme' ,priority : 30}
+  admin.target.resolver:
+   class: ntc\administrator\component\AdminTargetResolver
+   arguments: ['@context.admin','@module_component.repository']
+   tags:
+     - { name: 'resolver',tag: 'component_target' ,priority : 30}
   admin.block.manager:
     class: ntc\administrator\block\AdminBlockManager
     arguments: ['@theme.manager','@component.manager']

@@ -56,10 +56,12 @@ services:
     class: app\core\repository\ModuleRepository
   component.repository:
     class: app\core\repository\ComponentRepository
+  module_component.repository:
+    class: app\core\repository\ModuleComponentRepository
     arguments: ['@module.repository']
   component.initializer:
     class: app\core\component\ComponentInitializer
-    arguments: ['@class.resolver','@component.repository']
+    arguments: ['@class.resolver','@component.target.resolver']
   context.admin:
     class: app\core\routing\AdminContext
     arguments: ['@current.route.match']
@@ -149,10 +151,21 @@ services:
 
   active.theme.resolver:
     class: app\core\theme\ActiveThemeResolver
+    tags:
+      - {name : 'resolver_collector',tag: 'theme'}
   front.theme.resolver:
     class: app\core\theme\DefaultThemeResolver
     tags:
-      - { name: 'theme_resolver' ,priority: 20}
+      - { name: 'resolver',tag: 'theme' ,priority: 20}
+  component.target.resolver:
+    class: app\core\component\ComponentTargetResolver
+    tags:
+      - {name : 'resolver_collector', tag: 'component_target'}
+  front.target.resolver:
+    class: app\core\component\DefaultTargetResolver
+    arguments: ['@component.repository']
+    tags:
+      - { name: 'resolver' ,tag: 'component_target',priority: 20}
 
 #   core argument resolvers
   default.value_resolver:

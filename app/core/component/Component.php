@@ -59,14 +59,22 @@ abstract class Component {
     }
   }
 
+  /**
+   * @todo find a better alternative for getting templates
+   * @param Finder $dir
+   * @param type $file
+   * @return type
+   */
   public function getTemplate($dir, $file = null) {
     $finder = new Finder();
     $finder->depth(0)->directories()->in($dir);
     foreach ($finder as $dir) {
-      if (file_exists($dir->getPathName() . DS . $file)) {
-        return $dir->getPathName() . DS . $file;
-      } else {
-        echo "invalid template" . $file;
+      if ($dir->getrelativePathname() == 'templates') {
+        if (file_exists($dir->getPathName() . DS . $file)) {
+          return $dir->getPathName() . DS . $file;
+        } else {
+          return "invalid template: " . $dir->getPathName() . DS . $file;
+        }
       }
     }
   }

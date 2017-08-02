@@ -18,18 +18,8 @@
     <meta name="keywords" content="">
     <!-- <link rel="stylesheet" href="C:/wamp/www/application/app/themes/system/library/bootstrap/css/bootstrap.min.css" type="text/css" media="all"/>
     -->
-    <link rel="stylesheet" href="/application/app/themes/system/library/bootstrap/css/bootstrap.min.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="/application/app/modules/administrator/themes/system/library/bootstrap/css/bootstrap.min.css" type="text/css" media="all"/>
 
-    {*  {if isset($css)}
-    {foreach from=$css key=css_uri item=media}
-    <link rel="stylesheet" href="{$css_uri|escape:'html':'UTF-8'}" type="text/css" media="{$media|escape:'html':'UTF-8'}"/>
-    {/foreach}
-    {/if}
-    {if  isset($js)}
-    {foreach $js as $js_uri}
-    <script type="text/javascript" src="{$js_uri|escape:'html':'UTF-8'}"></script>
-    {/foreach}
-    {/if}*}
   </head>
 
   <body>
@@ -37,8 +27,8 @@
     {block 'page'}
       page content
     {/block}
-    <script type="text/javascript" src="/application/app/themes/system/library/jquery/jquery.js"></script>
-    <script type="text/javascript" src="/application/app/themes/system/library/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/application/app/modules/administrator/themes/system/library/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/application/app/modules/administrator/themes/system/library/bootstrap/js/bootstrap.min.js"></script>
 
   </body>
 

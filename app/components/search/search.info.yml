@@ -1,6 +1,9 @@
 name: search
 description: "lorep isum freeme lorep isum freeme lorep isum
 freeme lorep isum freeme lorep isum freeme "
+target: front
+author: ntc
+package: components
 icon: hello.png
 version: 1.2.3
 region:  header

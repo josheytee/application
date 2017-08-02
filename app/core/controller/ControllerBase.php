@@ -54,7 +54,7 @@ abstract class ControllerBase implements ContainerInjectionInterface {
     return $this->getContainer()->get('link.manager')->route($route_name, $params);
   }
 
-  public function renderc($template, $data = null) {
+  public function renderTemplate($template, $data = null) {
     $smarty = Context::smarty();
     $tpl = $smarty->createAndFetch($template, $data);
     return ($tpl);
@@ -67,7 +67,7 @@ abstract class ControllerBase implements ContainerInjectionInterface {
   public function render($template, $content = '') {
     $return = [];
     $return['libraries'] = '';
-    $return['content'] = $this->renderc($template, $content);
+    $return['content'] = $this->renderTemplate($template, $content);
     return $return;
   }
 

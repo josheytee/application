@@ -8,23 +8,22 @@
  */
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use model\Route;
+use model\Router;
 
 class RouteData implements FixtureInterface {
 
   public function load(ObjectManager $manager) {
-    $faker = Faker\Factory::create();
-    for ($i = 1; $i <= 10; $i++) {
-      $route = new Route();
-      $route->setName($faker->name);
-      $route->setPath($faker->url);
-      $route->setParams(serialize(['_name' => 'hello', '_controller' => 'app\admin\page\Product::create']));
-      $route->setState($faker->userName);
-      $route->setUrl($faker->url);
-      $manager->persist($route);
-    }
-    $manager->flush();
-    $manager->clear();
+//    $faker = Faker\Factory::create();
+//    for ($i = 1; $i <= 10; $i++) {
+//      $route = new Router();
+//      $route->setName($faker->name);
+//      $route->setPath($faker->url);
+////      $route->setParams(serialize(['_name' => 'hello', '_controller' => 'app\admin\page\Product::create']));
+////      $route->setState($faker->userName);
+//      $manager->persist($route);
+//    }
+//    $manager->flush();
+//    $manager->clear();
   }
 
 }

@@ -1,3 +1,0 @@
-<div>
-    cart component
-</div>

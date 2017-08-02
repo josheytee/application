@@ -16,9 +16,9 @@
     <meta name="description" content="">
     <meta name="author" content="Agbeja oluwatobiloba | tobiagbeja4@gmail.com">
     <meta name="keywords" content="">
-    <!-- <link rel="stylesheet" href="C:/wamp/www/application/app/themes/system/library/bootstrap/css/bootstrap.min.css" type="text/css" media="all"/>
+    <!-- <link rel="stylesheet" href="C:/wamp/www/application/app/themes/genesis/library/bootstrap/css/bootstrap.min.css" type="text/css" media="all"/>
     -->
-    <link rel="stylesheet" href="/application/app/themes/system/library/bootstrap/css/bootstrap.min.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="/application/app/themes/genesis/library/bootstrap/css/bootstrap.min.css" type="text/css" media="all"/>
 
     {*  {if isset($css)}
     {foreach from=$css key=css_uri item=media}
@@ -37,8 +37,8 @@
     {block 'page'}
       page content
     {/block}
-    <script type="text/javascript" src="/application/app/themes/system/library/jquery/jquery.js"></script>
-    <script type="text/javascript" src="/application/app/themes/system/library/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/application/app/themes/genesis/library/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/application/app/themes/genesis/library/bootstrap/js/bootstrap.min.js"></script>
 
   </body>
 

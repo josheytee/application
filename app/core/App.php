@@ -69,7 +69,9 @@ class App implements AppInterface, TerminableInterface {
   protected function getModuleNamespacesPsr4($module_file_names) {
     $namespaces = array();
     foreach ($module_file_names as $module => $filename) {
-      $namespaces["ntc\\$module"] = $filename . '/src';
+      $namespaces["ntc\\$module"][] = $filename . '/src';
+      if (is_dir($filename . '/components'))
+        $namespaces["ntc\\$module"][] = $filename . '/components';
     }
     return $namespaces;
   }
@@ -174,7 +176,7 @@ class App implements AppInterface, TerminableInterface {
     $container->addCompilerPass(new dependencyInjection\compiler\ArgumentResolverPass());
     $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouteEnhancersPass());
     $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRoutersPass());
-    $container->addCompilerPass(new dependencyInjection\compiler\ThemeResolverPass());
+    $container->addCompilerPass(new dependencyInjection\compiler\TaggedResolverPass());
   }
 
   /**

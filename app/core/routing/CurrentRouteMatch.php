@@ -89,4 +89,20 @@ class CurrentRouteMatch implements RouteMatchInterface {
     return $this->getRouteMatch($request);
   }
 
+  /**
+   *
+   * @inheritedDoc
+   */
+  public function getRawParameter($parameter_name) {
+    return $this->getCurrentRouteMatch()->getRawParameter($parameter_name);
+  }
+
+  /**
+   *
+   * @inheritedDoc
+   */
+  public function getRawParameters() {
+    return $this->getCurrentRouteMatch()->getParameters();
+  }
+
 }
