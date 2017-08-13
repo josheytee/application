@@ -4,18 +4,13 @@ namespace app\core\view\form;
 
 use app\core\view\form\elements;
 use app\core\view\form\FormBuilderInterface;
-use app\core\dependencyInjection\ContainerInjectionInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use app\core\view\form\elements\Select;
-use app\core\http\Request;
-use app\core\Context;
 
 /**
- * Description of FormBuilder
- *
+ * handles form building
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionInterface {
+class Formbuilder implements FormBuilderInterface {
 
   use \app\core\view\Renderabletrait;
   use \app\core\utility\ArrayHelper;
@@ -24,10 +19,6 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
   protected $labels;
   protected $attributes;
   protected $method = 'POST';
-
-  public static function inject(ContainerInterface $container) {
-    return new static();
-  }
 
   /**
    * adds label for a element with the same name
@@ -40,57 +31,61 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
     return $this->elements[md5($for)] = $this->element('label', $for, $value);
   }
 
-  public function text($name, $value = '', $attributes = []) {
-    return $this->elements[$name] = $this->element('text', $name, $value, $attributes);
+  public function text($name, $value = '') {
+    return $this->elements[$name] = $this->element('text', $name, $value);
   }
 
-  public function password($name, $value = '', $attributes = []) {
-    return $this->elements[$name] = $this->element('password', $name, $value, $attributes);
+  public function email($name, $value = '') {
+    return $this->elements[$name] = $this->element('email', $name, $value);
   }
 
-  public function file($name, $value = '', $attributes = []) {
-    return $this->elements[$name] = $this->element('file', $name, $value, $attributes);
+  public function password($name, $value = '') {
+    return $this->elements[$name] = $this->element('password', $name, $value);
   }
 
-  public function submit($name, $value = '', $attributes = []) {
-    return $this->elements[$name] = $this->element('submit', $name, $value, $attributes);
+  public function file($name, $value = '') {
+    return $this->elements[$name] = $this->element('file', $name, $value);
   }
 
-  public function reset($name, $value = '', $attributes = []) {
-    return $this->elements[$name] = $this->element('reset', $name, $value, $attributes);
+  public function submit($name, $value = '') {
+    return $this->elements[$name] = $this->element('submit', $name, $value);
   }
 
-  public function radio($name, $value = '', $attributes = []) {
+  public function reset($name, $value = '') {
+    return $this->elements[$name] = $this->element('reset', $name, $value);
+  }
+
+  public function radio($name, $value = '') {
     if (is_array($value)) {
       foreach ($value as $radio) {
-        $mu[] = $this->elements['radio_' . $name] = $this->element('radio', $name, $radio, $attributes);
+        $mu[] = $this->elements['radio_' . $name] = $this->element('radio', $name, $radio);
       }
       return $mu;
     } else {
-      return $this->elements[$name] = $this->element('radio', $name, $value, $attributes);
+      return $this->elements[$name] = $this->element('radio', $name, $value);
     }
   }
 
-  public function checkbox($name, $value = [], $attributes = []) {
+  public function checkbox($name, $value = []) {
     if (is_array($value)) {
       foreach ($value as $radio) {
-        $mu[] = $this->elements['checkbox_' . $name] = $this->element('checkbox', $name, $radio, $attributes);
+        $mu[] = $this->elements['checkbox_' . $name] = $this->element('checkbox', $name, $radio);
       }
       return $mu;
     } else {
-      return $this->elements[$name] = $this->element('checkbox', $name, $value, $attributes);
+      return $this->elements[$name] = $this->element('checkbox', $name, $value);
     }
-    return $this->elements[$name] = $this->element('checkbox', $name, $value, $attributes);
+    return $this->elements[$name] = $this->element('checkbox', $name, $value);
   }
 
-  public function select($name, $value = '', $default = null, $attributes = []) {
-    return $this->elements[$name] = new Select($name, $value, $default, $attributes);
+  public function select($name, $value = '', $default = null) {
+    return $this->elements[$name] = new Select($name, $value, $default);
   }
 
-  public function block($attributes = [], ...$elements) {
+  public function block(...$elements) {
     $key = uniqid('block_');
     $name = $attributes['name'] ?? '';
-    $block = new elements\Block($name, $attributes);
+    $block = new elements\Block($name);
     if (isset($elements)) {
       $block->addElements($elements);
       foreach ($elements as $element) {
@@ -104,10 +99,10 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
     return $this->elements[$key] = $block;
   }
 
-  private function element($type, $name, $value = '', $attributes = []) {
+  private function element($type, $name, $value = '') {
     $type = \ucfirst($type);
     $el_class = "app\\core\\view\\form\\elements\\{$type}";
-    return new $el_class($name, $value, $attributes);
+    return new $el_class($name, $value);
   }
 
   private function getAttributes() {
@@ -117,6 +112,10 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
                 'method' => $this->getMethod(),
                 'action' => ''
     ]);
+  }
+
+  public function formID() {
+    return '2e.e';
   }
 
   public function render() {
@@ -131,20 +130,12 @@ abstract class FormBuilder implements FormBuilderInterface, ContainerInjectionIn
                     ], 'form/form.tpl');
   }
 
-  public function create(Request $request) {
-    $this->process($request);
-    $this->build();
-    $return = [];
-    $return['content'] = $this->render();
-    return $return;
+  public function fetch() {
+    return $this->render();
   }
 
   public function getMethod() {
     return $this->method;
-  }
-
-  protected function getContainer() {
-    return Context::getContainer();
   }
 
 }

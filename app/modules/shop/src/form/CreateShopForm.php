@@ -2,20 +2,38 @@
 
 namespace ntc\shop\form;
 
-use app\core\view\form\FormBuilder;
+use app\core\controller\FormController;
+use app\core\view\form\Formbuilder;
+use app\core\http\Request;
 
 /**
  * Description of CreateShopForm
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class CreateShopForm extends FormBuilder {
+class CreateShopForm extends FormController {
 
-  public function build() {
-    $this->block(['class' => 'form-group'], $this->label('name'), $this->text('name', '', ['class' => 'form-control']));
-    $this->block(['class' => 'form-group'], $this->label('activity'), $this->select('activity', $this->activities(), '', ['class' => 'form-control']));
-    $this->block(['class' => 'form-group'], $this->label('state'), $this->select('state', $this->states(), '', ['class' => 'form-control']));
-    $this->block(['class' => 'form-group'], $this->submit('create', 'Create', ['class' => 'btn btn-primary']));
+  public function build(Formbuilder $builder) {
+    $builder->block(
+            $builder->label('name')
+            , $builder->text('name', '')->addAttributes(['class' => 'form-control'])
+    )->addAttributes(['class' => 'form-group']);
+
+    $builder->block(
+            $builder->label('activity')
+            , $builder->select('activity', $this->activities())->addAttributes(['class' => 'form-control'])
+    )->addAttributes(['class' => 'form-group']);
+
+    $builder->block(
+            $builder->label('state')
+            , $builder->select('state', $this->states())->addAttributes(['class' => 'form-control'])
+    )->addAttributes(['class' => 'form-group']);
+
+    $builder->block($builder->submit('create', 'Create')->addAttributes(['class' => 'btn btn-primary']))
+            ->addAttributes(['class' => 'form-group']);
+    return $builder;
+
+    return $builder;
   }
 
   private function activities() {
@@ -53,7 +71,7 @@ class CreateShopForm extends FormBuilder {
     return "createShop";
   }
 
-  public function process(\app\core\http\Request $request) {
+  public function process(Request $request) {
     var_dump($request->all());
   }
 

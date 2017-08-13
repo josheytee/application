@@ -39,7 +39,7 @@ class RouteProvider implements PagedRouteProviderInterface {
   }
 
   public function getRouteByName($name): Route {
-
+    return $this->getRoutes()->get($name);
   }
 
   public function getRouteCollectionForRequest(Request $request): RouteCollection {

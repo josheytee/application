@@ -17,7 +17,7 @@ class Label extends FormElement {
   public function __construct($for, $value = '', $attribute = null) {
     $this->for = $for;
     parent::__construct($for, ucwords($value), $attribute);
-    $this->addAtribute('for', $this->for);
+    $this->addAttribute('for', $this->for);
   }
 
   public function initialize() {

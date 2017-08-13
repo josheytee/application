@@ -33,6 +33,15 @@ class Request extends BaseRequest {
   }
 
   /**
+   * Determine if the request is the result of an AJAX call.
+   *
+   * @return bool
+   */
+  public function isAjax() {
+    return $this->isXmlHttpRequest();
+  }
+
+  /**
    * Get the JSON payload for the request.
    *
    * @param  string  $key
@@ -124,6 +133,21 @@ class Request extends BaseRequest {
     $input = $this->getInputSource()->all() + $this->query->all();
     return $input;
 //    return data_get($input, $key, $default);
+  }
+
+  /**
+   * Get the session associated with the request.
+   *
+   * @return \Illuminate\Session\Store
+   *
+   * @throws \RuntimeException
+   */
+  public function session() {
+//    if (!$this->hasSession()) {
+//      throw new \RuntimeException('Session store not set on request.');
+//    }
+
+    return $this->getSession();
   }
 
   /**

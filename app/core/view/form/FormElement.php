@@ -25,25 +25,30 @@ abstract class FormElement implements ElementInterface {
   public function __construct($name, $value = null, $attributes = null) {
     $this->name = $name;
     $this->value = $value;
-    if (!empty($attributes)) {
-      foreach ($attributes as $key => $attribute) {
-        $this->addAtribute($key, $attribute);
-      }
-    }
+    $this->addAttributes($attributes);
   }
 
   function normalize() {
 
-    $this->addAtribute('name', $this->name);
-    $this->addAtribute('id', $this->id);
+    $this->addAttribute('name', $this->name);
+    $this->addAttribute('id', $this->id);
   }
 
   function getAttributes() {
     return $this->attribute;
   }
 
-  function addAtribute($key, $attribute) {
+  function addAttribute($key, $attribute) {
     $this->attribute[$key] = $attribute;
+    return $this;
+  }
+
+  function addAttributes($attributes) {
+    if (!empty($attributes)) {
+      foreach ($attributes as $key => $attribute) {
+        $this->addAttribute($key, $attribute);
+      }
+    }
     return $this;
   }
 

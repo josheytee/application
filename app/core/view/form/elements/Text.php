@@ -5,15 +5,15 @@ namespace app\core\view\form\elements;
 use app\core\view\form\InputElement;
 
 /**
- * Description of Text
+ * form Text input
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
 class Text extends InputElement {
 
-  public function __construct($name, $value = null, $attribute = null) {
-    parent::__construct($name, $value, $attribute);
-    $this->addAtribute('type', 'text');
+  public function __construct($name, $value = null, $attributes = null) {
+    parent::__construct($name, $value, $attributes);
+    $this->addAttribute('type', 'text');
   }
 
 }

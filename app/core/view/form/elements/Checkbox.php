@@ -13,7 +13,7 @@ class Checkbox extends InputElement {
 
   public function __construct($name, $value = [], $attributes = null) {
     parent::__construct($name, $value, $attributes);
-    $this->addAtribute('type', 'checkbox');
+    $this->addAttribute('type', 'checkbox');
   }
 
 }

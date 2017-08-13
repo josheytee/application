@@ -29,6 +29,10 @@ services:
     calls:
       - [init, []]
 
+  container.trait:
+     abstract: true
+     calls:
+       - [setContainer, ['@service_container']]
 #symfony classes
   event.dispatcher:
     class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
@@ -39,6 +43,8 @@ services:
     class: Symfony\Component\HttpFoundation\RequestStack
     tags:
     - { name: persist }
+  stacked.http_kernel:
+    class: app\core\stack\StackedHttpKernel
   http_kernel:
     class: Symfony\Component\HttpKernel\HttpKernel
     arguments: ['@event.dispatcher', '@controller_resolver', '@request_stack','@argument_resolver']
@@ -78,7 +84,7 @@ services:
     arguments: ['@module.repository']
   url.generator:
     class: app\core\routing\UrlGenerator
-    arguments: ['@router.provider','@request.context']
+    arguments: ['@router.provider','@request_stack']
   router.provider:
     class: app\core\routing\RouteProvider
     arguments: ['@entity.manager']
@@ -95,16 +101,16 @@ services:
   router.matcher:
     class: \Symfony\Cmf\Component\Routing\NestedMatcher\NestedMatcher
     arguments: ['@router.provider','@url.matcher']
-  router.dynamic:
+  cmf_routing.dynamic_router:
     class: Symfony\Cmf\Component\Routing\DynamicRouter
-    arguments: ['@request.context', '@router.matcher', '@url.generator']
+    arguments: ['@request.context', '@router.matcher', '@url.generator','','@event.dispatcher','@router.provider']
     tags:
-      - { name: service_collector, tag: non_lazy_route_enhancer, call: addRouteEnhancer }
+      - { name: resolver_collector, tag: non_lazy_route_enhancer, call: addRouteEnhancer }
   router.no_access_checks:
     class: Symfony\Cmf\Component\Routing\ChainRouter
     calls:
       - [setContext, ['@request.context']]
-      - [add, ['@router.dynamic']]
+      - [add, ['@cmf_routing.dynamic_router']]
   template.engine:
     class: app\core\template\SmartyTemplateEngine
 #    handlers
@@ -137,10 +143,23 @@ services:
     class: app\core\module\ModuleManager
     arguments: ['@module.repository']
 
+  session:
+    class: Symfony\Component\HttpFoundation\Session\Session
+
+# middlewares
+  http_middleware.session:
+    class: app\core\middleware\Session
+    tags:
+      - { name: http_middleware, priority: 50 }
 #    subscribers
   response.handler:
     class: app\core\event\subscriber\DefaultResponseHandlerSubscriber
     arguments: ['@block.manager','@current.route.match']
+    tags:
+      - { name: event_subscriber }
+  redirect.response.handler:
+    class: app\core\event\subscriber\RedirectResponseSubscriber
+#    arguments: ['@request.context']
     tags:
       - { name: event_subscriber }
   router.handler:
@@ -148,11 +167,38 @@ services:
     arguments: ['@router.no_access_checks', '@request_stack', '@request.context', NULL]
     tags:
       - { name: event_subscriber }
+  route_enhancer_subscriber:
+    class: app\core\event\subscriber\RouteEnhancerSubscriber
+    arguments: ['@route_enhancer.lazy_collector']
+    tags:
+      - { name: event_subscriber }
+#  profiler.storage:
+#    class: Symfony\Component\HttpKernel\Profiler\FileProfilerStorage
+#    arguments: ['C:\Users\oluwatobiloba\Videos']
+#    arguments: ['file:/Users/oluwatobiloba/Videos']
+#
+#  profiler:
+#    class: Symfony\Component\HttpKernel\Profiler\Profiler
+#    arguments: ['@profiler.storage']
+#  profiler.listener:
+#    class: Symfony\Component\HttpKernel\EventListener\ProfilerListener
+#    arguments: ['@profiler']
+#    tags:
+#      - { name: event_subscriber }
+  session.handler:
+    class: app\core\event\subscriber\SessionHandlerSubscriber
+    arguments: ['@service_container']
+    tags:
+      - { name: event_subscriber }
+  session_save.handler:
+    class: Symfony\Component\HttpKernel\EventListener\SaveSessionListener
+    tags:
+      - { name: event_subscriber }
 
   active.theme.resolver:
     class: app\core\theme\ActiveThemeResolver
     tags:
-      - {name : 'resolver_collector',tag: 'theme'}
+      - {name : 'resolver_collector',tag: 'theme', call: 'addResolver'}
   front.theme.resolver:
     class: app\core\theme\DefaultThemeResolver
     tags:
@@ -160,13 +206,21 @@ services:
   component.target.resolver:
     class: app\core\component\ComponentTargetResolver
     tags:
-      - {name : 'resolver_collector', tag: 'component_target'}
+      - {name : 'resolver_collector', tag: 'component_target', call: 'addResolver'}
   front.target.resolver:
     class: app\core\component\DefaultTargetResolver
     arguments: ['@component.repository']
     tags:
-      - { name: 'resolver' ,tag: 'component_target',priority: 20}
-
+      - { name: 'resolver' ,tag: 'component_target', priority: 20}
+  route_enhancer.lazy_collector:
+    class: app\core\routing\LazyRouteEnhancer
+    tags:
+      - { name: non_lazy_route_enhancer, priority: 5000 }
+    parent: container.trait
+  route_enhancer.form:
+    class: app\core\routing\enhancer\FormRouteEnhancer
+    tags:
+      - { name: dynamic_router_route_enhancer }
 #   core argument resolvers
   default.value_resolver:
     class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver
@@ -186,5 +240,9 @@ services:
       - { name : argument.value_resolver}
   route_match.value_resolver:
     class: app\core\controller\argument\resolver\RouteMatchResolver
+    tags:
+      - { name : argument.value_resolver}
+  formbuilder.value_resolver:
+    class: app\core\controller\argument\resolver\FormBuilderResolver
     tags:
       - { name : argument.value_resolver}

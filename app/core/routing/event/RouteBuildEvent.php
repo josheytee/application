@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core\routing;
+namespace app\core\routing\event;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Routing\RouteCollection;

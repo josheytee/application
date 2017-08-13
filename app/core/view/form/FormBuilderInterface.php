@@ -10,9 +10,4 @@ use app\core\http\Request;
  */
 interface FormBuilderInterface {
 
-  public function formID();
-
-  public function build();
-
-  public function process(Request $request);
 }

@@ -2,20 +2,60 @@
 
 namespace app\core\routing;
 
-use app\core\routing\RouteProvider;
+use Symfony\Cmf\Component\Routing\ProviderBasedGenerator;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Cmf\Component\Routing\RouteProviderInterface;
 use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\Generator\UrlGenerator as BaseUrlGenerator;
 
 /**
  * Description of UrlGenerator
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class UrlGenerator extends BaseUrlGenerator {
+class UrlGenerator extends ProviderBasedGenerator {
 
-  public function __construct(RouteProvider $route_provider, RequestContext $request_context) {
+  /**
+   * @var RequestStack
+   */
+  private $request_stack;
 
-    parent::__construct($route_provider->getRoutes(), $request_context);
+  /**
+   * @param RouteProviderInterface $provider
+   * @param LoggerInterface        $logger
+   */
+  public function __construct(RouteProviderInterface $provider, RequestStack $request_stack) {
+    $this->provider = $provider;
+    $this->context = new RequestContext();
+    $this->request_stack = $request_stack;
+  }
+
+  public function generateFromRoute($name, $parameters = array()) {
+    $path = $this->generate($name, $parameters);
+    $host = $this->context->getHost();
+    $scheme = $this->context->getScheme();
+    return $scheme . '://' . $host . $path;
+  }
+
+  /**
+   * Returns a redirect response object for the specified route.
+   *
+   * @param string $route_name
+   *   The name of the route to which to redirect.
+   * @param array $route_parameters
+   *   (optional) Parameters for the route.
+   * @param array $options
+   *   (optional) An associative array of additional options.
+   * @param int $status
+   *   (optional) The HTTP redirect status code for the redirect. The default is
+   *   302 Found.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect response object that may be returned by the controller.
+   */
+  public function redirect($route_name, array $route_parameters = []) {
+    $url = $this->generateFromRoute($route_name, $route_parameters);
+    $request = $this->request_stack->getCurrentRequest();
+    $request->attributes->set('_redirect', $url);
   }
 
 }

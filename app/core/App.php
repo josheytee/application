@@ -159,6 +159,7 @@ class App implements AppInterface, TerminableInterface {
     $loader->load('core.services.yml');
     $this->loadModuleServices($loader);
     $this->registerPass($container);
+
     $container->compile();
 //        var_dump($container);
     Context::setContainer($container);
@@ -172,11 +173,15 @@ class App implements AppInterface, TerminableInterface {
   }
 
   public function registerPass(&$container) {
-    $container->addCompilerPass(new dependencyInjection\compiler\RegisterEventSubscribersPass());
+    $container->addCompilerPass(new \Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass('event.dispatcher', 'listenerTag', 'event_subscriber'));
+//    $container->addCompilerPass(new dependencyInjection\compiler\RegisterEventSubscribersPass());
     $container->addCompilerPass(new dependencyInjection\compiler\ArgumentResolverPass());
-    $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouteEnhancersPass());
-    $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRoutersPass());
+//    $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouteEnhancersPass());
+//
+//    $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRoutersPass());
     $container->addCompilerPass(new dependencyInjection\compiler\TaggedResolverPass());
+    $container->addCompilerPass(new dependencyInjection\compiler\StackedKernelPass());
+    $container->addCompilerPass(new dependencyInjection\compiler\RegisterLazyRouteEnhancersPass());
   }
 
   /**

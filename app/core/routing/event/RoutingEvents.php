@@ -1,13 +1,13 @@
 <?php
 
-namespace app\core\routing;
+namespace app\core\routing\event;
 
 /**
- * Description of RouteEvents
+ * Description of Routing
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-final class RouteEvents {
+final class RoutingEvents {
 
   /**
    * Name of the event fired during route collection to allow changes to routes.

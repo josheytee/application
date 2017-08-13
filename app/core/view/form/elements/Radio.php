@@ -13,7 +13,7 @@ class Radio extends InputElement {
 
   public function __construct($name, $value = null, $attributes = null) {
     parent::__construct($name, $value, $attributes);
-    $this->addAtribute('type', 'radio');
+    $this->addAttribute('type', 'radio');
   }
 
 }

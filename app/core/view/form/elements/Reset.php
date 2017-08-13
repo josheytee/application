@@ -13,7 +13,7 @@ class Reset extends InputElement {
 
   public function __construct($name, $value = null, $attribute = null) {
     parent::__construct($name, $value, $attribute);
-    $this->addAtribute('type', 'reset');
+    $this->addAttribute('type', 'reset');
   }
 
 }

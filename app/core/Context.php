@@ -139,6 +139,10 @@ class Context {
     return static::getContainer()->get('theme.manager');
   }
 
+  public static function urlGenerator() {
+    return static::getContainer()->get('url.generator');
+  }
+
   /**
    * Retrieves the currently active route match object.
    *

@@ -5,8 +5,8 @@ namespace ntc\administrator\event\subscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Routing\RouteCollection;
-use app\core\routing\RouteBuildEvent;
-use app\core\routing\RouteEvents;
+use app\core\routing\event\RouteBuildEvent;
+use app\core\routing\event\RoutingEvents;
 
 /**
  * Description of AdminRequestSubscriber
@@ -16,7 +16,7 @@ use app\core\routing\RouteEvents;
 class AdminRouteSubscriber implements EventSubscriberInterface {
 
   public static function getSubscribedEvents(): array {
-    return [RouteEvents::ALTER => ['onAlterRoutes']];
+    return [RoutingEvents::ALTER => ['onAlterRoutes']];
   }
 
   /**

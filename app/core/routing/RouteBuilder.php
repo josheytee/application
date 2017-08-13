@@ -9,7 +9,8 @@ use app\core\module\ModuleManager;
 use app\core\Context;
 use app\core\routing\Dumper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use app\core\routing\RouteBuildEvent;
+use app\core\routing\event\RouteBuildEvent;
+use app\core\routing\event\RoutingEvents;
 
 /**
  * Description of RouteBuilder
@@ -75,7 +76,7 @@ class RouteBuilder {
       $route = new Route($route_info['path'], $route_info['defaults'], $route_info['requirements'], $route_info['options'], $route_info['host'], $route_info['schemes'], $route_info['methods'], $route_info['condition']);
       $collection->add($name, $route);
     }
-    $route_build_event = $this->dispatcher->dispatch(RouteEvents::ALTER, new RouteBuildEvent($collection));
+    $route_build_event = $this->dispatcher->dispatch(RoutingEvents::ALTER, new RouteBuildEvent($collection));
     $this->dumper->addRoutes($route_build_event->getRouteCollection());
     $this->dumper->dump();
     $this->building = FALSE;
