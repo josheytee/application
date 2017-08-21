@@ -127,7 +127,7 @@ class Context {
     return static::getContainer()->get('smarty');
   }
 
-  public static function getDoctrine() {
+  public static function doctrine() {
     return static::getContainer()->get('entity.manager');
   }
 

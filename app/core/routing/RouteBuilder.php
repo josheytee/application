@@ -6,7 +6,6 @@ use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Yaml\Yaml;
 use app\core\module\ModuleManager;
-use app\core\Context;
 use app\core\routing\Dumper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use app\core\routing\event\RouteBuildEvent;
@@ -39,7 +38,7 @@ class RouteBuilder {
   }
 
   public function build() {
-    $user = Context::getContext()->user;
+
   }
 
   /**

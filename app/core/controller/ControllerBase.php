@@ -6,16 +6,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use app\core\dependencyInjection\ContainerInjectionInterface;
 use app\core\Context;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use app\core\view\Renderabletrait;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Description of Controller
  *
  * @author adapter
  */
-abstract class ControllerBase implements ContainerInjectionInterface {
+abstract class ControllerBase implements ContainerInjectionInterface, ContainerAwareInterface {
 
-  use \app\core\view\Renderabletrait;
+  use Renderabletrait;
+  use ContainerAwareTrait;
+  use ControllerTrait;
 
   public static function inject(ContainerInterface $container) {
     return new static();
@@ -23,14 +27,6 @@ abstract class ControllerBase implements ContainerInjectionInterface {
 
   public function l($param0) {
     return $param0;
-  }
-
-  protected function getContainer() {
-    return Context::getContainer();
-  }
-
-  public function getDoctrine() {
-    return Context::getDoctrine();
   }
 
   public function getTemplate($dir, $file = null) {
@@ -46,16 +42,8 @@ abstract class ControllerBase implements ContainerInjectionInterface {
     }
   }
 
-  public function redirect($url) {
-    return new RedirectResponse($url);
-  }
-
-  public function route($route_name, ...$params) {
-    return $this->getContainer()->get('link.manager')->route($route_name, $params);
-  }
-
   public function renderTemplate($template, $data = null) {
-    $smarty = Context::smarty();
+    $smarty = $this->smarty();
     $tpl = $smarty->createAndFetch($template, $data);
     return ($tpl);
   }

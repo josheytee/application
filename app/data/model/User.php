@@ -399,38 +399,35 @@ class User {
     return $this->config;
   }
 
+  /**
+   * Add router
+   *
+   * @param \model\Router $router
+   *
+   * @return User
+   */
+  public function addRouter(\model\Router $router) {
+    $this->router[] = $router;
 
-    /**
-     * Add router
-     *
-     * @param \model\Router $router
-     *
-     * @return User
-     */
-    public function addRouter(\model\Router $router)
-    {
-        $this->router[] = $router;
+    return $this;
+  }
 
-        return $this;
-    }
+  /**
+   * Remove router
+   *
+   * @param \model\Router $router
+   */
+  public function removeRouter(\model\Router $router) {
+    $this->router->removeElement($router);
+  }
 
-    /**
-     * Remove router
-     *
-     * @param \model\Router $router
-     */
-    public function removeRouter(\model\Router $router)
-    {
-        $this->router->removeElement($router);
-    }
+  /**
+   * Get router
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getRouter() {
+    return $this->router;
+  }
 
-    /**
-     * Get router
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRouter()
-    {
-        return $this->router;
-    }
 }

@@ -2,7 +2,6 @@
 
 $autoloader = require_once './vendor/autoload.php';
 require './app/config/config.inc.php';
-include_once './test.php';
 
 use app\core\http\Request;
 
@@ -15,3 +14,5 @@ app\core\Context::getContainer()->get('router.builder')->setRebuildNeeded();
 app\core\Context::getContainer()->get('router.builder')->rebuild();
 //var_dump($response);
 $response->send();
+
+include_once './test.php';

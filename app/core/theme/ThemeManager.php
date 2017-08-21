@@ -10,6 +10,7 @@ use app\core\config\ConfigManager;
 use app\core\Context;
 use app\core\theme\ActiveThemeResolverInterface;
 use app\core\routing\RouteMatchInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Description of ThemeProvider
@@ -17,6 +18,8 @@ use app\core\routing\RouteMatchInterface;
  * @author adapter
  */
 class ThemeManager implements ThemeManagerInterface {
+
+  use ContainerAwareTrait;
 
   /**
    * @var ActiveThemeResolverInterface
@@ -46,7 +49,8 @@ class ThemeManager implements ThemeManagerInterface {
     // Determine the active theme for the theme negotiator service. This includes
     // the default theme as well as really specific ones like the ajax base theme.
     if (!$route_match) {
-      $route_match = Context::routeMatch();
+//      $route_match = Context::routeMatch();
+      $route_match = $this->container->get('current.route.match');
     }
 //    if ($route_match instanceof StackedRouteMatchInterface) {
 //      $route_match = $route_match->getMasterRouteMatch();

@@ -106,7 +106,7 @@ class ProductController extends ControllerBase {
 
   public function renderForm($tab) {
 //      echo $this->tab_display;
-    $manager = $this->getContainer()->get('entity.manager')->getRepository('model\Product')->find(1);
+    $manager = $this->doctrine()->getRepository('app\core\entity\Product')->find(1);
     $this->object = $manager;
     if (!method_exists($this, 'initForm' . $this->tab_display)) {
       return;

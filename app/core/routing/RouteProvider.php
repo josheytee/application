@@ -31,9 +31,9 @@ class RouteProvider implements PagedRouteProviderInterface {
 
   public function getRoutes() {
     $collection = new RouteCollection();
-    $routes = $this->entity_manager->getRepository('model\Router')->findAll();
+    $routes = $this->entity_manager->getRepository('app\core\entity\Routing')->findAll();
     foreach ($routes as $key => $router) {
-      $collection->add($router->name, $router->route);
+      $collection->add($router->getName(), $router->getRoute());
     }
     return $collection;
   }

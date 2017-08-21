@@ -6,8 +6,9 @@ use app\core\view\form\Formbuilder;
 use app\core\http\Request;
 
 /**
- * Description of FormController
- *
+ * This implementation uses the '_form' request attribute to determine
+ * the controller to execute and uses the request attributes to determine
+ * the controller method arguments. *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
 abstract class FormController extends ControllerBase {

@@ -4,9 +4,8 @@ namespace app\core\component;
 
 use app\core\dependencyInjection\ClassResolver;
 use Symfony\Component\Yaml\Yaml;
-use app\core\repository\ComponentRepository;
-use app\core\routing\RouteMatchInterface;
 use app\core\component\ComponentTargetResolver;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Description of ComponentInitailizer
@@ -14,6 +13,8 @@ use app\core\component\ComponentTargetResolver;
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
 class ComponentInitializer {
+
+  use ContainerAwareTrait;
 
   /**
    * @var ComponentTargetResolverInterface
@@ -72,7 +73,7 @@ class ComponentInitializer {
   }
 
   public function getRepo() {
-    return $this->target_resolver->resolveTarget(\app\core\Context::routeMatch());
+    return $this->target_resolver->resolveTarget($this->container->get('current.route.match'));
   }
 
   /**

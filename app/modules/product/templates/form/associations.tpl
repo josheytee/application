@@ -13,7 +13,7 @@
     <div class="form-group">
       <label for="shop_id" class="col-sm-2 control-label">Section</label>
       <div class="col-sm-10">
-        <input type="text" name="id_shop" class="form-control" id="shop_id" placeholder="Shop_id" value="{$product->section->name}">
+        <input type="text" name="id_shop" class="form-control" id="shop_id" placeholder="Shop_id" value="{$product->getSection()->getName()}">
       </div>
     </div>
 

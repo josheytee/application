@@ -5,5 +5,12 @@ admin.index:
     _controller: 'ntc\administrator\controller\AdminController::hello'
   requirements:
     _permission: 'administer actions'
+admin.list:
+  path: 'admin/list'
+  defaults:
+    _title: 'Amin | Home'
+    _list: 'ntc\administrator\controller\Listing'
+  requirements:
+    _permission: 'administer actions'
 
 

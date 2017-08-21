@@ -1,9 +1,10 @@
 <?php
 
-namespace app\core\routing\enhancer;
+namespace app\core\controller\enhancer;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Route;
+use app\core\routing\enhancer\RouteEnhancerInterface;
 
 /**
  * Enhancer to add a wrapping controller for _form routes.

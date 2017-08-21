@@ -1,0 +1,47 @@
+app\core\entity\User:
+  type: entity
+  repositoryClass: app\core\entity\repository\UserRepository
+  table: user
+  indexes:
+    username_email_phone_idx:
+      columns: [ 'username', email, phone ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    firstname:
+      type: string
+      length: 32
+    lastname:
+      type: string
+      length: 32
+    username:
+      type: string
+      length: 32
+      unique: true
+      nullable: true
+    token:
+      type: string
+      unique: true
+      nullable: true
+    email:
+      type: string
+      unique: true
+      options:
+        comment: User's email address
+    phone:
+      type: string
+      length: 32
+      unique: true
+      options:
+        comment: User's phone number
+    created:
+      type: datetime
+    updated:
+      type: datetime
+  oneToMany:
+    role:
+      targetEntity: app\core\entity\Role
+      mappedBy: user

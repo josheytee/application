@@ -1,0 +1,69 @@
+app\core\entity\Product:
+  type: entity
+  repositoryClass: app\core\entity\repository\ProductRepository
+  indexes:
+   product_price_name_idx:
+      columns: [ id, price, name ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      options:
+        comment: Product's url string
+    short_description:
+      type: text
+      length: 320
+      options:
+        comment: Product's short description
+    description:
+      type: text
+      length: 700
+      options:
+        comment: Product's long description
+    condition:
+      type: string
+      columnDefinition: ENUM('new', 'used', 'refurbished')
+      options:
+        comment: Product's condition
+        default: new
+    type:
+      type: string
+      columnDefinition: ENUM('simple', 'pack', 'virtual')
+      options:
+        comment: Product's type
+        default: simple
+    available:
+      type: boolean
+      options:
+        comment: Product's availability
+    price:
+      type: decimal
+      scale: 4
+      options:
+        comment: Product's price
+    show_price:
+      type: boolean
+      options:
+        comment: if the price should be shown
+    online_only:
+      type: boolean
+      options:
+        comment: if the product should be shown online only
+    active:
+      type: boolean
+    created:
+      type: datetime
+    updated:
+      type: datetime
+  oneToOne:
+    section:
+      targetEntity: app\core\entity\Section
+      mappedBy: product
+  ManyToOne:
+    shop:
+      targetEntity: app\core\entity\Shop
+      inversedBy: shop

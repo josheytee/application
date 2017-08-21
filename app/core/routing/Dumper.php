@@ -3,7 +3,7 @@
 namespace app\core\routing;
 
 use Doctrine\ORM\EntityManager;
-use model\Router;
+use app\core\entity\Routing;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
@@ -25,15 +25,15 @@ class Dumper {
   }
 
   public function dump() {
-    $this->entity_manager->getRepository('model\Router')->deleteAll();
+    $this->entity_manager->getRepository('app\core\entity\Routing')->deleteAll();
     foreach ($this->routes->all() as $name => $route) {
 
       $compiled = $route->compile();
 //      dump($compiled);
-      $router = new Router();
-      $router->name = $name;
-      $router->path = $route->getPath();
-      $router->route = $route;
+      $router = new Routing();
+      $router->setName($name);
+      $router->setPath($route->getPath());
+      $router->setRoute($route);
 
       $this->entity_manager->persist($router);
     }

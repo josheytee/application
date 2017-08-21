@@ -3,14 +3,14 @@
 namespace app\core\view\form;
 
 use app\core\view\form\elements;
-use app\core\view\form\FormBuilderInterface;
+use app\core\view\BuilderInterface;
 use app\core\view\form\elements\Select;
 
 /**
  * handles form building
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Formbuilder implements FormBuilderInterface {
+class Formbuilder implements BuilderInterface {
 
   use \app\core\view\Renderabletrait;
   use \app\core\utility\ArrayHelper;

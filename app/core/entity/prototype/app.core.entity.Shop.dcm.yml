@@ -1,0 +1,46 @@
+app\core\entity\Shop:
+  type: entity
+  repositoryClass: app\core\entity\repository\ShopRepository
+  indexes:
+    url_idx:
+      columns: [  url ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+    url:
+      type: string
+      length: 32
+      nullable: true
+      options:
+        comment: Shop's url string
+    description:
+      type: text
+      length: 320
+      options:
+        comment: Shop's description
+    created:
+      type: datetime
+    updated:
+      type: datetime
+  oneToOne:
+    activity:
+      targetEntity: app\core\entity\Activity
+      JoinColumn:
+        name: activity
+        referencedColumnName: id_activity
+  OneToMany:
+    section:
+      targetEntity: app\core\entity\Section
+      mapped: shop
+      cascade: ['remove']
+  ManyToOne:
+    role:
+      targetEntity: app\core\entity\Role
+      inversedBy: shop
+      cascade: ['remove']
+ 

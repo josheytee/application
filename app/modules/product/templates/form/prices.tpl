@@ -7,7 +7,7 @@
     <div class="form-group">
       <label for="price" class="col-sm-2 control-label">Price</label>
       <div class="col-sm-10">
-        <input type="text" name="price" class="form-control" id="price" placeholder="Price" value="{$product->price}">
+        <input type="text" name="price" class="form-control" id="price" placeholder="Price" value="{$product->getPrice()}">
       </div>
     </div>
     <div class="form-group">

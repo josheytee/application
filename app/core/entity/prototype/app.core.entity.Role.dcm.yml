@@ -1,0 +1,39 @@
+app\core\entity\Role:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: date
+      unique: true
+      options:
+        comment: Role's name
+    createdBy:
+      type: integer
+      options:
+        unsigned: true
+        comment: user id that created the role
+  ManyToOne:
+    user:
+      targetEntity: app\core\entity\User
+      mappedBy: role
+      joinColumn:
+        name: user
+        referencedColumnName: id_user
+        nullable: false
+    profile:
+      targetEntity: app\core\entity\Profile
+      inversedBy: profile
+      joinColumn:
+        name: profile
+        referencedColumnName: id_prifile
+    shop:
+      targetEntity: app\core\entity\Shop
+      mappedBy: role
+      joinColumn:
+        name: shop
+        referencedColumnName: id_shop
+

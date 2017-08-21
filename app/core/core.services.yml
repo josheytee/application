@@ -1,18 +1,18 @@
 parameters:
  db.params:
     driver: pdo_mysql
-    dbname: ntc_doctrine
-    host: localhost
+    dbname: ntc_yml
+    host: 127.0.0.1
     user: root
     password: ~
  doctrine.dev:
     true
  doctrine.entities.path:
-     -  'C:\wamp\www\application\app\data\model'
+     -  '/opt/lampp/htdocs/application/app/core/entity/prototype'
 services:
   doctrine.setup:
     class: Doctrine\ORM\Tools\Setup
-    factory: [Doctrine\ORM\Tools\Setup,createAnnotationMetadataConfiguration]
+    factory: [Doctrine\ORM\Tools\Setup,createYAMLMetadataConfiguration]
     arguments:
         - '%doctrine.entities.path%'
         - '%doctrine.dev%'
@@ -68,6 +68,7 @@ services:
   component.initializer:
     class: app\core\component\ComponentInitializer
     arguments: ['@class.resolver','@component.target.resolver']
+    parent: container.trait
   context.admin:
     class: app\core\routing\AdminContext
     arguments: ['@current.route.match']
@@ -125,6 +126,8 @@ services:
   theme.manager:
     class: app\core\theme\ThemeManager
     arguments: ['@theme.repository','@active.theme.resolver']
+    parent: container.trait
+
   view.manager:
     class: app\core\view\ViewManager
     arguments: ['@template.engine','@theme.manager']
@@ -218,7 +221,11 @@ services:
       - { name: non_lazy_route_enhancer, priority: 5000 }
     parent: container.trait
   route_enhancer.form:
-    class: app\core\routing\enhancer\FormRouteEnhancer
+    class: app\core\controller\enhancer\FormRouteEnhancer
+    tags:
+      - { name: dynamic_router_route_enhancer }
+  route_enhancer.list:
+    class: app\core\controller\enhancer\ListRouteEnhancer
     tags:
       - { name: dynamic_router_route_enhancer }
 #   core argument resolvers
@@ -244,5 +251,9 @@ services:
       - { name : argument.value_resolver}
   formbuilder.value_resolver:
     class: app\core\controller\argument\resolver\FormBuilderResolver
+    tags:
+      - { name : argument.value_resolver}
+  listbuilder.value_resolver:
+    class: app\core\controller\argument\resolver\ListBuilderResolver
     tags:
       - { name : argument.value_resolver}
