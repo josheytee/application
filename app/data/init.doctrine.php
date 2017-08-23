@@ -11,7 +11,7 @@ $dbParams = [
     'dbname' => 'ntc_yml',
     'host' => 'localhost',
     'user' => 'root',
-    'password' => '',
+    'password' => 1234567,
 ];
 // Dev mode?
 $dev = true;
