@@ -6,3 +6,20 @@ admin.shop.add:
   requirements:
     _permission: 'administer actions'
 
+admin.shop.edit:
+  path: 'admin/shop/edit/{id}'
+  defaults:
+    _title: 'Amin | Create Shop'
+    _form: 'ntc\shop\form\CreateShopForm'
+  requirements:
+    id: \d+
+    _permission: 'administer actions'
+
+admin.shop.list:
+  path: 'admin/shop/list'
+  defaults:
+    _title: 'Amin | User Shop List'
+    _list: 'ntc\shop\listing\ShopUserList'
+  requirements:
+    _permission: 'administer actions'
+

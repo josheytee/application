@@ -156,3 +156,4 @@ class Profile
         return $this->role;
     }
 }
+

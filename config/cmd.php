@@ -9,7 +9,7 @@ use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use app\core\Context;
 
 $loader = new Loader();
-$loader->loadFromDirectory(__DIR__ . '/../app/data/fixtures');
+$loader->loadFromDirectory(__DIR__ . '/../app/core/entity/fixtures');
 $purger = new ORMPurger();
 $executor = new ORMExecutor(Context::getContext()->manager, $purger);
 $executor->execute($loader->getFixtures());

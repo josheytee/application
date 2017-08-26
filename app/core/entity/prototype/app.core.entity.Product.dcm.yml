@@ -13,7 +13,7 @@ app\core\entity\Product:
     name:
       type: string
       options:
-        comment: Product's url string
+        comment: Product's name
     short_description:
       type: text
       length: 320

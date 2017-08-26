@@ -98,7 +98,7 @@ class ProductController extends ControllerBase {
           'id' => $product_tab,
           'selected' => (strtolower($product_tab) == strtolower($this->tab_display) ),
           'name' => $this->available_tabs_lang[$product_tab],
-          'href' => $this->link->route('admin.product.add', $product_tab),
+          'href' => $this->generateUrl('admin.product.add', ['tab'=>$product_tab]),
       );
     }
     $this->tpl_form_vars['product_tabs'] = $product_tabs;

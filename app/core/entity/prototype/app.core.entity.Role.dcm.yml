@@ -11,11 +11,12 @@ app\core\entity\Role:
       unique: true
       options:
         comment: Role's name
+  OneToOne:
     createdBy:
-      type: integer
-      options:
-        unsigned: true
-        comment: user id that created the role
+        targetEntity: app\core\entity\User
+        JoinColumn:
+           name: created_by
+           referencedColumnName: id_user
   ManyToOne:
     user:
       targetEntity: app\core\entity\User

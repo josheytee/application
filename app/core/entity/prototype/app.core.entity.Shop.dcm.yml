@@ -43,4 +43,7 @@ app\core\entity\Shop:
       targetEntity: app\core\entity\Role
       inversedBy: shop
       cascade: ['remove']
- 
+  ManyToMany:
+    user:
+      targetEntity: app\core\entity\User
+      mappedBy: shop

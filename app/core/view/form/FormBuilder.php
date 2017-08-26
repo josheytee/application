@@ -2,9 +2,11 @@
 
 namespace app\core\view\form;
 
+use app\core\utility\ArrayHelper;
 use app\core\view\form\elements;
 use app\core\view\BuilderInterface;
 use app\core\view\form\elements\Select;
+use app\core\view\Renderabletrait;
 
 /**
  * handles form building
@@ -12,11 +14,12 @@ use app\core\view\form\elements\Select;
  */
 class Formbuilder implements BuilderInterface {
 
-  use \app\core\view\Renderabletrait;
-  use \app\core\utility\ArrayHelper;
+  use Renderabletrait;
+  use ArrayHelper;
 
   protected $elements;
   protected $labels;
+  protected $help_blocks;
   protected $attributes;
   protected $method = 'POST';
 
@@ -98,6 +101,18 @@ class Formbuilder implements BuilderInterface {
     }
     return $this->elements[$key] = $block;
   }
+
+    public function help($text)
+    {
+        $name = uniqid();
+        $this->help_blocks[$name] = $name;
+        return $this->elements[$name] = $this->element('help', $name, $text);
+    }
+
+    public function textArea($name, $value='')
+    {
+        return $this->elements[$name] = $this->element('textArea', $name, $value);
+    }
 
   private function element($type, $name, $value = '') {
     $type = \ucfirst($type);

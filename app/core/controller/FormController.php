@@ -13,20 +13,22 @@ use app\core\http\Request;
  */
 abstract class FormController extends ControllerBase {
 
-  protected $elements;
+    protected $elements;
 
-  abstract public function process(Request $request);
+    abstract public function build(Formbuilder $request);
 
-  public function validate(Request $request) {
-    return true;
-  }
+    abstract public function process(Request $request);
 
-  public function create(Request $request, Formbuilder $builder) {
-    if ($this->validate($request)) {
-      $this->process($request);
-      $return['content'] = $this->build($builder)->fetch();
-      return $return;
+    public function validate(Request $request) {
+        return true;
     }
-  }
+
+    public function create(Request $request, Formbuilder $builder) {
+        if ($this->validate($request)) {
+            $this->process($request);
+            $return['content'] = $this->build($builder)->fetch();
+            return $return;
+        }
+    }
 
 }

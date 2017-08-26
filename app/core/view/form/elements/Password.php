@@ -11,9 +11,9 @@ use app\core\view\form\InputElement;
  */
 class Password extends InputElement {
 
-  public function __construct($name, $value = null, $attribute = null) {
-    parent::__construct($name, $value, $attribute);
-    $this->addAttribute('type', 'password');
-  }
+    public function __construct($name, $value = null, $attribute = null) {
+        parent::__construct($name, $value, $attribute);
+        $this->addAttribute('type', 'password');
+    }
 
 }
