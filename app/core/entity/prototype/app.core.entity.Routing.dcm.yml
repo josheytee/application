@@ -1,34 +1,24 @@
 app\core\entity\Routing:
-  type: entity
-  repositoryClass: app\core\entity\repository\RoutingRepository
-  id:
+    type: entity
+    table: Routing
+    repositoryClass: app\core\entity\repository\RoutingRepository
     id:
-      type: integer
-      generator:
-        strategy: AUTO
-  fields:
-    name:
-      type: string
-      options:
-        comment: Route's name
-    path:
-      type: string
-      options:
-        comment: Route's path string
-    route:
-      type: object
-      options:
-        comment: Route's object
-#  ManyToMany:
-#    user:
-#      targetEntity: app\core\entity\User
-#      inversedBy: route
-#      fetch: EAGER
-#      cascade: ['persist']
-#      orphanRemoval: true
-#      JoinTable:
-#        name: user_route
-#        inverseJoinColumns:
-#          JoinColumn:
-#            name: id_user
-#            referencedColumnName: id
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            options:
+                comment: 'Route''s name'
+        path:
+            type: string
+            options:
+                comment: 'Route''s path string'
+        route:
+            type: object
+            options:
+                comment: 'Route''s object'
+    lifecycleCallbacks: {  }

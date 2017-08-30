@@ -1,0 +1,66 @@
+Occupation:
+    type: entity
+    table: occupation
+    indexes:
+        IDX_4DA57E816B3CA4B:
+            columns:
+                - id_user
+        IDX_4DA57E81274A50A0:
+            columns:
+                - id_shop
+        IDX_4DA57E815FCA037F:
+            columns:
+                - id_profile
+    id:
+        idOccupation:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_occupation
+            generator:
+                strategy: IDENTITY
+    fields:
+        startedOn:
+            type: date
+            nullable: false
+            column: started_on
+        monthlySalary:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: monthly_salary
+    manyToOne:
+        idShop:
+            targetEntity: Shop
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_shop:
+                    referencedColumnName: id_shop
+            orphanRemoval: false
+        idProfile:
+            targetEntity: Profile
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_profile:
+                    referencedColumnName: id_profile
+            orphanRemoval: false
+        idUser:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_user:
+                    referencedColumnName: id_user
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

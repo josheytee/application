@@ -12,18 +12,18 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
  */
 class ArgumentResolverPass implements CompilerPassInterface {
 
-  public function process(ContainerBuilder $container) {
-    if (!$container->hasDefinition('argument_resolver')) {
-      return;
-    }
-    $definition = $container->getDefinition('argument_resolver');
+    public function process(ContainerBuilder $container) {
+        if (!$container->hasDefinition('argument_resolver')) {
+            return;
+        }
+        $definition = $container->getDefinition('argument_resolver');
 
-    $argumentValueResolvers = [];
-    foreach ($container->findTaggedServiceIds('argument.value_resolver') as $id => $attributes) {
-      $argumentValueResolvers[] = $container->get($id);
+        $argumentValueResolvers = [];
+        foreach ($container->findTaggedServiceIds('argument.value_resolver') as $id => $attributes) {
+            $argumentValueResolvers[] = $container->get($id);
+        }
+        $definition->addArgument(null);
+        $definition->addArgument($argumentValueResolvers);
     }
-    $definition->addArgument(null);
-    $definition->addArgument($argumentValueResolvers);
-  }
 
 }

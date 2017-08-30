@@ -1,25 +1,31 @@
 app\core\entity\Profile:
-  type: entity
-  repositoryClass: app\core\entity\repository\ProfileRepository
-  table: profile
-  id:
+    type: entity
+    table: Profile
+    repositoryClass: app\core\entity\repository\ProfileRepository
     id:
-      type: integer
-      generator:
-        strategy: AUTO
-  fields:
-    name:
-      type: string
-      length: 32
-      unique: true
-      options:
-        comment: User's phone number
-    created:
-      type: datetime
-    updated:
-      type: datetime
-  oneToMany:
-    role:
-      targetEntity: app\core\entity\Role
-      cascade: ['remove']
-      mappedBy: profile
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            length: 32
+            unique: true
+            options:
+                comment: 'User''s phone number'
+        created:
+            type: datetime
+        updated:
+            type: datetime
+#    oneToMany:
+#        role:
+#            targetEntity: app\core\entity\Role
+#            cascade: {  }
+#            fetch: LAZY
+#            mappedBy: profile
+#            inversedBy: null
+#            orphanRemoval: false
+#            orderBy: null
+    lifecycleCallbacks: {  }

@@ -1,0 +1,27 @@
+app\core\entity\State:
+    type: entity
+    table: State
+#    indexes:
+#        activity_url_idx:
+#            columns:
+#                - id
+#                - url
+    repositoryClass: app\core\entity\repository\StateRepository
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            options:
+                comment: 'Activity''s name'
+        url:
+            type: string
+            length: 32
+            options:
+                comment: 'Activity''s url string somethines it is the slug of the name'
+            nullable: true
+    lifecycleCallbacks: {  }

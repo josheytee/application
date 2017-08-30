@@ -11,20 +11,20 @@ use app\core\routing\enhancer\RouteEnhancerInterface;
  */
 class FormRouteEnhancer implements RouteEnhancerInterface {
 
-  /**
-   * {@inheritdoc}
-   */
-  public function applies(Route $route) {
-    return $route->hasDefault('_form') && !$route->hasDefault('_controller');
-  }
+    /**
+     * {@inheritdoc}
+     */
+    public function applies(Route $route) {
+        return $route->hasDefault('_form') && !$route->hasDefault('_controller');
+    }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function enhance(array $defaults, Request $request) {
+    /**
+     * {@inheritdoc}
+     */
+    public function enhance(array $defaults, Request $request) {
 //    $defaults['_controller'] = 'controller.form:getContentResult';
-    $defaults['_controller'] = $defaults['_form'] . '::create';
-    return $defaults;
-  }
+        $defaults['_controller'] = $defaults['_form'] . '::create';
+        return $defaults;
+    }
 
 }

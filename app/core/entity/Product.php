@@ -5,12 +5,7 @@ namespace app\core\entity;
 /**
  * Product
  */
-class Product
-{
-    /**
-     * @var integer
-     */
-    private $id;
+class Product extends Object {
 
     /**
      * @var string
@@ -63,30 +58,9 @@ class Product
     private $active;
 
     /**
-     * @var \DateTime
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     */
-    private $updated;
-
-    /**
      * @var \app\core\entity\Section
      */
     private $section;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set name
@@ -95,8 +69,7 @@ class Product
      *
      * @return Product
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -107,8 +80,7 @@ class Product
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -119,8 +91,7 @@ class Product
      *
      * @return Product
      */
-    public function setShortDescription($shortDescription)
-    {
+    public function setShortDescription($shortDescription) {
         $this->short_description = $shortDescription;
 
         return $this;
@@ -131,8 +102,7 @@ class Product
      *
      * @return string
      */
-    public function getShortDescription()
-    {
+    public function getShortDescription() {
         return $this->short_description;
     }
 
@@ -143,8 +113,7 @@ class Product
      *
      * @return Product
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -155,8 +124,7 @@ class Product
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -167,8 +135,7 @@ class Product
      *
      * @return Product
      */
-    public function setCondition($condition)
-    {
+    public function setCondition($condition) {
         $this->condition = $condition;
 
         return $this;
@@ -179,8 +146,7 @@ class Product
      *
      * @return string
      */
-    public function getCondition()
-    {
+    public function getCondition() {
         return $this->condition;
     }
 
@@ -191,8 +157,7 @@ class Product
      *
      * @return Product
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
 
         return $this;
@@ -203,8 +168,7 @@ class Product
      *
      * @return string
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
@@ -215,8 +179,7 @@ class Product
      *
      * @return Product
      */
-    public function setAvailable($available)
-    {
+    public function setAvailable($available) {
         $this->available = $available;
 
         return $this;
@@ -227,8 +190,7 @@ class Product
      *
      * @return boolean
      */
-    public function getAvailable()
-    {
+    public function getAvailable() {
         return $this->available;
     }
 
@@ -239,8 +201,7 @@ class Product
      *
      * @return Product
      */
-    public function setPrice($price)
-    {
+    public function setPrice($price) {
         $this->price = $price;
 
         return $this;
@@ -251,8 +212,7 @@ class Product
      *
      * @return string
      */
-    public function getPrice()
-    {
+    public function getPrice() {
         return $this->price;
     }
 
@@ -263,8 +223,7 @@ class Product
      *
      * @return Product
      */
-    public function setShowPrice($showPrice)
-    {
+    public function setShowPrice($showPrice) {
         $this->show_price = $showPrice;
 
         return $this;
@@ -275,8 +234,7 @@ class Product
      *
      * @return boolean
      */
-    public function getShowPrice()
-    {
+    public function getShowPrice() {
         return $this->show_price;
     }
 
@@ -287,8 +245,7 @@ class Product
      *
      * @return Product
      */
-    public function setOnlineOnly($onlineOnly)
-    {
+    public function setOnlineOnly($onlineOnly) {
         $this->online_only = $onlineOnly;
 
         return $this;
@@ -299,8 +256,7 @@ class Product
      *
      * @return boolean
      */
-    public function getOnlineOnly()
-    {
+    public function getOnlineOnly() {
         return $this->online_only;
     }
 
@@ -311,8 +267,7 @@ class Product
      *
      * @return Product
      */
-    public function setActive($active)
-    {
+    public function setActive($active) {
         $this->active = $active;
 
         return $this;
@@ -323,57 +278,8 @@ class Product
      *
      * @return boolean
      */
-    public function getActive()
-    {
+    public function getActive() {
         return $this->active;
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return Product
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return Product
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
     }
 
     /**
@@ -383,8 +289,7 @@ class Product
      *
      * @return Product
      */
-    public function setSection(\app\core\entity\Section $section = null)
-    {
+    public function setSection(\app\core\entity\Section $section = null) {
         $this->section = $section;
 
         return $this;
@@ -395,8 +300,8 @@ class Product
      *
      * @return \app\core\entity\Section
      */
-    public function getSection()
-    {
+    public function getSection() {
         return $this->section;
     }
+
 }

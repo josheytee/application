@@ -1,49 +1,46 @@
 app\core\entity\Shop:
-  type: entity
-  repositoryClass: app\core\entity\repository\ShopRepository
-  indexes:
-    url_idx:
-      columns: [  url ]
-  id:
-    id:
-      type: integer
-      generator:
-        strategy: AUTO
-  fields:
-    name:
-      type: string
-    url:
-      type: string
-      length: 32
-      nullable: true
-      options:
-        comment: Shop's url string
-    description:
-      type: text
-      length: 320
-      options:
-        comment: Shop's description
-    created:
-      type: datetime
-    updated:
-      type: datetime
-  oneToOne:
-    activity:
-      targetEntity: app\core\entity\Activity
-      JoinColumn:
-        name: activity
-        referencedColumnName: id_activity
-  OneToMany:
-    section:
-      targetEntity: app\core\entity\Section
-      mapped: shop
-      cascade: ['remove']
-  ManyToOne:
-    role:
-      targetEntity: app\core\entity\Role
-      inversedBy: shop
-      cascade: ['remove']
-  ManyToMany:
-    user:
-      targetEntity: app\core\entity\User
-      mappedBy: shop
+    type: entity
+    table: Shop
+    indexes:
+        url_idx:
+            columns:
+                - url
+    repositoryClass: app\core\entity\repository\ShopRepository
+
+    fields:
+        name:
+            type: string
+        url:
+            type: string
+            length: 32
+            options:
+                comment: 'Shop''s url string'
+            nullable: true
+        description:
+            type: text
+            length: 320
+            options:
+                comment: 'Shop''s description'
+
+    oneToOne:
+        activity:
+            targetEntity: app\core\entity\Activity
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_activity:
+                    referencedColumnName: id
+            orphanRemoval: false
+        state:
+            targetEntity: app\core\entity\State
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_state:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

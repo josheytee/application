@@ -18,7 +18,7 @@ abstract class EntityListController extends EntityControllerBase {
 
     public function init() {
         $doctrine = $this->doctrine();
-        $this->entities = $doctrine->getRepository($this->model())->findAll();
+        $this->entities = $doctrine->getRepository($this->getModel())->findAll();
     }
 
     public function processHead() {

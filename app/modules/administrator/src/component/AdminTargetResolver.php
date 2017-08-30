@@ -21,42 +21,42 @@ use app\core\repository\ModuleComponentRepository;
  */
 class AdminTargetResolver implements ComponentTargetResolverInterface {
 
-  /**
-   * @var AdminContext
-   */
-  private $context;
+    /**
+     * @var AdminContext
+     */
+    private $context;
 
-  /**
-   * @var ComponentRepository
-   */
-  private $repository;
+    /**
+     * @var ComponentRepository
+     */
+    private $repository;
 
-  public function __construct(AdminContext $context, ModuleComponentRepository $repository) {
+    public function __construct(AdminContext $context, ModuleComponentRepository $repository) {
 
-    $this->repository = $repository;
-    $this->context = $context;
-  }
-
-  public function appliesTo(RouteMatchInterface $route_match) {
-    return $this->context->isAdminRoute($route_match->getRouteObject());
-  }
-
-  public function resolveTarget(RouteMatchInterface $route_match) {
-    $repositories = $this->repository->getRepositories();
-    $components = [];
-    $admin_c = [];
-    foreach ($repositories as $name => $path) {
-      $info = $path . DS . $name . '.info.yml';
-      $components[$name] = ['info' => Yaml::parse(file_get_contents($info)), 'path' => $path];
-      if (isset($components[$name]['info']['target']) && $components[$name]['info']['target'] == 'admin') {
-        $admin_c[$name] = $components[$name];
-      }
+        $this->repository = $repository;
+        $this->context = $context;
     }
+
+    public function appliesTo(RouteMatchInterface $route_match) {
+        return $this->context->isAdminRoute($route_match->getRouteObject());
+    }
+
+    public function resolveTarget(RouteMatchInterface $route_match) {
+        $repositories = $this->repository->getRepositories();
+        $components = [];
+        $admin_c = [];
+        foreach ($repositories as $name => $path) {
+            $info = $path . DS . $name . '.info.yml';
+            $components[$name] = Yaml::parse(file_get_contents($info)) + ['path' => $path];
+            if (isset($components[$name]['target']) && $components[$name]['target'] == 'admin') {
+                $admin_c[$name] = $components[$name];
+            }
+        }
 //    dump($repositories);
 //    dump($admin_c);
 //    dump(array_diff_key($repositories, $admin_c));
 //    dump(array_intersect_key($admin_c, $repositories));
-    return (array_intersect_key($admin_c, $repositories));
-  }
+        return (array_intersect_key($admin_c, $repositories));
+    }
 
 }

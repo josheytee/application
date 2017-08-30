@@ -131,7 +131,6 @@ class ActiveTheme {
   /**
    * Returns the path to the theme engine for root themes.
    * @todo remove this
-   * @see \app\Core\Extension\ThemeHandler::rebuildThemeData
    *
    * @return mixed
    */

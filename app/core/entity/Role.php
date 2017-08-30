@@ -5,38 +5,26 @@ namespace app\core\entity;
 /**
  * Role
  */
-class Role
-{
-    /**
-     * @var integer
-     */
-    private $id;
+class Role extends Object {
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $name;
 
-
     /**
-     * Get id
-     *
-     * @return integer
+     * @var \app\core\entity\User
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $admin;
 
     /**
      * Set name
      *
-     * @param \DateTime $name
+     * @param string $name
      *
      * @return Role
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -45,10 +33,32 @@ class Role
     /**
      * Get name
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
+
+    /**
+     * Set admin
+     *
+     * @param \app\core\entity\User $admin
+     *
+     * @return Role
+     */
+    public function setAdmin(\app\core\entity\User $admin = null) {
+        $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Get admin
+     *
+     * @return \app\core\entity\User
+     */
+    public function getAdmin() {
+        return $this->admin;
+    }
+
 }

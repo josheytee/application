@@ -1,0 +1,11 @@
+name: Userinfo
+type: component
+package: ntc\administrator\userinfo
+description: "Adds a block that displays information about the customer."
+target: admin
+author: ntc
+icon: hello.png
+version: 1.2.3
+region:  header
+dependencies:
+    - user

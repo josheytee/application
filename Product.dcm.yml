@@ -1,0 +1,106 @@
+Product:
+    type: entity
+    table: product
+    indexes:
+        product_price_name_idx:
+            columns:
+                - id_product
+                - price
+                - name
+    uniqueConstraints:
+        UNIQ_1CF73D31274A50A0:
+            columns:
+                - id_shop
+        UNIQ_1CF73D31F3EED39F:
+            columns:
+                - id_section
+    id:
+        idProduct:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_product
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        shortDescription:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+            column: short_description
+        description:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        condition:
+            type: string
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+        type:
+            type: string
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+        availableForOrder:
+            type: boolean
+            nullable: false
+            column: available_for_order
+        showPrice:
+            type: boolean
+            nullable: false
+            column: show_price
+        price:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 4
+        onlineOnly:
+            type: boolean
+            nullable: false
+            column: online_only
+        active:
+            type: boolean
+            nullable: false
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: false
+    manyToOne:
+        idShop:
+            targetEntity: Shop
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_shop:
+                    referencedColumnName: id_shop
+            orphanRemoval: false
+        idSection:
+            targetEntity: Section
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_section:
+                    referencedColumnName: id_section
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

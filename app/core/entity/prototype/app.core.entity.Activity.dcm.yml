@@ -1,38 +1,32 @@
 app\core\entity\Activity:
-  type: entity
-  repositoryClass: app\core\entity\repository\ActvityRepository
-  indexes:
-    activity_url_idx:
-      columns: [ id, url ]
-  id:
-    id:
-      type: integer
-      generator:
-        strategy: AUTO
-  fields:
-    name:
-      type: string
-      options:
-        comment: Activity's name
-    url:
-      type: string
-      length: 32
-      nullable: true
-      options:
-        comment: "Activity's url string
-        somethines it is the slug of the name"
-    icon:
-      type: string
-      nullable: true
-      options:
-        comment: Activity's icon
-    description:
-      type: text
-      length: 320
-      options:
-        comment: Shop's description
-    created:
-      type: datetime
-    updated:
-      type: datetime
+    type: entity
+    table: Activity
+    indexes:
+        activity_url_idx:
+            columns:
+                - id
+                - url
+    repositoryClass: app\core\entity\repository\ActvityRepository
 
+    fields:
+        name:
+            type: string
+            options:
+                comment: 'Activity''s name'
+        url:
+            type: string
+            length: 32
+            options:
+                comment: 'Activity''s url string somethines it is the slug of the name'
+            nullable: true
+        icon:
+            type: string
+            options:
+                comment: 'Activity''s icon'
+            nullable: true
+        description:
+            type: text
+            length: 320
+            options:
+                comment: 'Shop''s description'
+    lifecycleCallbacks: {  }

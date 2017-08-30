@@ -1,40 +1,52 @@
 app\core\entity\Role:
-  type: entity
-  id:
-    id:
-      type: integer
-      generator:
-        strategy: AUTO
-  fields:
-    name:
-      type: date
-      unique: true
-      options:
-        comment: Role's name
-  OneToOne:
-    createdBy:
-        targetEntity: app\core\entity\User
-        JoinColumn:
-           name: created_by
-           referencedColumnName: id_user
-  ManyToOne:
-    user:
-      targetEntity: app\core\entity\User
-      mappedBy: role
-      joinColumn:
-        name: user
-        referencedColumnName: id_user
-        nullable: false
-    profile:
-      targetEntity: app\core\entity\Profile
-      inversedBy: profile
-      joinColumn:
-        name: profile
-        referencedColumnName: id_prifile
-    shop:
-      targetEntity: app\core\entity\Shop
-      mappedBy: role
-      joinColumn:
-        name: shop
-        referencedColumnName: id_shop
+    type: entity
+    table: Role
 
+    fields:
+        name:
+            type: string
+            options:
+                comment: 'Role''s name'
+    oneToOne:
+        admin:
+            targetEntity: app\core\entity\User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_admin:
+                    referencedColumnName: id
+            orphanRemoval: false
+    ManyToOne:
+        user:
+            targetEntity: app\core\entity\User
+            mappedBy: null
+            inversedBy: role
+            cascade: {  }
+            fetch: LAZY
+            joinColumns:
+                id_user:
+                    referencedColumnName: id
+        idShop:
+            targetEntity: app\core\entity\Shop
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_shop:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idProfile:
+            targetEntity: app\core\entity\Profile
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_profile:
+                    referencedColumnName: id
+            orphanRemoval: false
+
+    lifecycleCallbacks: {  }

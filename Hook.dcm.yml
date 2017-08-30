@@ -1,0 +1,38 @@
+Hook:
+    type: entity
+    table: hook
+    indexes:
+        id_hook_name_idx:
+            columns:
+                - id_hook
+                - name
+    id:
+        idHook:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_hook
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        description:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        icon:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

@@ -7,12 +7,22 @@ admin.shop.add:
     _permission: 'administer actions'
 
 admin.shop.edit:
-  path: 'admin/shop/edit/{id}'
+  path: 'admin/shop/{entity}/edit'
   defaults:
     _title: 'Amin | Create Shop'
-    _form: 'ntc\shop\form\CreateShopForm'
+    _edit_form: 'ntc\shop\form\CreateShopForm'
+    entity: 1
   requirements:
-    id: \d+
+    entity: \d+
+    _permission: 'administer actions'
+
+admin.shop.delete:
+  path: 'admin/shop/{entity}/delete'
+  defaults:
+    _title: 'Amin | Create Shop'
+    _delete_form: 'ntc\shop\form\CreateShopForm'
+  requirements:
+    entity: \d+
     _permission: 'administer actions'
 
 admin.shop.list:
@@ -23,3 +33,11 @@ admin.shop.list:
   requirements:
     _permission: 'administer actions'
 
+shop.index:
+  path: 'shop/{name}'
+  defaults:
+    _title: 'ntc | Shop'
+    _controller: 'ntc\shop\controller\ShopController::index'
+    name: hello
+  requirements:
+    name: .+

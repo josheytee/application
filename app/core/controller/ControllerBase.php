@@ -14,25 +14,21 @@ use Symfony\Component\Finder\Finder;
  *
  * @author adapter
  */
-abstract class ControllerBase implements ContainerInjectionInterface, ContainerAwareInterface
-{
+abstract class ControllerBase implements ContainerInjectionInterface, ContainerAwareInterface {
 
     use Renderabletrait;
     use ContainerAwareTrait;
     use ControllerTrait;
 
-    public static function inject(ContainerInterface $container)
-    {
+    public static function inject(ContainerInterface $container) {
         return new static();
     }
 
-    public function l($param0)
-    {
+    public function l($param0) {
         return $param0;
     }
 
-    public function getTemplate($dir, $file = null)
-    {
+    public function getTemplate($dir, $file = null) {
         $template_dir = dirname(dirname($dir)) . DS . 'templates';
         $finder = new Finder();
         $finder->files()->in($template_dir);
@@ -46,23 +42,27 @@ abstract class ControllerBase implements ContainerInjectionInterface, ContainerA
         }
     }
 
-    public function renderTemplate($template, $data = null)
-    {
+    public function renderTemplate($template, $data = null) {
         $smarty = $this->smarty();
         $tpl = $smarty->createAndFetch($template, $data);
         return ($tpl);
     }
 
-    public function addLibrary($name)
-    {
+    public function addLibrary($name) {
 
     }
 
-    public function render($template, $content = '')
-    {
+    public function renderCustom($template, $content = '') {
         $return = [];
         $return['libraries'] = '';
         $return['content'] = $this->renderTemplate($template, $content);
+        return $return;
+    }
+
+    public function render($template, $content = '') {
+        $return = [];
+        $return['libraries'] = '';
+        $return['content'] = $this->rendertrait($content, $template);
         return $return;
     }
 

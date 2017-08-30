@@ -224,8 +224,12 @@ services:
     class: app\core\controller\enhancer\FormRouteEnhancer
     tags:
       - { name: dynamic_router_route_enhancer }
-  route_enhancer.list:
-    class: app\core\controller\enhancer\ListRouteEnhancer
+#  route_enhancer.list:
+#    class: app\core\controller\enhancer\ListRouteEnhancer
+#    tags:
+#      - { name: dynamic_router_route_enhancer }
+  route_enhancer.entity:
+    class: app\core\entity\enhancer\EntityRouteEnhancer
     tags:
       - { name: dynamic_router_route_enhancer }
 #   core argument resolvers
@@ -245,15 +249,15 @@ services:
     class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver
     tags:
       - { name : argument.value_resolver}
-  route_match.value_resolver:
-    class: app\core\controller\argument\resolver\RouteMatchResolver
-    tags:
-      - { name : argument.value_resolver}
+#  route_match.value_resolver:
+#    class: app\core\controller\argument\resolver\RouteMatchResolver
+#    tags:
+#      - { name : argument.value_resolver}
   formbuilder.value_resolver:
     class: app\core\controller\argument\resolver\FormBuilderResolver
     tags:
       - { name : argument.value_resolver}
-  listbuilder.value_resolver:
-    class: app\core\controller\argument\resolver\ListBuilderResolver
-    tags:
-      - { name : argument.value_resolver}
+#  listbuilder.value_resolver:
+#    class: app\core\controller\argument\resolver\ListBuilderResolver
+#    tags:
+#      - { name : argument.value_resolver}

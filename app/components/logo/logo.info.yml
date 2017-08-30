@@ -4,7 +4,7 @@ freeme lorep isum freeme lorep isum freeme "
 type: component
 target: admin
 author: ntc
-package: components
+package: ntc\logo
 icon: hello.png
 version: 1.2.3
 region:  header

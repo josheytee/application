@@ -1,0 +1,59 @@
+Shop:
+    type: entity
+    table: Shop
+    indexes:
+        url_idx:
+            columns:
+                - url
+    uniqueConstraints:
+        UNIQ_C58E39CFCAFE5CF:
+            columns:
+                - id_activity
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        url:
+            type: string
+            nullable: true
+            length: 32
+            options:
+                fixed: false
+                comment: 'Shop''s url string'
+        description:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+                comment: 'Shop''s description'
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: false
+    manyToOne:
+        idActivity:
+            targetEntity: Activity
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_activity:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

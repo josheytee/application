@@ -23,213 +23,214 @@ use app\core\repository\ComponentRepository;
  */
 class App implements AppInterface, TerminableInterface {
 
-  protected $container;
+    protected $container;
 
-  /**
-   * The class loader object.
-   *
-   * @var \Composer\Autoload\ClassLoader
-   */
-  protected $classLoader;
-  private $root;
-  protected $enviroment;
-  private $booted;
+    /**
+     * The class loader object.
+     *
+     * @var \Composer\Autoload\ClassLoader
+     */
+    protected $classLoader;
+    private $root;
+    protected $enviroment;
+    private $booted;
 
-  public function __construct($class_loader) {
-    $this->root = _ABSOLUTE_ROOT_DIR_;
-    $this->classLoader = $class_loader;
-  }
-
-  public function handle(BaseRequest $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
-    $this->boot();
-    try {
-      $response = $this->getHttpKernel()->handle($request, $type, $catch);
-    } catch (ResourceNotFoundException $e) {
-      return new Response('Not Found: <br/>' . $e->getMessage() . ' see trace: <br/ >' . $e->getTraceAsString(), 404);
-    } catch (\Exception $e) {
-      return new Response('An error occurred: <br/>' . $e->getMessage() . ' see trace: <br/ >' . $e->getTraceAsString(), 500);
+    public function __construct($class_loader) {
+        $this->root = _ABSOLUTE_ROOT_DIR_;
+        $this->classLoader = $class_loader;
     }
-    // Adapt response headers to the current request.
-    $response->prepare($request);
 
-    return $response;
-  }
-
-  /**
-   * Gets the PSR-4 base directories for module namespaces.
-   *
-   * @param string[] $module_file_names
-   *   Array where each key is a module name, and each value is a path to the
-   *   respective *.info.yml file.
-   *
-   * @return string[]
-   *   Array where each key is a module namespace like 'app\system', and each
-   *   value is the PSR-4 base directory associated with the module namespace.
-   */
-  protected function getModuleNamespacesPsr4($module_file_names) {
-    $namespaces = array();
-    foreach ($module_file_names as $module => $filename) {
-      $namespaces["ntc\\$module"][] = $filename . '/src';
-      if (is_dir($filename . '/components'))
-        $namespaces["ntc\\$module"][] = $filename . '/components';
-    }
-    return $namespaces;
-  }
-
-  /**
-   * Gets the PSR-4 base directories for component namespaces.
-   *
-   * @param string[] $component_file_names
-   *   Array where each key is a module name, and each value is a path to the
-   *   respective *.info.yml file.
-   *
-   * @return string[]
-   *   Array where each key is a component namespace like 'app\system', and each
-   *   value is the PSR-4 base directory associated with the module namespace.
-   */
-  protected function getComponentNamespacesPsr4($component_file_names) {
-    $namespaces = array();
-    foreach ($component_file_names as $component => $filename) {
-      $namespaces["ntc\\$component"] = $filename;
-    }
-    return $namespaces;
-  }
-
-  /**
-   * Registers a list of namespaces with PSR-4 directories for class loading.
-   *
-   * @param array $namespaces
-   *   Array where each key is a namespace like 'app\system', and each value
-   *   is either a PSR-4 base directory, or an array of PSR-4 base directories
-   *   associated with this namespace.
-   */
-  protected function classLoaderAddMultiplePsr4(array $namespaces = array()) {
-//        var_dump($namespaces);
-    foreach ($namespaces as $prefix => $paths) {
-      if (is_array($paths)) {
-        foreach ($paths as $key => $value) {
-//                    $paths[$key] = $this->root . '/' . $value;
-          $paths[$key] = $value;
+    public function handle(BaseRequest $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
+        $this->boot();
+        try {
+            $response = $this->getHttpKernel()->handle($request, $type, $catch);
+        } catch (ResourceNotFoundException $e) {
+            return new Response('Not Found: <br/>' . $e->getMessage() . ' see trace: <br/ >' . $e->getTraceAsString(), 404);
+        } catch (\Exception $e) {
+            return new Response('An error occurred: <br/>' . $e->getMessage() . ' see trace: <br/ >' . $e->getTraceAsString(), 500);
         }
-      } elseif (is_string($paths)) {
+        // Adapt response headers to the current request.
+        $response->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * Gets the PSR-4 base directories for module namespaces.
+     *
+     * @param string[] $module_file_names
+     *   Array where each key is a module name, and each value is a path to the
+     *   respective *.info.yml file.
+     *
+     * @return string[]
+     *   Array where each key is a module namespace like 'app\system', and each
+     *   value is the PSR-4 base directory associated with the module namespace.
+     */
+    protected function getModuleNamespacesPsr4($module_file_names) {
+        $namespaces = array();
+        foreach ($module_file_names as $module => $filename) {
+            $namespaces["ntc\\$module"][] = $filename . '/src';
+            if (is_dir($filename . '/components'))
+                $namespaces["ntc\\$module"][] = $filename . '/components';
+        }
+        return $namespaces;
+    }
+
+    /**
+     * Gets the PSR-4 base directories for component namespaces.
+     *
+     * @param string[] $component_file_names
+     *   Array where each key is a module name, and each value is a path to the
+     *   respective *.info.yml file.
+     *
+     * @return string[]
+     *   Array where each key is a component namespace like 'app\system', and each
+     *   value is the PSR-4 base directory associated with the module namespace.
+     */
+    protected function getComponentNamespacesPsr4($component_file_names) {
+        $namespaces = array();
+        foreach ($component_file_names as $component => $filename) {
+            $namespaces["ntc\\$component"] = $filename;
+        }
+        return $namespaces;
+    }
+
+    /**
+     * Registers a list of namespaces with PSR-4 directories for class loading.
+     *
+     * @param array $namespaces
+     *   Array where each key is a namespace like 'app\system', and each value
+     *   is either a PSR-4 base directory, or an array of PSR-4 base directories
+     *   associated with this namespace.
+     */
+    protected function classLoaderAddMultiplePsr4(array $namespaces = array()) {
+//        var_dump($namespaces);
+        foreach ($namespaces as $prefix => $paths) {
+            if (is_array($paths)) {
+                foreach ($paths as $key => $value) {
+//                    $paths[$key] = $this->root . '/' . $value;
+                    $paths[$key] = $value;
+                }
+            } elseif (is_string($paths)) {
 //                $paths = $this->root . '/' . $paths;
-        $paths = $paths;
-      }
-      $this->classLoader->addPsr4($prefix . '\\', $paths);
-    }
-  }
-
-  public function setContainer(ContainerInterface $container = null) {
-    if (isset($this->container)) {
-      throw new \Exception('The container should not override an existing container.');
-    }
-    if ($this->booted) {
-      throw new \Exception('The container cannot be set after a booted kernel.');
+                $paths = $paths;
+            }
+            $this->classLoader->addPsr4($prefix . '\\', $paths);
+        }
     }
 
-    $this->container = $container;
-    return $this;
-  }
+    public function setContainer(ContainerInterface $container = null) {
+        if (isset($this->container)) {
+            throw new \Exception('The container should not override an existing container.');
+        }
+        if ($this->booted) {
+            throw new \Exception('The container cannot be set after a booted kernel.');
+        }
 
-  public function terminate(BaseRequest $request, BaseResponse $response) {
+        $this->container = $container;
+        return $this;
+    }
 
-  }
-
-  public function getContainerBuilder() {
-    return new ContainerBuilder();
-  }
-
-  public function initializeContainer() {
-    if (isset($this->container)) {
+    public function terminate(BaseRequest $request, BaseResponse $response) {
 
     }
-    $this->container = $this->compileContainer();
-  }
 
-  public function compileContainer() {
-    $container = $this->getContainerBuilder();
-    $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
+    public function getContainerBuilder() {
+        return new ContainerBuilder();
+    }
 
-    $container->set('kernel', $this);
+    public function initializeContainer() {
+        if (isset($this->container)) {
+
+        }
+        $this->container = $this->compileContainer();
+    }
+
+    public function compileContainer() {
+        $container = $this->getContainerBuilder();
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
+
+        $container->set('kernel', $this);
 //        $container->setParameter('container.modules', $this->getModulesParameter());
-    // Register synthetic services.
-    $container->register('kernel', 'Symfony\Component\HttpKernel\KernelInterface')->setSynthetic(TRUE);
-    $container->register('service_container', 'Symfony\Component\DependencyInjection\ContainerInterface')->setSynthetic(TRUE);
+        // Register synthetic services.
+        $container->register('kernel', 'Symfony\Component\HttpKernel\KernelInterface')->setSynthetic(TRUE);
+        $container->register('service_container', 'Symfony\Component\DependencyInjection\ContainerInterface')->setSynthetic(TRUE);
 
-    $loader->load('core.services.yml');
-    $this->loadModuleServices($loader);
-    $this->registerPass($container);
+        $loader->load('core.services.yml');
+        $this->loadModuleServices($loader);
+        $this->registerPass($container);
 
-    $container->compile();
+        $container->compile();
 //        var_dump($container);
-    Context::setContainer($container);
-    return $container;
-  }
-
-  public function loadModuleServices(&$loader) {
-    foreach ((new ModuleRepository())->getServices() as $service => $path) {
-      $loader->load($path);
+        Context::setContainer($container);
+        return $container;
     }
-  }
 
-  public function registerPass(&$container) {
-    $container->addCompilerPass(new \Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass('event.dispatcher', 'listenerTag', 'event_subscriber'));
+    public function loadModuleServices(&$loader) {
+        foreach ((new ModuleRepository())->getServices() as $service => $path) {
+            $loader->load($path);
+        }
+    }
+
+    public function registerPass(&$container) {
+        $container->addCompilerPass(new \Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass('event.dispatcher', 'listenerTag', 'event_subscriber'));
 //    $container->addCompilerPass(new dependencyInjection\compiler\RegisterEventSubscribersPass());
-    $container->addCompilerPass(new dependencyInjection\compiler\ArgumentResolverPass());
+        $container->addCompilerPass(new dependencyInjection\compiler\ArgumentResolverPass());
 //    $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouteEnhancersPass());
 //
 //    $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRoutersPass());
-    $container->addCompilerPass(new dependencyInjection\compiler\TaggedResolverPass());
-    $container->addCompilerPass(new dependencyInjection\compiler\StackedKernelPass());
-    $container->addCompilerPass(new dependencyInjection\compiler\RegisterLazyRouteEnhancersPass());
-  }
+        $container->addCompilerPass(new dependencyInjection\compiler\TaggedResolverPass());
+        $container->addCompilerPass(new dependencyInjection\compiler\StackedKernelPass());
+        $container->addCompilerPass(new dependencyInjection\compiler\RegisterLazyRouteEnhancersPass());
+        $container->addCompilerPass(new dependencyInjection\compiler\DoctrineEnumPass());
+    }
 
-  /**
-   * Gets a http kernel from the container
-   *
-   * @return \Symfony\Component\HttpKernel\HttpKernelInterface
-   */
-  protected function getHttpKernel() {
-    return $this->container->get('http_kernel');
-  }
+    /**
+     * Gets a http kernel from the container
+     *
+     * @return \Symfony\Component\HttpKernel\HttpKernelInterface
+     */
+    protected function getHttpKernel() {
+        return $this->container->get('http_kernel');
+    }
 
-  public function boot() {
-    $module_repo = new ModuleRepository();
-    $module_filenames = $module_repo->getRepositories();
-    $component_filenames = (new ComponentRepository($module_repo))->getRepositories();
-    $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($module_filenames));
-    $this->classLoaderAddMultiplePsr4($this->getComponentNamespacesPsr4($component_filenames));
-    $this->initializeContainer();
+    public function boot() {
+        $module_repo = new ModuleRepository();
+        $module_filenames = $module_repo->getRepositories();
+        $component_filenames = (new ComponentRepository($module_repo))->getRepositories();
+        $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($module_filenames));
+        $this->classLoaderAddMultiplePsr4($this->getComponentNamespacesPsr4($component_filenames));
+        $this->initializeContainer();
 
-    $this->booted = true;
-  }
+        $this->booted = true;
+    }
 
-  public function getContainer(): ContainerInterface {
-    return $this->container;
-  }
+    public function getContainer(): ContainerInterface {
+        return $this->container;
+    }
 
-  public function getEnvironment(): string {
-    return $this->enviroment;
-  }
+    public function getEnvironment(): string {
+        return $this->enviroment;
+    }
 
-  public function getName(): string {
+    public function getName(): string {
 
-  }
+    }
 
-  public function getRootDir(): string {
+    public function getRootDir(): string {
 
-  }
+    }
 
-  public function isDebug(): bool {
+    public function isDebug(): bool {
 
-  }
+    }
 
-  public function registerContainerConfiguration(LoaderInterface $loader) {
+    public function registerContainerConfiguration(LoaderInterface $loader) {
 
-  }
+    }
 
-  public function shutdown() {
+    public function shutdown() {
 
-  }
+    }
 
 }

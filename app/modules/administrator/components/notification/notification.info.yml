@@ -1,6 +1,6 @@
 name: Notification
 type: component
-package: administrator
+package: ntc\administrator\notification
 description: "lorep isum freeme lorep isum freeme lorep isum
 freeme lorep isum freeme lorep isum freeme "
 target: admin

@@ -1,53 +1,46 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joshua
- * Date: 8/25/17
- * Time: 8:49 PM
- */
 
 namespace ntc\shop\listing;
 
-use app\core\controller\ListController;
+use app\core\entity\controller\EntityListController;
 
+class ShopUserList extends EntityListController {
 
-class ShopUserList extends ListController
-{
-
-    function head()
-    {
+    function head() {
         $head['id'] = "ID";
         $head['name'] = "Name";
         return $head;
     }
 
-    function row($entity)
-    {
+    function row($entity) {
         $row['id'] = $entity->getID();
         $row['name'] = $entity->getName();
         return $row;
     }
 
-    function bulkOperation()
-    {
+    function bulkOperation() {
         // TODO: Implement bulkOperation() method.
     }
 
-    function defaultOperation($entity)
-    {
+    function defaultOperation($entity) {
         return [
             'edit' => ['name' => 'Edit',
-                'route' => 'admin.shop.add']
+                'route' => 'admin.shop.edit',
+                'params' => ['entity' => $entity->getID()]
+            ],
+            'delete' => ['name' => 'Delete',
+                'route' => 'admin.shop.delete',
+                'params' => ['entity' => $entity->getID()]
+            ]
         ];
     }
 
-    function title()
-    {
+    function title() {
         return 'Shop assigned to current user';
     }
 
-    function model()
-    {
+    function model() {
         return 'app\core\entity\Shop';
     }
+
 }

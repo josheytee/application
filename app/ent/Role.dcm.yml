@@ -1,0 +1,63 @@
+Role:
+    type: entity
+    table: Role
+    indexes:
+        Role_Profile_id_fk:
+            columns:
+                - id_profile
+        Role_Shop_id_fk:
+            columns:
+                - id_shop
+    uniqueConstraints:
+        UNIQ_F75B2554668B4C46:
+            columns:
+                - id_admin
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 'Role''s name'
+    manyToOne:
+        idAdmin:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_admin:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idProfile:
+            targetEntity: Profile
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_profile:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idShop:
+            targetEntity: Shop
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_shop:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

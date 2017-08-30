@@ -5,8 +5,8 @@ namespace app\core\entity;
 /**
  * Profile
  */
-class Profile
-{
+class Profile {
+
     /**
      * @var integer
      */
@@ -28,25 +28,11 @@ class Profile
     private $updated;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $role;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->role = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -57,8 +43,7 @@ class Profile
      *
      * @return Profile
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -69,8 +54,7 @@ class Profile
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -81,8 +65,7 @@ class Profile
      *
      * @return Profile
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -93,8 +76,7 @@ class Profile
      *
      * @return \DateTime
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -105,8 +87,7 @@ class Profile
      *
      * @return Profile
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -117,42 +98,8 @@ class Profile
      *
      * @return \DateTime
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
 
-    /**
-     * Add role
-     *
-     * @param \app\core\entity\Role $role
-     *
-     * @return Profile
-     */
-    public function addRole(\app\core\entity\Role $role)
-    {
-        $this->role[] = $role;
-
-        return $this;
-    }
-
-    /**
-     * Remove role
-     *
-     * @param \app\core\entity\Role $role
-     */
-    public function removeRole(\app\core\entity\Role $role)
-    {
-        $this->role->removeElement($role);
-    }
-
-    /**
-     * Get role
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
 }

@@ -1,0 +1,50 @@
+Activity:
+    type: entity
+    table: activity
+    indexes:
+        id_activity_url_idx:
+            columns:
+                - id_activity
+                - url
+    id:
+        idActivity:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_activity
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        description:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        url:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        icon:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: false
+    lifecycleCallbacks: {  }

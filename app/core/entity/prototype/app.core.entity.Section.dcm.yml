@@ -1,36 +1,46 @@
 app\core\entity\Section:
-  type: entity
-  repositoryClass: app\core\entity\repository\SectionRepository
-  indexes:
-   section_url_idx:
-      columns: [ 'id', url ]
-  id:
-    id:
-      type: integer
-      generator:
-        strategy: AUTO
-  fields:
-    name:
-      type: string
-    url:
-      type: string
-      nullable: true
-      options:
-        comment: Shop's url string
-    description:
-      type: text
-      length: 320
-      options:
-        comment: Shop's description
-    created:
-      type: datetime
-    updated:
-      type: datetime
-  oneToOne:
-    product:
-      targetEntity: app\core\entity\Product
-      inversedBy: section
-  ManyToOne:
-    shop:
-      targetEntity: app\core\entity\Shop
-      inversedBy: section
+    type: entity
+    table: Section
+    indexes:
+        section_url_idx:
+            columns:
+                - id
+                - url
+    repositoryClass: app\core\entity\repository\SectionRepository
+
+    fields:
+        name:
+            type: string
+        url:
+            type: string
+            options:
+                comment: 'Shop''s url string'
+            nullable: true
+        description:
+            type: text
+            length: 320
+            options:
+                comment: 'Shop''s description'
+
+    oneToOne:
+        shop:
+            targetEntity: app\core\entity\Shop
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_shop:
+                    referencedColumnName: id
+            orphanRemoval: false
+        section:
+            targetEntity: app\core\entity\Section
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_section:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

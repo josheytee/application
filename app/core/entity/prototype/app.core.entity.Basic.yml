@@ -1,6 +1,0 @@
-app\core\entity\Basic:
-  type: embeddable
-  
-  fields:
-    created: { type: datetime }
-    updated: { type: datetime }

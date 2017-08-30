@@ -3,7 +3,7 @@ description: "lorep isum freeme lorep isum freeme lorep isum
 freeme lorep isum freeme lorep isum freeme "
 target: front
 author: ntc
-package: components
+package: ntc\search
 icon: hello.png
 version: 1.2.3
 region:  header

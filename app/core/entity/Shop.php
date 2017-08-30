@@ -5,12 +5,7 @@ namespace app\core\entity;
 /**
  * Shop
  */
-class Shop
-{
-    /**
-     * @var integer
-     */
-    private $id;
+class Shop extends Object {
 
     /**
      * @var string
@@ -28,30 +23,14 @@ class Shop
     private $description;
 
     /**
-     * @var \DateTime
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     */
-    private $updated;
-
-    /**
      * @var \app\core\entity\Activity
      */
     private $activity;
 
-
     /**
-     * Get id
-     *
-     * @return integer
+     * @var \app\core\entity\State
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $state;
 
     /**
      * Set name
@@ -60,8 +39,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -72,8 +50,7 @@ class Shop
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -84,8 +61,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
 
         return $this;
@@ -96,8 +72,7 @@ class Shop
      *
      * @return string
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -108,8 +83,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -120,57 +94,8 @@ class Shop
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return Shop
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return Shop
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
     }
 
     /**
@@ -180,8 +105,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setActivity(\app\core\entity\Activity $activity = null)
-    {
+    public function setActivity(\app\core\entity\Activity $activity = null) {
         $this->activity = $activity;
 
         return $this;
@@ -192,8 +116,30 @@ class Shop
      *
      * @return \app\core\entity\Activity
      */
-    public function getActivity()
-    {
+    public function getActivity() {
         return $this->activity;
     }
+
+    /**
+     * Set state
+     *
+     * @param \app\core\entity\State $state
+     *
+     * @return Shop
+     */
+    public function setState(\app\core\entity\State $state = null) {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return \app\core\entity\State
+     */
+    public function getState() {
+        return $this->state;
+    }
+
 }

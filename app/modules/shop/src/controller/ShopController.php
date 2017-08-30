@@ -14,26 +14,33 @@ use Doctrine\ORM\EntityManager;
  */
 class ShopController extends ControllerBase {
 
-  /**
-   * @var EntityManager
-   */
-  private $entity_manager;
+    /**
+     * @var EntityManager
+     */
+    private $entity_manager;
 
-  public function __construct(EntityManager $entityManager) {
+    public function __construct() {
 
-    $this->entity_manager = $entityManager;
-  }
+    }
 
-  public static function inject(ContainerInterface $container) {
-    return new static($container->get('entity.manager'));
-  }
+    public static function inject(ContainerInterface $container) {
+        return new static();
+    }
 
-  public function add(Request $request) {
-    $manager = $this->entity_manager->getRepository('model\Shop')->find(1);
+    public function add(Request $request) {
+        $manager = $this->entity_manager->getRepository('model\Shop')->find(1);
 
-    return $this->render($this->getTemplate(__DIR__, 'form.tpl')
-                    , ['shop' => $manager]
-    );
-  }
+        return $this->render($this->getTemplate(__DIR__, 'form.tpl')
+                        , ['shop' => $manager]
+        );
+    }
+
+    public function index(Request $request) {
+        $manager = $this->doctrine()->getRepository('app\core\entity\Shop')->find(1);
+        dump($manager);
+        return $this->render('shop/index.tpl'
+                        , ['shop' => $manager]
+        );
+    }
 
 }

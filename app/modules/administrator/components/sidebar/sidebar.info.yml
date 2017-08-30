@@ -1,6 +1,6 @@
 name: SideBar
 type: component
-package: administrator
+package: ntc\administrator\sidebar
 description: "lorep isum freeme lorep isum freeme lorep isum
 freeme lorep isum freeme lorep isum freeme "
 target: admin
