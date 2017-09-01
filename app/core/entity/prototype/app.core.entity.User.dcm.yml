@@ -7,46 +7,95 @@ app\core\entity\User:
                 - username
                 - email
                 - phone
-    repositoryClass: app\core\entity\repository\UserRepository
-
+    uniqueConstraints:
+        UNIQ_2DA17977E7927C74:
+            columns:
+                - email
+        UNIQ_2DA17977444F97DD:
+            columns:
+                - phone
+        UNIQ_2DA17977F85E0677:
+            columns:
+                - username
+        UNIQ_2DA179775F37A13B:
+            columns:
+                - token
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
     fields:
         firstname:
             type: string
+            nullable: false
             length: 32
+            options:
+                fixed: false
         lastname:
             type: string
+            nullable: false
             length: 32
+            options:
+                fixed: false
         username:
             type: string
-            length: 32
-            unique: true
             nullable: true
+            length: 32
+            options:
+                fixed: false
         password:
             type: string
             nullable: false
+            length: 255
+            options:
+                fixed: false
         token:
             type: string
-            unique: true
             nullable: true
+            length: 255
+            options:
+                fixed: false
         email:
             type: string
-            unique: true
+            nullable: false
+            length: 255
             options:
+                fixed: false
                 comment: 'User''s email address'
         phone:
             type: string
+            nullable: false
             length: 32
-            unique: true
             options:
+                fixed: false
                 comment: 'User''s phone number'
-    OneToMany:
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: false
+    manyToMany:
         role:
-            targetEntity: app\core\entity\Role
-            mappedBy: user
-            inversedBy: null
-#            joinColumns:
-#                id_role:
-#                    referencedColumnName: id
-            orphanRemoval: false
-
+            targetEntity: Role
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: user
+            joinTable:
+                name: user_role
+                joinColumns:
+                    -
+                        name: id_user
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: id_role
+                        referencedColumnName: id
+            orderBy: null
     lifecycleCallbacks: {  }

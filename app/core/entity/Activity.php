@@ -5,7 +5,12 @@ namespace app\core\entity;
 /**
  * Activity
  */
-class Activity extends Object {
+class Activity
+{
+    /**
+     * @var integer
+     */
+    private $id;
 
     /**
      * @var string
@@ -28,13 +33,35 @@ class Activity extends Object {
     private $description;
 
     /**
+     * @var \DateTime
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     */
+    private $updated;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
      *
      * @return Activity
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -45,7 +72,8 @@ class Activity extends Object {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -56,7 +84,8 @@ class Activity extends Object {
      *
      * @return Activity
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
 
         return $this;
@@ -67,7 +96,8 @@ class Activity extends Object {
      *
      * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
@@ -78,7 +108,8 @@ class Activity extends Object {
      *
      * @return Activity
      */
-    public function setIcon($icon) {
+    public function setIcon($icon)
+    {
         $this->icon = $icon;
 
         return $this;
@@ -89,7 +120,8 @@ class Activity extends Object {
      *
      * @return string
      */
-    public function getIcon() {
+    public function getIcon()
+    {
         return $this->icon;
     }
 
@@ -100,7 +132,8 @@ class Activity extends Object {
      *
      * @return Activity
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -111,8 +144,56 @@ class Activity extends Object {
      *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Activity
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Activity
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
 }

@@ -6,27 +6,48 @@ app\core\entity\Activity:
             columns:
                 - id
                 - url
-    repositoryClass: app\core\entity\repository\ActvityRepository
-
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
     fields:
         name:
             type: string
+            nullable: false
+            length: 255
             options:
+                fixed: false
                 comment: 'Activity''s name'
         url:
             type: string
+            nullable: true
             length: 32
             options:
+                fixed: false
                 comment: 'Activity''s url string somethines it is the slug of the name'
-            nullable: true
         icon:
             type: string
-            options:
-                comment: 'Activity''s icon'
             nullable: true
+            length: 255
+            options:
+                fixed: false
+                comment: 'Activity''s icon'
         description:
             type: text
-            length: 320
+            nullable: false
+            length: 65535
             options:
+                fixed: false
                 comment: 'Shop''s description'
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: false
     lifecycleCallbacks: {  }

@@ -7,53 +7,92 @@ app\core\entity\Product:
                 - id
                 - price
                 - name
-    repositoryClass: app\core\entity\repository\ProductRepository
-
+    uniqueConstraints:
+        UNIQ_1CF73D31F3EED39F:
+            columns:
+                - id_section
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
     fields:
         name:
             type: string
+            nullable: false
+            length: 255
             options:
+                fixed: false
                 comment: 'Product''s name'
-        short_description:
+        shortDescription:
             type: text
-            length: 320
+            nullable: false
+            length: 65535
             options:
+                fixed: false
                 comment: 'Product''s short description'
+            column: short_description
         description:
             type: text
-            length: 700
+            nullable: false
+            length: 65535
             options:
+                fixed: false
                 comment: 'Product''s long description'
         condition:
             type: string
+            nullable: false
+            length: 255
             options:
+                fixed: false
                 comment: 'Product''s condition'
                 default: new
         type:
             type: string
+            nullable: false
+            length: 255
             options:
+                fixed: false
                 comment: 'Product''s type'
                 default: simple
         available:
             type: boolean
+            nullable: false
             options:
                 comment: 'Product''s availability'
         price:
             type: decimal
+            nullable: false
+            precision: 10
             scale: 4
             options:
                 comment: 'Product''s price'
-        show_price:
+        showPrice:
             type: boolean
+            nullable: false
             options:
                 comment: 'if the price should be shown'
-        online_only:
+            column: show_price
+        onlineOnly:
             type: boolean
+            nullable: false
             options:
                 comment: 'if the product should be shown online only'
+            column: online_only
         active:
             type: boolean
-    oneToOne:
+            nullable: false
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: false
+    manyToOne:
         section:
             targetEntity: app\core\entity\Section
             cascade: {  }

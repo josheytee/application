@@ -5,7 +5,12 @@ namespace app\core\entity;
 /**
  * Role
  */
-class Role extends Object {
+class Role
+{
+    /**
+     * @var integer
+     */
+    private $id;
 
     /**
      * @var string
@@ -13,9 +18,47 @@ class Role extends Object {
     private $name;
 
     /**
-     * @var \app\core\entity\User
+     * @var \DateTime
      */
-    private $admin;
+    private $created;
+
+    /**
+     * @var \DateTime
+     */
+    private $updated;
+
+    /**
+     * @var \app\core\entity\Profile
+     */
+    private $profile;
+
+    /**
+     * @var \app\core\entity\Shop
+     */
+    private $shop;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $user;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set name
@@ -24,7 +67,8 @@ class Role extends Object {
      *
      * @return Role
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -35,30 +79,138 @@ class Role extends Object {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
-     * Set admin
+     * Set created
      *
-     * @param \app\core\entity\User $admin
+     * @param \DateTime $created
      *
      * @return Role
      */
-    public function setAdmin(\app\core\entity\User $admin = null) {
-        $this->admin = $admin;
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
         return $this;
     }
 
     /**
-     * Get admin
+     * Get created
      *
-     * @return \app\core\entity\User
+     * @return \DateTime
      */
-    public function getAdmin() {
-        return $this->admin;
+    public function getCreated()
+    {
+        return $this->created;
     }
 
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Role
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set profile
+     *
+     * @param \app\core\entity\Profile $profile
+     *
+     * @return Role
+     */
+    public function setProfile(\app\core\entity\Profile $profile = null)
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * Get profile
+     *
+     * @return \app\core\entity\Profile
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param \app\core\entity\Shop $shop
+     *
+     * @return Role
+     */
+    public function setShop(\app\core\entity\Shop $shop = null)
+    {
+        $this->shop = $shop;
+
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return \app\core\entity\Shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+
+    /**
+     * Add user
+     *
+     * @param \app\core\entity\User $user
+     *
+     * @return Role
+     */
+    public function addUser(\app\core\entity\User $user)
+    {
+        $this->user[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \app\core\entity\User $user
+     */
+    public function removeUser(\app\core\entity\User $user)
+    {
+        $this->user->removeElement($user);
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

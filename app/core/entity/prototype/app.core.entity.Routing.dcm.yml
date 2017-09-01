@@ -1,24 +1,35 @@
 app\core\entity\Routing:
     type: entity
     table: Routing
-    repositoryClass: app\core\entity\repository\RoutingRepository
     id:
         id:
-            id: true
             type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
             generator:
                 strategy: IDENTITY
     fields:
         name:
             type: string
+            nullable: false
+            length: 255
             options:
+                fixed: false
                 comment: 'Route''s name'
         path:
             type: string
+            nullable: false
+            length: 255
             options:
+                fixed: false
                 comment: 'Route''s path string'
         route:
             type: object
+            nullable: false
+            length: null
             options:
+                fixed: false
                 comment: 'Route''s object'
     lifecycleCallbacks: {  }

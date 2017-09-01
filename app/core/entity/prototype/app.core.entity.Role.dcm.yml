@@ -1,44 +1,38 @@
 app\core\entity\Role:
     type: entity
     table: Role
-
+    indexes:
+        id_profile:
+            columns:
+                - id_profile
+        id_shop:
+            columns:
+                - id_shop
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
     fields:
         name:
             type: string
+            nullable: false
+            length: 255
             options:
+                fixed: false
                 comment: 'Role''s name'
-    oneToOne:
-        admin:
-            targetEntity: app\core\entity\User
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_admin:
-                    referencedColumnName: id
-            orphanRemoval: false
-    ManyToOne:
-        user:
-            targetEntity: app\core\entity\User
-            mappedBy: null
-            inversedBy: role
-            cascade: {  }
-            fetch: LAZY
-            joinColumns:
-                id_user:
-                    referencedColumnName: id
-        idShop:
-            targetEntity: app\core\entity\Shop
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_shop:
-                    referencedColumnName: id
-            orphanRemoval: false
-        idProfile:
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: false
+    manyToOne:
+        profile:
             targetEntity: app\core\entity\Profile
             cascade: {  }
             fetch: LAZY
@@ -48,5 +42,23 @@ app\core\entity\Role:
                 id_profile:
                     referencedColumnName: id
             orphanRemoval: false
-
+        shop:
+            targetEntity: app\core\entity\Shop
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_shop:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        user:
+            targetEntity: app\core\entity\User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: role
+            inversedBy: null
+            joinTable: null
+            orderBy: null
     lifecycleCallbacks: {  }

@@ -5,7 +5,12 @@ namespace app\core\entity;
 /**
  * Section
  */
-class Section extends Object {
+class Section
+{
+    /**
+     * @var integer
+     */
+    private $id;
 
     /**
      * @var string
@@ -23,6 +28,16 @@ class Section extends Object {
     private $description;
 
     /**
+     * @var \DateTime
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     */
+    private $updated;
+
+    /**
      * @var \app\core\entity\Shop
      */
     private $shop;
@@ -32,6 +47,17 @@ class Section extends Object {
      */
     private $section;
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Set name
      *
@@ -39,7 +65,8 @@ class Section extends Object {
      *
      * @return Section
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -50,7 +77,8 @@ class Section extends Object {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -61,7 +89,8 @@ class Section extends Object {
      *
      * @return Section
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
 
         return $this;
@@ -72,7 +101,8 @@ class Section extends Object {
      *
      * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
@@ -83,7 +113,8 @@ class Section extends Object {
      *
      * @return Section
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -94,8 +125,57 @@ class Section extends Object {
      *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Section
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Section
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 
     /**
@@ -105,7 +185,8 @@ class Section extends Object {
      *
      * @return Section
      */
-    public function setShop(\app\core\entity\Shop $shop = null) {
+    public function setShop(\app\core\entity\Shop $shop = null)
+    {
         $this->shop = $shop;
 
         return $this;
@@ -116,7 +197,8 @@ class Section extends Object {
      *
      * @return \app\core\entity\Shop
      */
-    public function getShop() {
+    public function getShop()
+    {
         return $this->shop;
     }
 
@@ -127,7 +209,8 @@ class Section extends Object {
      *
      * @return Section
      */
-    public function setSection(\app\core\entity\Section $section = null) {
+    public function setSection(\app\core\entity\Section $section = null)
+    {
         $this->section = $section;
 
         return $this;
@@ -138,8 +221,8 @@ class Section extends Object {
      *
      * @return \app\core\entity\Section
      */
-    public function getSection() {
+    public function getSection()
+    {
         return $this->section;
     }
-
 }

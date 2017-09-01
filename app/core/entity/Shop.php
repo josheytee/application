@@ -5,7 +5,12 @@ namespace app\core\entity;
 /**
  * Shop
  */
-class Shop extends Object {
+class Shop
+{
+    /**
+     * @var integer
+     */
+    private $id;
 
     /**
      * @var string
@@ -23,14 +28,35 @@ class Shop extends Object {
     private $description;
 
     /**
-     * @var \app\core\entity\Activity
+     * @var \DateTime
      */
-    private $activity;
+    private $created;
+
+    /**
+     * @var \DateTime
+     */
+    private $updated;
 
     /**
      * @var \app\core\entity\State
      */
     private $state;
+
+    /**
+     * @var \app\core\entity\Activity
+     */
+    private $activity;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set name
@@ -39,7 +65,8 @@ class Shop extends Object {
      *
      * @return Shop
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -50,7 +77,8 @@ class Shop extends Object {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -61,7 +89,8 @@ class Shop extends Object {
      *
      * @return Shop
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
 
         return $this;
@@ -72,7 +101,8 @@ class Shop extends Object {
      *
      * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
@@ -83,7 +113,8 @@ class Shop extends Object {
      *
      * @return Shop
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -94,30 +125,57 @@ class Shop extends Object {
      *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
-     * Set activity
+     * Set created
      *
-     * @param \app\core\entity\Activity $activity
+     * @param \DateTime $created
      *
      * @return Shop
      */
-    public function setActivity(\app\core\entity\Activity $activity = null) {
-        $this->activity = $activity;
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
         return $this;
     }
 
     /**
-     * Get activity
+     * Get created
      *
-     * @return \app\core\entity\Activity
+     * @return \DateTime
      */
-    public function getActivity() {
-        return $this->activity;
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Shop
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 
     /**
@@ -127,7 +185,8 @@ class Shop extends Object {
      *
      * @return Shop
      */
-    public function setState(\app\core\entity\State $state = null) {
+    public function setState(\app\core\entity\State $state = null)
+    {
         $this->state = $state;
 
         return $this;
@@ -138,8 +197,32 @@ class Shop extends Object {
      *
      * @return \app\core\entity\State
      */
-    public function getState() {
+    public function getState()
+    {
         return $this->state;
     }
 
+    /**
+     * Set activity
+     *
+     * @param \app\core\entity\Activity $activity
+     *
+     * @return Shop
+     */
+    public function setActivity(\app\core\entity\Activity $activity = null)
+    {
+        $this->activity = $activity;
+
+        return $this;
+    }
+
+    /**
+     * Get activity
+     *
+     * @return \app\core\entity\Activity
+     */
+    public function getActivity()
+    {
+        return $this->activity;
+    }
 }
