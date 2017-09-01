@@ -1,6 +1,8 @@
 app\core\entity\Role:
     type: entity
     table: Role
+    repositoryClass: app\core\entity\repository\RoleRepository
+
     indexes:
         id_profile:
             columns:

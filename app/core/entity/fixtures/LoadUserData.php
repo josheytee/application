@@ -1,4 +1,5 @@
 <?php
+
 namespace app\core\entity\fixtures;
 
 /**
@@ -7,45 +8,42 @@ namespace app\core\entity\fixtures;
  * Date: 3/21/2017
  * Time: 8:47 PM
  */
-use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use app\core\entity\User;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadUserData implements FixtureInterface ,DependentFixtureInterface{
+class LoadUserData extends AbstractFixture implements OrderedFixtureInterface {
 
-  public function load(ObjectManager $manager) {
-    $faker = Faker\Factory::create();
-      $role = $manager->getRepository('app\core\entity\Role')->findAll();
+//2553
+    public function load(ObjectManager $manager) {
+        $faker = Faker\Factory::create();
+        $role = $manager->getRepository('app\core\entity\Role')->findAll();
 
-      for ($i = 1; $i <= 10; $i++) {
-      $user = new User();
-      $user->setFirstname($faker->firstName);
-      $user->setLastname($faker->lastName);
-      $user->setUsername($faker->userName);
-      $user->setPassword($faker->password);
-      $user->setRememberToken($faker->randomKey());
-      $user->setEmail($faker->email);
-      $user->setPhone($faker->phoneNumber);
-        $user->addRole($role);
-      $user->setCreated($faker->dateTime);
-      $user->setUpdated($faker->dateTime);
+        for ($i = 1; $i <= 10; $i++) {
+            $user = new User();
+            $user->setFirstname($faker->firstName);
+            $user->setLastname($faker->lastName);
+            $user->setUsername($faker->userName);
+            $user->setPassword($faker->password);
+//            $user->setRememberToken($faker->randomKey());
+            $user->setEmail($faker->email);
+            $user->setPhone($faker->phoneNumber);
+            $user->addRole($this->getReference('role'));
+            $user->setCreated($faker->dateTime);
+            $user->setUpdated($faker->dateTime);
 
-      $manager->persist($user);
+            $manager->persist($user);
+        }
+        $manager->flush();
+        $this->addReference('user', $user);
     }
-    $manager->flush();
-    $manager->clear();
-  }
 
-    /**
-     * This method must return an array of fixtures classes
-     * on which the implementing class depends on
-     *
-     * @return array
-     */
-    function getDependencies()
-    {
-        return ['app\core\fixtures\RoleData'];
+    public function getOrder() {
+        // the order in which fixtures will be loaded
+        // the lower the number, the sooner that this fixture is loaded
+        return 1;
     }
+
 }

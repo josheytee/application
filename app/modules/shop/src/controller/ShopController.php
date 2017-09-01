@@ -36,7 +36,7 @@ class ShopController extends ControllerBase {
     }
 
     public function index(Request $request) {
-        $manager = $this->doctrine()->getRepository('app\core\entity\Shop')->find(1);
+        $manager = $this->doctrine()->getRepository(\app\core\entity\Shop::class)->find(1);
         dump($manager);
         return $this->render('shop/index.tpl'
                         , ['shop' => $manager]

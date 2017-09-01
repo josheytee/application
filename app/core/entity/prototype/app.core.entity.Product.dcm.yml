@@ -1,6 +1,8 @@
 app\core\entity\Product:
     type: entity
     table: Product
+    repositoryClass: app\core\entity\repository\ProductRepository
+
     indexes:
         product_price_name_idx:
             columns:
