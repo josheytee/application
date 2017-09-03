@@ -47,60 +47,60 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class StackedKernelPass implements CompilerPassInterface {
 
-  /**
-   * {@inheritdoc}
-   */
-  public function process(ContainerBuilder $container) {
+    /**
+     * {@inheritdoc}
+     */
+    public function process(ContainerBuilder $container) {
 
-    if (!$container->hasDefinition('stacked.http_kernel')) {
-      return;
+        if (!$container->hasDefinition('stacked.http_kernel')) {
+            return;
+        }
+
+        $stacked_kernel = $container->getDefinition('stacked.http_kernel');
+        // Return now if this is not a stacked kernel.
+        if ($stacked_kernel->getClass() !== 'Stack\StackedHttpKernel') {
+            return;
+        }
+
+        $middlewares = [];
+        $priorities = [];
+        $responders = [];
+
+        foreach ($container->findTaggedServiceIds('http_middleware') as $id => $attributes) {
+            $priorities[$id] = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
+            $middlewares[$id] = $container->getDefinition($id);
+            $responders[$id] = !empty($attributes[0]['responder']);
+        }
+
+        array_multisort($priorities, SORT_ASC, $middlewares, $responders);
+        $decorated_id = 'http_kernel';
+        $middlewares_param = [new Reference($decorated_id)];
+
+        $first_responder = array_search(TRUE, array_reverse($responders, TRUE), TRUE);
+        if ($first_responder) {
+            $container->getDefinition($decorated_id)->setLazy(TRUE);
+        }
+
+        foreach ($middlewares as $id => $decorator) {
+            // Prepend a reference to the middlewares container parameter.
+            array_unshift($middlewares_param, new Reference($id));
+
+            // Prepend the inner kernel as first constructor argument.
+            $arguments = $decorator->getArguments();
+            array_unshift($arguments, new Reference($decorated_id));
+            $decorator->setArguments($arguments);
+
+            if ($first_responder === $id) {
+                $first_responder = FALSE;
+            } elseif ($first_responder) {
+                $decorator->setLazy(TRUE);
+            }
+
+            $decorated_id = $id;
+        }
+
+        $arguments = [$middlewares_param[0], $middlewares_param];
+        $stacked_kernel->setArguments($arguments);
     }
-
-    $stacked_kernel = $container->getDefinition('stacked.http_kernel');
-    // Return now if this is not a stacked kernel.
-//    if ($stacked_kernel->getClass() !== 'Stack\StackedHttpKernel') {
-//      return;
-//    }
-
-    $middlewares = [];
-    $priorities = [];
-    $responders = [];
-
-    foreach ($container->findTaggedServiceIds('http_middleware') as $id => $attributes) {
-      $priorities[$id] = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
-      $middlewares[$id] = $container->getDefinition($id);
-      $responders[$id] = !empty($attributes[0]['responder']);
-    }
-
-    array_multisort($priorities, SORT_ASC, $middlewares, $responders);
-    $decorated_id = 'http_kernel';
-    $middlewares_param = [new Reference($decorated_id)];
-
-    $first_responder = array_search(TRUE, array_reverse($responders, TRUE), TRUE);
-    if ($first_responder) {
-      $container->getDefinition($decorated_id)->setLazy(TRUE);
-    }
-
-    foreach ($middlewares as $id => $decorator) {
-      // Prepend a reference to the middlewares container parameter.
-      array_unshift($middlewares_param, new Reference($id));
-
-      // Prepend the inner kernel as first constructor argument.
-      $arguments = $decorator->getArguments();
-      array_unshift($arguments, new Reference($decorated_id));
-      $decorator->setArguments($arguments);
-
-      if ($first_responder === $id) {
-        $first_responder = FALSE;
-      } elseif ($first_responder) {
-        $decorator->setLazy(TRUE);
-      }
-
-      $decorated_id = $id;
-    }
-
-    $arguments = [$middlewares_param[0], $middlewares_param];
-    $stacked_kernel->setArguments($arguments);
-  }
 
 }

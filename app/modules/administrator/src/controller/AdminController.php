@@ -13,18 +13,18 @@ use app\core\template\SmartyTemplateEngine;
  */
 class AdminController extends ControllerBase {
 
-  protected $smarty;
+    protected $smarty;
 
-  public function __construct(SmartyTemplateEngine $temp) {
-    $this->smarty = $temp;
-  }
+    public function __construct(SmartyTemplateEngine $temp) {
+        $this->smarty = $temp;
+    }
 
-  public static function inject(ContainerInterface $container) {
-    return new static($container->get('smarty'));
-  }
+    public static function inject(ContainerInterface $container) {
+        return new static($container->get('smarty'));
+    }
 
-  public function hello() {
-    return $this->render('', 'welcome to the admin page');
-  }
+    public function hello() {
+        return $this->renderCustom($this->getTemplate(__DIR__, 'testing.tpl'), ['c' => 'welcome to the admin page']);
+    }
 
 }

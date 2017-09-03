@@ -44,7 +44,7 @@ services:
     tags:
     - { name: persist }
   stacked.http_kernel:
-    class: app\core\stack\StackedHttpKernel
+    class: Stack\StackedHttpKernel
   http_kernel:
     class: Symfony\Component\HttpKernel\HttpKernel
     arguments: ['@event.dispatcher', '@controller_resolver', '@request_stack','@argument_resolver']
@@ -150,10 +150,11 @@ services:
     class: Symfony\Component\HttpFoundation\Session\Session
 
 # middlewares
-  http_middleware.session:
-    class: app\core\middleware\Session
+  http_middleware.auth:
+    class: app\core\middleware\AuthMiddleware
+    parent: container.trait
     tags:
-      - { name: http_middleware, priority: 50 }
+      - { name: http_middleware, priority: 50, responder: true }
 #    subscribers
   response.handler:
     class: app\core\event\subscriber\DefaultResponseHandlerSubscriber

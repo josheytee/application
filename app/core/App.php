@@ -191,7 +191,7 @@ class App implements AppInterface, TerminableInterface {
      * @return \Symfony\Component\HttpKernel\HttpKernelInterface
      */
     protected function getHttpKernel() {
-        return $this->container->get('http_kernel');
+        return $this->container->get('stacked.http_kernel');
     }
 
     public function boot() {
