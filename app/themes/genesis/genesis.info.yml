@@ -5,10 +5,9 @@ base theme: false
 hidden: true
 regions:
   header: Header
-  breadcrumb: Breadcrumb
-  highlighted: Highlighted
-  sidebar_right: 'Sidebar Right'
+  banner: Banner
+  highlight: Highlight
 #  container: Container
-  sidebar_left: 'Sidebar Left'
   footer: Footer
+  copy_selection: Copy Selection
 libraries: makm.js

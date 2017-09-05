@@ -16,59 +16,59 @@ use Symfony\Cmf\Component\Routing\PagedRouteCollection;
  */
 class RouteProvider implements PagedRouteProviderInterface {
 
-  /**
-   * @var EntityManager
-   */
-  private $entity_manager;
+    /**
+     * @var EntityManager
+     */
+    private $entity_manager;
 
-  public function __construct(EntityManager $entity_manager) {
-    $this->entity_manager = $entity_manager;
-  }
-
-  public function getAllRoutes() {
-    return new PagedRouteCollection($this);
-  }
-
-  public function getRoutes() {
-    $collection = new RouteCollection();
-    $routes = $this->entity_manager->getRepository('app\core\entity\Routing')->findAll();
-    foreach ($routes as $key => $router) {
-      $collection->add($router->getName(), $router->getRoute());
+    public function __construct(EntityManager $entity_manager) {
+        $this->entity_manager = $entity_manager;
     }
-    return $collection;
-  }
 
-  public function getRouteByName($name): Route {
-    return $this->getRoutes()->get($name);
-  }
+    public function getAllRoutes() {
+        return new PagedRouteCollection($this);
+    }
 
-  public function getRouteCollectionForRequest(Request $request): RouteCollection {
+    public function getRoutes() {
+        $collection = new RouteCollection();
+        $routes = $this->entity_manager->getRepository('app\core\entity\Routing')->findAll();
+        foreach ($routes as $key => $router) {
+            $collection->add($router->getName(), $router->getRoute());
+        }
+        return $collection;
+    }
 
-    return $this->getRoutes();
-  }
+    public function getRouteByName($name): Route {
+        return $this->getRoutes()->get($name);
+    }
 
-  /**
+    public function getRouteCollectionForRequest(Request $request): RouteCollection {
 
-   *
-   * @param type $names
-   * @return array of routes
-   */
-  public function getRoutesByNames($names) {
+        return $this->getRoutes();
+    }
 
-  }
+    /**
 
-  public function getRoutesCount(): int {
+     *
+     * @param type $names
+     * @return array of routes
+     */
+    public function getRoutesByNames($names) {
 
-  }
+    }
 
-  /**
-   *
-   * @param type $offset
-   * @param type $length
-   * @return array of routes
-   */
-  public function getRoutesPaged($offset, $length = null) {
+    public function getRoutesCount(): int {
 
-  }
+    }
+
+    /**
+     *
+     * @param type $offset
+     * @param type $length
+     * @return array of routes
+     */
+    public function getRoutesPaged($offset, $length = null) {
+
+    }
 
 }
