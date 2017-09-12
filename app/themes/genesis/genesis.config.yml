@@ -1,0 +1,29 @@
+params:
+  default-class:
+    region
+regions:
+  header_top:
+    - phone
+    - account_box
+  header_bottom:
+    - logo
+    - nav
+    - search
+    - cart
+  banner:
+    - banner
+  siderbar:
+    - sections
+    - price_range
+    - top_rates_product
+    - brand filter
+    - ads 4:7
+  container:
+    name: Container
+  footer:
+    - about
+    - my_account
+    - information
+    - contacts
+  copy_selection:
+    - custom

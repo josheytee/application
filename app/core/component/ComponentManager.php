@@ -12,33 +12,34 @@ use app\core\component\ComponentInitializer;
  */
 class ComponentManager {
 
-  /**
-   * @var ComponentInitializer
-   */
-  private $initializer;
+    /**
+     * @var ComponentInitializer
+     */
+    private $initializer;
 
-  /**
-   * @var ThemeManager
-   */
-  private $theme;
+    /**
+     * @var ThemeManager
+     */
+    private $theme;
 
-  public function __construct(ComponentInitializer $initializer, ThemeManager $theme) {
-    $this->theme = $theme;
-    $this->initializer = $initializer;
-  }
-
-  public function getComponents() {
-    return ($this->initializer->getComponents());
-  }
-
-  public function getByRegion($region) {
-    $region_com = [];
-    foreach ($this->getComponents() as $component) {
-      if ($component->region == $region) {
-        $region_com[$component->name] = $component;
-      }
+    public function __construct(ComponentInitializer $initializer, ThemeManager $theme) {
+        $this->theme = $theme;
+        $this->initializer = $initializer;
     }
-    return $region_com;
-  }
+
+    public function getComponents() {
+        return ($this->initializer->getComponents());
+    }
+
+    public function getByRegion($region) {
+        $region_com = [];
+//        dump($this->getComponents());
+        foreach ($this->getComponents() as $component) {
+            if ($component->region == $region) {
+                $region_com[$component->name] = $component;
+            }
+        }
+        return $region_com;
+    }
 
 }

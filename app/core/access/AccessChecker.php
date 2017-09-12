@@ -12,8 +12,13 @@ use app\core\http\Request;
  */
 class AccessChecker {
 
-    public function checkRequest(RouteMatchInterface $route_match, Request $request) {
+    public function checkRequest(Request $request, $account) {
 
+    }
+
+    public function doCheck(RouteMatchInterface $route_match, Request $request) {
+        $route = $route_match->getRouteObject();
+        $checks = $route->getOption('_check') ?: [];
     }
 
 }

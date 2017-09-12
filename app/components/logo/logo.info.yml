@@ -7,6 +7,6 @@ author: ntc
 package: ntc\logo
 icon: hello.png
 version: 1.2.3
-region:  header
+region:  header_bottom
 dependency:
     - type guesser

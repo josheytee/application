@@ -3,6 +3,7 @@
     <div class="header">
         <div class="header-top">
             <div class="container">
+                {$page.header_top}
                 <div class="top-left">
                     <a href="#"> Help  <i class="glyphicon glyphicon-phone" aria-hidden="true"></i> +0123-456-789</a>
                 </div>
@@ -16,8 +17,10 @@
                 <div class="clearfix"></div>
             </div>
         </div>
+
         <div class="heder-bottom">
             <div class="container">
+                {$page.header_bottom}
                 <div class="logo-nav">
                     <div class="logo-nav-left">
                         <h1><a href="index.html">New Shop <span>Shop anywhere</span></a></h1>
@@ -141,7 +144,6 @@
                 </div>
             </div>
         </div>
-        {$page.header}
     </div>
     {$page.banner}
 
@@ -157,7 +159,7 @@
     {/if}
     {if $page.copy_selection }
         <div class="copy-selection">
-            {$page.footer}
+            {$page.copy_selection }
         </div>
     {/if}
 {/block}

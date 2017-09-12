@@ -2,12 +2,14 @@
 
 namespace app\core\view\block;
 
+use app\core\theme\region\RegionManager;
 use app\core\view\Renderable;
 use app\core\theme\ThemeManager;
 use app\core\config\ConfigManager;
 use app\core\http\Response;
 use app\core\component\ComponentManager;
 use app\core\routing\RouteMatchInterface;
+use app\core\view\Renderabletrait;
 
 /**
  * Description of TemplateSkeleton
@@ -16,66 +18,51 @@ use app\core\routing\RouteMatchInterface;
  */
 class BlockManager implements Renderable {
 
-  use \app\core\view\Renderabletrait;
+    use Renderabletrait;
 
-  /**
-   * @var ComponentManager
-   */
-  private $component_manager;
+    /**
+     * @var ConfigManager
+     */
+    private $config;
 
-  /**
-   * @var ConfigManager
-   */
-  private $config;
+    /**
+     * @var ThemeManager
+     */
+    private $theme;
+    protected $default_regions;
+    protected $regions;
+    /**
+     * @var RegionManager
+     */
+    private $region_manager;
 
-  /**
-   * @var ThemeManager
-   */
-  private $theme;
-  protected $default_regions;
-  protected $regions;
+    public function __construct(ThemeManager $theme, RegionManager $region_manager, ConfigManager $config = null) {
 
-  public function __construct(ThemeManager $theme, ComponentManager $component_manager, ConfigManager $config = null) {
-
-    $this->theme = $theme;
-    $this->config = $config;
-    $this->default_regions = $this->theme->getActiveTheme()->getRegions();
-    $this->component_manager = $component_manager;
-  }
-
-  public function processRegion($region) {
-    $byRegion = $this->component_manager->getByRegion($region);
-    $markup = '';
-    foreach ($byRegion as $key => $component) {
-      $markup .= $component->render();
+        $this->theme = $theme;
+        $this->config = $config;
+        $this->default_regions = $this->theme->getActiveTheme()->getRegions();
+        $this->region_manager = $region_manager;
     }
-    $assign = [
-        'attributes' => 'class="lead"',
-        'content' => $markup
-    ];
-    return $this->rendertrait($assign, 'layout/region.tpl');
-  }
 
-  public function render($request) {
-    return $this->rendertrait(['page' => $request], 'layout/page.tpl');
-  }
+    public function render($request) {
+        return $this->rendertrait(['page' => $request], 'layout/page.tpl');
+    }
 
-  public function generateResponse($result, $request, RouteMatchInterface $route_match) {
+    public function generateResponse($result, $request, RouteMatchInterface $route_match) {
 //    $route_match;
 //    $components = $this->component_manager->getComponents();
-    $page = null;
-    $regions = $this->theme->getActiveTheme()->getRegions();
-    foreach ($regions as $region) {
+        $page = null;
+        foreach ($this->default_regions as $region) {
 //      if (!empty($page[$region])) {
 //      $page[$region]['#theme_wrappers'][] = 'region';
-      $page[$region] = $this->processRegion($region);
+            $page[$region] = $this->region_manager->getContent($region);
 //      }
-    }
+        }
 //    $libraries = $result['libraries'];
-    $page['content'] = $result['content'];
+        $page['content'] = $result['content'];
 
-    $response = new Response($this->render($page));
-    return $response;
-  }
+        $response = new Response($this->render($page));
+        return $response;
+    }
 
 }

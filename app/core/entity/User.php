@@ -15,12 +15,7 @@ class User
     /**
      * @var string
      */
-    private $firstname;
-
-    /**
-     * @var string
-     */
-    private $lastname;
+    private $name;
 
     /**
      * @var string
@@ -58,16 +53,26 @@ class User
     private $updated;
 
     /**
+     * @var \app\core\entity\Shop
+     */
+    private $default_shop;
+
+    /**
+     * @var \app\core\entity\Shop
+     */
+    private $current_shop;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $role;
+    private $roles;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->role = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -81,51 +86,27 @@ class User
     }
 
     /**
-     * Set firstname
+     * Set name
      *
-     * @param string $firstname
+     * @param string $name
      *
      * @return User
      */
-    public function setFirstname($firstname)
+    public function setName($name)
     {
-        $this->firstname = $firstname;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get firstname
+     * Get name
      *
      * @return string
      */
-    public function getFirstname()
+    public function getName()
     {
-        return $this->firstname;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     *
-     * @return User
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
+        return $this->name;
     }
 
     /**
@@ -297,6 +278,54 @@ class User
     }
 
     /**
+     * Set defaultShop
+     *
+     * @param \app\core\entity\Shop $defaultShop
+     *
+     * @return User
+     */
+    public function setDefaultShop(\app\core\entity\Shop $defaultShop = null)
+    {
+        $this->default_shop = $defaultShop;
+
+        return $this;
+    }
+
+    /**
+     * Get defaultShop
+     *
+     * @return \app\core\entity\Shop
+     */
+    public function getDefaultShop()
+    {
+        return $this->default_shop;
+    }
+
+    /**
+     * Set currentShop
+     *
+     * @param \app\core\entity\Shop $currentShop
+     *
+     * @return User
+     */
+    public function setCurrentShop(\app\core\entity\Shop $currentShop = null)
+    {
+        $this->current_shop = $currentShop;
+
+        return $this;
+    }
+
+    /**
+     * Get currentShop
+     *
+     * @return \app\core\entity\Shop
+     */
+    public function getCurrentShop()
+    {
+        return $this->current_shop;
+    }
+
+    /**
      * Add role
      *
      * @param \app\core\entity\Role $role
@@ -305,7 +334,7 @@ class User
      */
     public function addRole(\app\core\entity\Role $role)
     {
-        $this->role[] = $role;
+        $this->roles[] = $role;
 
         return $this;
     }
@@ -317,16 +346,16 @@ class User
      */
     public function removeRole(\app\core\entity\Role $role)
     {
-        $this->role->removeElement($role);
+        $this->roles->removeElement($role);
     }
 
     /**
-     * Get role
+     * Get roles
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRole()
+    public function getRoles()
     {
-        return $this->role;
+        return $this->roles;
     }
 }

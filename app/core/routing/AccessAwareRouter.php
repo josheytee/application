@@ -5,6 +5,7 @@ namespace app\core\routing;
 use Symfony\Cmf\Component\Routing\ChainRouter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RequestContext;
+use app\core\access\AccessChecker;
 
 /**
  * Description of AccessAwareRouter
@@ -13,47 +14,53 @@ use Symfony\Component\Routing\RequestContext;
  */
 class AccessAwareRouter implements AccessAwareRouterInterface {
 
-  /**
-   * @var ChainRouter
-   */
-  private $chain_router;
+    /**
+     * @var AccessChecker
+     */
+    private $access_checker;
 
-  public function __construct(ChainRouter $chain_router) {
+    /**
+     * @var ChainRouter
+     */
+    private $chain_router;
 
-    $this->chain_router = $chain_router;
-  }
+    public function __construct(ChainRouter $chain_router, AccessChecker $access_checker) {
 
-  public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH): string {
-    return $this->chain_router->generate($name, $parameters, $referenceType);
-  }
+        $this->chain_router = $chain_router;
+        $this->access_checker = $access_checker;
+    }
 
-  public function getContext() {
-    return $this->chain_router->getContext();
-  }
+    public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH): string {
+        return $this->chain_router->generate($name, $parameters, $referenceType);
+    }
 
-  public function getRouteCollection() {
-    return $this->chain_router->getRouteCollection();
-  }
+    public function getContext() {
+        return $this->chain_router->getContext();
+    }
 
-  public function match($pathinfo) {
-    return $this->matchRequest(Request::create($pathinfo));
-  }
+    public function getRouteCollection() {
+        return $this->chain_router->getRouteCollection();
+    }
 
-  public function matchRequest(Request $request) {
-    $parameters = $this->chain_router->matchRequest($request);
-    $request->attributes->add($parameters);
-    $this->checkAccess($request);
-    // We can not return $parameters because the access check can change the
-    // request attributes.
-    return $request->attributes->all();
-  }
+    public function match($pathinfo) {
+        return $this->matchRequest(Request::create($pathinfo));
+    }
 
-  protected function checkAcess(Request $request) {
+    public function matchRequest(Request $request) {
+        $parameters = $this->chain_router->matchRequest($request);
+        $request->attributes->add($parameters);
+        $this->checkAccess($request);
+        // We can not return $parameters because the access check can change the
+        // request attributes.
+        return $request->attributes->all();
+    }
 
-  }
+    protected function checkAcess(Request $request) {
+        $this->access_checker->checkRequest($request, $account);
+    }
 
-  public function setContext(RequestContext $context) {
-    $this->chain_router->setContext($context);
-  }
+    public function setContext(RequestContext $context) {
+        $this->chain_router->setContext($context);
+    }
 
 }

@@ -141,9 +141,16 @@ class App implements AppInterface, TerminableInterface {
 
     public function initializeContainer() {
         if (isset($this->container)) {
-
+            // Save the id of the currently logged in user.
+            if ($this->container->initialized('current_user')) {
+                $current_user_id = $this->container->get('current_user')->id();
+            }
         }
         $this->container = $this->compileContainer();
+
+        if (!empty($current_user_id)) {
+            $this->container->get('current_user')->setInitialAccountId($current_user_id);
+        }
     }
 
     public function compileContainer() {

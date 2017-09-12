@@ -40,4 +40,5 @@ shop.index:
     _controller: 'ntc\shop\controller\ShopController::index'
     name: hello
   requirements:
+    _access: fop
     name: .+

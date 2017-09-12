@@ -6,6 +6,6 @@ author: ntc
 package: ntc\search
 icon: hello.png
 version: 1.2.3
-region:  header
+region:  header_bottom
 dependency:
     - type guesser

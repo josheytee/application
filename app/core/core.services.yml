@@ -141,11 +141,22 @@ services:
     arguments: ['@route.manager','@cache.manager']
   block.manager:
     class: app\core\view\block\BlockManager
-    arguments: ['@theme.manager','@component.manager']
+    arguments: ['@theme.manager','@region.manager']
+  region.manager:
+    class: app\core\theme\region\RegionManager
+    arguments: ['@component.manager','@theme.manager']
   module.manager:
     class: app\core\module\ModuleManager
     arguments: ['@module.repository']
-
+  authentication.manager:
+    class: app\core\account\AuthenticationManager
+    arguments: ['@authentication.collector']
+  authentication.collector:
+    class: app\core\account\AuthenticationCollector
+    tags:
+      - { name: resolver_collector, tag: authentication_provider, call: addProvider }
+  current_user:
+      class: app\core\account\AccountProxy
   session:
     class: Symfony\Component\HttpFoundation\Session\Session
 

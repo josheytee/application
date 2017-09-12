@@ -2,13 +2,66 @@
 
 namespace app\core\account;
 
+use app\core\entity\User;
+
 /**
- * Description of UserAccount
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class UserAccount {
+class UserAccount implements AccountInterface {
 
-  public $model = 'model\User';
+    /**
+     * @var User
+     */
+    private $user;
+
+    public function __construct(User $user) {
+
+        $this->user = $user;
+    }
+
+    public function getAccountName(): string {
+        return $this->user->getName();
+    }
+
+    public function getCurrentShop(): \app\core\entity\Shop {
+        return $this->user->getCurrentShop();
+    }
+
+    public function getEmail(): string {
+        return $this->user->getEmail();
+    }
+
+    public function getLastAccessedTime(): int {
+
+    }
+
+    public function getRoles($exclude_locked_roles = FALSE): array {
+        return $this->user->getRoles();
+    }
+
+    public function getUsername(): string {
+        return $this->user->getUsername();
+    }
+
+    public function hasPermission($permission): bool {
+        return 0;
+    }
+
+    public function id(): int {
+        return $this->user->getId();
+    }
+
+    public function isAnonymous(): bool {
+        return $this->id() == 0;
+    }
+
+    public function isAuthenticated(): bool {
+        return $this->id() > 0;
+    }
+
+    public function getDefaultShop(): app\core\entity\Shop {
+        $this->user->getDefaultShop();
+    }
 
 }

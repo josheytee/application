@@ -8,5 +8,5 @@ namespace app\core\theme\region;
  */
 interface RegionManagerInterface {
 
-  public function getContent();
+  public function getContent($region);
 }

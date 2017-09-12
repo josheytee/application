@@ -39,13 +39,13 @@ class AuthForm extends FormController {
 
     public function process(Request $request) {
         if (!$request->session()->has('logged')) {
-            dump($request->all());
-            if (isset($request->authorize)) {
+//            dump($request->all());
+            if (isset($request->username)) {
                 $doctrine = $this->doctrine();
                 $user = $doctrine->getRepository('app\core\entity\User');
                 $data = $user->findOneBy(['username' => $request->username]);
                 if ($data) {
-                    $request->session()->set('logged', $data->id_user);
+                    $request->session()->set('logged', $data->getId());
                     $this->redirect('admin.index');
                 }
             }

@@ -18,6 +18,11 @@ class Role
     private $name;
 
     /**
+     * @var array
+     */
+    private $permissions;
+
+    /**
      * @var \DateTime
      */
     private $created;
@@ -28,11 +33,6 @@ class Role
     private $updated;
 
     /**
-     * @var \app\core\entity\Profile
-     */
-    private $profile;
-
-    /**
      * @var \app\core\entity\Shop
      */
     private $shop;
@@ -40,14 +40,14 @@ class Role
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $user;
+    private $users;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -82,6 +82,30 @@ class Role
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set permissions
+     *
+     * @param array $permissions
+     *
+     * @return Role
+     */
+    public function setPermissions($permissions)
+    {
+        $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    /**
+     * Get permissions
+     *
+     * @return array
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
     }
 
     /**
@@ -133,30 +157,6 @@ class Role
     }
 
     /**
-     * Set profile
-     *
-     * @param \app\core\entity\Profile $profile
-     *
-     * @return Role
-     */
-    public function setProfile(\app\core\entity\Profile $profile = null)
-    {
-        $this->profile = $profile;
-
-        return $this;
-    }
-
-    /**
-     * Get profile
-     *
-     * @return \app\core\entity\Profile
-     */
-    public function getProfile()
-    {
-        return $this->profile;
-    }
-
-    /**
      * Set shop
      *
      * @param \app\core\entity\Shop $shop
@@ -189,7 +189,7 @@ class Role
      */
     public function addUser(\app\core\entity\User $user)
     {
-        $this->user[] = $user;
+        $this->users[] = $user;
 
         return $this;
     }
@@ -201,16 +201,16 @@ class Role
      */
     public function removeUser(\app\core\entity\User $user)
     {
-        $this->user->removeElement($user);
+        $this->users->removeElement($user);
     }
 
     /**
-     * Get user
+     * Get users
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUser()
+    public function getUsers()
     {
-        return $this->user;
+        return $this->users;
     }
 }

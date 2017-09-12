@@ -3,6 +3,7 @@
 namespace app\core\controller;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * common features needed in controller
@@ -26,6 +27,18 @@ trait ControllerTrait {
     }
 
     /**
+     * Returns a RedirectResponse to the given URL.
+     *
+     * @param string $url    The URL to redirect to
+     * @param int    $status The status code to use for the Response
+     *
+     * @return RedirectResponse
+     */
+    protected function redirect($url, $status = 302) {
+        return new RedirectResponse($url, $status);
+    }
+
+    /**
      * Returns a RedirectResponse to the given route with the given parameters.
      *
      * @param string $route      The name of the route
@@ -34,8 +47,8 @@ trait ControllerTrait {
      *
      * @return RedirectResponse
      */
-    protected function redirect($route, array $parameters = array()) {
-        return $this->container->get('url.generator')->redirect($route, $parameters);
+    protected function redirectToRoute($route, array $parameters = array(), $status = 302) {
+        return $this->redirect($this->generateUrl($route, $parameters), $status);
     }
 
     /**

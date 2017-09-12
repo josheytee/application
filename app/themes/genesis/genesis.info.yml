@@ -4,7 +4,8 @@ description: A default base theme
 base theme: false
 hidden: true
 regions:
-  header: Header
+  header_top: Top Header
+  header_bottom: Bottom Header
   banner: Banner
   highlight: Highlight
 #  container: Container

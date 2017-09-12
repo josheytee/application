@@ -30,16 +30,10 @@ app\core\entity\User:
             generator:
                 strategy: IDENTITY
     fields:
-        firstname:
+        name:
             type: string
             nullable: false
-            length: 32
-            options:
-                fixed: false
-        lastname:
-            type: string
-            nullable: false
-            length: 32
+            length: 255
             options:
                 fixed: false
         username:
@@ -80,13 +74,34 @@ app\core\entity\User:
         updated:
             type: datetime
             nullable: false
+    manyToOne:
+        default_shop:
+            targetEntity: app\core\entity\Shop
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_shop:
+                    referencedColumnName: id
+            orphanRemoval: false
+        current_shop:
+            targetEntity: app\core\entity\Shop
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_current_shop:
+                    referencedColumnName: id
+            orphanRemoval: false
     manyToMany:
-        role:
+        roles:
             targetEntity: Role
             cascade: {  }
             fetch: LAZY
             mappedBy: null
-            inversedBy: user
+            inversedBy: users
             joinTable:
                 name: user_role
                 joinColumns:

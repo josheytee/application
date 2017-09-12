@@ -5,13 +5,7 @@ app\core\entity\Shop:
         url_idx:
             columns:
                 - url
-    uniqueConstraints:
-        UNIQ_C58E39CFCAFE5CF:
-            columns:
-                - id_activity
-        UNIQ_C58E39C4D1693CB:
-            columns:
-                - id_state
+                - id
     id:
         id:
             type: integer
