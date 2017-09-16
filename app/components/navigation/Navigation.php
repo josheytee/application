@@ -8,7 +8,7 @@ class Navigation extends Component {
 
   public function render() {
     $template = $this->getTemplate(__DIR__, 'search.tpl');
-    return $this->display('navigation.tpl');
+    return $this->display('ntc_navigation.tpl');
   }
 
 }
