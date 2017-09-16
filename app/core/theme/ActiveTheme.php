@@ -218,7 +218,7 @@ class ActiveTheme {
         throw new \Exception('template file: ' . $template . ' not found in' . $file);
     }
 
-    public function getConfig($section = '') {
-        return $section ? $this->config[$section] : $this->config;
+    public function getConfig($section = null) {
+        return $this->config[$section] ?? [];
     }
 }

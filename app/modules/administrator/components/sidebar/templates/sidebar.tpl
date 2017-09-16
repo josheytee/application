@@ -8,7 +8,7 @@
 <ul class="nav nav-sidebar">
   <li>Configuration</li>
   <li><a href="#">Global</a></li>
-  <li><a href="#">Templayes</a></li>
+  <li><a href="#">Templates</a></li>
 </ul>
 {*<ul class="nav nav-sidebar">
 <li><a href="#">Nav item again</a></li>

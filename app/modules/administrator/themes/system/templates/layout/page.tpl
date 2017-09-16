@@ -1,42 +1,49 @@
 {extends './html.tpl'}
 {block 'page'}
-  <div class="layout-container">
+    <div class="page-container sidebar-collapsed-back">
+        <div class="left-content">
+            <div class="mother-grid-inner">
+                <div class="header-main fixed">
+                    <div class="header-left">
+                        {$page.header_left}
+                    </div>
+                    <div class="header-right">
+                        {$page.header_right}
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        var navoffeset = $(".header-main").offset().top;
+                        $(window).scroll(function () {
+                            var scrollpos = $(window).scrollTop();
+                            if (scrollpos >= navoffeset) {
+                                $(".header-main").addClass("fixed");
+                            } else {
+                                $(".header-main").removeClass("fixed");
+                            }
+                        });
 
-    <header role="banner">
-      {$page.header}
-    </header>
-
-    {*      {$page.primary_menu}*}
-    {*      {$page.secondary_menu}*}
-
-    {$page.breadcrumb}
-
-    {*    {$page.highlighted}*}
-
-    {$page.help}
-
-    <main role="main">
-      <div class="row">
-        {if $page.sidebar }
-          <div class="col-md-2">
-            <aside class="layout-sidebar-first" role="complementary">
-              {$page.sidebar}
-            </aside>
-          </div>
-        {/if}
-        <div class=" col-md-10">
-          {$page.content}
+                    });
+                </script>
+                {$page.breadcrumb}
+                <div class="inner-block">
+                    {$page.help}
+                    {$page.content}
+                </div>
+            </div>
         </div>
-      </div>
+        {if $page.sidebar}
+            {$page.sidebar}
+        {/if}
+        <div class="clearfix"></div>
+        {if $page.footer }
+            <footer role="contentinfo">
+                {$page.footer}
+            </footer>
+        {/if}
 
-
-    </main>
-
-    {if $page.footer }
-      <footer role="contentinfo">
-        {$page.footer}
-      </footer>
-    {/if}
-
-  </div>{* /.layout-container *}
+    </div>
+    {*.layout-container *}
+    <script type="text/javascript"
+            src="/application/app/modules/administrator/themes/system/js/main.js"></script>
 {/block}

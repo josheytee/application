@@ -225,4 +225,33 @@ class Shop
     {
         return $this->activity;
     }
+    /**
+     * @var array
+     */
+    private $config;
+
+
+    /**
+     * Set config
+     *
+     * @param array $config
+     *
+     * @return Shop
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+
+        return $this;
+    }
+
+    /**
+     * Get config
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
 }

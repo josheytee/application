@@ -36,6 +36,12 @@ app\core\entity\Shop:
             options:
                 fixed: false
                 comment: 'Shop''s description'
+        config:
+            type: array
+            nullable: true
+            options:
+                fixed: false
+                comment: Shop's configuration data
         created:
             type: datetime
             nullable: false

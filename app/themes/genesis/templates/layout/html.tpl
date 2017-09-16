@@ -22,6 +22,13 @@
     <link href="/application/app/themes/genesis/css/style.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="/application/app/themes/genesis/css/font-awesome.css" rel="stylesheet">
     <!--css-->
+
+    <!--js-->
+    <script type="text/javascript" src="/application/app/themes/genesis/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/application/app/themes/genesis/js/main.js"></script>
+    <script type="text/javascript" src="/application/app/themes/genesis/js/bootstrap-3.1.1.min.js"></script>
+    <!--js-->
+
 </head>
 
 <body>
@@ -29,8 +36,6 @@
 {block 'page'}
     page content
 {/block}
-<script type="text/javascript" src="/application/app/themes/genesis/library/jquery/jquery.js"></script>
-<script type="text/javascript" src="/application/app/themes/genesis/library/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 

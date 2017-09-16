@@ -43,32 +43,26 @@ class RegionManager implements RegionManagerInterface {
         return $this->component_manager->getComponents();
     }
 
-    public function getThemeConfig() {
-        $this->theme_manager->getActiveTheme()->getConfig();
-    }
-
     public function setMax($max) {
         $this->max = $max;
         return $this;
     }
-
 
     /**
      * @param $region
      * @return null
      */
     public function getContent($region) {
-        dump($this->getThemeConfig());
-        $byRegion = $this->component_manager->getByRegion($region);
+        $components = $this->component_manager->getRegionComponents($region);
         $markup = '';
-//        dump($byRegion);
-        foreach ($byRegion as $key => $component) {
-            $markup .= $component->render();
+        foreach ($components as $component) {
+            $markup .= $component->renderComponent($this->theme_manager->getActiveTheme());
         }
         $assign = [
-            'attributes' => 'class="lead"',
+//            'attributes' => 'class="lead"',
             'content' => $markup
         ];
+
         return $this->rendertrait($assign, 'layout/region.tpl');
 
     }

@@ -4,9 +4,8 @@ namespace ntc\shop\controller;
 
 use app\core\controller\ControllerBase;
 use app\core\http\Request;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
-use app\core\entity\Shop;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of ShopController
@@ -28,20 +27,10 @@ class ShopController extends ControllerBase {
         return new static();
     }
 
-    public function add(Request $request) {
-        $manager = $this->entity_manager->getRepository(Shop::class)->find(1);
-
-        return $this->render($this->getTemplate(__DIR__, 'form.tpl')
-                        , ['shop' => $manager]
-        );
-    }
-
     public function index(Request $request) {
         $manager = $this->doctrine()->getRepository(\app\core\entity\Shop::class)->find(1);
 //        dump($manager);
-        return $this->render('shop/shop.tpl'
-                        , ['shop' => $manager]
-        );
+        return $this->render('shop/shop.tpl');
     }
 
 }

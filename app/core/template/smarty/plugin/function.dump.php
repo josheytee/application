@@ -3,16 +3,16 @@
 /*
  * Smarty plugin
  * -------------------------------------------------------------
- * File:     function.eightball.php
+ * File:     function.dump.php
  * Type:     function
- * Name:     eightball
- * Purpose:  outputs a random magic answer
+ * Name:     dump
+ * Purpose:  utilizing symfony dump inside smarty
  * -------------------------------------------------------------
  */
 
 function smarty_function_dump($params, \Smarty_Internal_Template $template) {
     if (empty($params['v'])) {
-        trigger_error("insert time: missing 'format' parameter");
+        trigger_error("insert variable: missing 'v' parameter");
         return;
     }
     return dump($params['v']);

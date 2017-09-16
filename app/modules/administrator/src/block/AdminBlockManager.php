@@ -7,6 +7,7 @@ use app\core\routing\RouteMatchInterface;
 use app\core\theme\ThemeManagerInterface;
 use app\core\http\Response;
 use app\core\component\ComponentManager;
+use app\core\view\Renderabletrait;
 
 /**
  * Description of AdminBlockManager
@@ -15,7 +16,7 @@ use app\core\component\ComponentManager;
  */
 class AdminBlockManager implements BlockManagerInterface {
 
-  use \app\core\view\Renderabletrait;
+  use Renderabletrait;
 
   /**
    * @var ConfigManager
@@ -55,13 +56,13 @@ class AdminBlockManager implements BlockManagerInterface {
   }
 
   public function processRegion($region) {
-    $byRegion = $this->component_manager->getByRegion($region);
+    $byRegion = $this->component_manager->getRegionComponents($region);
     $markup = '';
     foreach ($byRegion as $key => $component) {
       $markup .= $component->render();
     }
     $assign = [
-        'attributes' => 'class="lead"',
+//        'attributes' => 'class="lead"',
         'content' => $markup
     ];
     return $this->rendertrait($assign, 'layout/region.tpl');

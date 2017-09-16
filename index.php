@@ -1,11 +1,13 @@
 <?php
 
-$autoloader = require_once './vendor/autoload.php';
-require './app/config/config.inc.php';
+$autoloader = require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/app/config/config.inc.php';
 
 use app\core\http\Request;
+use Composer\Autoload\ClassLoader;
 
 error_reporting(E_ALL);
+//dump($autoloader);
 $framework = new app\core\App($autoloader);
 $response = $framework->handle(
         Request::capture()

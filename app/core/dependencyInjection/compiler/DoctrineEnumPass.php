@@ -15,6 +15,12 @@ class DoctrineEnumPass implements CompilerPassInterface {
 
     public function process(ContainerBuilder $container) {
         $get = $container->get('entity.manager');
+
+
+
+
+
+
 //        $get->refresh(new \app\core\entity\User());
 //        $connection = $get->getConnection();
 //        Type::addType('product_type', 'app\core\entity\types\ProductType');

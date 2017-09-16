@@ -3,15 +3,16 @@ params:
     region
 regions:
   header_top:
-    - phone
-    - account_box
+    - ntc_hotline
+    - ntc_account
   header_bottom:
-    - logo
-    - nav
-    - search
-    - cart
+    - ntc_logo
+    - ntc_navigation
+    - ntc_search
+    - ntc_cart
   banner:
-    - banner
+    - ntc_slider
+  highlight:
   siderbar:
     - sections
     - price_range
@@ -22,7 +23,7 @@ regions:
     name: Container
   footer:
     - about
-    - my_account
+    - ntc_account
     - information
     - contacts
   copy_selection:

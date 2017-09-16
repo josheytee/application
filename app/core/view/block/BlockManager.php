@@ -50,7 +50,6 @@ class BlockManager implements Renderable {
 
     public function generateResponse($result, $request, RouteMatchInterface $route_match) {
 //    $route_match;
-//    $components = $this->component_manager->getComponents();
         $page = null;
         foreach ($this->default_regions as $region) {
 //      if (!empty($page[$region])) {

@@ -18,7 +18,7 @@ class Sidebar extends Component {
 
   public function render() {
     $template = $this->getTemplate(__DIR__, 'sidebar.tpl');
-    return $this->show($template);
+    return $this->display('ntc_administrator_sidebar.tpl');
   }
 
 }

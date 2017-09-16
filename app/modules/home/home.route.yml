@@ -1,5 +1,5 @@
 home.index:
-  path: '/'
+  path: '/home'
   defaults:
     name: ~
     _title: 'Amin | Product'

@@ -2,9 +2,9 @@
 
 namespace app\core\component;
 
-use Symfony\Component\Finder\Finder;
-use app\core\component\ComponentManager;
 use app\core\Context;
+use app\core\theme\ActiveTheme;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Description of Component
@@ -67,28 +67,43 @@ abstract class Component {
      * @param type $file
      * @return type
      */
+//    public function getTemplate($dir, $file = null) {
+//        $finder = new Finder();
+//        $finder->depth(0)->directories()->in($dir);
+//        foreach ($finder as $dir) {
+//            if ($dir->getrelativePathname() == 'templates') {
+//                if (file_exists($dir->getPathName() . DS . $file)) {
+//                    return $dir->getPathName() . DS . $file;
+//                } else {
+//                    return "invalid template: " . $dir->getPathName() . DS . $file;
+//                }
+//            }
+//        }
+//    }
+
+    /**
+     * @todo find a better alternative for getting templates
+     * @param Finder $dir
+     * @param type $file
+     * @return type
+     */
     public function getTemplate($dir, $file = null) {
-        $finder = new Finder();
-        $finder->depth(0)->directories()->in($dir);
-        foreach ($finder as $dir) {
-            if ($dir->getrelativePathname() == 'templates') {
-                if (file_exists($dir->getPathName() . DS . $file)) {
-                    return $dir->getPathName() . DS . $file;
-                } else {
-                    return "invalid template: " . $dir->getPathName() . DS . $file;
-                }
-            }
-        }
+
     }
 
-    public function show($template, $data = null) {
+    public function display($template, $data = null) {
+        $template = $this->getContainer()->get('theme.manager')->getActiveTheme()
+                ->getPath() . '/templates/components/' .
+            $template;
+//        dump($template);
         $smarty = Context::smarty();
         $tpl = $smarty->createAndFetch($template, $data);
 
         return $tpl;
     }
 
-    public function renderComponent() {
+    public function renderComponent(ActiveTheme $activeTheme) {
+//        dump($activeTheme);
         $this->init();
         $this->postProcess();
         return $this->rendertrait(['component' => $this->render()], 'layout/component.tpl');

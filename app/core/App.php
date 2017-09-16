@@ -2,6 +2,7 @@
 
 namespace app\core;
 
+use Composer\Autoload\ClassLoader;
 use Symfony\Component\HttpFoundation\Request as BaseRequest;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 use app\core\http\Response;
@@ -28,14 +29,14 @@ class App implements AppInterface, TerminableInterface {
     /**
      * The class loader object.
      *
-     * @var \Composer\Autoload\ClassLoader
+     * @var ClassLoader
      */
     protected $classLoader;
     private $root;
     protected $enviroment;
     private $booted;
 
-    public function __construct($class_loader) {
+    public function __construct(ClassLoader $class_loader) {
         $this->root = _ABSOLUTE_ROOT_DIR_;
         $this->classLoader = $class_loader;
     }
@@ -115,6 +116,9 @@ class App implements AppInterface, TerminableInterface {
 //                $paths = $this->root . '/' . $paths;
                 $paths = $paths;
             }
+//            echo $prefix.'\\';
+//            dump($paths);
+//            dump($this->classLoader);
             $this->classLoader->addPsr4($prefix . '\\', $paths);
         }
     }

@@ -32,7 +32,7 @@ abstract class EntityFormController extends EntityControllerBase {
         if (is_array($this->model())) {
             foreach ($this->model() as $model => $dependencies) {
                 $entity = new $model();
-                dump($entity);
+//                dump($entity);
                 if (is_array($dependencies)) {
                     foreach ($dependencies as $dependency) {
                         foreach ($dependency as $depndency => $property) {
@@ -118,7 +118,7 @@ abstract class EntityFormController extends EntityControllerBase {
     }
 
     public function create(Request $request, Formbuilder $builder, $entity = 0) {
-        dump($request->all());
+//        dump($request->all());
         if ($this->validate($request)) {
             $return['content'] = $this->build($builder, $this->getEntity($entity))->fetch();
             $this->addEntity($request, $entity);

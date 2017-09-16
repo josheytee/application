@@ -74,9 +74,16 @@ class ThemeManager implements ThemeManagerInterface {
     public function getThemesData() {
         $data = [];
         foreach ($this->theme_repository->getRepositories() as $dir => $path) {
-            $data[$dir] = ['info' => Yaml::parse(file_get_contents($path . DS . $dir . '.info.yml')), 'path' => $path, 'config' => Yaml::parse(file_get_contents($path . DS . $dir . '.config.yml'))];
+            $data[$dir] = ['info' => $this->_getYamlFileIfExist($path . DS . $dir . '.info.yml'), 'path' => $path, 'config' => $this->_getYamlFileIfExist($path . DS . $dir . '.config.yml')];
         }
         return $data;
+    }
+
+    private function _getYamlFileIfExist($path) {
+        if (file_exists($path)) {
+            return Yaml::parse(file_get_contents($path));
+        }
+        return [];
     }
 
     /**

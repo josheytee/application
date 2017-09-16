@@ -3,8 +3,6 @@
 namespace app\core\component;
 
 use app\core\dependencyInjection\ClassResolver;
-use Symfony\Component\Yaml\Yaml;
-use app\core\component\ComponentTargetResolver;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
@@ -53,7 +51,7 @@ class ComponentInitializer {
     public function initializeAll() {
         foreach ($this->getRepo() as $key => $value) {
             $class = $value['package'] . '\\' . ucfirst($key);
-            $this->components[$key] = $this->initialize($class, $value);
+            $this->components[str_replace('\\', '_', $value['package'])] = $this->initialize($class, $value);
             $this->initialized = true;
         }
     }
