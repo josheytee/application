@@ -62,9 +62,6 @@ services:
     class: app\core\repository\ModuleRepository
   component.repository:
     class: app\core\repository\ComponentRepository
-  module_component.repository:
-    class: app\core\repository\ModuleComponentRepository
-    arguments: ['@module.repository']
   component.initializer:
     class: app\core\component\ComponentInitializer
     arguments: ['@class.resolver','@component.target.resolver']

@@ -7,7 +7,7 @@ use app\core\view\Renderable;
 use app\core\theme\ThemeManager;
 use app\core\config\ConfigManager;
 use app\core\http\Response;
-use app\core\component\ComponentManager;
+
 use app\core\routing\RouteMatchInterface;
 use app\core\view\Renderabletrait;
 
@@ -48,7 +48,7 @@ class BlockManager implements Renderable {
         return $this->rendertrait(['page' => $request], 'layout/page.tpl');
     }
 
-    public function generateResponse($result, $request, RouteMatchInterface $route_match) {
+    public function generateResponse($result) {
 //    $route_match;
         $page = null;
         foreach ($this->default_regions as $region) {

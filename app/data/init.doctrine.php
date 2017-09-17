@@ -1,9 +1,9 @@
 <?php
 
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
 use app\core\Context;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
 
 $entitiesPath = array(__DIR__ . '/../core/entity/prototype');
 // App configuration

@@ -8,7 +8,7 @@ class Logo extends Component {
 
 
     public function render() {
-        $template = $this->getTemplate(__DIR__, 'logo.tpl');
+        $template = $this->getTemplate();
         return $this->display('ntc_logo.tpl',['shop_name'=>'New Shop','shop_description'=>'SHOP ANYWHERE']);
     }
 

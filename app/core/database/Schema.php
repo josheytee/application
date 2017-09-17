@@ -3,8 +3,8 @@
 namespace app\core\database;
 
 use Symfony\Component\Yaml\Dumper;
-use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * Description of Schema
@@ -74,7 +74,7 @@ class Schema {
         )
     );
 
-    public function build($filename, $defination) {
+    public function build() {
         $dumper = new Dumper();
         $yaml = $dumper->dump($definition, 2);
         file_put_contents(__DIR__ . '/../../model/schema/product_schema.yml', $yaml);

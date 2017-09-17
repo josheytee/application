@@ -4,6 +4,7 @@ namespace app\core\component;
 
 use app\core\Context;
 use app\core\theme\ActiveTheme;
+use app\core\view\Renderabletrait;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -13,7 +14,7 @@ use Symfony\Component\Finder\Finder;
  */
 abstract class Component {
 
-    use \app\core\view\Renderabletrait;
+    use Renderabletrait;
 
     public $name;
     public $description;
@@ -31,6 +32,7 @@ abstract class Component {
             'dependency' => [],
             'region' => '',
             'path' => '',
+            'target' => '',
         ];
         $this->name = $details['name'];
         $this->description = $details['description'];
@@ -39,6 +41,7 @@ abstract class Component {
         $this->dependency = $details['dependency'];
         $this->region = $details['region'];
         $this->path = $details['path'];
+        $this->target = $details['target'];
     }
 
     public function setType($type) {
@@ -83,12 +86,12 @@ abstract class Component {
 
     /**
      * @todo find a better alternative for getting templates
-     * @param Finder $dir
-     * @param type $file
      * @return type
+     * @internal param Finder $dir
+     * @internal param type $file
      */
-    public function getTemplate($dir, $file = null) {
-
+    public function getTemplate() {
+        return '';
     }
 
     public function display($template, $data = null) {
@@ -102,7 +105,7 @@ abstract class Component {
         return $tpl;
     }
 
-    public function renderComponent(ActiveTheme $activeTheme) {
+    public function renderComponent() {
 //        dump($activeTheme);
         $this->init();
         $this->postProcess();

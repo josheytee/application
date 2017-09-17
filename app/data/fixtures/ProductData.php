@@ -2,7 +2,6 @@
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use model\Product;
 
 /**
  * Description of ProductData

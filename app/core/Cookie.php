@@ -2,9 +2,9 @@
 
 namespace app\core;
 
-use beta\library\Tools;
 use app\core\encryption\Blowfish;
 use app\core\encryption\Rijndael;
+use beta\library\Tools;
 
 /**
  * Description of Cookie
@@ -132,8 +132,9 @@ class Cookie {
 
     /**
      * Get cookie content
+     * @internal param bool $nullValues
      */
-    public function update($nullValues = false) {
+    public function update() {
         if (isset($_COOKIE[$this->_name])) {
             /* Decrypt cookie content */
             $content = $this->_cipherTool->decrypt($_COOKIE[$this->_name]);

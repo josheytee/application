@@ -2,8 +2,6 @@
 
 namespace app\core\component;
 
-use app\core\component\ComponentContainerException;
-
 /**
  * Description of ComponentContainer
  *

@@ -3,9 +3,9 @@
 namespace app\core\routing;
 
 use app\core\repository\ModuleRepository;
-use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Description of RouteProvider
@@ -84,7 +84,7 @@ class RouteManager {
 //    return $this->filtered_route;
   }
 
-  public function getRouteCollection($routes) {
+  public function getRouteCollection() {
     return $this->addRoutesToCollection($this->filtered_route);
   }
 

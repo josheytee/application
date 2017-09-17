@@ -2,6 +2,8 @@
 
 namespace app\core\repository;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Description of ComponentRepository
  *
@@ -9,25 +11,44 @@ namespace app\core\repository;
  */
 class ComponentRepository extends Repository {
 
-  protected $components_dir;
-  protected $module_repository;
+    protected $components_dir;
+    protected $module_repository;
 
-  public function __construct() {
-    $this->setDirectories($this->getComponentDirs());
-    parent::__construct();
-  }
+    public function __construct() {
+        $this->setDirectories($this->getComponentDirs());
+        parent::__construct();
+    }
 
-  public function getComponentsFromUsers() {
-    return [];
-  }
+    public function getComponentsFromUsers() {
+        return [];
+    }
 
-  /**
-   * get components from the user directory, components directory and module directory
-   * and merges all together
-   * @return array
-   */
-  public function getComponentDirs() {
-    return $this->components_dir = array_merge((array) _COMPONENT_DIR_, $this->getComponentsFromUsers());
-  }
+    public function getComponentsFromModules(ModuleRepository $moduleRepository) {
+        foreach ($moduleRepository->getRepositories() as $path) {
+            if (is_dir($path . DS . 'components')) {
+                $components[] = $path . DS . 'components';
+            }
+        }
+        return $components;
+    }
 
+    /**
+     * get components from the user directory, components directory and module directory
+     * and merges all together
+     * @return array
+     */
+    public function getComponentDirs() {
+        return $this->components_dir = array_merge((array)_COMPONENT_DIR_, $this->getComponentsFromModules(new ModuleRepository()),
+            $this->getComponentsFromUsers());
+    }
+
+    public function getTargetComponents($target) {
+        foreach ($this->getRepositories() as $name => $path) {
+            $info = $path . DS . $name . '.info.yml';
+            $yml = Yaml::parse(file_get_contents($info));
+            if (isset($yml['target']) && $target == $yml['target'])
+                $components[$name] = $yml + ['path' => $path];
+        }
+        return $components;
+    }
 }

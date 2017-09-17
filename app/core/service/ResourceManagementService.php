@@ -2,8 +2,6 @@
 
 namespace app\core\service;
 
-use app\core\service\KernelService;
-
 /**
  * Description of ResourceManagementService
  *

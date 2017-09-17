@@ -2,8 +2,9 @@
 
 namespace app\core\controller;
 
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use app\core\Context;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * common features needed in controller
@@ -59,7 +60,7 @@ trait ControllerTrait {
      * @throws \LogicException If DoctrineBundle is not available
      */
     protected function doctrine() {
-        return \app\core\Context::getContext()->manager;
+        return Context::getContext()->manager;
     }
 
     public function smarty() {

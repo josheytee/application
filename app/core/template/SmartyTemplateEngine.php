@@ -2,8 +2,6 @@
 
 namespace app\core\template;
 
-use app\core\template\TemplateEngineInterface;
-
 /**
  * Description of SmartyTemplateEngine
  *

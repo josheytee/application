@@ -2,7 +2,7 @@
 
 namespace app\core\entity\types;
 
-use app\core\entity\types\EnumType;
+
 
 /**
  * Description of ProductCondition

@@ -3,8 +3,8 @@
 namespace app\core\routing;
 
 use Symfony\Cmf\Component\Routing\ProviderBasedGenerator;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Cmf\Component\Routing\RouteProviderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RequestContext;
 
 /**

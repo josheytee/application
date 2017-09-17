@@ -49,7 +49,7 @@ class ComponentManager {
 //            return ($config[$c] < $i) ? -1 : 0;
 //        });
 //        dump($in);
-//        dump(array_intersect_key($components, $flip));
+//        dump( array_intersect_key($components, $flip));
         return array_intersect_key($components, $flip);
 
     }

@@ -2,8 +2,8 @@
 
 namespace app\core;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use app\core\dependencyInjection\ContainerNotInitializedException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of Context

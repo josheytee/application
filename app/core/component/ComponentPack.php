@@ -2,8 +2,6 @@
 
 namespace app\core\component;
 
-use app\core\component\Component;
-
 /**
  *
  * @author Tobi
@@ -29,7 +27,7 @@ abstract class ComponentPack extends Component {
 
     }
 
-    public function renderComponent($name = null) {
+    public function renderComponent() {
         if (isset($name)) {
             return $this->components[$name]->renderComponent();
         }

@@ -5,8 +5,8 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use app\core\entity\Product;
-use app\core\entity\Section;
-use app\core\entity\Shop;
+
+
 use Faker;
 /**
  * Description of ProductData

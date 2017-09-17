@@ -3,7 +3,6 @@
 namespace app\core\module;
 
 use app\core\Context;
-use Symfony\Component\Yaml\Yaml;
 use app\core\repository\ModuleRepository;
 
 /**

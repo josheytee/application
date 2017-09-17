@@ -52,8 +52,8 @@ class ComponentInitializer {
         foreach ($this->getRepo() as $key => $value) {
             $class = $value['package'] . '\\' . ucfirst($key);
             $this->components[str_replace('\\', '_', $value['package'])] = $this->initialize($class, $value);
-            $this->initialized = true;
         }
+        $this->initialized = true;
     }
 
     public function getRepo() {

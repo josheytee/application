@@ -2,9 +2,9 @@
 
 namespace app\core\controller;
 
-use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseControllerResolver;
 use app\core\dependencyInjection\ClassResolver;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseControllerResolver;
 
 /**
  * Description of ControllerResolver

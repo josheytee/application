@@ -8,7 +8,7 @@ services:
      - { name: 'theme' ,priority : 30}
   admin.target.resolver:
    class: ntc\administrator\component\AdminTargetResolver
-   arguments: ['@context.admin','@module_component.repository']
+   arguments: ['@context.admin','@component.repository']
    tags:
      - { name: 'component_target' ,priority : 30}
   admin.block.manager:

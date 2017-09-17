@@ -2,8 +2,6 @@
 
 namespace app\core\repository;
 
-use app\core\repository\Repository;
-
 /**
  * Description of CoreRepository
  *

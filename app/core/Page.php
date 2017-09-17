@@ -4,7 +4,6 @@ namespace app\core;
 
 use app\core\component\Component;
 use app\core\theme\Theme;
-use app\core\service\KernelService;
 
 /**
  * Page is a container of components related to perform a particular task

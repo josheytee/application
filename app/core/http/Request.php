@@ -44,11 +44,11 @@ class Request extends BaseRequest {
     /**
      * Get the JSON payload for the request.
      *
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param  string $key
      * @return mixed
+     * @internal param mixed $default
      */
-    public function json($key = null, $default = null) {
+    public function json($key = null) {
         if (!isset($this->json)) {
             $this->json = new ParameterBag((array) json_decode($this->getContent(), true));
         }
@@ -124,12 +124,11 @@ class Request extends BaseRequest {
 
     /**
      * Retrieve an input item from the request.
-     *
-     * @param  string  $key
-     * @param  string|array|null  $default
-     * @return string|array
+     * @return array|string
+     * @internal param string $key
+     * @internal param array|null|string $default
      */
-    public function input($key = null, $default = null) {
+    public function input() {
         $input = $this->getInputSource()->all() + $this->query->all();
         return $input;
 //    return data_get($input, $key, $default);

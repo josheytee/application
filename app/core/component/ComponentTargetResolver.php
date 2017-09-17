@@ -3,7 +3,6 @@
 namespace app\core\component;
 
 use app\core\routing\RouteMatchInterface;
-use app\core\repository\ComponentRepository;
 
 /**
  * Description of ComponentTargetResolver

@@ -25,8 +25,5 @@ class ServiceManager {
     }
 
 // prevent from being unserialized
-    private function __wakeup() {
-
-    }
 
 }

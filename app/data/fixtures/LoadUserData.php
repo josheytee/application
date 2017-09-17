@@ -6,9 +6,10 @@
  * Date: 3/21/2017
  * Time: 8:47 PM
  */
+
+use app\core\entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use app\core\entity\User;
 
 class LoadUserData implements FixtureInterface {
 

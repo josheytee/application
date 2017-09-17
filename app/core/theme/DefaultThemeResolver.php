@@ -2,7 +2,6 @@
 
 namespace app\core\theme;
 
-use app\core\theme\ActiveThemeResolverInterface;
 use app\core\routing\RouteMatchInterface;
 
 /**

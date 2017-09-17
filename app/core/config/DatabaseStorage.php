@@ -2,8 +2,10 @@
 
 namespace app\core\config;
 
-use app\core\config\StorageInterface;
+use app\core\account\UserAccount;
+use app\core\cache\CacheManager;
 use Doctrine\ORM\EntityManager;
+use ErrorException;
 
 /**
  * Description of DatabaseStorage

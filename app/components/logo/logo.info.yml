@@ -2,7 +2,7 @@ name: logo
 description: "lorep isum freeme lorep isum freeme lorep isum
 freeme lorep isum freeme lorep isum freeme "
 type: component
-target: admin
+target: front
 author: ntc
 package: ntc\logo
 icon: hello.png

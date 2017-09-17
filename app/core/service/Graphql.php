@@ -2,8 +2,8 @@
 
 namespace app\core\service;
 
-use GuzzleHttp\Client;
 use app\core\exception\GraphqlException;
+use GuzzleHttp\Client;
 
 /**
  * Description of Graphql

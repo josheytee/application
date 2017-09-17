@@ -3,8 +3,6 @@
 namespace app\core\config;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use app\core\event\EventDispatcherInterface;
-use app\core\config\StorageInterface;
 
 /**
  * Description of ConfigManager

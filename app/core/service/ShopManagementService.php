@@ -2,8 +2,6 @@
 
 namespace app\core\service;
 
-use app\core\service\KernelService;
-
 /**
  * Description of StoreManagementService
  *
@@ -25,7 +23,7 @@ class ShopManagementService extends KernelService {
         $this->getShopByURL('/defaultshop');
     }
 
-    public function getShopsFromUser($default = true) {
+    public function getShopsFromUser() {
         $user_id = $this->uas->getCurrentUser();
         $sql = "SELECT * FROM shop s INNER JOIN user_shop us on us.id_shop=s.id_shop AND us.id_user=" . $user_id;
         $shop = $this->database->fetchAllQuery($sql);

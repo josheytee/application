@@ -76,8 +76,6 @@ class Formbuilder implements BuilderInterface {
                 $mu[] = $this->elements['checkbox_' . $name] = $this->element('checkbox', $name, $radio);
             }
             return $mu;
-        } else {
-            return $this->elements[$name] = $this->element('checkbox', $name, $value);
         }
         return $this->elements[$name] = $this->element('checkbox', $name, $value);
     }

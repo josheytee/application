@@ -2,8 +2,8 @@
 
 namespace app\core\access;
 
-use app\core\routing\RouteMatchInterface;
 use app\core\http\Request;
+use app\core\routing\RouteMatchInterface;
 
 /**
  * AccessChecker is responsible for managing access to modules ,route and the app as a whole
@@ -16,7 +16,7 @@ class AccessChecker {
 
     }
 
-    public function doCheck(RouteMatchInterface $route_match, Request $request) {
+    public function doCheck(RouteMatchInterface $route_match) {
         $route = $route_match->getRouteObject();
         $checks = $route->getOption('_check') ?: [];
     }

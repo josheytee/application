@@ -3,11 +3,11 @@
 namespace app\core\routing;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Route;
+use Symfony\Cmf\Component\Routing\PagedRouteCollection;
 use Symfony\Cmf\Component\Routing\PagedRouteProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Cmf\Component\Routing\PagedRouteCollection;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Description of RouteProvider

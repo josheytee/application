@@ -2,7 +2,7 @@
 
 namespace app\core\entity\controller;
 
-use app\core\entity\controller\EntityControllerBase;
+
 
 /**
  * This implementation uses the '_list' request attribute to determine

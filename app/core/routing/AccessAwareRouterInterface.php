@@ -2,8 +2,8 @@
 
 namespace app\core\routing;
 
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  *

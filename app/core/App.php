@@ -2,20 +2,19 @@
 
 namespace app\core;
 
+use app\core\http\Response;
+use app\core\repository\ComponentRepository;
+use app\core\repository\ModuleRepository;
 use Composer\Autoload\ClassLoader;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
 use Symfony\Component\HttpFoundation\Request as BaseRequest;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
-use app\core\http\Response;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use app\core\AppInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Config\FileLocator;
-use app\core\Context;
-use app\core\repository\ModuleRepository;
-use app\core\repository\ComponentRepository;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
  * Description of Framework
@@ -184,7 +183,7 @@ class App implements AppInterface, TerminableInterface {
     }
 
     public function registerPass(&$container) {
-        $container->addCompilerPass(new \Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass('event.dispatcher', 'listenerTag', 'event_subscriber'));
+        $container->addCompilerPass(new RegisterListenersPass('event.dispatcher', 'listenerTag', 'event_subscriber'));
 //    $container->addCompilerPass(new dependencyInjection\compiler\RegisterEventSubscribersPass());
         $container->addCompilerPass(new dependencyInjection\compiler\ArgumentResolverPass());
 //    $container->addCompilerPass(new \Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouteEnhancersPass());
@@ -208,7 +207,7 @@ class App implements AppInterface, TerminableInterface {
     public function boot() {
         $module_repo = new ModuleRepository();
         $module_filenames = $module_repo->getRepositories();
-        $component_filenames = (new ComponentRepository($module_repo))->getRepositories();
+        $component_filenames = (new ComponentRepository())->getRepositories();
         $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($module_filenames));
         $this->classLoaderAddMultiplePsr4($this->getComponentNamespacesPsr4($component_filenames));
         $this->initializeContainer();

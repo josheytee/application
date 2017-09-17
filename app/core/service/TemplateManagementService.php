@@ -2,7 +2,6 @@
 
 namespace app\core\service;
 
-use app\core\service\KernelService;
 use app\core\template\TemplateEngineInterface;
 
 /**

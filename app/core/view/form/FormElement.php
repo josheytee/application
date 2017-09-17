@@ -2,7 +2,10 @@
 
 namespace app\core\view\form;
 
-use app\core\view\form\ElementInterface;
+use app\core\utility\ArrayHelper;
+use app\core\utility\StringHelper;
+
+use app\core\view\Renderabletrait;
 
 /**
  * Description of ElementBase
@@ -11,9 +14,9 @@ use app\core\view\form\ElementInterface;
  */
 abstract class FormElement implements ElementInterface {
 
-  use \app\core\view\Renderabletrait;
-  use \app\core\utility\ArrayHelper;
-  use \app\core\utility\StringHelper;
+  use Renderabletrait;
+  use ArrayHelper;
+  use StringHelper;
 
   protected $name;
   protected $class = [];

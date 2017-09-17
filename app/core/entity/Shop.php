@@ -38,12 +38,12 @@ class Shop
     private $updated;
 
     /**
-     * @var \app\core\entity\State
+     * @var State
      */
     private $state;
 
     /**
-     * @var \app\core\entity\Activity
+     * @var Activity
      */
     private $activity;
 
@@ -181,11 +181,11 @@ class Shop
     /**
      * Set state
      *
-     * @param \app\core\entity\State $state
+     * @param State $state
      *
      * @return Shop
      */
-    public function setState(\app\core\entity\State $state = null)
+    public function setState(State $state = null)
     {
         $this->state = $state;
 
@@ -195,7 +195,7 @@ class Shop
     /**
      * Get state
      *
-     * @return \app\core\entity\State
+     * @return State
      */
     public function getState()
     {
@@ -205,11 +205,11 @@ class Shop
     /**
      * Set activity
      *
-     * @param \app\core\entity\Activity $activity
+     * @param Activity $activity
      *
      * @return Shop
      */
-    public function setActivity(\app\core\entity\Activity $activity = null)
+    public function setActivity(Activity $activity = null)
     {
         $this->activity = $activity;
 
@@ -219,7 +219,7 @@ class Shop
     /**
      * Get activity
      *
-     * @return \app\core\entity\Activity
+     * @return Activity
      */
     public function getActivity()
     {

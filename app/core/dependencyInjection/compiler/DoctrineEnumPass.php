@@ -4,7 +4,7 @@ namespace app\core\dependencyInjection\compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Doctrine\DBAL\Types\Type;
+
 
 /**
  * Description of DoctrineEnumPass

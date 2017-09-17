@@ -2,8 +2,8 @@
 
 namespace app\core\controller;
 
-use app\core\view\form\Formbuilder;
 use app\core\http\Request;
+use app\core\view\form\Formbuilder;
 
 /**
  * This implementation uses the '_form' request attribute to determine
@@ -19,12 +19,12 @@ abstract class FormController extends ControllerBase {
 
     abstract public function process(Request $request);
 
-    public function validate(Request $request) {
+    public function validate() {
         return true;
     }
 
     public function create(Request $request, Formbuilder $builder) {
-        if ($this->validate($request)) {
+        if ($this->validate()) {
             $this->process($request);
             $return['content'] = $this->build($builder)->fetch();
             return $return;

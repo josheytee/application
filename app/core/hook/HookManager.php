@@ -2,8 +2,6 @@
 
 namespace app\core\hook;
 
-use app\core\hook\HookManagerInterface;
-
 /**
  * Description of HookManager
  *

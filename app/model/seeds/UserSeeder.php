@@ -1,6 +1,5 @@
 <?php
 
-use Phinx\Seed\AbstractSeed;
 use app\core\database\Seeder;
 
 class UserSeeder extends Seeder {

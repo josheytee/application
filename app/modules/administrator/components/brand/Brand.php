@@ -12,7 +12,7 @@ class Brand extends Component {
   }
 
   public function render() {
-    $template = $this->getTemplate(__DIR__, 'brand.tpl');
+    $template = $this->getTemplate();
     return $this->display('ntc_administrator_brand.tpl');
   }
 

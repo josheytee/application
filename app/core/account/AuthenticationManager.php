@@ -3,7 +3,6 @@
 namespace app\core\account;
 
 use app\core\http\Request;
-use app\core\account\AuthenticationCollector;
 
 /**
  *

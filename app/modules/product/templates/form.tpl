@@ -52,7 +52,7 @@ $(this).tab('show');
 
         });
       {* Fill an array with tabs that need to be preloaded *}
-        var tabs_to_preload = new Array();
+        var tabs_to_preload = [];
       {foreach $tabs_preloaded as $tab_name => $value}
 
         {* If the tab was not given a loading priority number it will not be preloaded *}

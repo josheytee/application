@@ -2,14 +2,13 @@
 
 namespace app\core\routing;
 
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Yaml\Yaml;
 use app\core\module\ModuleManager;
-use app\core\routing\Dumper;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use app\core\routing\event\RouteBuildEvent;
 use app\core\routing\event\RoutingEvents;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Description of RouteBuilder

@@ -2,7 +2,7 @@
 
 namespace app\core\entity\defaults\en;
 
-use app\core\entity\defaults\en\Activity;
+
 
 /**
  * this is just default when the shop entity is null

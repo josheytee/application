@@ -10,7 +10,7 @@
  * -------------------------------------------------------------
  */
 
-function smarty_function_getTemplate($params, \Smarty_Internal_Template $template) {
+function smarty_function_getTemplate() {
     $answers = array('Yes',
         'No',
         'No way',

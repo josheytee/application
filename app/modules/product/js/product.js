@@ -122,8 +122,8 @@ function ProductTabsManager() {
     if (this.current_request !== undefined)
     {
       this.current_request.complete(function (request, status) {
-        var wrong_statuses = new Array('abort', 'error', 'timeout');
-        var wrong_status_code = new Array(400, 401, 403, 404, 405, 406, 408, 410, 413, 429, 499, 500, 502, 503, 504);
+        var wrong_statuses = ['abort', 'error', 'timeout'];
+        var wrong_status_code = [400, 401, 403, 404, 405, 406, 408, 410, 413, 429, 499, 500, 502, 503, 504];
 
         if ((in_array(status, wrong_statuses) || in_array(request.status, wrong_status_code)) && !self.page_reloading) {
           var current_tab = '';
@@ -164,7 +164,7 @@ function ProductTabsManager() {
   };
 
 }
-product_tabs = new Array();
+product_tabs = [];
 product_tabs['Prices'] = new function () {
   this.onReady = function () {
     alert('price tab working');

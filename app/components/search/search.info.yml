@@ -1,10 +1,11 @@
-name: search
-description: "lorep isum freeme lorep isum freeme lorep isum
-freeme lorep isum freeme lorep isum freeme "
-target: front
+name: Search
+description: "default search component,
+Used in searching products and shop "
+#target: front
+type: component
 author: ntc
 package: ntc\search
-icon: hello.png
+icon: search.png
 version: 1.2.3
 dependency:
     - type guesser

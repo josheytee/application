@@ -7,7 +7,7 @@ use app\core\component\Component;
 class Search extends Component {
 
   public function render() {
-    $template = $this->getTemplate(__DIR__, 'search.tpl');
+    $template = $this->getTemplate();
     return $this->display('ntc_search.tpl');
   }
 

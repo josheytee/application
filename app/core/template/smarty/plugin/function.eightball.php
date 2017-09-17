@@ -10,7 +10,7 @@
  * -------------------------------------------------------------
  */
 
-function smarty_function_eightball($params, \Smarty_Internal_Template $template) {
+function smarty_function_eightball() {
     $answers = array('Yes',
         'No',
         'No way',

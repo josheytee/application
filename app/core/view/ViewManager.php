@@ -2,11 +2,12 @@
 
 namespace app\core\view;
 
-use app\core\view\Renderable;
-use app\core\template\TemplateEngineInterface;
-use app\core\theme\ThemeManagerInterface;
-use app\core\http\Response;
 use app\core\component\ComponentManager;
+use app\core\Context;
+use app\core\http\Response;
+use app\core\theme\ThemeManager;
+use app\core\theme\ThemeManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of ViewManager
@@ -43,11 +44,11 @@ class ViewManager implements Renderable {
     $this->template_engine->output($template, $data);
   }
 
-  public function renderResponse($result, $request) {
+  public function renderResponse($result) {
     $activeTheme = $this->theme_manager->getActiveTheme();
     $regions = $activeTheme->getRegions();
     if (is_array($result)) {
-      $reponse = new \Symfony\Component\HttpFoundation\JsonResponse($result);
+      $reponse = new JsonResponse($result);
     }
     $response = new Response();
     return $response;

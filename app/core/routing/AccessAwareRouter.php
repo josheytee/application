@@ -2,10 +2,10 @@
 
 namespace app\core\routing;
 
+use app\core\access\AccessChecker;
 use Symfony\Cmf\Component\Routing\ChainRouter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RequestContext;
-use app\core\access\AccessChecker;
 
 /**
  * Description of AccessAwareRouter

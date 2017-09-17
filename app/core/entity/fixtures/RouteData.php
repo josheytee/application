@@ -9,8 +9,7 @@ namespace app\core\entity\fixtures;
  */
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use app\core\entity\Routing;
-use Faker;
+
 
 class RouteData implements FixtureInterface {
 

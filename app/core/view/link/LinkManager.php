@@ -5,6 +5,7 @@ namespace app\core\view\link;
 use app\core\routing\RouteManager;
 use app\core\cache\CacheManager;
 use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\RequestContext;
 
 /**
  * Description of Link
@@ -40,7 +41,7 @@ class LinkManager {
   }
 
   public function generate($param) {
-    return (new UrlGenerator($this->route_manager->getAllRoutes(), new \Symfony\Component\Routing\RequestContext()))->generate($param, ['id' => 1]);
+    return (new UrlGenerator($this->route_manager->getAllRoutes(), new RequestContext()))->generate($param, ['id' => 1]);
   }
 
 }

@@ -2,8 +2,8 @@
 
 namespace app\core\routing;
 
-use Doctrine\ORM\EntityManager;
 use app\core\entity\Routing;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
@@ -28,7 +28,7 @@ class Dumper {
     $this->entity_manager->getRepository('app\core\entity\Routing')->deleteAll();
     foreach ($this->routes->all() as $name => $route) {
 
-      $compiled = $route->compile();
+//      $compiled = $route->compile();
 //      dump($compiled);
       $router = new Routing();
       $router->setName($name);

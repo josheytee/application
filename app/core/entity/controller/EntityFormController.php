@@ -2,7 +2,7 @@
 
 namespace app\core\entity\controller;
 
-use app\core\entity\controller\EntityControllerBase;
+
 use app\core\view\form\Formbuilder;
 use app\core\http\Request;
 
@@ -24,7 +24,7 @@ abstract class EntityFormController extends EntityControllerBase {
         return $entity;
     }
 
-    public function addEntity($request, $entity_id) {
+    public function addEntity($request) {
 //        if ($entity_id == 0) {
 //            return $this->getDefaults($this->getModel());
 //        }
@@ -119,22 +119,22 @@ abstract class EntityFormController extends EntityControllerBase {
 
     public function create(Request $request, Formbuilder $builder, $entity = 0) {
 //        dump($request->all());
-        if ($this->validate($request)) {
+        if ($this->validate()) {
             $return['content'] = $this->build($builder, $this->getEntity($entity))->fetch();
-            $this->addEntity($request, $entity);
+            $this->addEntity($request);
             return $return;
         }
     }
 
     public function update(Request $request, Formbuilder $builder, $entity) {
-        if ($this->validate($request)) {
+        if ($this->validate()) {
             $return['content'] = $this->build($builder, $this->getEntity($entity))->fetch();
             $this->updateEntity($request, $entity);
             return $return;
         }
     }
 
-    public function validate(Request $request) {
+    public function validate() {
         return true;
     }
 
