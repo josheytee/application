@@ -7,7 +7,6 @@ use app\core\http\Request;
 use app\core\view\form\Formbuilder;
 
 /**
- * Description of CreateShopForm
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */

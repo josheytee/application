@@ -8,11 +8,10 @@
 
 namespace ntc\administrator\component;
 
+use app\core\component\ComponentManager;
 use app\core\component\ComponentTargetResolverInterface;
-use app\core\routing\RouteMatchInterface;
 use app\core\routing\AdminContext;
-use Symfony\Component\Yaml\Yaml;
-use app\core\repository\ComponentRepository;
+use app\core\routing\RouteMatchInterface;
 
 /**
  * Description of AdminTargetResolver
@@ -27,14 +26,13 @@ class AdminTargetResolver implements ComponentTargetResolverInterface {
     private $context;
 
     /**
-     * @var ComponentRepository
+     * @var ComponentManager
      */
-    private $repository;
+    private $componentManager;
 
-    public function __construct(AdminContext $context, ComponentRepository $repository) {
-
-        $this->repository = $repository;
+    public function __construct(AdminContext $context, ComponentManager $componentManager) {
         $this->context = $context;
+        $this->componentManager = $componentManager;
     }
 
     public function appliesTo(RouteMatchInterface $route_match) {
@@ -42,13 +40,7 @@ class AdminTargetResolver implements ComponentTargetResolverInterface {
     }
 
     public function resolveTarget(RouteMatchInterface $route_match) {
-        foreach ($this->repository->getRepositories() as $name => $path) {
-            $info = $path . DS . $name . '.info.yml';
-            $yml = Yaml::parse(file_get_contents($info));
-            if ($yml['target'] == 'admin')
-                $components[$name] = $yml + ['path' => $path];
-        }
-        return $components;
+        return $this->componentManager->getTargetComponents('admin');
     }
 
 }

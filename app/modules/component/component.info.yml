@@ -1,7 +1,7 @@
-name: Product
+name: Component
 type: module
 description: 'Manages components accross the application'
-package: Core
+package: ntc\component
 dependencies:
   required:
   - administrator

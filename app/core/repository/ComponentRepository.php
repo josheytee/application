@@ -24,9 +24,9 @@ class ComponentRepository extends Repository {
     }
 
     public function getComponentsFromModules(ModuleRepository $moduleRepository) {
-        foreach ($moduleRepository->getRepositories() as $path) {
-            if (is_dir($path . DS . 'components')) {
-                $components[] = $path . DS . 'components';
+        foreach ($moduleRepository->getRepositories() as $info) {
+            if (is_dir($info['path'] . DS . 'components')) {
+                $components[] = $info['path'] . DS . 'components';
             }
         }
         return $components;

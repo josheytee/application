@@ -27,11 +27,14 @@ class RegionManager implements RegionManagerInterface {
     protected $theme_manager;
     protected $component_manager;
     protected $tag = 'div';
+    protected $activeTheme;
 
     public function __construct(ComponentManager $component_manager, ThemeManager $theme_manager) {
 
         $this->component_manager = $component_manager;
         $this->theme_manager = $theme_manager;
+        $this->activeTheme = $theme_manager->getActiveTheme();
+
     }
 
     function setTemplate($template) {
@@ -56,12 +59,20 @@ class RegionManager implements RegionManagerInterface {
         $components = $this->component_manager->getRegionComponents($region);
         $markup = '';
         foreach ($components as $component) {
-            $markup .= $component->renderComponent($this->theme_manager->getActiveTheme());
+            $markup .= $component->renderComponent($this->activeTheme);
         }
         $assign = [
 //            'attributes' => 'class="lead"',
             'content' => $markup
         ];
+        $baseTheme = $this->activeTheme->getBaseThemes();
+        dump($baseTheme);
+        if (!empty($baseTheme)) {
+            $template = $baseTheme;
+            if (!empty($this->rendertrait(['page' => $page], "layout/page__{$template}.tpl")))
+                return $this->rendertrait(['page' => $page], "layout/page__{$template}.tpl");
+        }
+
 
         return $this->rendertrait($assign, 'layout/region.tpl');
 

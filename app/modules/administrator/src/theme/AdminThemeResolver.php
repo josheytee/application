@@ -28,7 +28,7 @@ class AdminThemeResolver implements ActiveThemeResolverInterface {
   }
 
   public function resolveActiveTheme(RouteMatchInterface $route_match) {
-    return 'system';
+    return 'visitor';
   }
 
 }

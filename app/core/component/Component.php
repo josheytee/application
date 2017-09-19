@@ -32,7 +32,7 @@ abstract class Component {
             'dependency' => [],
             'region' => '',
             'path' => '',
-            'target' => '',
+            'target' => 'front',
         ];
         $this->name = $details['name'];
         $this->description = $details['description'];

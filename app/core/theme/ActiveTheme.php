@@ -174,14 +174,15 @@ class ActiveTheme {
 
     /**
      * The regions used by the theme.
-     *
-     * @return string[]
-     *   The list of region machine names supported by the theme.
-     *
+     * @return string[] The list of region machine names supported by the theme.
+     * The list of region machine names supported by the theme.
+     * @throws \Exception
      * @see system_region_list()
      */
     public function getRegions() {
-        return array_keys($this->regions);
+        if (!is_null($this->regions))
+            return array_keys($this->regions);
+        throw new \Exception('regions must defined inside ' . $this->name . '.info.yml file');
     }
 
     /**

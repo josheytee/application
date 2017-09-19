@@ -11,7 +11,7 @@ regions:
     - ntc_search
     - ntc_cart
   banner:
-    - ntc_slider
+#    - ntc_slider
   highlight:
   siderbar:
     - sections
@@ -26,5 +26,4 @@ regions:
     - ntc_account
     - information
     - contacts
-  copy_selection:
-    - custom
+

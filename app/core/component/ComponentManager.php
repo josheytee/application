@@ -53,4 +53,15 @@ class ComponentManager {
         return array_intersect_key($components, $flip);
 
     }
+
+    public function getTargetComponents($target) {
+        $components = [];
+        foreach ($this->getComponents() as $id => $component) {
+            if ($component->target == $target) {
+                $components[$id] = $component;
+            }
+        }
+        return $components;
+
+    }
 }

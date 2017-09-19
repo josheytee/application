@@ -1,7 +1,6 @@
 {extends './html.tpl'}
 {block 'page'}
     {include "../partials/header.tpl"}
-    {$page.banner}
     <div class="content">
         {$page.highlight}
         {$page.content}

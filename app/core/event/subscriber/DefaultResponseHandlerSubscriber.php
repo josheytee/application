@@ -2,11 +2,11 @@
 
 namespace app\core\event\subscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
-use app\core\view\block\BlockManager;
 use app\core\routing\RouteMatchInterface;
+use app\core\view\block\BlockManager;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Description of ResponseNormalizerSubscriber
@@ -16,7 +16,7 @@ use app\core\routing\RouteMatchInterface;
 class DefaultResponseHandlerSubscriber implements EventSubscriberInterface {
 
     /**
-     * @var app\core\routing\RouteMatchInterface
+     * @var RouteMatchInterface
      */
     private $route_match;
 
@@ -38,8 +38,8 @@ class DefaultResponseHandlerSubscriber implements EventSubscriberInterface {
     public function controller(GetResponseForControllerResultEvent $event) {
         $result = $event->getControllerResult();
         $request = $event->getRequest();
-//    dump($this->route_match);
-        $response = $this->block->generateResponse($result);
+//        dump($this->route_match);
+        $response = $this->block->generateResponse($result, $request, $this->route_match);
 
         $event->setResponse($response);
     }

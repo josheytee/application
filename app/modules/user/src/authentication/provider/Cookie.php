@@ -3,7 +3,9 @@
 namespace ntc\user\authentication\provider;
 
 use app\core\account\{
-    AccountInterface, AuthenticationProviderInterface, UserAccount
+    AccountInterface,
+    AuthenticationProviderInterface,
+    UserAccount
 };
 use app\core\http\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -14,7 +16,6 @@ use app\core\entity\User;
  * Cookie based authentication provider.
  */
 class Cookie implements AuthenticationProviderInterface {
-
 
     /**
      * Constructs a new cookie authentication provider.

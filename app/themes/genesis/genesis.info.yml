@@ -1,14 +1,14 @@
 name: Genesis
 type: theme
 description: A default base theme
+package: ntc\genesis
 base theme: false
-hidden: true
+engine: smarty
 regions:
   header_top: Top Header
   header_bottom: Bottom Header
   banner: Banner
   highlight: Highlight
-#  container: Container
+  container: Container
   footer: Footer
-  copy_selection: Copy Selection
 libraries: makm.js

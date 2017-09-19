@@ -4,6 +4,7 @@ namespace app\core\view\block;
 
 use app\core\view\Renderable;
 use app\core\routing\RouteMatchInterface;
+use app\core\http\Request;
 
 /**
  *
@@ -13,5 +14,5 @@ interface BlockManagerInterface extends Renderable {
 
   public function init();
 
-  public function generateResponse($result, $request, RouteMatchInterface $route_match);
+  public function generateResponse($result, Request $request, RouteMatchInterface $route_match);
 }

@@ -2,9 +2,9 @@
 
 namespace ntc\shop\controller;
 
+use app\core\component\ComponentManager;
 use app\core\controller\ControllerBase;
 use app\core\http\Request;
-use app\core\repository\ComponentRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,28 +20,27 @@ class ShopController extends ControllerBase {
      */
     private $entity_manager;
     /**
-     * @var ComponentRepository
+     * @var ComponentManager
      */
-    private $componentRepository;
+    private $componentManager;
 
-    public function __construct(ComponentRepository $componentRepository) {
-
-        $this->componentRepository = $componentRepository;
+    public function __construct(ComponentManager $componentManager) {
+        $this->componentManager = $componentManager;
     }
 
     public static function inject(ContainerInterface $container) {
-        return new static($container->get('component.repository'));
+        return new static($container->get('component.manager'));
     }
 
     public function index(Request $request) {
         $manager = $this->doctrine()->getRepository(\app\core\entity\Shop::class)->find(1);
 //        dump($manager);
-        dump($this->componentRepository->getTargetComponents('shop'));
-        return $this->render('shop/shop.tpl');
+        $shop_components = $this->componentManager->getTargetComponents('shop');
+        return $this->render('shop/ntc_shop.tpl', ['components' => $shop_components]);
     }
 
     public function home(Request $request) {
-        dump($this->componentRepository->getTargetComponents('shop'));
+        dump($this->componentManager->getTargetComponents('shop'));
     }
 
 }

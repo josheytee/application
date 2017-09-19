@@ -2,9 +2,7 @@
 
 namespace app\core\component;
 
-use app\core\repository\ComponentRepository;
 use app\core\routing\RouteMatchInterface;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Description of ComponentResolver
@@ -14,12 +12,12 @@ use Symfony\Component\Yaml\Yaml;
 class DefaultTargetResolver implements ComponentTargetResolverInterface {
 
     /**
-     * @var ComponentRepository
+     * @var ComponentManager
      */
-    private $repository;
+    private $componentManager;
 
-    public function __construct(ComponentRepository $repository) {
-        $this->repository = $repository;
+    public function __construct(ComponentManager $componentManager) {
+        $this->componentManager = $componentManager;
     }
 
     public function appliesTo(RouteMatchInterface $route_match) {
@@ -27,13 +25,6 @@ class DefaultTargetResolver implements ComponentTargetResolverInterface {
     }
 
     public function resolveTarget(RouteMatchInterface $route_match) {
-        foreach ($this->repository->getRepositories() as $name => $path) {
-            $info = $path . DS . $name . '.info.yml';
-            $yml = Yaml::parse(file_get_contents($info));
-            if (!isset($yml['target']) || $yml['target'] == 'front')
-                $components[$name] = $yml + ['path' => $path];
-        }
-        return $components;
+        return $this->componentManager->getTargetComponents('front');
     }
-
 }

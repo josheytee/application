@@ -12,7 +12,7 @@ $framework = new app\core\App($autoloader);
 $response = $framework->handle(
         Request::capture()
 );
-app\core\Context::getContainer()->get('router.builder')->setRebuildNeeded();
+//app\core\Context::getContainer()->get('router.builder')->setRebuildNeeded();
 app\core\Context::getContainer()->get('router.builder')->rebuild();
 //var_dump($response);
 $response->send();

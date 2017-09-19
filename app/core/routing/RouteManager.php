@@ -3,6 +3,7 @@
 namespace app\core\routing;
 
 use app\core\repository\ModuleRepository;
+use app\core\utility\StringHelper;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Yaml\Yaml;
@@ -13,6 +14,7 @@ use Symfony\Component\Yaml\Yaml;
  * @author adapter
  */
 class RouteManager {
+    use StringHelper;
 
   /**
    * @var ModuleRepository
@@ -27,11 +29,11 @@ class RouteManager {
 
   /**
    * get all available routes form modules
-   * @return \app\core\routingr\RouteCollection
+   * @return RouteCollection
    */
   public function getAllRoutes() {
-    foreach ($this->module_repository->getRepositories() as $dir => $dir_path) {
-      $yml_route_files[] = $dir_path . DS . $dir . '.route.yml';
+    foreach ($this->module_repository->getRepositories() as $id => $info) {
+      $yml_route_files[] = $info['path'] . DS . $this->getModuleName($id) . '.route.yml';
     }
     $parsed_yml_route_files = array();
     foreach ($yml_route_files as $yml_route_file) {

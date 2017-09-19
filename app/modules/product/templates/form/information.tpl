@@ -33,6 +33,7 @@
         </div>
       </div>
     </div>
+
     <hr>
     <div class="form-group">
       <label for="name" class="col-sm-2 control-label">Name</label>

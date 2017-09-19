@@ -3,10 +3,9 @@
 namespace app\core\theme;
 
 use app\core\config\ConfigManager;
-use app\core\repository\ThemeRepository;
 use app\core\routing\RouteMatchInterface;
+use app\core\utility\StringHelper;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Description of ThemeProvider
@@ -16,6 +15,7 @@ use Symfony\Component\Yaml\Yaml;
 class ThemeManager implements ThemeManagerInterface {
 
     use ContainerAwareTrait;
+    use StringHelper;
 
     /**
      * @var ActiveThemeResolverInterface
@@ -26,13 +26,16 @@ class ThemeManager implements ThemeManagerInterface {
      * @var ConfigManager
      */
     private $config;
-    protected $theme_repository;
     private $active_theme;
+    /**
+     * @var ThemeInitializer
+     */
+    private $themeInitializer;
 
-    public function __construct(ThemeRepository $themeRepository, ActiveThemeResolverInterface $theme_resolver, ConfigManager $config = null) {
-        $this->theme_repository = $themeRepository;
+    public function __construct(ThemeInitializer $themeInitializer, ActiveThemeResolverInterface $theme_resolver, ConfigManager $config = null) {
         $this->config = $config;
         $this->theme_resolver = $theme_resolver;
+        $this->themeInitializer = $themeInitializer;
     }
 
     /**
@@ -52,48 +55,51 @@ class ThemeManager implements ThemeManagerInterface {
 //      $route_match = $route_match->getMasterRouteMatch();
 //    }
         $theme = $this->theme_resolver->resolveActiveTheme($route_match);
-        $this->active_theme = $this->loadTheme($theme);
+//        $this->active_theme = $this->loadTheme($theme);
+        $this->active_theme = $this->themeInitializer->initTheme($theme);
     }
 
-    public function loadTheme($theme) {
-        $theme_data = $this->getThemeData($theme)['info'];
-        $value = [
-            'name' => $theme_data['name'],
-            'regions' => $theme_data['regions'],
-            'libraries' => $theme_data['libraries'],
-            'path' => $this->getThemeData($theme)['path'],
-            'config' => $this->getThemeData($theme)['config']
-        ];
-        return new ActiveTheme($value);
-    }
-
-    /**
-     * gets the data of all components in one single array
-     * @return Array of components data
-     */
-    public function getThemesData() {
-        $data = [];
-        foreach ($this->theme_repository->getRepositories() as $dir => $path) {
-            $data[$dir] = ['info' => $this->_getYamlFileIfExist($path . DS . $dir . '.info.yml'), 'path' => $path, 'config' => $this->_getYamlFileIfExist($path . DS . $dir . '.config.yml')];
-        }
-        return $data;
-    }
-
-    private function _getYamlFileIfExist($path) {
-        if (file_exists($path)) {
-            return Yaml::parse(file_get_contents($path));
-        }
-        return [];
-    }
-
-    /**
-     *
-     * @param Theme $theme
-     * @return type array of a single component information
-     */
-    public function getThemeData($theme) {
-        return isset($this->getThemesData()[$theme]) ? $this->getThemesData()[$theme] : null;
-    }
+//    public function loadTheme($theme) {
+//        $theme_data = $this->getThemeData($theme)['info'];
+//        $value = [
+//            'name' => $theme_data['name'],
+//            'regions' => $theme_data['regions'],
+//            'libraries' => $theme_data['libraries'],
+//            'path' => $theme_data['path'],
+//            'config' => $this->getThemeData($theme)['config']
+//        ];
+//        return new ActiveTheme($value);
+//    }
+//
+//    /**
+//     * gets the data of all components in one single array
+//     * @return Array of components data
+//     */
+//    public function getThemesData() {
+//        $data = [];
+//        foreach ($this->theme_repository->getRepositories() as $id => $info) {
+//            $data[$this->getModuleName($id)] = ['info' => $info, 'config' => $this->_getYamlFileIfExist
+//            ($info['path'] . DS .
+//                $this->getModuleName($id) . '.config.yml')];
+//        }
+//        return $data;
+//    }
+//
+//    private function _getYamlFileIfExist($path) {
+//        if (file_exists($path)) {
+//            return Yaml::parse(file_get_contents($path));
+//        }
+//        return [];
+//    }
+//
+//    /**
+//     *
+//     * @param Theme $theme
+//     * @return type array of a single component information
+//     */
+//    public function getThemeData($theme) {
+//        return isset($this->getThemesData()[$theme]) ? $this->getThemesData()[$theme] : null;
+//    }
 
     /**
      *

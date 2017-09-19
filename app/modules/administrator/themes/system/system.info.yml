@@ -2,6 +2,7 @@ name: System
 type: theme
 description: A default base theme
 base theme: false
+package: ntc\administrator\system
 hidden: true
 regions:
   header_left: Header Left

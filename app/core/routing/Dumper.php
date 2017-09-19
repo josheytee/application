@@ -13,43 +13,47 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class Dumper {
 
-  /**
-   * @var EntityManager
-   */
-  private $entity_manager;
-  private $routes;
+    /**
+     * @var EntityManager
+     */
+    private $entity_manager;
+    private $routes;
 
-  public function __construct(EntityManager $entity_manager) {
+    public function __construct(EntityManager $entity_manager) {
 
-    $this->entity_manager = $entity_manager;
-  }
+        $this->entity_manager = $entity_manager;
+    }
 
-  public function dump() {
-    $this->entity_manager->getRepository('app\core\entity\Routing')->deleteAll();
-    foreach ($this->routes->all() as $name => $route) {
+    public function dump() {
+        $this->entity_manager->getRepository('app\core\entity\Routing')->deleteAll();
+        foreach ($this->routes->all() as $name => $route) {
 
 //      $compiled = $route->compile();
 //      dump($compiled);
-      $router = new Routing();
-      $router->setName($name);
-      $router->setPath($route->getPath());
-      $router->setRoute($route);
+            $router = new Routing();
+            $router->setName($name);
+            $router->setPath($route->getPath());
+            $router->setRoute($route);
 
-      $this->entity_manager->persist($router);
+            $this->entity_manager->persist($router);
+        }
+        $this->entity_manager->flush();
+        $this->routes = null;
     }
-    $this->entity_manager->flush();
-    $this->routes = null;
-  }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function addRoutes(RouteCollection $routes) {
-    if (empty($this->routes)) {
-      $this->routes = $routes;
-    } else {
-      $this->routes->addCollection($routes);
+    /**
+     * {@inheritdoc}
+     */
+    public function addRoutes(RouteCollection $routes) {
+        if (empty($this->routes)) {
+            $this->routes = $routes;
+        } else {
+            $this->routes->addCollection($routes);
+        }
     }
-  }
+
+    public function getRoutes() {
+        return $this->routes;
+    }
 
 }

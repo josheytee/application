@@ -1,7 +1,7 @@
 name: Home
 type: module
 description: 'Manages home page'
-package: Core
+package: ntc\home
 dependencies:
   required:
   - administrator

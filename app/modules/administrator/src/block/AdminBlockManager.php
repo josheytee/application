@@ -2,11 +2,12 @@
 
 namespace ntc\administrator\block;
 
-use app\core\view\block\BlockManagerInterface;
-use app\core\routing\RouteMatchInterface;
-use app\core\theme\ThemeManagerInterface;
+use app\core\http\Request;
 use app\core\http\Response;
-use app\core\component\ComponentManager;
+use app\core\routing\RouteMatchInterface;
+use app\core\theme\region\RegionManager;
+use app\core\theme\ThemeManagerInterface;
+use app\core\view\block\BlockManagerInterface;
 use app\core\view\Renderabletrait;
 
 /**
@@ -16,64 +17,58 @@ use app\core\view\Renderabletrait;
  */
 class AdminBlockManager implements BlockManagerInterface {
 
-  use Renderabletrait;
+    use Renderabletrait;
 
-  /**
-   * @var ConfigManager
-   */
-  private $config;
+    /**
+     * @var ConfigManager
+     */
+    private $config;
 
-  /**
-   * @var ComponentManager
-   */
-  private $component_manager;
+    /**
+     * @var ThemeManager
+     */
+    private $theme;
+    /**
+     * @var RegionManager
+     */
+    private $regionManager;
+    protected $default_regions;
 
-  /**
-   * @var ThemeManager
-   */
-  private $theme;
+    public function __construct(ThemeManagerInterface $theme, RegionManager $regionManager, ConfigManager $config = null) {
 
-  public function __construct(ThemeManagerInterface $theme, ComponentManager $component_manager, ConfigManager $config = null) {
+        $this->theme = $theme;
+        $this->regionManager = $regionManager;
+        $this->default_regions = $this->theme->getActiveTheme()->getRegions();
+        $this->config = $config;
+    }
 
-    $this->theme = $theme;
-    $this->component_manager = $component_manager;
-    $this->config = $config;
-  }
 
-  public function generateResponse($result, $request, RouteMatchInterface $route_match) {
-    $page = null;
-    $regions = $this->theme->getActiveTheme()->getRegions();
-    foreach ($regions as $region) {
+    public function render($page, RouteMatchInterface $routeMatch) {
+        if ($routeMatch->getRouteObject()->hasOption('module')) {
+            $template = $routeMatch->getRouteObject()->getOption('module');
+            if (!empty($this->rendertrait(['page' => $page], "layout/page__{$template}.tpl")))
+                return $this->rendertrait(['page' => $page], "layout/page__{$template}.tpl");
+        }
+
+        return $this->rendertrait(['page' => $page], 'layout/page.tpl');
+    }
+
+    public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch) {
+        $page = null;
+        foreach ($this->default_regions as $region) {
 //      if (!empty($page[$region])) {
-//        $page[$region]['#theme_wrappers'][] = 'region';
-      $page[$region] = $this->processRegion($region);
+//      $page[$region]['#theme_wrappers'][] = 'region';
+            $page[$region] = $this->regionManager->getContent($region);
 //      }
-    }
+        }
 //    $libraries = $result['libraries'];
-    $page['content'] = $result['content'];
-    $response = new Response($this->render($page));
-    return $response;
-  }
+        $page['content'] = $result['content'];
 
-  public function processRegion($region) {
-    $byRegion = $this->component_manager->getRegionComponents($region);
-    $markup = '';
-    foreach ($byRegion as $key => $component) {
-      $markup .= $component->render();
+        $response = new Response($this->render($page, $routeMatch));
+        return $response;
     }
-    $assign = [
-//        'attributes' => 'class="lead"',
-        'content' => $markup
-    ];
-    return $this->rendertrait($assign, 'layout/region.tpl');
-  }
 
-  public function render($request) {
-    return $this->rendertrait(['page' => $request], 'layout/page.tpl');
-  }
-
-  public function init() {
-
-  }
-
+    public function init() {
+        // TODO: Implement init() method.
+    }
 }

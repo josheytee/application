@@ -64,7 +64,7 @@ services:
     class: app\core\repository\ComponentRepository
   component.initializer:
     class: app\core\component\ComponentInitializer
-    arguments: ['@class.resolver','@component.target.resolver']
+    arguments: ['@class.resolver','@component.repository']
     parent: container.trait
   context.admin:
     class: app\core\routing\AdminContext
@@ -114,6 +114,9 @@ services:
 #    handlers
   theme.handler:
     class: app\core\theme\ThemeHandler
+  theme.initializer:
+    class: app\core\theme\ThemeInitializer
+    arguments: ['@theme.repository']
 #    managers
   component.manager:
     class: app\core\component\ComponentManager
@@ -122,7 +125,7 @@ services:
     class: app\core\repository\ThemeRepository
   theme.manager:
     class: app\core\theme\ThemeManager
-    arguments: ['@theme.repository','@active.theme.resolver']
+    arguments: ['@theme.initializer','@active.theme.resolver']
     parent: container.trait
 
   view.manager:
@@ -221,7 +224,7 @@ services:
       - {name : 'resolver_collector', tag: 'component_target', call: 'addResolver'}
   front.target.resolver:
     class: app\core\component\DefaultTargetResolver
-    arguments: ['@component.repository']
+    arguments: ['@component.manager']
     tags:
       - { name: 'component_target', priority: 20}
   route_enhancer.lazy_collector:

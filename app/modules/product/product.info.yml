@@ -1,7 +1,7 @@
 name: Product
 type: module
 description: 'Manages products in a shop'
-package: Core
+package: ntc\product
 # version: VERSION
 # core: 8.x
 configure: admin.settings

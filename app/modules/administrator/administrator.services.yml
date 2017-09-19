@@ -8,13 +8,13 @@ services:
      - { name: 'theme' ,priority : 30}
   admin.target.resolver:
    class: ntc\administrator\component\AdminTargetResolver
-   arguments: ['@context.admin','@component.repository']
+   arguments: ['@context.admin','@component.manager']
    tags:
      - { name: 'component_target' ,priority : 30}
   admin.block.manager:
     class: ntc\administrator\block\AdminBlockManager
-    arguments: ['@theme.manager','@component.manager']
-  admin.request:
+    arguments: ['@theme.manager','@region.manager']
+  admin.route:
     class: ntc\administrator\event\subscriber\AdminRouteSubscriber
 #    arguments: ['@router.provider']
     tags:

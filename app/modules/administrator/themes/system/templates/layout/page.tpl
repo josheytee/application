@@ -3,7 +3,7 @@
     <div class="page-container sidebar-collapsed-back">
         <div class="left-content">
             <div class="mother-grid-inner">
-                <div class="header-main fixed">
+                <div class="header-main">
                     <div class="header-left">
                         {$page.header_left}
                     </div>

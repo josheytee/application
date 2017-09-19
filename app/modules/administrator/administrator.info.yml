@@ -1,7 +1,7 @@
 name: Administrator
 type: module
 description: 'Helps manage admin related functions'
-package: Core
+package: ntc\administrator
 # version: VERSION
 # core: 8.x
 theme: system

@@ -2,13 +2,13 @@
 
 namespace app\core\view\block;
 
-use app\core\theme\region\RegionManager;
-use app\core\view\Renderable;
-use app\core\theme\ThemeManager;
 use app\core\config\ConfigManager;
+use app\core\http\Request;
 use app\core\http\Response;
-
 use app\core\routing\RouteMatchInterface;
+use app\core\theme\region\RegionManager;
+use app\core\theme\ThemeManager;
+use app\core\view\Renderable;
 use app\core\view\Renderabletrait;
 
 /**
@@ -44,12 +44,17 @@ class BlockManager implements Renderable {
         $this->region_manager = $region_manager;
     }
 
-    public function render($request) {
-        return $this->rendertrait(['page' => $request], 'layout/page.tpl');
+    public function render($page, RouteMatchInterface $routeMatch) {
+        if ($routeMatch->getRouteObject()->hasOption('module')) {
+            $template = $routeMatch->getRouteObject()->getOption('module');
+            if (!empty($this->rendertrait(['page' => $page], "layout/page__{$template}.tpl")))
+                return $this->rendertrait(['page' => $page], "layout/page__{$template}.tpl");
+        }
+
+        return $this->rendertrait(['page' => $page], 'layout/page.tpl');
     }
 
-    public function generateResponse($result) {
-//    $route_match;
+    public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch) {
         $page = null;
         foreach ($this->default_regions as $region) {
 //      if (!empty($page[$region])) {
@@ -60,7 +65,7 @@ class BlockManager implements Renderable {
 //    $libraries = $result['libraries'];
         $page['content'] = $result['content'];
 
-        $response = new Response($this->render($page));
+        $response = new Response($this->render($page, $routeMatch));
         return $response;
     }
 

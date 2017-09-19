@@ -3,17 +3,16 @@
 namespace app\core\entity\controller;
 
 
-use app\core\view\form\Formbuilder;
 use app\core\http\Request;
+use app\core\view\form\Formbuilder;
 
 /**
- * Description of EntityFormController
  *
  * @author joshua
  */
 abstract class EntityFormController extends EntityControllerBase {
 
-    abstract public function build(Formbuilder $request, $entity);
+    abstract public function build(Formbuilder $builder, $entity);
 
     public function getEntity($entity_id) {
         if ($entity_id === 0) {
@@ -145,9 +144,9 @@ abstract class EntityFormController extends EntityControllerBase {
     /**
      * Get an item from an object using "dot" notation.
      *
-     * @param  object  $object
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param  object $object
+     * @param  string $key
+     * @param  mixed $default
      * @return mixed
      */
     function object_get($object, $key, $default = null) {
@@ -169,9 +168,9 @@ abstract class EntityFormController extends EntityControllerBase {
     /**
      * Get an item from an object using "dot" notation.
      *
-     * @param  object  $object
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param  object $object
+     * @param  string $key
+     * @param  mixed $default
      * @return mixed
      */
     function object_set($object, $key, $value = null) {

@@ -3,8 +3,8 @@
 namespace app\core\view\form;
 
 use app\core\utility\ArrayHelper;
-use app\core\view\form\elements;
 use app\core\view\BuilderInterface;
+use app\core\view\form\elements;
 use app\core\view\form\elements\Select;
 use app\core\view\Renderabletrait;
 
@@ -60,14 +60,8 @@ class Formbuilder implements BuilderInterface {
     }
 
     public function radio($name, $value = '') {
-        if (is_array($value)) {
-            foreach ($value as $radio) {
-                $mu[] = $this->elements['radio_' . $name] = $this->element('radio', $name, $radio);
-            }
-            return $mu;
-        } else {
-            return $this->elements[$name] = $this->element('radio', $name, $value);
-        }
+        return $this->elements[$name] = $this->element('radio', $name, $value);
+//        }
     }
 
     public function checkbox($name, $value = []) {
@@ -119,10 +113,10 @@ class Formbuilder implements BuilderInterface {
 
     private function getAttributes() {
         return $this->processArray([
-                    'id' => $this->formID(),
-                    'class' => 'form',
-                    'method' => $this->getMethod(),
-                    'action' => ''
+            'id' => $this->formID(),
+            'class' => 'form',
+            'method' => $this->getMethod(),
+            'action' => ''
         ]);
     }
 
@@ -130,16 +124,18 @@ class Formbuilder implements BuilderInterface {
         return '2e.e';
     }
 
+    protected $form_template = 'form/form.tpl';
+
     public function render() {
         $form = '';
         foreach ($this->elements as $element) {
             $form .= $element->render();
         }
         return $this->rendertrait(
-                        [
-                    'attributes' => $this->getAttributes(),
-                    'form_body' => $form
-                        ], 'form/form.tpl');
+            [
+                'attributes' => $this->getAttributes(),
+                'form_body' => $form
+            ], $this->form_template);
     }
 
     public function fetch() {

@@ -8,14 +8,24 @@ admin.product:
     _permission: 'administer actions'
 
 admin.product.add:
-  path: 'admin/product/add/{tab}'
+  path: 'admin/product/add'
   defaults:
     tab: Information
     _title: 'Amin | Product'
-    _controller: 'ntc\product\controller\ProductController::add'
+    _form: 'ntc\product\form\ProductForm'
   requirements:
     tab: '.+'
     _permission: 'administer actions'
+#
+#admin.product.add:
+#  path: 'admin/product/add/{tab}'
+#  defaults:
+#    tab: Information
+#    _title: 'Amin | Product'
+#    _controller: 'ntc\product\controller\ProductController::add'
+#  requirements:
+#    tab: '.+'
+#    _permission: 'administer actions'
 
 admin.product.edit:
   path: 'admin/product/{id}/edit/{tab}'

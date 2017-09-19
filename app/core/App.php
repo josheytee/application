@@ -5,6 +5,7 @@ namespace app\core;
 use app\core\http\Response;
 use app\core\repository\ComponentRepository;
 use app\core\repository\ModuleRepository;
+use app\core\utility\StringHelper;
 use Composer\Autoload\ClassLoader;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,6 +23,8 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
  * @author Tobi
  */
 class App implements AppInterface, TerminableInterface {
+    use StringHelper;
+
 
     protected $container;
 
@@ -68,10 +71,11 @@ class App implements AppInterface, TerminableInterface {
      */
     protected function getModuleNamespacesPsr4($module_file_names) {
         $namespaces = array();
-        foreach ($module_file_names as $module => $filename) {
-            $namespaces["ntc\\$module"][] = $filename . '/src';
-            if (is_dir($filename . '/components'))
-                $namespaces["ntc\\$module"][] = $filename . '/components';
+        foreach ($module_file_names as $id => $info) {
+            $module = $this->getModuleName($id);
+            $namespaces["ntc\\$module"][] = $info['path'] . '/src';
+            if (is_dir($info['path'] . '/components'))
+                $namespaces["ntc\\$module"][] = $info['path'] . '/components';
         }
         return $namespaces;
     }
@@ -89,8 +93,9 @@ class App implements AppInterface, TerminableInterface {
      */
     protected function getComponentNamespacesPsr4($component_file_names) {
         $namespaces = array();
-        foreach ($component_file_names as $component => $filename) {
-            $namespaces["ntc\\$component"] = $filename;
+        foreach ($component_file_names as $id => $info) {
+
+            $namespaces["ntc\\".$this->getModuleName($id)] = $info['path'];
         }
         return $namespaces;
     }
