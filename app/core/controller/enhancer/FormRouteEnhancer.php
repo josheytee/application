@@ -2,9 +2,9 @@
 
 namespace app\core\controller\enhancer;
 
+use app\core\routing\enhancer\RouteEnhancerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Route;
-use app\core\routing\enhancer\RouteEnhancerInterface;
 
 /**
  * Enhancer to add a wrapping controller for _form routes.
@@ -22,8 +22,15 @@ class FormRouteEnhancer implements RouteEnhancerInterface {
      * {@inheritdoc}
      */
     public function enhance(array $defaults, Request $request) {
-//    $defaults['_controller'] = 'controller.form:getContentResult';
-        $defaults['_controller'] = $defaults['_form'] . '::create';
+        $action = 'add';
+        if (isset($defaults['_model']) && strpos($defaults['_model'], '.') !== FALSE) {
+            list($entity, $action) = explode('.', $defaults['_model']);
+            $defaults['_model'] = $entity;
+        }
+        $defaults['_key'] ?? $defaults['_key'] = 'id';
+        $defaults['_controller'] = $defaults['_form'] . '::' . $action;
+//        dump($defaults);
+        unset($defaults['_form']);
         return $defaults;
     }
 

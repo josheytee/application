@@ -12,7 +12,8 @@ admin.product.add:
   defaults:
     tab: Information
     _title: 'Amin | Product'
-    _form: 'ntc\product\form\ProductForm'
+    _form: 'ntc\product\form\InformationForm'
+    _model: app\core\entity\Product.create
   requirements:
     tab: '.+'
     _permission: 'administer actions'

@@ -33,6 +33,7 @@ class ThemeInitializer {
             'regions' => $theme_data['regions'],
             'libraries' => $theme_data['libraries'],
             'path' => $theme_data['path'],
+            'base_themes' => $theme_data['base_themes']??null,
             'config' => $this->getThemeData($name)['config']
         ];
         return new ActiveTheme($value);

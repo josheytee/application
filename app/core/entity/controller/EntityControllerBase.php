@@ -3,6 +3,7 @@
 namespace app\core\entity\controller;
 
 use app\core\controller\ControllerBase;
+use app\core\http\Request;
 
 /**
  * Description of EntityController
@@ -13,10 +14,9 @@ abstract class EntityControllerBase extends ControllerBase {
 
     abstract function title();
 
-    abstract function model();
+    function getDependencies(){}
 
-    public function getModel() {
-        return is_array($this->model()) ? array_keys($this->model())[0] : $this->model();
+    public function getModel(Request $request) {
+        return $request->get('_model');
     }
-
 }

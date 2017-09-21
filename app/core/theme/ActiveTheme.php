@@ -214,7 +214,10 @@ class ActiveTheme {
     public function getTemplate($template) {
         $file = $this->getPath() . $this->getTemplateDir() . DS . $template;
         if (file_exists($file)) {
-            return $file;
+            if ($this->getBaseThemes()){
+
+            }
+                return $file;
         }
         throw new \Exception('template file: ' . $template . ' not found in' . $file);
     }

@@ -3,7 +3,6 @@
 namespace ntc\shop\form;
 
 use app\core\entity\controller\EntityFormController;
-use app\core\http\Request;
 use app\core\view\form\Formbuilder;
 
 /**
@@ -14,32 +13,32 @@ class CreateShopForm extends EntityFormController {
 
     public function build(Formbuilder $builder, $entity = 0) {
         $builder->block(
-                $builder->label('name')
-                , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
+            $builder->label('name')
+            , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-                $builder->label('activity')
-                , $builder->select('activity', $this->activities(), $entity->getActivity()->getId())->addAttributes(['class' => 'form-control'])
+            $builder->label('activity')
+            , $builder->select('activity', $this->activities(), $entity->getActivity()->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-                $builder->label('state')
-                , $builder->select('state', $this->states(), $entity->getId())->addAttributes(['class' => 'form-control'])
+            $builder->label('state')
+            , $builder->select('state', $this->states(), $entity->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-                $builder->label('url')
-                , $builder->text('url', $entity->getUrl())->addAttributes(['class' => 'form-control'])
-                , $builder->help('eg. /example')
+            $builder->label('url')
+            , $builder->text('url', $entity->getUrl())->addAttributes(['class' => 'form-control'])
+            , $builder->help('eg. /example')
         );
         $builder->block(
-                $builder->label('description')
-                , $builder->textArea('description', $entity->getDescription())->addAttributes(['class' => 'form-control'])
+            $builder->label('description')
+            , $builder->textArea('description', $entity->getDescription())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block($builder->submit('Save')->addAttributes(['class' => 'btn btn-primary']))
-                ->addAttributes(['class' => 'form-group']);
+            ->addAttributes(['class' => 'form-group']);
         return $builder;
     }
 
@@ -80,9 +79,17 @@ class CreateShopForm extends EntityFormController {
 
     public function model() {
         return ['app\core\entity\Shop' => [
-                ['app\core\entity\Activity' => 'activity | id'],
-                ['app\core\entity\State' => 'state']
-            ]
+            ['app\core\entity\Activity' => 'activity | id'],
+            ['app\core\entity\State' => 'state']
+        ]
+        ];
+    }
+
+    function getDependencies() {
+
+        return [
+            'app\core\entity\Activity' => 'activity | id',
+            'app\core\entity\State' => 'state'
         ];
     }
 

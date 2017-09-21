@@ -1,0 +1,14 @@
+name: Visitor
+base_themes: system
+type: theme
+description: Visitor admin theme
+package: ntc\administrator\visitor
+regions:
+  header: Header Left
+#  header_right: Header Right
+#  breadcrumb: Breadcrumb
+  help: Help
+  sidebar: 'Sidebar'
+#  container: Container
+  footer: Footer
+libraries: makm.js

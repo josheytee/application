@@ -66,11 +66,11 @@ class RegionManager implements RegionManagerInterface {
             'content' => $markup
         ];
         $baseTheme = $this->activeTheme->getBaseThemes();
-        dump($baseTheme);
-        if (!empty($baseTheme)) {
+//        dump($baseTheme);
+        if (isset($baseTheme)) {
             $template = $baseTheme;
-            if (!empty($this->rendertrait(['page' => $page], "layout/page__{$template}.tpl")))
-                return $this->rendertrait(['page' => $page], "layout/page__{$template}.tpl");
+            if (!empty($this->rendertrait($assign, "layout/page__{$template}.tpl")))
+                return $this->rendertrait($assign, "layout/page__{$template}.tpl");
         }
 
 

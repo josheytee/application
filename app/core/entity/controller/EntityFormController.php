@@ -14,97 +14,100 @@ abstract class EntityFormController extends EntityControllerBase {
 
     abstract public function build(Formbuilder $builder, $entity);
 
-    public function getEntity($entity_id) {
+    public function getEntity(Request $request, $entity_id) {
         if ($entity_id === 0) {
-            return $this->getDefaults($this->getModel());
+            return $this->getDefaults($this->getModel($request));
         }
         $doctrine = $this->doctrine();
-        $entity = $doctrine->find($this->getModel(), $entity_id);
+        $entity = $doctrine->find($this->getModel($request), $entity_id);
         return $entity;
     }
 
-    public function addEntity($request) {
-//        if ($entity_id == 0) {
-//            return $this->getDefaults($this->getModel());
-//        }
+    public function addEntity(Request $request) {
+        $model = $this->getModel($request);
+        $key = $request->get('_key');
         $doctrine = $this->doctrine();
-        if (is_array($this->model())) {
-            foreach ($this->model() as $model => $dependencies) {
-                $entity = new $model();
-//                dump($entity);
-                if (is_array($dependencies)) {
-                    foreach ($dependencies as $dependency) {
-                        foreach ($dependency as $depndency => $property) {
-                            if (strpos($property, '|')) {
-                                list($map_ppty, $ppty) = explode('|', $property);
-                                $ppty = trim($ppty);
-                                $map_ppty = trim($map_ppty);
-                            } else {
-                                $ppty = 'id';
-                                $map_ppty = $property;
-                            }
+        $dependencies = $this->getDependencies();
 
-                            if (property_exists($model, $map_ppty)) {
-                                $map_ppty_object = $doctrine->getRepository($depndency)->findOneBy([$ppty => $request->{$map_ppty}]);
-                            }
-                            $array_replacing [$map_ppty] = $map_ppty_object;
-                        }
+        if ($dependencies) {
+            $entity = new $model();
+//                dump($entity);
+            if (is_array($dependencies)) {
+                foreach ($dependencies as $dependency => $property) {
+                    if (strpos($property, '|')) {
+                        list($map_ppty, $ppty) = explode('|', $property);
+                        $ppty = trim($ppty);
+                        $map_ppty = trim($map_ppty);
+                    } else {
+                        $ppty = 'id';
+                        $map_ppty = $property;
                     }
-                    $sett = array_replace_recursive($request->all(), $array_replacing);
-                }
-                foreach ($sett as $key => $value) {
-                    $this->object_set($entity, $key, $value);
+
+                    if (property_exists($model, $map_ppty)) {
+                        $map_ppty_object = $doctrine->getRepository($dependency)->findOneBy([$ppty => $request->{$map_ppty}]);
+                    }
+                    $array_replacing [$map_ppty] = $map_ppty_object;
                 }
             }
+            $sett = array_replace_recursive($request->all(), $array_replacing);
         }
+        if (isset($sett)) {
+            foreach ($sett as $key => $value) {
+                $this->object_set($entity, $key, $value);
+            }
+        }
+
+//        dump($entity);
 //        dump(is_object($entity));
-//        $doctrine->persist($entity);
-//        $doctrine->flush();
+        if (!empty($request->all())) {
+            $doctrine->persist($entity);
+            $doctrine->flush();
+        }
     }
 
     protected function updateEntity(Request $request, $entity_id) {
+        $model = $this->getModel($request);
+        $key = $request->get('_key');
         $doctrine = $this->doctrine();
-        if (is_array($this->model())) {
-            foreach ($this->model() as $model => $dependencies) {
-                $entity = $doctrine->getRepository($model)->findOneBy(['id' => $entity_id]);
-//                dump($entity);
-                if (is_array($dependencies)) {
-                    foreach ($dependencies as $dependency) {
-                        foreach ($dependency as $depndency => $property) {
-                            if (strpos($property, '|')) {
-                                list($map_ppty, $ppty) = explode('|', $property);
-                                $ppty = trim($ppty);
-                                $map_ppty = trim($map_ppty);
-                            } else {
-                                $ppty = 'id';
-                                $map_ppty = $property;
-                            }
-
-                            if (property_exists($model, $map_ppty)) {
-                                $map_ppty_object = $doctrine->getRepository($depndency)->findOneBy([$ppty => $request->{$map_ppty}]);
-                            }
-                            $array_replacing [$map_ppty] = $map_ppty_object;
-                        }
+        $dependencies = $this->getDependencies();
+        if ($dependencies) {
+            $entity = $doctrine->getRepository($model)->findOneBy([$key => $entity_id]);
+            if (is_array($dependencies)) {
+                foreach ($dependencies as $dependency => $property) {
+                    if (strpos($property, '|')) {
+                        list($map_ppty, $ppty) = explode('|', $property);
+                        $ppty = trim($ppty);
+                        $map_ppty = trim($map_ppty);
+                    } else {
+                        $ppty = 'id';
+                        $map_ppty = $property;
                     }
-                    $sett = array_replace_recursive($request->all(), $array_replacing);
-                }
-                foreach ($sett as $key => $value) {
-                    $this->object_set($entity, $key, $value);
+
+                    if (property_exists($model, $map_ppty)) {
+                        $map_ppty_object = $doctrine->getRepository($dependency)->findOneBy([$ppty => $request->{$map_ppty}]);
+                    }
+                    $array_replacing [$map_ppty] = $map_ppty_object;
                 }
             }
+            $sett = array_replace_recursive($request->all(), $array_replacing);
+            foreach ($sett as $key => $value) {
+                $this->object_set($entity, $key, $value);
+            }
         }
-        $doctrine->persist($entity);
-        $doctrine->flush();
+        if (!empty($request->all())) {
+            $doctrine->persist($entity);
+            $doctrine->flush();
+        }
     }
 
-    public function deleteEntity($entity) {
+    public function deleteEntity(Request $request, $entity) {
         $doctrine = $this->doctrine();
-        $post = $doctrine->find($this->getModel(), $entity);
-        if (!$post) {
-            throw new \Exception('Post not found');
+        $entity = $doctrine->find($this->getModel($request), $entity);
+        if (!$entity) {
+            throw new \Exception('Entity not found');
         }
 // Delete the entity and flush
-        $doctrine->remove($post);
+        $doctrine->remove($entity);
         $doctrine->flush();
     }
 
@@ -116,10 +119,26 @@ abstract class EntityFormController extends EntityControllerBase {
         return new $class();
     }
 
+
     public function create(Request $request, Formbuilder $builder, $entity = 0) {
 //        dump($request->all());
         if ($this->validate()) {
-            $return['content'] = $this->build($builder, $this->getEntity($entity))->fetch();
+            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
+            $this->addEntity($request);
+            return $return;
+        }
+    }
+
+    /**
+     * This is the method for _form routes without _model
+     * @param Request $request
+     * @param Formbuilder $builder
+     * @param int $entity
+     * @return mixed
+     */
+    public function add(Request $request, Formbuilder $builder, $entity = 0) {
+        if ($this->validate()) {
+            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
             $this->addEntity($request);
             return $return;
         }
@@ -127,7 +146,7 @@ abstract class EntityFormController extends EntityControllerBase {
 
     public function update(Request $request, Formbuilder $builder, $entity) {
         if ($this->validate()) {
-            $return['content'] = $this->build($builder, $this->getEntity($entity))->fetch();
+            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
             $this->updateEntity($request, $entity);
             return $return;
         }
@@ -170,7 +189,8 @@ abstract class EntityFormController extends EntityControllerBase {
      *
      * @param  object $object
      * @param  string $key
-     * @param  mixed $default
+     * @param null $value
+     * @internal param mixed $default
      * @return mixed
      */
     function object_set($object, $key, $value = null) {

@@ -1,8 +1,10 @@
 admin.shop.add:
   path: 'admin/shop/create'
   defaults:
-    _title: 'Amin | Create Shop'
+    _title: 'Amin | Home'
     _form: 'ntc\shop\form\CreateShopForm'
+    _model: app\core\entity\Shop.create
+#    _key: url
   requirements:
     _permission: 'administer actions'
 
@@ -10,7 +12,8 @@ admin.shop.edit:
   path: 'admin/shop/{entity}/edit'
   defaults:
     _title: 'Amin | Create Shop'
-    _edit_form: 'ntc\shop\form\CreateShopForm'
+    _form: 'ntc\shop\form\CreateShopForm'
+    _model: app\core\entity\Shop.update
     entity: 1
   requirements:
     entity: \d+
@@ -20,7 +23,8 @@ admin.shop.delete:
   path: 'admin/shop/{entity}/delete'
   defaults:
     _title: 'Amin | Create Shop'
-    _delete_form: 'ntc\shop\form\CreateShopForm'
+    _form: 'ntc\shop\form\CreateShopForm'
+    _model: app\core\entity\Shop.delete
   requirements:
     entity: \d+
     _permission: 'administer actions'

@@ -48,7 +48,6 @@ class ThemeManager implements ThemeManagerInterface {
         // Determine the active theme for the theme negotiator service. This includes
         // the default theme as well as really specific ones like the ajax base theme.
         if (!$route_match) {
-//      $route_match = Context::routeMatch();
             $route_match = $this->container->get('current.route.match');
         }
 //    if ($route_match instanceof StackedRouteMatchInterface) {
@@ -58,48 +57,6 @@ class ThemeManager implements ThemeManagerInterface {
 //        $this->active_theme = $this->loadTheme($theme);
         $this->active_theme = $this->themeInitializer->initTheme($theme);
     }
-
-//    public function loadTheme($theme) {
-//        $theme_data = $this->getThemeData($theme)['info'];
-//        $value = [
-//            'name' => $theme_data['name'],
-//            'regions' => $theme_data['regions'],
-//            'libraries' => $theme_data['libraries'],
-//            'path' => $theme_data['path'],
-//            'config' => $this->getThemeData($theme)['config']
-//        ];
-//        return new ActiveTheme($value);
-//    }
-//
-//    /**
-//     * gets the data of all components in one single array
-//     * @return Array of components data
-//     */
-//    public function getThemesData() {
-//        $data = [];
-//        foreach ($this->theme_repository->getRepositories() as $id => $info) {
-//            $data[$this->getModuleName($id)] = ['info' => $info, 'config' => $this->_getYamlFileIfExist
-//            ($info['path'] . DS .
-//                $this->getModuleName($id) . '.config.yml')];
-//        }
-//        return $data;
-//    }
-//
-//    private function _getYamlFileIfExist($path) {
-//        if (file_exists($path)) {
-//            return Yaml::parse(file_get_contents($path));
-//        }
-//        return [];
-//    }
-//
-//    /**
-//     *
-//     * @param Theme $theme
-//     * @return type array of a single component information
-//     */
-//    public function getThemeData($theme) {
-//        return isset($this->getThemesData()[$theme]) ? $this->getThemesData()[$theme] : null;
-//    }
 
     /**
      *

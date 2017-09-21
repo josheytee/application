@@ -4,7 +4,6 @@ namespace ntc\product\form;
 
 
 use app\core\entity\controller\EntityFormController;
-use app\core\entity\Product;
 use app\core\view\form\Formbuilder;
 
 class InformationForm extends EntityFormController {
@@ -13,8 +12,7 @@ class InformationForm extends EntityFormController {
         // TODO: Implement title() method.
     }
 
-    function model() {
-        return Product::class;
+    function getDependencies() {
     }
 
     public function build(Formbuilder $builder, $entity) {
@@ -34,13 +32,13 @@ class InformationForm extends EntityFormController {
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-            $builder->label('available','Available for order')
-            , $builder->checkbox('available','')
+            $builder->label('available', 'Available for order')
+            , $builder->checkbox('available', '')
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-            $builder->label('price','Show Price')
-            , $builder->checkbox('price','')
+            $builder->label('price', 'Show Price')
+            , $builder->checkbox('price', '')
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
@@ -54,13 +52,13 @@ class InformationForm extends EntityFormController {
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-            $builder->label('short','Short Description')
+            $builder->label('short', 'Short Description')
             , $builder->textArea('short_description', '')->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
- $builder->block(
-            $builder->label('long','Long Description')
-            , $builder->textArea('long_description', '')->addAttributes(['class' => 'form-control','rows'=>5])
+        $builder->block(
+            $builder->label('long', 'Long Description')
+            , $builder->textArea('long_description', '')->addAttributes(['class' => 'form-control', 'rows' => 5])
         )->addAttributes(['class' => 'form-group']);
 
 
@@ -72,6 +70,7 @@ class InformationForm extends EntityFormController {
     public function type() {
         return ['simple', 'pack', 'virtual'];
     }
+
     public function condition() {
         return ['new', 'used', 'refurbished'];
     }
