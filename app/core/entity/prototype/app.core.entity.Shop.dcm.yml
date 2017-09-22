@@ -69,4 +69,6 @@ app\core\entity\Shop:
                 id_activity:
                     referencedColumnName: id
             orphanRemoval: false
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ onPrePersist ]
+        postPersist: [ onPostPersist ]

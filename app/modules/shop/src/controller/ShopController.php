@@ -36,7 +36,7 @@ class ShopController extends ControllerBase {
         $manager = $this->doctrine()->getRepository(\app\core\entity\Shop::class)->find(1);
 //        dump($manager);
         $shop_components = $this->componentManager->getTargetComponents('shop');
-        return $this->render('shop/ntc_shop.tpl', ['components' => $shop_components]);
+        return $this->render('shop/ntc_shop', ['components' => $shop_components]);
     }
 
     public function home(Request $request) {

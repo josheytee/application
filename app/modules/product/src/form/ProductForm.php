@@ -5,7 +5,7 @@ namespace ntc\product\form;
 
 
 use app\core\controller\FormGroup;
-use app\core\entity\Product;
+
 
 class ProductForm extends FormGroup {
 
@@ -13,16 +13,13 @@ class ProductForm extends FormGroup {
         return [
             'information' => new InformationForm(),
             'price' => new PriceForm(),
+            'seo' => new SEOForm(),
+            'quantity' => new QuantitiesForm(),
+            'associations' => new AssociationForm()
         ];
     }
 
     function title() {
         return '';
     }
-
-    function model() {
-        return Product::class;
-    }
-
-  
 }

@@ -23,7 +23,7 @@ abstract class InputElement extends FormElement {
   const TYPE_NOTHING = 7;
   const TYPE_SQL = 8;
 
-  protected $template = 'input.tpl';
+  protected $template = 'input';
 
   public function compact() {
 

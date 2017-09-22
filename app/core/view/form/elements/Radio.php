@@ -13,7 +13,7 @@ class Radio extends InputElement {
     public function __construct($name, $value = null, $attributes = null) {
         parent::__construct($name, $value, $attributes);
         $this->addAttribute('type', 'radio');
-        $this->template = 'radio_check.tpl';
+        $this->template = 'radio_check';
     }
 
     public function compact() {

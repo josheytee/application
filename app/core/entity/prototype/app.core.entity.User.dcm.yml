@@ -113,4 +113,6 @@ app\core\entity\User:
                         name: id_role
                         referencedColumnName: id
             orderBy: null
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+         prePersist: [ onPrePersist ]
+         postPersist: [ onPostPersist ]

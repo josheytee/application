@@ -1,7 +1,7 @@
 <?php
 
 namespace app\core\entity\controller;
-
+use app\core\http\Request;
 
 
 /**
@@ -16,9 +16,9 @@ abstract class EntityListController extends EntityControllerBase {
     protected $operations;
     protected $entities = [];
 
-    public function init() {
+    public function init(Request $request) {
         $doctrine = $this->doctrine();
-        $this->entities = $doctrine->getRepository($this->getModel())->findAll();
+        $this->entities = $doctrine->getRepository($this->getModel($request))->findAll();
     }
 
     public function processHead() {
@@ -67,24 +67,24 @@ abstract class EntityListController extends EntityControllerBase {
         //this is done purposely for templates
         $first_template = array_keys($operations);
         $first = array_shift($operations);
-        $compiled[] = $this->rendertrait($first + ['first' => true], 'list/operation/' . $first_template[0] . '.tpl');
+        $compiled[] = $this->rendertrait($first + ['first' => true], 'list/operation/' . $first_template[0] );
         if (!empty($operations)) {
             foreach ($operations as $name => $operation) {
 
-                $compiled[] = $this->rendertrait($operation, 'list/operation/' . $name . '.tpl');
+                $compiled[] = $this->rendertrait($operation, 'list/operation/' . $name );
             }
         }
         return $compiled;
     }
 
-    public function listing() {
-        $this->init();
+    public function listing(Request $request) {
+        $this->init($request);
         $return['library'] = '';
         $return['content'] = $this->rendertrait(
                 [
             'headings' => $this->processHead(),
             'form_body' => $this->processBody()
-                ], 'list/listing.tpl');
+                ], 'list/listing');
         return $return;
     }
 

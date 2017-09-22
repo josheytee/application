@@ -3,7 +3,6 @@
 namespace app\core\component;
 
 use app\core\Context;
-use app\core\theme\ActiveTheme;
 use app\core\view\Renderabletrait;
 use Symfony\Component\Finder\Finder;
 
@@ -95,21 +94,17 @@ abstract class Component {
     }
 
     public function display($template, $data = null) {
-        $template = $this->getContainer()->get('theme.manager')->getActiveTheme()
-                ->getPath() . '/templates/components/' .
-            $template;
 //        dump($template);
-        $smarty = Context::smarty();
-        $tpl = $smarty->createAndFetch($template, $data);
-
-        return $tpl;
+        if (!empty($this->rendertrait($data, "components/{$template}")))
+            return $this->rendertrait($data, "components/{$template}");
+        return $this->rendertrait($data, 'components/' . $template);
     }
 
     public function renderComponent() {
 //        dump($activeTheme);
         $this->init();
         $this->postProcess();
-        return $this->rendertrait(['component' => $this->render()], 'layout/component.tpl');
+        return $this->rendertrait(['component' => $this->render()], 'layout/component');
     }
 
     protected function getContainer() {

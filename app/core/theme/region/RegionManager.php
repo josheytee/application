@@ -23,7 +23,7 @@ class RegionManager implements RegionManagerInterface {
     protected $max;
     protected $components = [];
     protected $components_path = [];
-    protected $template = 'layout/region.tpl';
+    protected $template = 'layout/region';
     protected $theme_manager;
     protected $component_manager;
     protected $tag = 'div';
@@ -69,12 +69,12 @@ class RegionManager implements RegionManagerInterface {
 //        dump($baseTheme);
         if (isset($baseTheme)) {
             $template = $baseTheme;
-            if (!empty($this->rendertrait($assign, "layout/page__{$template}.tpl")))
-                return $this->rendertrait($assign, "layout/page__{$template}.tpl");
+            if (!empty($this->rendertrait($assign, "layout/page__{$template}")))
+                return $this->rendertrait($assign, "layout/page__{$template}");
         }
 
 
-        return $this->rendertrait($assign, 'layout/region.tpl');
+        return $this->rendertrait($assign, 'layout/region');
 
     }
 

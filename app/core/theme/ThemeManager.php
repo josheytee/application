@@ -60,6 +60,7 @@ class ThemeManager implements ThemeManagerInterface {
 
     /**
      *
+     * @param RouteMatchInterface|null $route_match
      * @return ActiveTheme
      */
     public function getActiveTheme(RouteMatchInterface $route_match = NULL) {

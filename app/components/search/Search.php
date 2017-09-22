@@ -8,7 +8,7 @@ class Search extends Component {
 
   public function render() {
     $template = $this->getTemplate();
-    return $this->display('ntc_search.tpl');
+    return $this->display('ntc_search');
   }
 
 }

@@ -10,6 +10,7 @@ admin.list:
   defaults:
     _title: 'Amin | Home'
     _list: 'ntc\administrator\controller\Listing'
+    _model: app\core\entity\User
   requirements:
     _permission: 'administer actions'
 

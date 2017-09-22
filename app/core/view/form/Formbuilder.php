@@ -124,7 +124,7 @@ class Formbuilder implements BuilderInterface {
         return '2e.e';
     }
 
-    protected $form_template = 'form/form.tpl';
+    protected $form_template = 'form/form';
 
     public function render() {
         $form = '';

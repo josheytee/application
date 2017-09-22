@@ -26,6 +26,8 @@ class FormRouteEnhancer implements RouteEnhancerInterface {
         if (isset($defaults['_model']) && strpos($defaults['_model'], '.') !== FALSE) {
             list($entity, $action) = explode('.', $defaults['_model']);
             $defaults['_model'] = $entity;
+        } elseif (isset($defaults['_model']) && strpos($defaults['_model'], '.') == FALSE) {
+            $action = 'create';
         }
         $defaults['_key'] ?? $defaults['_key'] = 'id';
         $defaults['_controller'] = $defaults['_form'] . '::' . $action;

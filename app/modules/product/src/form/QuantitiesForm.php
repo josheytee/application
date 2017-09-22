@@ -2,31 +2,29 @@
 
 namespace ntc\product\form;
 
-
 use app\core\entity\controller\EntityFormController;
-use app\core\entity\Product;
 use app\core\view\form\Formbuilder;
 
-class PriceForm extends EntityFormController {
+class QuantitiesForm extends EntityFormController {
 
     function title() {
         // TODO: Implement title() method.
     }
 
-    function model() {
-        return Product::class;
-    }
-
     public function build(Formbuilder $builder, $entity) {
-
         $builder->block(
-            $builder->label('price')
-            , $builder->text('price', '')->addAttributes(['class' => 'form-control'])
+            $builder->label('quantity')
+            , $builder->text('quantity', '')->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-            $builder->label('wholesale_price')
-            , $builder->text('wholesale_price', '')->addAttributes(['class' => 'form-control'])
+            $builder->label('minimal_quantity')
+            , $builder->text('minimal_quantity', '')->addAttributes(['class' => 'form-control'])
+        )->addAttributes(['class' => 'form-group']);
+
+        $builder->block(
+            $builder->label('quantity_discount')
+            , $builder->text('quantity_discount', '')->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
 
@@ -34,7 +32,5 @@ class PriceForm extends EntityFormController {
             ->addAttributes(['class' => 'form-group']);
 
         return $builder;
-
-
     }
 }

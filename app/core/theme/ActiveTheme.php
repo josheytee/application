@@ -84,7 +84,7 @@ class ActiveTheme {
             'engine' => 'smarty',
             'owner' => 'smarty',
             'libraries' => [],
-            'extension' => 'tpl',
+            'extension' => '.tpl',
             'base_themes' => [],
             'regions' => [],
             'libraries_override' => [],
@@ -130,6 +130,13 @@ class ActiveTheme {
      */
     public function getEngine() {
         return $this->engine;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExtension() {
+        return $this->extension;
     }
 
     /**
@@ -212,14 +219,14 @@ class ActiveTheme {
      * @throws \Exception
      */
     public function getTemplate($template) {
-        $file = $this->getPath() . $this->getTemplateDir() . DS . $template;
+        $file = $this->getPath() . $this->getTemplateDir() . DS . $template . $this->getExtension();
         if (file_exists($file)) {
-            if ($this->getBaseThemes()){
+            if ($this->getBaseThemes()) {
 
             }
-                return $file;
+            return $file;
         }
-        throw new \Exception('template file: ' . $template . ' not found in' . $file);
+        throw new \Exception('template file: ' . $template . ' not found in' . $file . $this->getExtension());
     }
 
     public function getConfig($section = null) {

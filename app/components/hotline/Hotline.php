@@ -7,7 +7,7 @@ use app\core\component\Component;
 class Hotline extends Component {
 
   public function render() {
-    return $this->display('ntc_hotline.tpl');
+    return $this->display('ntc_hotline');
   }
 
 }

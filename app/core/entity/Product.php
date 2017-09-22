@@ -399,4 +399,21 @@ class Product
     {
         return $this->section;
     }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->created = new \DateTime("now");
+        $this->updated = new \DateTime("now");
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        $this->updated = new \DateTime("now");
+    }
 }

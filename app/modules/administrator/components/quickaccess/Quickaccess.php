@@ -18,7 +18,7 @@ class Quickaccess extends Component {
 
     public function render() {
         $template = $this->getTemplate();
-        return $this->display('ntc_administrator_quickaccess.tpl');
+        return $this->display('ntc_administrator_quickaccess');
     }
 
 }

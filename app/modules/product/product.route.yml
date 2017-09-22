@@ -1,41 +1,41 @@
 admin.product:
-  path: 'admin/product'
+  path: admin/product
   defaults:
     name: ~
-    _title: 'Amin | Product'
-    _controller: 'ntc\product\controller\ProductController::index'
+    _title: Amin | Product
+    _controller: ntc\product\controller\ProductController::index
   requirements:
-    _permission: 'administer actions'
+    _permission: administer actions
 
 admin.product.add:
-  path: 'admin/product/add'
+  path: admin/product/add
   defaults:
     tab: Information
-    _title: 'Amin | Product'
-    _form: 'ntc\product\form\InformationForm'
+    _title: Amin | Product
+    _form: ntc\product\form\ProductForm
     _model: app\core\entity\Product.create
   requirements:
-    tab: '.+'
-    _permission: 'administer actions'
+    tab: .+
+    _permission: administer actions
 #
 #admin.product.add:
-#  path: 'admin/product/add/{tab}'
+#  path: admin/product/add/{tab}
 #  defaults:
 #    tab: Information
-#    _title: 'Amin | Product'
-#    _controller: 'ntc\product\controller\ProductController::add'
+#    _title: Amin | Product
+#    _controller: ntc\product\controller\ProductController::add
 #  requirements:
-#    tab: '.+'
-#    _permission: 'administer actions'
+#    tab: .+
+#    _permission: administer actions
 
 admin.product.edit:
-  path: 'admin/product/{id}/edit/{tab}'
+  path: admin/product/{id}/edit/{tab}
   defaults:
     tab: information
-    _title: 'Amin | Product'
-    _controller: 'ntc\product\controller\ProductController::edit'
+    _title: Amin | Product
+    _controller: ntc\product\controller\ProductController::edit
   requirements:
-    tab: '.+'
-    id: '.+'
-    _permission: 'administer actions'
+    tab: .+
+    id: .+
+    _permission: administer actions
 

@@ -17,8 +17,8 @@ class Userinfo extends Component {
     }
 
     public function render() {
-        $template = $this->getTemplate('userinfo.tpl');
-        return $this->display('ntc_administrator_userinfo.tpl');
+        $template = $this->getTemplate('userinfo');
+        return $this->display('ntc_administrator_userinfo');
     }
 
 }

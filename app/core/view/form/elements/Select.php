@@ -12,7 +12,7 @@ use app\core\view\form\FormElement;
  */
 class Select extends FormElement {
 
-  protected $template = 'select.tpl';
+  protected $template = 'select';
   protected $default = '';
   protected $options = [];
 

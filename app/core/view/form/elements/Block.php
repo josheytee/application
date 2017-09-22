@@ -12,7 +12,7 @@ use app\core\view\form\FormElement;
 class Block extends FormElement {
 
   protected $elements;
-  protected $template = 'block.tpl';
+  protected $template = 'block';
 
   public function __construct($name, $attributes = []) {
     parent::__construct($name, null, $attributes);

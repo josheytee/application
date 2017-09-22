@@ -90,7 +90,7 @@ class ProductController extends ControllerBase {
     }
 
     if (method_exists($this, 'initForm' . $this->tab_display)) {
-      $this->tpl_form = strtolower($this->tab_display) . '.tpl';
+      $this->tpl_form = strtolower($this->tab_display) ;
     }
     foreach ($this->available_tabs as $product_tab => $value) {
 
@@ -121,12 +121,12 @@ class ProductController extends ControllerBase {
   public function add(Request $request) {
     $this->initContent($request->tab);
     $this->renderForm($request->tab);
-    return $this->render($this->getTemplate(__DIR__, 'form.tpl'), $this->tpl_form_vars);
+    return $this->render($this->getTemplate(__DIR__, 'form'), $this->tpl_form_vars);
   }
 
   public function edit(Request $request) {
 
-    return $this->render($this->getTemplate(__DIR__, 'form.tpl'), $this->tpl_form_vars);
+    return $this->render($this->getTemplate(__DIR__, 'form'), $this->tpl_form_vars);
   }
 
   public function initFormInformation($product) {

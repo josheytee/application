@@ -47,11 +47,11 @@ class AdminBlockManager implements BlockManagerInterface {
 //        if ($routeMatch->getRouteObject()->hasOption('module')) {
 //            $template = $routeMatch->getRouteObject()->getOption('module');
 //            var_dump($this->rendertrait(['page' => $page]));
-//            if (null !== ($this->rendertrait(['page' => $page], "layout/page__{$template}.tpl")))
-//                return $this->rendertrait(['page' => $page], "layout/page__{$template}.tpl");
+//            if (null !== ($this->rendertrait(['page' => $page], "layout/page__{$template}")))
+//                return $this->rendertrait(['page' => $page], "layout/page__{$template}");
 //        }
 
-        return $this->rendertrait(['page' => $page], 'layout/page.tpl');
+        return $this->rendertrait(['page' => $page], 'layout/page');
     }
 
     public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch) {

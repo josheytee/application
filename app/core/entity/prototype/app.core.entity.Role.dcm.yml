@@ -56,4 +56,6 @@ app\core\entity\Role:
             inversedBy: null
             joinTable: null
             orderBy: null
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ onPrePersist ]
+        postPersist: [ onPostPersist ]

@@ -12,7 +12,7 @@ use app\core\view\form\FormElement;
  */
 class TextArea extends FormElement {
 
-  protected $template = 'textarea.tpl';
+  protected $template = 'textarea';
 
     public function __construct($name, $value = null, $attribute = null) {
         parent::__construct($name, $value, $attribute);

@@ -25,13 +25,12 @@ abstract class EntityFormController extends EntityControllerBase {
 
     public function addEntity(Request $request) {
         $model = $this->getModel($request);
-        $key = $request->get('_key');
         $doctrine = $this->doctrine();
         $dependencies = $this->getDependencies();
 
+        $entity = new $model();
+//        dump($entity);
         if ($dependencies) {
-            $entity = new $model();
-//                dump($entity);
             if (is_array($dependencies)) {
                 foreach ($dependencies as $dependency => $property) {
                     if (strpos($property, '|')) {
@@ -48,8 +47,8 @@ abstract class EntityFormController extends EntityControllerBase {
                     }
                     $array_replacing [$map_ppty] = $map_ppty_object;
                 }
+                $sett = array_replace_recursive($request->all(), $array_replacing);
             }
-            $sett = array_replace_recursive($request->all(), $array_replacing);
         }
         if (isset($sett)) {
             foreach ($sett as $key => $value) {
@@ -70,8 +69,8 @@ abstract class EntityFormController extends EntityControllerBase {
         $key = $request->get('_key');
         $doctrine = $this->doctrine();
         $dependencies = $this->getDependencies();
+        $entity = $doctrine->getRepository($model)->findOneBy([$key => $entity_id]);
         if ($dependencies) {
-            $entity = $doctrine->getRepository($model)->findOneBy([$key => $entity_id]);
             if (is_array($dependencies)) {
                 foreach ($dependencies as $dependency => $property) {
                     if (strpos($property, '|')) {
@@ -136,9 +135,9 @@ abstract class EntityFormController extends EntityControllerBase {
      * @param int $entity
      * @return mixed
      */
-    public function add(Request $request, Formbuilder $builder, $entity = 0) {
+    public function add(Request $request, Formbuilder $builder) {
         if ($this->validate()) {
-            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
+            $return['content'] = $this->build($builder, $this->getEntity($request))->fetch();
             $this->addEntity($request);
             return $return;
         }

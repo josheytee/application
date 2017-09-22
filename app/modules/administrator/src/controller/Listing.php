@@ -21,8 +21,8 @@ class Listing extends EntityListController {
 
     public function head() {
         $head['id'] = 'ID';
-        $head['firstname'] = "First Name";
-        $head['lastname'] = "Last Name";
+        $head['name'] = "First Name";
+//        $head['name'] = "Last Name";
         $head['username'] = "Username";
         return $head;
     }
@@ -33,9 +33,9 @@ class Listing extends EntityListController {
 
     public function row($entity) {
         $row['id'] = $entity->getID();
-        $row['firstname'][] = $entity->getFirstName();
+        $row['firstname'][] = $entity->getName();
         $row['firstname']['callback'] = 'upper';
-        $row['lastname'] = $entity->getLastName();
+//        $row['lastname'] = $entity->getLastName();
         $row['username'] = $entity->getUsername();
         return $row;
     }

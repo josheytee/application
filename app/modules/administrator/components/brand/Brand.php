@@ -13,7 +13,7 @@ class Brand extends Component {
 
   public function render() {
     $template = $this->getTemplate();
-    return $this->display('ntc_administrator_brand.tpl');
+    return $this->display('ntc_administrator_brand');
   }
 
 }

@@ -11,7 +11,7 @@ use app\core\view\form\FormElement;
  */
 class Label extends FormElement {
 
-  protected $template = 'label.tpl';
+  protected $template = 'label';
   protected $for;
 
   public function __construct($for, $value = '', $attribute = null) {

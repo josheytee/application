@@ -105,4 +105,8 @@ app\core\entity\Product:
                 id_section:
                     referencedColumnName: id
             orphanRemoval: false
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ onPrePersist ]
+        postPersist: [ onPostPersist ]
+
+

@@ -10,7 +10,7 @@ use app\core\view\form\FormElement;
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
 class Help extends FormElement {
-    protected $template = 'help.tpl';
+    protected $template = 'help';
 
   public function __construct($name, $value = null, $attribute = null) {
     parent::__construct($name, $value, $attribute);

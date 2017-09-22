@@ -34,6 +34,7 @@ admin.shop.list:
   defaults:
     _title: 'Amin | User Shop List'
     _list: 'ntc\shop\listing\ShopUserList'
+    _model: app\core\entity\Shop
   requirements:
     _permission: 'administer actions'
 
