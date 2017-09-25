@@ -3,6 +3,7 @@
 namespace app\core\controller;
 
 use app\core\dependencyInjection\ContainerInjectionInterface;
+use app\core\http\Request;
 use app\core\view\Renderabletrait;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -27,6 +28,16 @@ abstract class ControllerBase implements ContainerInjectionInterface, ContainerA
     public function l($param0) {
         return $param0;
     }
+
+    public function getModel(Request $request) {
+        return $request->get('_model');
+    }
+
+    abstract function title();
+
+    function getDependencies() {
+    }
+
 
     public function getTemplate($dir, $file = null) {
         $template_dir = dirname(dirname($dir)) . DS . 'templates';

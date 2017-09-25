@@ -2,14 +2,14 @@
 
 namespace ntc\shop\form;
 
-use app\core\entity\controller\EntityFormController;
+use app\core\controller\FormController;
 use app\core\view\form\Formbuilder;
 
 /**
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class CreateShopForm extends EntityFormController {
+class CreateShopForm extends FormController {
 
     public function build(Formbuilder $builder, $entity = 0) {
         $builder->block(

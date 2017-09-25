@@ -94,9 +94,9 @@ abstract class Component {
     }
 
     public function display($template, $data = null) {
-//        dump($template);
-        if (!empty($this->rendertrait($data, "components/{$template}")))
-            return $this->rendertrait($data, "components/{$template}");
+    //        if (!empty($this->rendertrait($data, "components/{$template}_footer"))) {
+    //            return $this->rendertrait($data, "components/{$template}");
+    //        }
         return $this->rendertrait($data, 'components/' . $template);
     }
 

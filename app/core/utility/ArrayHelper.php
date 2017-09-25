@@ -1,6 +1,7 @@
 <?php
 
 namespace app\core\utility;
+use Symfony\Component\DependencyInjection\Tests\A;
 
 /**
  *
@@ -23,7 +24,7 @@ trait ArrayHelper {
 
   /**
    * processes an array to be shown as html attributes
-   * @param type $arr
+   * @param array $arr
    * @return string
    */
   public function processArray($arr) {

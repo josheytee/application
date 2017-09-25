@@ -2,10 +2,10 @@
 
 namespace ntc\product\form;
 
-use app\core\entity\controller\EntityFormController;
+use app\core\controller\FormController;
 use app\core\view\form\Formbuilder;
 
-class SEOForm extends EntityFormController {
+class SEOForm extends FormController {
 
     function title() {
         // TODO: Implement title() method.
@@ -27,8 +27,8 @@ class SEOForm extends EntityFormController {
             , $builder->text('meta_description', '')->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
- $builder->block(
-            $builder->label('link_rewrite','Friendly URL')
+        $builder->block(
+            $builder->label('link_rewrite', 'Friendly URL')
             , $builder->text('link_rewrite', '')->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 

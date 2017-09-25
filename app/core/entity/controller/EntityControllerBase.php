@@ -12,7 +12,7 @@ use app\core\http\Request;
  */
 abstract class EntityControllerBase extends ControllerBase {
 
-    abstract function title();
+//    abstract function title();
 
     function getDependencies(){}
 

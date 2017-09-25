@@ -237,4 +237,7 @@ class ProductController extends ControllerBase {
 
   }
 
+    function title() {
+        // TODO: Implement title() method.
+    }
 }

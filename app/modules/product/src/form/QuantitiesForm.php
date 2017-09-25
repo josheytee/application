@@ -2,10 +2,10 @@
 
 namespace ntc\product\form;
 
-use app\core\entity\controller\EntityFormController;
+use app\core\controller\FormController;
 use app\core\view\form\Formbuilder;
 
-class QuantitiesForm extends EntityFormController {
+class QuantitiesForm extends FormController {
 
     function title() {
         // TODO: Implement title() method.

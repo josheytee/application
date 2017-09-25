@@ -4,7 +4,6 @@ $autoloader = require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/app/config/config.inc.php';
 
 use app\core\http\Request;
-use Composer\Autoload\ClassLoader;
 
 error_reporting(E_ALL);
 //dump($autoloader);

@@ -3,10 +3,10 @@
 namespace ntc\product\form;
 
 
-use app\core\entity\controller\EntityFormController;
+use app\core\controller\FormController;
 use app\core\view\form\Formbuilder;
 
-class InformationForm extends EntityFormController {
+class InformationForm extends FormController {
 
     function title() {
         // TODO: Implement title() method.
@@ -45,20 +45,20 @@ class InformationForm extends EntityFormController {
             $builder->label('online', 'Online Only')
             , $builder->checkbox('online', '')
         )->addAttributes(['class' => 'form-group']);
+//
+//        $builder->block(
+//            $builder->label('location')
+//            , $builder->text('location', '')->addAttributes(['class' => 'form-control'])
+//        )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-            $builder->label('location')
-            , $builder->text('location', '')->addAttributes(['class' => 'form-control'])
+            $builder->label('shortDescription', 'Short Description')
+            , $builder->textArea('shortDescription', '')->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-            $builder->label('short', 'Short Description')
-            , $builder->textArea('short_description', '')->addAttributes(['class' => 'form-control'])
-        )->addAttributes(['class' => 'form-group']);
-
-        $builder->block(
-            $builder->label('long', 'Long Description')
-            , $builder->textArea('long_description', '')->addAttributes(['class' => 'form-control', 'rows' => 5])
+            $builder->label('description')
+            , $builder->textArea('description', '')->addAttributes(['class' => 'form-control', 'rows' => 5])
         )->addAttributes(['class' => 'form-group']);
 
 

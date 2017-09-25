@@ -3,11 +3,11 @@
 namespace ntc\product\form;
 
 
-use app\core\entity\controller\EntityFormController;
+use app\core\controller\FormController;
 use app\core\entity\Product;
 use app\core\view\form\Formbuilder;
 
-class PriceForm extends EntityFormController {
+class PriceForm extends FormController {
 
     function title() {
         // TODO: Implement title() method.

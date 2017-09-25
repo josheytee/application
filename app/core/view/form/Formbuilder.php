@@ -20,14 +20,18 @@ class Formbuilder implements BuilderInterface {
     protected $elements;
     protected $labels;
     protected $help_blocks;
-    protected $attributes;
+    protected $attributes = '';
     protected $method = 'POST';
+
+    public function __construct($template = null) {
+        $this->setFormTemplate($template);
+    }
 
     /**
      * adds label for a element with the same name
-     * @param type $for
-     * @param type $value
-     * @return type
+     * @param string $for
+     * @param string $value
+     * @return elements\Label
      */
     public function label($for, $value = '') {
         $this->labels[$for] = 'id_' . $for;
@@ -61,7 +65,6 @@ class Formbuilder implements BuilderInterface {
 
     public function radio($name, $value = '') {
         return $this->elements[$name] = $this->element('radio', $name, $value);
-//        }
     }
 
     public function checkbox($name, $value = []) {
@@ -111,22 +114,33 @@ class Formbuilder implements BuilderInterface {
         return new $el_class($name, $value);
     }
 
-    private function getAttributes() {
-        return $this->processArray([
-            'id' => $this->formID(),
-            'class' => 'form',
-            'method' => $this->getMethod(),
-            'action' => ''
-        ]);
+    public function getAttributes() {
+        return $this->attributes;
     }
 
-    public function formID() {
-        return '2e.e';
+    /**
+     * @param mixed $attributes
+     * @return $this
+     */
+    public function setAttributes($attributes) {
+        $this->attributes = $attributes;
+        return $this;
     }
 
     protected $form_template = 'form/form';
 
-    public function render() {
+    /**
+     * @param string $form_template
+     * @return $this
+     */
+    public function setFormTemplate($form_template) {
+        if ($form_template) {
+            $this->form_template = $form_template;
+        }
+        return $this;
+    }
+
+    public function fetch() {
         $form = '';
         foreach ($this->elements as $element) {
             $form .= $element->render();
@@ -136,10 +150,6 @@ class Formbuilder implements BuilderInterface {
                 'attributes' => $this->getAttributes(),
                 'form_body' => $form
             ], $this->form_template);
-    }
-
-    public function fetch() {
-        return $this->render();
     }
 
     public function getMethod() {

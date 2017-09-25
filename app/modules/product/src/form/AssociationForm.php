@@ -2,10 +2,11 @@
 
 namespace ntc\product\form;
 
-use app\core\entity\controller\EntityFormController;
+use app\core\controller\FormController;
+use app\core\entity\Section;
 use app\core\view\form\Formbuilder;
 
-class AssociationForm extends EntityFormController {
+class AssociationForm extends FormController {
 
     function title() {
         // TODO: Implement title() method.
@@ -27,5 +28,9 @@ class AssociationForm extends EntityFormController {
             ->addAttributes(['class' => 'form-group']);
 
         return $builder;
+    }
+
+    function getDependencies() {
+        return [Section::class];
     }
 }
