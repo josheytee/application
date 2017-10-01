@@ -1,0 +1,46 @@
+app\core\entity\ProductImage:
+    type: entity
+    table: product_image
+    repositoryClass: app\core\entity\repository\ProductImageRepository
+
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: Product image name
+        width:
+            type: integer
+            options:
+                fixed: false
+                unsigned: true
+                comment: product image width
+        height:
+            type: integer
+            options:
+                fixed: false
+                unsigned: true
+                comment: product image height
+    manyToOne:
+        product:
+            targetEntity: Product
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: images
+            joinColumns:
+                 id_product:
+                    referencedColumnName: id
+            orphanRemoval: false
+            orderBy: null

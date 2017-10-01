@@ -128,7 +128,7 @@ class Context {
   }
 
   public static function doctrine() {
-    return static::getContainer()->get('entity.manager');
+    return self::getContext()->manager;
   }
 
   public static function componentManager() {

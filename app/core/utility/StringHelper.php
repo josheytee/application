@@ -77,4 +77,8 @@ trait StringHelper {
     public function getModuleName($id) {
         return substr($id, strrpos($id, '_') + 1);
     }
+
+    public function toReadableSlug($slug) {
+        return ucwords(str_replace(['-', '_'], ' ', $slug));
+    }
 }

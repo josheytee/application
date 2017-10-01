@@ -6,7 +6,7 @@ app\core\entity\Routing:
             type: integer
             nullable: false
             options:
-                unsigned: false
+                unsigned: true
             id: true
             generator:
                 strategy: IDENTITY

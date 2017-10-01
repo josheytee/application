@@ -8,24 +8,17 @@ app\core\entity\User:
                 - email
                 - phone
     uniqueConstraints:
-        UNIQ_2DA17977E7927C74:
+        UNIQ_email_phone_username_token_udx:
             columns:
                 - email
-        UNIQ_2DA17977444F97DD:
-            columns:
                 - phone
-        UNIQ_2DA17977F85E0677:
-            columns:
                 - username
-        UNIQ_2DA179775F37A13B:
-            columns:
                 - token
     id:
         id:
             type: integer
-            nullable: false
             options:
-                unsigned: false
+                unsigned: true
             id: true
             generator:
                 strategy: IDENTITY
@@ -82,7 +75,7 @@ app\core\entity\User:
             mappedBy: null
             inversedBy: null
             joinColumns:
-                id_shop:
+                id_default_shop:
                     referencedColumnName: id
             orphanRemoval: false
         current_shop:

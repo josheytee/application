@@ -15,19 +15,26 @@ class AssociationForm extends FormController {
     public function build(Formbuilder $builder, $entity) {
         $builder->block(
             $builder->label('section', 'Associated Sections')
-            , $builder->text('section', '')->addAttributes(['class' => 'form-control'])
+            , $builder->select('section', $this->getSections(),$entity->getSection()->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
-        $builder->block(
-            $builder->label('cat')
-            , $builder->text('cat', '')->addAttributes(['class' => 'form-control'])
-        )->addAttributes(['class' => 'form-group']);
+//        $builder->block(
+//            $builder->label('cat')
+//            , $builder->text('cat', '')->addAttributes(['class' => 'form-control'])
+//        )->addAttributes(['class' => 'form-group']);
 
 
         $builder->block($builder->submit('save', 'Save')->addAttributes(['class' => 'btn btn-primary']))
             ->addAttributes(['class' => 'form-group']);
 
         return $builder;
+    }
+
+    public function getSections() {
+        $doctrine = $this->doctrine();
+        $sections = $doctrine->getRepository(Section::class)->getShopSections(6);
+//        dump($sections);
+        return $sections;
     }
 
     function getDependencies() {

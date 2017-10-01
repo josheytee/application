@@ -2,7 +2,10 @@
 
 namespace app\core\account;
 
+use app\core\Context;
+use app\core\entity\Role;
 use app\core\entity\User;
+use app\core\entity\Shop;
 
 /**
  *
@@ -45,6 +48,7 @@ class UserAccount implements AccountInterface {
     }
 
     public function hasPermission($permission): bool {
+      Context::doctrine()->getRepository(Role::class)->getUserPermisions(1,1);
         return 0;
     }
 
@@ -60,7 +64,7 @@ class UserAccount implements AccountInterface {
         return $this->id() > 0;
     }
 
-    public function getDefaultShop(): app\core\entity\Shop {
+    public function getDefaultShop(): Shop {
         $this->user->getDefaultShop();
     }
 

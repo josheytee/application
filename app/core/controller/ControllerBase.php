@@ -30,7 +30,7 @@ abstract class ControllerBase implements ContainerInjectionInterface, ContainerA
     }
 
     public function getModel(Request $request) {
-        return $request->get('_model');
+        return $request->get('_model')??'';
     }
 
     abstract function title();

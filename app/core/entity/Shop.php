@@ -5,8 +5,7 @@ namespace app\core\entity;
 /**
  * Shop
  */
-class Shop
-{
+class Shop {
     /**
      * @var integer
      */
@@ -47,14 +46,17 @@ class Shop
      */
     private $activity;
 
+    public function __construct() {
+        $this->setActivity(new Activity());
+        $this->setState(new State());
+    }
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -65,8 +67,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -77,8 +78,7 @@ class Shop
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -89,8 +89,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
 
         return $this;
@@ -101,8 +100,7 @@ class Shop
      *
      * @return string
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -113,8 +111,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -125,8 +122,7 @@ class Shop
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -137,8 +133,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -149,8 +144,7 @@ class Shop
      *
      * @return \DateTime
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -161,8 +155,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -173,8 +166,7 @@ class Shop
      *
      * @return \DateTime
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
 
@@ -185,8 +177,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setState(State $state = null)
-    {
+    public function setState(State $state = null) {
         $this->state = $state;
 
         return $this;
@@ -197,8 +188,7 @@ class Shop
      *
      * @return State
      */
-    public function getState()
-    {
+    public function getState() {
         return $this->state;
     }
 
@@ -209,8 +199,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setActivity(Activity $activity = null)
-    {
+    public function setActivity(Activity $activity = null) {
         $this->activity = $activity;
 
         return $this;
@@ -221,10 +210,10 @@ class Shop
      *
      * @return Activity
      */
-    public function getActivity()
-    {
+    public function getActivity() {
         return $this->activity;
     }
+
     /**
      * @var array
      */
@@ -238,8 +227,7 @@ class Shop
      *
      * @return Shop
      */
-    public function setConfig($config)
-    {
+    public function setConfig($config) {
         $this->config = $config;
 
         return $this;
@@ -250,16 +238,14 @@ class Shop
      *
      * @return array
      */
-    public function getConfig()
-    {
+    public function getConfig() {
         return $this->config;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function onPrePersist()
-    {
+    public function onPrePersist() {
         $this->created = new \DateTime("now");
         $this->updated = new \DateTime("now");
     }
@@ -267,8 +253,7 @@ class Shop
     /**
      * @ORM\PostPersist
      */
-    public function onPostPersist()
-    {
+    public function onPostPersist() {
         $this->updated = new \DateTime("now");
     }
 }

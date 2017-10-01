@@ -1,6 +1,7 @@
 app\core\entity\Activity:
     type: entity
     table: Activity
+    repositoryClass: app\core\entity\repository\ActvityRepository
     indexes:
         activity_url_idx:
             columns:
@@ -9,9 +10,8 @@ app\core\entity\Activity:
     id:
         id:
             type: integer
-            nullable: false
             options:
-                unsigned: false
+                unsigned: true
             id: true
             generator:
                 strategy: IDENTITY

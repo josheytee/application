@@ -2,11 +2,13 @@
 
 namespace app\core\entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 /**
  * Product
  */
-class Product
-{
+class Product {
     /**
      * @var integer
      */
@@ -40,7 +42,7 @@ class Product
     /**
      * @var boolean
      */
-    private $available;
+    private $available = false;
 
     /**
      * @var string
@@ -50,17 +52,57 @@ class Product
     /**
      * @var boolean
      */
-    private $showPrice;
+    private $showPrice = false;
 
     /**
      * @var boolean
      */
-    private $onlineOnly;
+    private $onlineOnly = false;
+
+    /**
+     * @var string
+     */
+    private $wholesalePrice;
+
+    /**
+     * @var string
+     */
+    private $metaTitle;
+
+    /**
+     * @var string
+     */
+    private $metaDescription;
+
+    /**
+     * @var array
+     */
+    private $metaKeywords;
+
+    /**
+     * @var string
+     */
+    private $linkRewrite;
+
+    /**
+     * @var integer
+     */
+    private $quantity;
+
+    /**
+     * @var string
+     */
+    private $quantityDiscount;
+
+    /**
+     * @var integer
+     */
+    private $minimalQuantity;
 
     /**
      * @var boolean
      */
-    private $active;
+    private $active = false;
 
     /**
      * @var \DateTime
@@ -73,18 +115,28 @@ class Product
     private $updated;
 
     /**
-     * @var \app\core\entity\Section
+     * @var Collection
+     */
+    private $images;
+
+    /**
+     * @var Section
      */
     private $section;
 
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->images = new ArrayCollection();
+    }
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -95,8 +147,7 @@ class Product
      *
      * @return Product
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -107,8 +158,7 @@ class Product
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -119,8 +169,7 @@ class Product
      *
      * @return Product
      */
-    public function setShortDescription($shortDescription)
-    {
+    public function setShortDescription($shortDescription) {
         $this->shortDescription = $shortDescription;
 
         return $this;
@@ -131,8 +180,7 @@ class Product
      *
      * @return string
      */
-    public function getShortDescription()
-    {
+    public function getShortDescription() {
         return $this->shortDescription;
     }
 
@@ -143,8 +191,7 @@ class Product
      *
      * @return Product
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -155,8 +202,7 @@ class Product
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -167,8 +213,7 @@ class Product
      *
      * @return Product
      */
-    public function setCondition($condition)
-    {
+    public function setCondition($condition) {
         $this->condition = $condition;
 
         return $this;
@@ -179,8 +224,7 @@ class Product
      *
      * @return string
      */
-    public function getCondition()
-    {
+    public function getCondition() {
         return $this->condition;
     }
 
@@ -191,8 +235,7 @@ class Product
      *
      * @return Product
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
 
         return $this;
@@ -203,8 +246,7 @@ class Product
      *
      * @return string
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
@@ -215,8 +257,7 @@ class Product
      *
      * @return Product
      */
-    public function setAvailable($available)
-    {
+    public function setAvailable($available) {
         $this->available = $available;
 
         return $this;
@@ -227,8 +268,7 @@ class Product
      *
      * @return boolean
      */
-    public function getAvailable()
-    {
+    public function getAvailable() {
         return $this->available;
     }
 
@@ -239,8 +279,7 @@ class Product
      *
      * @return Product
      */
-    public function setPrice($price)
-    {
+    public function setPrice($price) {
         $this->price = $price;
 
         return $this;
@@ -251,8 +290,7 @@ class Product
      *
      * @return string
      */
-    public function getPrice()
-    {
+    public function getPrice() {
         return $this->price;
     }
 
@@ -263,8 +301,7 @@ class Product
      *
      * @return Product
      */
-    public function setShowPrice($showPrice)
-    {
+    public function setShowPrice($showPrice) {
         $this->showPrice = $showPrice;
 
         return $this;
@@ -275,8 +312,7 @@ class Product
      *
      * @return boolean
      */
-    public function getShowPrice()
-    {
+    public function getShowPrice() {
         return $this->showPrice;
     }
 
@@ -287,8 +323,7 @@ class Product
      *
      * @return Product
      */
-    public function setOnlineOnly($onlineOnly)
-    {
+    public function setOnlineOnly($onlineOnly) {
         $this->onlineOnly = $onlineOnly;
 
         return $this;
@@ -299,9 +334,184 @@ class Product
      *
      * @return boolean
      */
-    public function getOnlineOnly()
-    {
+    public function getOnlineOnly() {
         return $this->onlineOnly;
+    }
+
+    /**
+     * Set wholesalePrice
+     *
+     * @param string $wholesalePrice
+     *
+     * @return Product
+     */
+    public function setWholesalePrice($wholesalePrice) {
+        $this->wholesalePrice = $wholesalePrice;
+
+        return $this;
+    }
+
+    /**
+     * Get wholesalePrice
+     *
+     * @return string
+     */
+    public function getWholesalePrice() {
+        return $this->wholesalePrice;
+    }
+
+    /**
+     * Set metaTitle
+     *
+     * @param string $metaTitle
+     *
+     * @return Product
+     */
+    public function setMetaTitle($metaTitle) {
+        $this->metaTitle = $metaTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get metaTitle
+     *
+     * @return string
+     */
+    public function getMetaTitle() {
+        return $this->metaTitle;
+    }
+
+    /**
+     * Set metaDescription
+     *
+     * @param string $metaDescription
+     *
+     * @return Product
+     */
+    public function setMetaDescription($metaDescription) {
+        $this->metaDescription = $metaDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get metaDescription
+     *
+     * @return string
+     */
+    public function getMetaDescription() {
+        return $this->metaDescription;
+    }
+
+    /**
+     * Set metaKeywords
+     *
+     * @param array $metaKeywords
+     *
+     * @return Product
+     */
+    public function setMetaKeywords($metaKeywords) {
+        $this->metaKeywords = $metaKeywords;
+
+        return $this;
+    }
+
+    /**
+     * Get metaKeywords
+     *
+     * @return array
+     */
+    public function getMetaKeywords() {
+        return $this->metaKeywords;
+    }
+
+    /**
+     * Set linkRewrite
+     *
+     * @param string $linkRewrite
+     *
+     * @return Product
+     */
+    public function setLinkRewrite($linkRewrite) {
+        $this->linkRewrite = $linkRewrite;
+
+        return $this;
+    }
+
+    /**
+     * Get linkRewrite
+     *
+     * @return string
+     */
+    public function getLinkRewrite() {
+        return $this->linkRewrite;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     *
+     * @return Product
+     */
+    public function setQuantity($quantity) {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return integer
+     */
+    public function getQuantity() {
+        return $this->quantity;
+    }
+
+    /**
+     * Set quantityDiscount
+     *
+     * @param string $quantityDiscount
+     *
+     * @return Product
+     */
+    public function setQuantityDiscount($quantityDiscount) {
+        $this->quantityDiscount = $quantityDiscount;
+
+        return $this;
+    }
+
+    /**
+     * Get quantityDiscount
+     *
+     * @return string
+     */
+    public function getQuantityDiscount() {
+        return $this->quantityDiscount;
+    }
+
+    /**
+     * Set minimalQuantity
+     *
+     * @param integer $minimalQuantity
+     *
+     * @return Product
+     */
+    public function setMinimalQuantity($minimalQuantity) {
+        $this->minimalQuantity = $minimalQuantity;
+
+        return $this;
+    }
+
+    /**
+     * Get minimalQuantity
+     *
+     * @return integer
+     */
+    public function getMinimalQuantity() {
+        return $this->minimalQuantity;
     }
 
     /**
@@ -311,8 +521,7 @@ class Product
      *
      * @return Product
      */
-    public function setActive($active)
-    {
+    public function setActive($active) {
         $this->active = $active;
 
         return $this;
@@ -323,8 +532,7 @@ class Product
      *
      * @return boolean
      */
-    public function getActive()
-    {
+    public function getActive() {
         return $this->active;
     }
 
@@ -335,8 +543,7 @@ class Product
      *
      * @return Product
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -347,8 +554,7 @@ class Product
      *
      * @return \DateTime
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -359,8 +565,7 @@ class Product
      *
      * @return Product
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -371,20 +576,58 @@ class Product
      *
      * @return \DateTime
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
+    }
+
+    /**
+     * Add image
+     *
+     * @param ProductImage $image
+     *
+     * @return Product
+     */
+    public function addImage(ProductImage $image) {
+        $this->images[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param ProductImage $image
+     */
+    public function removeImage(ProductImage $image) {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return Collection
+     */
+    public function getImages() {
+        return $this->images;
+    }
+
+    /**
+     * This method is sorely for coding standard of the project
+     * @param ProductImage $image
+     * @return Product
+     */
+    public function setImages(ProductImage $image) {
+        return $this->addImage($image);
     }
 
     /**
      * Set section
      *
-     * @param \app\core\entity\Section $section
+     * @param Section $section
      *
      * @return Product
      */
-    public function setSection(\app\core\entity\Section $section = null)
-    {
+    public function setSection(Section $section = null) {
         $this->section = $section;
 
         return $this;
@@ -393,18 +636,16 @@ class Product
     /**
      * Get section
      *
-     * @return \app\core\entity\Section
+     * @return Section
      */
-    public function getSection()
-    {
+    public function getSection() {
         return $this->section;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function onPrePersist()
-    {
+    public function onPrePersist() {
         $this->created = new \DateTime("now");
         $this->updated = new \DateTime("now");
     }
@@ -412,8 +653,9 @@ class Product
     /**
      * @ORM\PostPersist
      */
-    public function onPostPersist()
-    {
+    public function onPostPersist() {
         $this->updated = new \DateTime("now");
     }
+
 }
+

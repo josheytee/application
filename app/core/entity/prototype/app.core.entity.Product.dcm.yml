@@ -9,91 +9,144 @@ app\core\entity\Product:
                 - id
                 - price
                 - name
-    uniqueConstraints:
-        UNIQ_1CF73D31F3EED39F:
-            columns:
-                - id_section
     id:
         id:
             type: integer
-            nullable: false
+            nullable: true
             options:
-                unsigned: false
+                unsigned: true
             id: true
             generator:
                 strategy: IDENTITY
     fields:
         name:
             type: string
-            nullable: false
+            nullable: true
             length: 255
             options:
                 fixed: false
-                comment: 'Product''s name'
+                comment: Product's name
         shortDescription:
             type: text
-            nullable: false
+            nullable: true
             length: 65535
             options:
                 fixed: false
-                comment: 'Product''s short description'
+                comment: Product's short description
             column: short_description
         description:
             type: text
-            nullable: false
+            nullable: true
             length: 65535
             options:
                 fixed: false
-                comment: 'Product''s long description'
+                comment: Product's long description
         condition:
             type: string
-            nullable: false
+            nullable: true
             length: 255
             options:
                 fixed: false
-                comment: 'Product''s condition'
+                comment: Product's condition
                 default: new
+            column: product_condition
         type:
             type: string
-            nullable: false
+            nullable: true
             length: 255
             options:
                 fixed: false
-                comment: 'Product''s type'
+                comment: Product's type
                 default: simple
         available:
             type: boolean
-            nullable: false
+            nullable: true
             options:
-                comment: 'Product''s availability'
+                comment: Product's availability
+                default: false
         price:
             type: decimal
-            nullable: false
-            precision: 10
+            nullable: true
+            precision: 20
             scale: 4
             options:
-                comment: 'Product''s price'
+                comment: Product's price
         showPrice:
             type: boolean
-            nullable: false
+            nullable: true
             options:
-                comment: 'if the price should be shown'
+                comment: if the price should be shown
+                default: false
             column: show_price
         onlineOnly:
             type: boolean
-            nullable: false
+            nullable: true
             options:
-                comment: 'if the product should be shown online only'
+                comment: if the product should be shown online only
+                default: false
             column: online_only
+        wholesalePrice:
+            type: decimal
+            nullable: true
+            precision: 20
+            scale: 4
+            options:
+                comment: product wholesale price
+            column: wholesale_price
+        metaTitle:
+            type: string
+            nullable: true
+            options:
+                comment: meta title used for SEO
+            column: meta_title
+        metaDescription:
+            type: string
+            nullable: true
+            options:
+                comment: meta description used for SEO
+            column: meta_description
+        metaKeywords:
+            type: array
+            nullable: true
+            options:
+                comment: meta keywords
+            column: meta_keywords
+        linkRewrite:
+            type: string
+            nullable: true
+            options:
+                comment: link rewrite for url
+            column: link_rewrite
+        quantity:
+            type: integer
+            nullable: true
+            options:
+                comment: quantity available
+        quantityDiscount:
+            type: decimal
+            precision: 2
+            scale: 2
+            options:
+                comment: product quantity discount
+            column: quantity_discount
+        minimalQuantity:
+            type: integer
+            nullable: true
+            options:
+                comment: minimal quantity that should be ordered
+            column: minimal_quantity
         active:
             type: boolean
-            nullable: false
+            nullable: true
+            options:
+                comment: curerent status of product
+                default: false
         created:
             type: datetime
-            nullable: false
+            nullable: true
         updated:
             type: datetime
-            nullable: false
+            nullable: true
     manyToOne:
         section:
             targetEntity: app\core\entity\Section
@@ -105,6 +158,16 @@ app\core\entity\Product:
                 id_section:
                     referencedColumnName: id
             orphanRemoval: false
+
+    oneToMany:
+          images:
+              targetEntity: ProductImage
+              cascade: {  }
+              fetch: LAZY
+              mappedBy: product
+              inversedBy: null
+              joinTable: null
+              orderBy: null
     lifecycleCallbacks:
         prePersist: [ onPrePersist ]
         postPersist: [ onPostPersist ]

@@ -1,14 +1,13 @@
 app\core\entity\State:
     type: entity
-    table: State
+    table: state
     repositoryClass: app\core\entity\repository\StateRepository
 
     id:
         id:
             type: integer
-            nullable: false
             options:
-                unsigned: false
+                unsigned: true
             id: true
             generator:
                 strategy: IDENTITY

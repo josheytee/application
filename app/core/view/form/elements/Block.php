@@ -11,33 +11,34 @@ use app\core\view\form\FormElement;
  */
 class Block extends FormElement {
 
-  protected $elements;
-  protected $template = 'block';
+    protected $elements;
+    protected $template = 'block';
 
-  public function __construct($name, $attributes = []) {
-    parent::__construct($name, null, $attributes);
-  }
-
-  public function compact() {
-//    $this->normalize();
-    return [
-        'attributes' => $this->processAttribute(),
-        'elements' => $this->elements
-    ];
-  }
-
-  public function addElements($elements) {
-    foreach ($elements as $element) {
-      if (is_array($element)) {
-        foreach ($element as $elem) {
-          $this->elements[] = $elem->render();
-        }
-      } else {
-
-        $this->elements[] = $element->render();
-      }
+    public function __construct($name, $attributes = []) {
+        parent::__construct($name, null, $attributes);
     }
-    return $this;
-  }
+
+    public function compact() {
+//    $this->normalize();
+        return [
+            'attributes' => $this->processAttribute(),
+            'elements' => $this->elements
+        ];
+    }
+
+    public function addElements($elements) {
+        foreach ($elements as $element) {
+            if (is_array($element)) {
+                foreach ($element as $name => $group) {
+                    foreach ($group as $key => $button) {
+                        $this->elements[$name][$key] = $button->render();
+                    }
+                }
+            } else {
+                $this->elements[] = $element->render();
+            }
+        }
+        return $this;
+    }
 
 }

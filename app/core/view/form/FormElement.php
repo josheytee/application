@@ -4,7 +4,6 @@ namespace app\core\view\form;
 
 use app\core\utility\ArrayHelper;
 use app\core\utility\StringHelper;
-
 use app\core\view\Renderabletrait;
 
 /**
@@ -22,7 +21,7 @@ abstract class FormElement implements ElementInterface {
   protected $class = [];
   protected $id;
   protected $value;
-// theis should always be a key value pair
+// this should always be a key value pair
   protected $attribute = [];
 
   public function __construct($name, $value = null, $attributes = null) {
