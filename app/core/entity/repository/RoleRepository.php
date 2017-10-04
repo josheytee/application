@@ -11,18 +11,11 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class RoleRepository extends EntityRepository {
-    public function getUserPermisions($user_id=0, $shop_id=0) {
+    public function getUserPermisions($user_id, $shop_id) {
 //        $query = $this->getEntityManager()->createQuery('SELECT r.permissions FROM Role r WHERE r.id_shop = '.$shop_id);
-//        if (!isset($shop_id) || !isset($user_id)) {
-//            $user_id = 0;
-//            $shop_id = 0;
-//        }
-        $query = $this->getEntityManager()->createQuery("SELECT r.permissions FROM {$this->getEntityName()} r" .
-          " JOIN r.users u WHERE r.shop ={$shop_id} AND u.id = {$user_id}");
-        $users = $query->getResult();
-//        $users = $query->getDQL();
+//        $users = $query->getResult();
 
-//        $users = $this->findOneBy(['shop' => 1, 'users' => [1]]);
+        $users = $this->findBy(['shop' => 1]);
         dump($users);
         return $users;
     }

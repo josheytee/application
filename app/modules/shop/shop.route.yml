@@ -1,49 +1,49 @@
 admin.shop.add:
-  path: admin/shop/create
+  path: 'admin/shop/create'
   defaults:
-    _title: Amin | Home
-    _form: ntc\shop\form\CreateShopForm
+    _title: 'Amin | Home'
+    _form: 'ntc\shop\form\CreateShopForm'
     _model: app\core\entity\Shop.create
 #    _key: url
   requirements:
-    _permission: administer actions
+    _permission: 'administer actions'
 
 admin.shop.edit:
-  path: admin/shop/{id}/edit
+  path: 'admin/shop/{entity}/edit'
   defaults:
-    _title: Amin | Create Shop
-    _form: ntc\shop\form\CreateShopForm
+    _title: 'Amin | Create Shop'
+    _form: 'ntc\shop\form\CreateShopForm'
     _model: app\core\entity\Shop.update
-    id: 1
+    entity: 1
   requirements:
-    id: \d+
-    _permission: administer actions
+    entity: \d+
+    _permission: 'administer actions'
 
 admin.shop.delete:
-  path: admin/shop/{id}/delete
+  path: 'admin/shop/{entity}/delete'
   defaults:
-    _title: Amin | Create Shop
-    _form: ntc\shop\form\CreateShopForm
+    _title: 'Amin | Create Shop'
+    _form: 'ntc\shop\form\CreateShopForm'
     _model: app\core\entity\Shop.delete
   requirements:
-    id: \d+
-    _permission: administer actions
+    entity: \d+
+    _permission: 'administer actions'
 
 admin.shop.list:
-  path: admin/shop/list
+  path: 'admin/shop/list'
   defaults:
-    _title: Amin | User Shop List
-    _list: ntc\shop\listing\ShopUserList
+    _title: 'Amin | User Shop List'
+    _list: 'ntc\shop\listing\ShopUserList'
     _model: app\core\entity\Shop
   requirements:
-    _permission: administer actions
+    _permission: 'administer actions'
 
 shop.index:
-  path: shop/{url}
+  path: 'shop/{name}'
   defaults:
-    _title: ntc | Shop
-    _controller: ntc\shop\controller\ShopController::index
-    url: hello
+    _title: 'ntc | Shop'
+    _controller: 'ntc\shop\controller\ShopController::index'
+    name: hello
   requirements:
     _access: fop
-    url: .+
+    name: .+

@@ -2,17 +2,15 @@
 
 namespace app\core\entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
 /**
  * User
  */
-class User {
+class User
+{
     /**
      * @var integer
      */
-    private $id = 0;
+    private $id;
 
     /**
      * @var string
@@ -55,27 +53,26 @@ class User {
     private $updated;
 
     /**
-     * @var Shop
+     * @var \app\core\entity\Shop
      */
     private $default_shop;
 
     /**
-     * @var Shop
+     * @var \app\core\entity\Shop
      */
     private $current_shop;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $roles;
 
     /**
      * Constructor
      */
-    public function __construct() {
-        $this->roles = new ArrayCollection();
-        $this->setCurrentShop(new Shop());
-        $this->setDefaultShop(new Shop());
+    public function __construct()
+    {
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -83,7 +80,8 @@ class User {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -94,7 +92,8 @@ class User {
      *
      * @return User
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -105,7 +104,8 @@ class User {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -116,7 +116,8 @@ class User {
      *
      * @return User
      */
-    public function setUsername($username) {
+    public function setUsername($username)
+    {
         $this->username = $username;
 
         return $this;
@@ -127,7 +128,8 @@ class User {
      *
      * @return string
      */
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
@@ -138,7 +140,8 @@ class User {
      *
      * @return User
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
 
         return $this;
@@ -149,7 +152,8 @@ class User {
      *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
@@ -160,7 +164,8 @@ class User {
      *
      * @return User
      */
-    public function setToken($token) {
+    public function setToken($token)
+    {
         $this->token = $token;
 
         return $this;
@@ -171,7 +176,8 @@ class User {
      *
      * @return string
      */
-    public function getToken() {
+    public function getToken()
+    {
         return $this->token;
     }
 
@@ -182,7 +188,8 @@ class User {
      *
      * @return User
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
 
         return $this;
@@ -193,7 +200,8 @@ class User {
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -204,7 +212,8 @@ class User {
      *
      * @return User
      */
-    public function setPhone($phone) {
+    public function setPhone($phone)
+    {
         $this->phone = $phone;
 
         return $this;
@@ -215,7 +224,8 @@ class User {
      *
      * @return string
      */
-    public function getPhone() {
+    public function getPhone()
+    {
         return $this->phone;
     }
 
@@ -226,7 +236,8 @@ class User {
      *
      * @return User
      */
-    public function setCreated($created) {
+    public function setCreated($created)
+    {
         $this->created = $created;
 
         return $this;
@@ -237,7 +248,8 @@ class User {
      *
      * @return \DateTime
      */
-    public function getCreated() {
+    public function getCreated()
+    {
         return $this->created;
     }
 
@@ -248,7 +260,8 @@ class User {
      *
      * @return User
      */
-    public function setUpdated($updated) {
+    public function setUpdated($updated)
+    {
         $this->updated = $updated;
 
         return $this;
@@ -259,18 +272,20 @@ class User {
      *
      * @return \DateTime
      */
-    public function getUpdated() {
+    public function getUpdated()
+    {
         return $this->updated;
     }
 
     /**
      * Set defaultShop
      *
-     * @param Shop $defaultShop
+     * @param \app\core\entity\Shop $defaultShop
      *
      * @return User
      */
-    public function setDefaultShop(Shop $defaultShop = null) {
+    public function setDefaultShop(\app\core\entity\Shop $defaultShop = null)
+    {
         $this->default_shop = $defaultShop;
 
         return $this;
@@ -279,20 +294,22 @@ class User {
     /**
      * Get defaultShop
      *
-     * @return Shop
+     * @return \app\core\entity\Shop
      */
-    public function getDefaultShop() {
+    public function getDefaultShop()
+    {
         return $this->default_shop;
     }
 
     /**
      * Set currentShop
      *
-     * @param Shop $currentShop
+     * @param \app\core\entity\Shop $currentShop
      *
      * @return User
      */
-    public function setCurrentShop(Shop $currentShop = null) {
+    public function setCurrentShop(\app\core\entity\Shop $currentShop = null)
+    {
         $this->current_shop = $currentShop;
 
         return $this;
@@ -301,20 +318,22 @@ class User {
     /**
      * Get currentShop
      *
-     * @return Shop
+     * @return \app\core\entity\Shop
      */
-    public function getCurrentShop() {
+    public function getCurrentShop()
+    {
         return $this->current_shop;
     }
 
     /**
      * Add role
      *
-     * @param Role $role
+     * @param \app\core\entity\Role $role
      *
      * @return User
      */
-    public function addRole(Role $role) {
+    public function addRole(\app\core\entity\Role $role)
+    {
         $this->roles[] = $role;
 
         return $this;
@@ -323,25 +342,28 @@ class User {
     /**
      * Remove role
      *
-     * @param Role $role
+     * @param \app\core\entity\Role $role
      */
-    public function removeRole(Role $role) {
+    public function removeRole(\app\core\entity\Role $role)
+    {
         $this->roles->removeElement($role);
     }
 
     /**
      * Get roles
      *
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRoles() {
+    public function getRoles()
+    {
         return $this->roles;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function onPrePersist() {
+    public function onPrePersist()
+    {
         $this->created = new \DateTime("now");
         $this->updated = new \DateTime("now");
     }
@@ -349,7 +371,8 @@ class User {
     /**
      * @ORM\PostPersist
      */
-    public function onPostPersist() {
+    public function onPostPersist()
+    {
         $this->updated = new \DateTime("now");
     }
 }

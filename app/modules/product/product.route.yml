@@ -29,15 +29,15 @@ admin.product.add:
 #    _permission: administer actions
 
 admin.product.edit:
-  path: admin/product/{id}/edit
+  path: admin/product/{entity}/edit
   defaults:
     tab: information
     _title: Amin | Product
     _form: ntc\product\form\ProductForm
     _model: app\core\entity\Product.update
-    id: 1
+    entity: 1
   requirements:
     tab: .+
-    id: \d+
+    entity: \d+
     _permission: administer actions
 

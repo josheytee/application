@@ -9,20 +9,19 @@ namespace app\core\repository;
  */
 class ThemeRepository extends Repository {
 
-    public function __construct() {
-        $this->handler = ThemeRepositoryHandler::class;
-        $this->setDirectories([_THEMES_DIR_, $this->getDirectoriesFromModules(new ModuleRepository())]);
-        parent::__construct();
-    }
+  public function __construct() {
+    $this->setDirectories([_THEMES_DIR_, $this->getDirectoriesFromModules(new ModuleRepository())]);
+    parent::__construct();
+  }
 
-    public function getDirectoriesFromModules(ModuleRepository $module) {
-        $themes = [];
-        foreach ($module->getRepositories() as $package => $handler) {
-            if (is_dir($handler->getPath() . DS . 'themes')) {
-                $themes[$package] = $handler->getPath() . DS . 'themes';
-            }
-        }
-        return $themes;
+  public function getDirectoriesFromModules(ModuleRepository $module) {
+    $themes = [];
+    foreach ($module->getRepositories() as $info) {
+      if (is_dir($info['path'] . DS . 'themes')) {
+        $themes[] = $info['path'] . DS . 'themes';
+      }
     }
+    return $themes;
+  }
 
 }

@@ -2,10 +2,15 @@
 
 namespace ntc\user\authentication\provider;
 
-use app\core\{
-  account\AccountInterface, account\AnonymousUser, account\AuthenticationProviderInterface, account\UserAccount, Context, entity\User, http\Request
+use app\core\account\{
+    AccountInterface,
+    AuthenticationProviderInterface,
+    UserAccount
 };
+use app\core\http\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use app\core\Context;
+use app\core\entity\User;
 
 /**
  * Cookie based authentication provider.
@@ -53,12 +58,11 @@ class Cookie implements AuthenticationProviderInterface {
             // @todo Load the User entity in SessionHandler so we don't need queries.
 
             $user = Context::getContext()->manager->find(User::class, $uid);
-//            dump($user);
             return new UserAccount($user);
         }
 
         // This is an anonymous session.
-        return new AnonymousUser();
+        return NULL;
     }
 
 }

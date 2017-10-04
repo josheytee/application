@@ -3,9 +3,9 @@
 namespace app\core\account;
 
 use app\core\Context;
-use app\core\entity\{
-  Role, User
-};
+use app\core\entity\Role;
+use app\core\entity\User;
+use app\core\entity\Shop;
 
 /**
  *
@@ -16,62 +16,55 @@ class UserAccount implements AccountInterface {
     /**
      * @var User
      */
-    protected $user;
+    private $user;
 
     public function __construct(User $user) {
 
         $this->user = $user;
     }
 
-    public function getAccountName() {
+    public function getAccountName(): string {
         return $this->user->getName();
     }
 
-    public function getCurrentShop() {
+    public function getCurrentShop(): \app\core\entity\Shop {
         return $this->user->getCurrentShop();
     }
 
-    public function getEmail() {
+    public function getEmail(): string {
         return $this->user->getEmail();
     }
 
-    public function getLastAccessedTime() {
+    public function getLastAccessedTime(): int {
 
     }
 
-    public function getRoles($exclude_locked_roles = FALSE) {
+    public function getRoles($exclude_locked_roles = FALSE): array {
         return $this->user->getRoles();
     }
 
-    public function getUsername() {
+    public function getUsername(): string {
         return $this->user->getUsername();
     }
 
-    public function getPermission() {
-        return Context::doctrine()->getRepository(Role::class)
-          ->getUserPermisions($this->id(), $this->getCurrentShop()->getId());
-    }
-
-    public function hasPermission($permission) {
-//        dump($this->id());
-        return in_array($permission, $this->getPermission());
-    }
-
-    public function id() {
-        if ($this->user->getId())
-            return $this->user->getId();
+    public function hasPermission($permission): bool {
+      Context::doctrine()->getRepository(Role::class)->getUserPermisions(1,1);
         return 0;
     }
 
-    public function isAnonymous() {
+    public function id(): int {
+        return $this->user->getId();
+    }
+
+    public function isAnonymous(): bool {
         return $this->id() == 0;
     }
 
-    public function isAuthenticated() {
+    public function isAuthenticated(): bool {
         return $this->id() > 0;
     }
 
-    public function getDefaultShop() {
+    public function getDefaultShop(): Shop {
         $this->user->getDefaultShop();
     }
 

@@ -28,7 +28,7 @@ class AdminThemeResolver implements ActiveThemeResolverInterface {
   }
 
   public function resolveActiveTheme(RouteMatchInterface $route_match) {
-    return 'ntc\administrator\system';
+    return 'system';
   }
 
 }

@@ -9,7 +9,7 @@ class Shop {
     /**
      * @var integer
      */
-    private $id = 0;
+    private $id;
 
     /**
      * @var string

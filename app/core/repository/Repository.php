@@ -14,7 +14,6 @@ class Repository implements RepositoryInterface, RepositoryValidator {
 
     protected $repository;
     protected $dirs;
-    protected $handler;
 
     public function __construct() {
         $this->scan();
@@ -69,23 +68,11 @@ class Repository implements RepositoryInterface, RepositoryValidator {
         foreach ($this->repository as $name => $path) {
             if (file_exists($path . DS . $name . '.info.yml')) {
                 $info = $path . DS . $name . '.info.yml';
-                $yml = Yaml::parse(file_get_contents($info));
-                $validated_repo[$yml['package'] ?? ''] = new $this->handler($name, $path);
+                $yml = Yaml::parse(file_get_contents($info)) + ['path' => $path];
+                $validated_repo[$yml['package'] ? str_replace('\\', '_', $yml['package']) : ''] = $yml;
             }
         }
         $this->repository = $validated_repo;
-//        dump($this->repository);
     }
-//    public function validate() {
-//        $validated_repo = [];
-//        foreach ($this->repository as $name => $path) {
-//            if (file_exists($path . DS . $name . '.info.yml')) {
-//                $info = $path . DS . $name . '.info.yml';
-//                $yml = Yaml::parse(file_get_contents($info)) + ['path' => $path];
-//                $validated_repo[$yml['package'] ? str_replace('\\', '_', $yml['package']) : ''] = $yml;
-//            }
-//        }
-//        $this->repository = $validated_repo;
-//    }
 
 }

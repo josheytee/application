@@ -16,7 +16,7 @@ class DefaultThemeResolver implements ActiveThemeResolverInterface {
   }
 
   public function resolveActiveTheme(RouteMatchInterface $route_match) {
-    return 'ntc\genesis';
+    return 'genesis';
   }
 
 }

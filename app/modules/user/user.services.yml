@@ -11,7 +11,7 @@ services:
           - { name: authentication_provider, provider_id: 'cookie', priority: 0, global: TRUE }
 
     user.authentication.access_checker:
-        class: ntc\user\authentication\provider\UserAccessChecker
+        class: ntc\user\authentication\provider\AccessChecker
         arguments: ['@current_user']
         tags:
           - { name: authentication_provider, provider_id: 'access', priority: 1, global: TRUE }

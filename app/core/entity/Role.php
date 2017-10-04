@@ -11,7 +11,7 @@ class Role {
   /**
    * @var integer
    */
-  private $id = 0;
+  private $id;
 
   /**
    * @var string

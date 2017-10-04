@@ -1,14 +1,14 @@
 regions:
   header_left:
-    - ntc\administrator\brand
-#    - ntc\administrator\quickaccess
+    - ntc_administrator_brand
+#    - ntc_administrator_quickaccess
   header_right:
-    - ntc\administrator\notification
-    - ntc\administrator\userinfo
+    - ntc_administrator_notification
+    - ntc_administrator_userinfo
   breadcrumb:
 
   help:
   sidebar:
-    - ntc\administrator\sidebar
+    - ntc_administrator_sidebar
 #  container: Container
   footer:

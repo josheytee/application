@@ -3,27 +3,27 @@ params:
     region
 regions:
   header_top:
-    - ntc\hotline
-    - ntc\account
+    - ntc_hotline
+    - ntc_account
   header_bottom:
-    - ntc\logo
-    - ntc\navigation
-    - ntc\search
-    - ntc\cart
+    - ntc_logo
+    - ntc_navigation
+    - ntc_search
+    - ntc_cart
   banner:
-#    - ntc\slider
+#    - ntc_slider
   highlight:
   siderbar:
     - sections
-    - price\range
-    - top\rates\product
+    - price_range
+    - top_rates_product
     - brand filter
     - ads 4:7
   container:
     name: Container
   footer:
     - about
-    - ntc\account
+    - ntc_account
     - information
     - contacts
 

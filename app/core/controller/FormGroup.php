@@ -14,25 +14,25 @@ abstract class FormGroup extends FormController {
 
     abstract function definition();
 
-    public function create(Request $request, Formbuilder $builder, $id = 0) {
-        $this->createEntity($request);
-        foreach ($this->definition() as $formId => $form) {
+    public function create(Request $request, Formbuilder $builder, $entity = 0) {
+        foreach ($this->definition() as $id => $form) {
             $builder = new Formbuilder('form/form_group_form');
-            $forms[$formId] = $form->build($builder, $this->getEntity($request, $id))->fetch();
+            $forms[$id] = $form->build($builder,  $this->getEntity($request, $entity))->fetch();
         }
+        $this->addEntity($request);
         $return['content'] = $this->rendertrait(['forms' => $forms, 'attributes' => $this->formAttributes()]
-          , $this->form_template);
+            , $this->form_template);
         return $return;
     }
 
-    public function update(Request $request, Formbuilder $builder, $id) {
-        foreach ($this->definition() as $formId => $form) {
+    public function update(Request $request, Formbuilder $builder, $entity) {
+        foreach ($this->definition() as $id => $form) {
             $builder = new Formbuilder('form/form_group_form');
-            $forms[$formId] = $form->build($builder, $this->getEntity($request, $id))->fetch();
+            $forms[$id] = $form->build($builder,  $this->getEntity($request, $entity))->fetch();
         }
-        $this->updateEntity($request, $id);
+        $this->updateEntity($request, $entity);
         $return['content'] = $this->rendertrait(['forms' => $forms, 'attributes' => $this->formAttributes()]
-          , $this->form_template);
+            , $this->form_template);
         return $return;
     }
 

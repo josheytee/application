@@ -32,32 +32,27 @@ class ShopUserList extends ListController {
 
     function defaultOperation($entity) {
         return [
-          'edit' => [
-            'name' => 'Edit',
-            'route' => 'admin.shop.edit',
-            'params' => [
-              'id' => $entity->getID()
+            'edit' => ['name' => 'Edit',
+                'route' => 'admin.shop.edit',
+                'params' => ['entity' => $entity->getID()]
+            ],
+            'delete' => ['name' => 'Delete',
+                'route' => 'admin.shop.delete',
+                'params' => ['entity' => $entity->getID()]
+            ],
+            'preview' => ['name' => 'Preview',
+                'route' => 'admin.shop.delete',
+                'params' => ['entity' => $entity->getID()]
             ]
-          ],
-          'delete' => [
-            'name' => 'Delete',
-            'route' => 'admin.shop.delete',
-            'params' => [
-              'id' => $entity->getID()
-            ]
-          ],
-          'preview' => [
-            'name' => 'Preview',
-            'route' => 'shop.index',
-            'params' => [
-              'url' => $entity->getUrl()
-            ]
-          ]
         ];
     }
 
     function title() {
         return 'Shop assigned to current user';
+    }
+
+    function model() {
+        return 'app\core\entity\Shop';
     }
 
 }

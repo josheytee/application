@@ -5,6 +5,7 @@ namespace app\core;
 use app\core\http\Response;
 use app\core\repository\ComponentRepository;
 use app\core\repository\ModuleRepository;
+use app\core\utility\StringHelper;
 use Composer\Autoload\ClassLoader;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,6 +23,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
  * @author Tobi
  */
 class App implements AppInterface, TerminableInterface {
+    use StringHelper;
 
 
     protected $container;
@@ -69,10 +71,11 @@ class App implements AppInterface, TerminableInterface {
      */
     protected function getModuleNamespacesPsr4($module_file_names) {
         $namespaces = array();
-        foreach ($module_file_names as $package => $handler) {
-            $namespaces[$package][] = $handler->getPath() . '/src';
-            if (is_dir($handler->getPath() . '/components'))
-                $namespaces[$package][] = $handler->getPath() . '/components';
+        foreach ($module_file_names as $id => $info) {
+            $module = $this->getModuleName($id);
+            $namespaces["ntc\\$module"][] = $info['path'] . '/src';
+            if (is_dir($info['path'] . '/components'))
+                $namespaces["ntc\\$module"][] = $info['path'] . '/components';
         }
         return $namespaces;
     }
@@ -90,9 +93,9 @@ class App implements AppInterface, TerminableInterface {
      */
     protected function getComponentNamespacesPsr4($component_file_names) {
         $namespaces = array();
-        foreach ($component_file_names as $package => $handler) {
+        foreach ($component_file_names as $id => $info) {
 
-            $namespaces[$package] = $handler->getPath();
+            $namespaces["ntc\\".$this->getModuleName($id)] = $info['path'];
         }
         return $namespaces;
     }
@@ -207,10 +210,11 @@ class App implements AppInterface, TerminableInterface {
     }
 
     public function boot() {
-        $moduleRepositories = (new ModuleRepository())->getRepositories();
-        $componentRepositories = (new ComponentRepository())->getRepositories();
-        $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($moduleRepositories));
-        $this->classLoaderAddMultiplePsr4($this->getComponentNamespacesPsr4($componentRepositories));
+        $module_repo = new ModuleRepository();
+        $module_filenames = $module_repo->getRepositories();
+        $component_filenames = (new ComponentRepository())->getRepositories();
+        $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($module_filenames));
+        $this->classLoaderAddMultiplePsr4($this->getComponentNamespacesPsr4($component_filenames));
         $this->initializeContainer();
 
         $this->booted = true;
