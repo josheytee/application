@@ -16,6 +16,7 @@ class ComponentRepository extends Repository {
 
     public function __construct() {
         $this->setDirectories($this->getComponentDirs());
+        $this->handler = ComponentRepositoryHandler::class;
         parent::__construct();
     }
 
@@ -24,9 +25,9 @@ class ComponentRepository extends Repository {
     }
 
     public function getComponentsFromModules(ModuleRepository $moduleRepository) {
-        foreach ($moduleRepository->getRepositories() as $info) {
-            if (is_dir($info['path'] . DS . 'components')) {
-                $components[] = $info['path'] . DS . 'components';
+        foreach ($moduleRepository->getRepositories() as $repository) {
+            if (is_dir($repository->getPath() . DS . 'components')) {
+                $components[] = $repository->getPath() . DS . 'components';
             }
         }
         return $components;

@@ -10,7 +10,7 @@ class ProductImage {
   /**
    * @var integer
    */
-  private $id;
+  private $id = 0;
 
   /**
    * @var string

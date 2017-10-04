@@ -12,7 +12,7 @@ class Product {
     /**
      * @var integer
      */
-    private $id;
+    private $id = 0;
 
     /**
      * @var string
@@ -129,6 +129,8 @@ class Product {
      */
     public function __construct() {
         $this->images = new ArrayCollection();
+        $this->setSection(new Section());
+        $this->setImages(new ProductImage());
     }
 
     /**

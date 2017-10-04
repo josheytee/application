@@ -18,12 +18,12 @@ abstract class FormController extends ControllerBase {
 
     abstract public function build(Formbuilder $builder, $entity);
 
-    public function getEntity(Request $request, $entity_id) {
+    public function getEntity(Request $request, $id) {
         $model = $this->getModel($request);
-        if ($entity_id === 0) {
+        if ($id === 0) {
             return new $model();
         }
-        return $this->doctrine()->find($model, $entity_id);
+        return $this->doctrine()->find($model, $id);
     }
 
     public function createEntity(Request $request) {
@@ -31,7 +31,7 @@ abstract class FormController extends ControllerBase {
         $doctrine = $this->doctrine();
         $dependencies = $this->getDependencies();
         $entity = new $model();
-//        dump($entity);
+        dump($entity);
         if ($dependencies) {
             if (is_array($dependencies)) {
                 foreach ($dependencies as $property => $dependency) {
@@ -45,9 +45,11 @@ abstract class FormController extends ControllerBase {
                     if (property_exists($model, $mappedProperty)) {
                         $mappedPropertyObject = $doctrine->getRepository($dependency)->findOneBy([$propertyIdentifier => $request->{$mappedProperty}]);
                     }
-                    $array_replacing [$mappedProperty] = $mappedPropertyObject;
+                    dump($dependency);
+                    $array_replacing[$mappedProperty] = $mappedPropertyObject;
                 }
                 $sett = array_replace_recursive($request->all(), $array_replacing);
+                dump($sett);
             }
         } else {
             $sett = $request->all();
@@ -66,12 +68,12 @@ abstract class FormController extends ControllerBase {
         }
     }
 
-    protected function updateEntity(Request $request, $entity_id) {
+    protected function updateEntity(Request $request, $id) {
         $model = $this->getModel($request);
         $key = $request->get('_key');
         $doctrine = $this->doctrine();
         $dependencies = $this->getDependencies();
-        $entity = $doctrine->getRepository($model)->findOneBy([$key => $entity_id]);
+        $entity = $doctrine->getRepository($model)->findOneBy([$key => $id]);
         if ($dependencies) {
             if (is_array($dependencies)) {
                 foreach ($dependencies as $property => $dependency) {
@@ -104,9 +106,9 @@ abstract class FormController extends ControllerBase {
         }
     }
 
-    public function deleteEntity(Request $request, $entity) {
+    public function deleteEntity(Request $request, $id) {
         $doctrine = $this->doctrine();
-        $entity = $doctrine->find($this->getModel($request), $entity);
+        $entity = $doctrine->find($this->getModel($request), $id);
         if (!$entity) {
             throw new \Exception('Entity not found');
         }
@@ -115,19 +117,12 @@ abstract class FormController extends ControllerBase {
         $doctrine->flush();
     }
 
-    public function getDefaults($model) {
-        $stringPos = strripos($model, '\\');
-        $default = substr($model, $stringPos + 1);
-        $class = '\app\core\entity\defaults\en\\' . $default;
-        return new $class();
-    }
 
-
-    public function create(Request $request, Formbuilder $builder, $entity = 0) {
+    public function create(Request $request, Formbuilder $builder, $id = 0) {
 //        dump($request->all());
         if ($this->validate()) {
             $this->createEntity($request);
-            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))
+            $return['content'] = $this->build($builder, $this->getEntity($request, $id))
               ->setAttributes($this->formAttributes())->fetch();
             return $return;
         }
@@ -149,10 +144,10 @@ abstract class FormController extends ControllerBase {
         }
     }
 
-    public function update(Request $request, Formbuilder $builder, $entity) {
+    public function update(Request $request, Formbuilder $builder, $id) {
         if ($this->validate()) {
-            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
-            $this->updateEntity($request, $entity);
+            $return['content'] = $this->build($builder, $this->getEntity($request, $id))->fetch();
+            $this->updateEntity($request, $id);
             return $return;
         }
     }

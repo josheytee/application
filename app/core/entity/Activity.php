@@ -5,12 +5,11 @@ namespace app\core\entity;
 /**
  * Activity
  */
-class Activity
-{
+class Activity {
     /**
      * @var integer
      */
-    private $id;
+    private $id = 0;
 
     /**
      * @var string
@@ -48,8 +47,7 @@ class Activity
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -60,8 +58,7 @@ class Activity
      *
      * @return Activity
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -72,8 +69,7 @@ class Activity
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -84,8 +80,7 @@ class Activity
      *
      * @return Activity
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
 
         return $this;
@@ -96,8 +91,7 @@ class Activity
      *
      * @return string
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -108,8 +102,7 @@ class Activity
      *
      * @return Activity
      */
-    public function setIcon($icon)
-    {
+    public function setIcon($icon) {
         $this->icon = $icon;
 
         return $this;
@@ -120,8 +113,7 @@ class Activity
      *
      * @return string
      */
-    public function getIcon()
-    {
+    public function getIcon() {
         return $this->icon;
     }
 
@@ -132,8 +124,7 @@ class Activity
      *
      * @return Activity
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -144,8 +135,7 @@ class Activity
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -156,8 +146,7 @@ class Activity
      *
      * @return Activity
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -168,8 +157,7 @@ class Activity
      *
      * @return \DateTime
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -180,8 +168,7 @@ class Activity
      *
      * @return Activity
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -192,8 +179,7 @@ class Activity
      *
      * @return \DateTime
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
 }
