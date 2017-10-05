@@ -4,22 +4,16 @@ namespace app\core\theme;
 
 
 use app\core\repository\ThemeRepository;
-use app\core\utility\StringHelper;
-use Symfony\Component\Yaml\Yaml;
 
 class ThemeInitializer {
-    use StringHelper;
     /**
      * @var ThemeRepository
      */
     private $themeRepository;
 
 
-    public function __construct(ThemeRepository $themeRepository
-    ) {
-
+    public function __construct(ThemeRepository $themeRepository) {
         $this->themeRepository = $themeRepository;
-
     }
 
     /**
@@ -29,12 +23,12 @@ class ThemeInitializer {
     public function initTheme($name) {
         $theme_data = $this->getThemeData($name)['info'];
         $value = [
-            'name' => $theme_data['name'],
-            'regions' => $theme_data['regions'],
-            'libraries' => $theme_data['libraries'],
-            'path' => $theme_data['path'],
-            'base_themes' => $theme_data['base_themes']??null,
-            'config' => $this->getThemeData($name)['config']
+          'name' => $theme_data['name'],
+          'regions' => $theme_data['regions'],
+          'libraries' => $theme_data['libraries'],
+          'path' => $this->getThemeData($name)['path'],
+          'base_themes' => $theme_data['base_themes'] ?? null,
+          'config' => $this->getThemeData($name)['config']
         ];
         return new ActiveTheme($value);
     }
@@ -45,20 +39,16 @@ class ThemeInitializer {
      */
     public function getThemesData() {
         $data = [];
-        foreach ($this->themeRepository->getRepositories() as $id => $info) {
-            $data[$this->getModuleName($id)] = ['info' => $info, 'config' => $this->_getYamlFileIfExist
-            ($info['path'] . DS .
-                $this->getModuleName($id) . '.config.yml')];
+        foreach ($this->themeRepository->getRepositories() as $package => $handler) {
+            $data[$package] = [
+              'info' => $handler->getInfo(),
+              'config' => $handler->getConfiguration(),
+              'path' => $handler->getPath()
+            ];
         }
         return $data;
     }
 
-    private function _getYamlFileIfExist($path) {
-        if (file_exists($path)) {
-            return Yaml::parse(file_get_contents($path));
-        }
-        return [];
-    }
 
     /**
      *

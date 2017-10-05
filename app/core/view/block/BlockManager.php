@@ -47,6 +47,7 @@ class BlockManager implements Renderable {
     public function render($page, RouteMatchInterface $routeMatch) {
         if ($routeMatch->getRouteObject()->hasOption('module')) {
             $template = $routeMatch->getRouteObject()->getOption('module');
+            $template = str_replace('\\', '_', $template);
             if (!empty($this->rendertrait(['page' => $page], "layout/page__{$template}")))
                 return $this->rendertrait(['page' => $page], "layout/page__{$template}");
         }

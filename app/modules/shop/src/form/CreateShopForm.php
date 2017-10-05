@@ -14,33 +14,43 @@ class CreateShopForm extends FormController {
 
     public function build(Formbuilder $builder, $entity = 0) {
         $builder->block(
-            $builder->label('name')
-            , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
+          $builder->label('name')
+          , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-            $builder->label('activity')
-            , $builder->select('activity', $this->activities(), $entity->getActivity()->getId())->addAttributes(['class' => 'form-control'])
+          $builder->label('activity')
+          , $builder->select('activity', $this->activities(), $entity->getActivity()->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-            $builder->label('state')
-            , $builder->select('state', $this->states(), $entity->getState()->getId())->addAttributes(['class' => 'form-control'])
+          $builder->label('state')
+          , $builder->select('state', $this->states(), $entity->getState()->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-            $builder->label('url')
-            , $builder->text('url', $entity->getUrl())->addAttributes(['class' => 'form-control'])
-            , $builder->help('eg. /example')
+          $builder->label('url')
+          , $builder->text('url', $entity->getUrl())->addAttributes(['class' => 'form-control'])
+          , $builder->help('eg. /example')
         );
         $builder->block(
-            $builder->label('description')
-            , $builder->textArea('description', $entity->getDescription())->addAttributes(['class' => 'form-control'])
+          $builder->label('description')
+          , $builder->textArea('description', $entity->getDescription())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block($builder->submit('Save')->addAttributes(['class' => 'btn btn-primary']))
-            ->addAttributes(['class' => 'form-group']);
+          ->addAttributes(['class' => 'form-group']);
         return $builder;
+    }
+
+    public function validationRules() {
+        return [
+          'name' => "alpha|required|size:128",
+          'activity' => 'required',
+          'state' => 'required',
+          'url' => 'required',
+          'description' => 'required',
+        ];
     }
 
     private function activities() {
@@ -82,13 +92,14 @@ class CreateShopForm extends FormController {
     function getDependencies() {
 
         return [
-            'activity | id' => 'app\core\entity\Activity',
-            'state' => 'app\core\entity\State'
+          'activity | id' => 'app\core\entity\Activity',
+          'state' => 'app\core\entity\State'
         ];
     }
 
     public function title() {
 
     }
+
 
 }

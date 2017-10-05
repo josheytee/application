@@ -4,9 +4,7 @@ namespace app\core\component;
 
 use app\core\dependencyInjection\ClassResolver;
 use app\core\repository\ComponentRepository;
-use app\core\utility\StringHelper;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * helps in the initialization of components
@@ -16,7 +14,6 @@ use Symfony\Component\Yaml\Yaml;
 class ComponentInitializer {
 
     use ContainerAwareTrait;
-    use StringHelper;
 
     /**
      * @var ClassResolver
@@ -48,16 +45,12 @@ class ComponentInitializer {
     }
 
     /**
-     * @todo rewrite this method
      * @return type
      */
     public function initializeAll() {
-        foreach ($this->componentRepository->getRepositories() as $id => $info) {
-//            $info = $info . DS . $id . '.info.yml';
-//            $yml = Yaml::parse(file_get_contents($info)) + ['path' => $info];
-            $class = $info['package'] . '\\' . ucfirst($this->getModuleName($id));
-//            $this->components[str_replace('\\', '_', $yml['package'])] = $this->initialize($class, $yml);
-            $this->components[$id] = $this->initialize($class, $info);
+        foreach ($this->componentRepository->getRepositories() as $package => $handler) {
+            $this->components[$package] = $this->initialize($handler->getClass(),
+              $handler->getInfo() + ['path' => $handler->getPath()]);
         }
         $this->initialized = true;
     }

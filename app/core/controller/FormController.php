@@ -4,6 +4,7 @@ namespace app\core\controller;
 
 use app\core\http\Request;
 use app\core\utility\ArrayHelper;
+use app\core\validation\Validator;
 use app\core\view\form\Formbuilder;
 use Illuminate\Support\Str;
 
@@ -14,16 +15,17 @@ use Illuminate\Support\Str;
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
 abstract class FormController extends ControllerBase {
+
     use ArrayHelper;
 
     abstract public function build(Formbuilder $builder, $entity);
 
-    public function getEntity(Request $request, $entity_id) {
+    public function getEntity(Request $request, $id) {
         $model = $this->getModel($request);
-        if ($entity_id === 0) {
+        if ($id === 0) {
             return new $model();
         }
-        return $this->doctrine()->find($model, $entity_id);
+        return $this->doctrine()->find($model, $id);
     }
 
     public function createEntity(Request $request) {
@@ -44,8 +46,10 @@ abstract class FormController extends ControllerBase {
                     }
                     if (property_exists($model, $mappedProperty)) {
                         $mappedPropertyObject = $doctrine->getRepository($dependency)->findOneBy([$propertyIdentifier => $request->{$mappedProperty}]);
+                        if ($mappedPropertyObject == null)
+                            $mappedPropertyObject = new $dependency();
                     }
-                    $array_replacing [$mappedProperty] = $mappedPropertyObject;
+                    $array_replacing[$mappedProperty] = $mappedPropertyObject;
                 }
                 $sett = array_replace_recursive($request->all(), $array_replacing);
             }
@@ -66,12 +70,12 @@ abstract class FormController extends ControllerBase {
         }
     }
 
-    protected function updateEntity(Request $request, $entity_id) {
+    protected function updateEntity(Request $request, $id) {
         $model = $this->getModel($request);
         $key = $request->get('_key');
         $doctrine = $this->doctrine();
         $dependencies = $this->getDependencies();
-        $entity = $doctrine->getRepository($model)->findOneBy([$key => $entity_id]);
+        $entity = $doctrine->getRepository($model)->findOneBy([$key => $id]);
         if ($dependencies) {
             if (is_array($dependencies)) {
                 foreach ($dependencies as $property => $dependency) {
@@ -84,6 +88,8 @@ abstract class FormController extends ControllerBase {
                     }
                     if (property_exists($model, $mappedProperty)) {
                         $mappedPropertyObject = $doctrine->getRepository($dependency)->findOneBy([$propertyIdentifier => $request->{$mappedProperty}]);
+                        dump($propertyIdentifier);
+                        dump($request->{$mappedProperty});
                     }
                     $array_replacing[$mappedProperty] = $mappedPropertyObject;
                 }
@@ -104,9 +110,9 @@ abstract class FormController extends ControllerBase {
         }
     }
 
-    public function deleteEntity(Request $request, $entity) {
+    public function deleteEntity(Request $request, $id) {
         $doctrine = $this->doctrine();
-        $entity = $doctrine->find($this->getModel($request), $entity);
+        $entity = $doctrine->find($this->getModel($request), $id);
         if (!$entity) {
             throw new \Exception('Entity not found');
         }
@@ -115,22 +121,24 @@ abstract class FormController extends ControllerBase {
         $doctrine->flush();
     }
 
-    public function getDefaults($model) {
-        $stringPos = strripos($model, '\\');
-        $default = substr($model, $stringPos + 1);
-        $class = '\app\core\entity\defaults\en\\' . $default;
-        return new $class();
+    public function create(Request $request, Formbuilder $builder, $id = 0) {
+//        dump($request->all());
+        if (!empty($request->all())) {
+            $validator = $this->validate($request->all());
+            if ($validator->passes()) {
+                $this->createEntity($request);
+            } else {
+                dump($validator->errors());
+                $errors = $this->handleValidationErrors($validator);
+            }
+        }
+        $return['content'] = $this->build($builder, $this->getEntity($request, $id))
+                        ->setAttributes($this->formAttributes())->fetch();
+        return $return;
     }
 
+    public function handleValidationErrors($validator) {
 
-    public function create(Request $request, Formbuilder $builder, $entity = 0) {
-//        dump($request->all());
-        if ($this->validate()) {
-            $this->createEntity($request);
-            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))
-              ->setAttributes($this->formAttributes())->fetch();
-            return $return;
-        }
     }
 
     /**
@@ -141,7 +149,7 @@ abstract class FormController extends ControllerBase {
      * @internal param int $entity
      */
     public function add(Request $request, Formbuilder $builder) {
-        if ($this->validate()) {
+        if ($this->validate($request)) {
             $this->process($request);
             $return['content'] = $this->build($builder, null)->setAttributes($this->formAttributes())->fetch();
 //      $this->addEntity($request);
@@ -149,16 +157,19 @@ abstract class FormController extends ControllerBase {
         }
     }
 
-    public function update(Request $request, Formbuilder $builder, $entity) {
-        if ($this->validate()) {
-            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
-            $this->updateEntity($request, $entity);
-            return $return;
+    public function update(Request $request, Formbuilder $builder, $id) {
+        if ($this->validate($request)) {
+            $this->updateEntity($request, $id);
         }
+        $return['content'] = $this->build($builder, $this->getEntity($request, $id))->fetch();
+        return $return;
     }
 
-    public function validate() {
-        return true;
+    abstract public function validationRules();
+
+    public function validate($request) {
+        $validator = new Validator($request, $this->validationRules() ?? []);
+        return $validator;
     }
 
     public function delete($entity) {
@@ -208,11 +219,11 @@ abstract class FormController extends ControllerBase {
 
     public function formAttributes() {
         return $this->processArray([
-            'id' => '',
-            'class' => '',
-            'method' => 'post',
-            'action' => ''
-          ] + $this->attributes());
+                    'id' => '',
+                    'class' => '',
+                    'method' => 'post',
+                    'action' => ''
+                        ] + $this->attributes());
     }
 
     public function attributes() {
@@ -220,6 +231,7 @@ abstract class FormController extends ControllerBase {
     }
 
     public function process(Request $request) {
+
     }
 
 }

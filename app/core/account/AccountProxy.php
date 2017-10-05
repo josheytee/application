@@ -3,6 +3,8 @@
 namespace app\core\account;
 
 use app\core\Context;
+use app\core\entity\Shop;
+use app\core\entity\User;
 
 /**
  *
@@ -11,6 +13,7 @@ use app\core\Context;
 class AccountProxy implements AccountProxyInterface {
 
     private $initialAccountId;
+    private $account;
 
     /**
      * {@inheritdoc}
@@ -38,7 +41,7 @@ class AccountProxy implements AccountProxyInterface {
                 $this->account = new AnonymousUser();
             }
         }
-
+        dump($this->account);
         return $this->account;
     }
 
@@ -46,7 +49,7 @@ class AccountProxy implements AccountProxyInterface {
         return $this->getAccount()->getAccountName();
     }
 
-    public function getCurrentShop(): \app\core\entity\Shop {
+    public function getCurrentShop(): Shop {
         return $this->getAccount()->getCurrentShop();
     }
 
@@ -95,10 +98,12 @@ class AccountProxy implements AccountProxyInterface {
 
     /**
      * @todo use container to get entity manager instead of context
-     * @param type $acount_id
+     * @param $account_id
+     * @return null|object
+     * @internal param type $acount_id
      */
     protected function loadUserAccount($account_id) {
-        return Context::doctrine()->find(\app\core\entity\User::class, $account_id);
+        return Context::doctrine()->find(User::class, $account_id);
     }
 
     public function getDefaultShop() {

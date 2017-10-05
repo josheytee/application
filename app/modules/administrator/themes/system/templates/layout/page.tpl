@@ -3,14 +3,14 @@
     <div class="page-container sidebar-collapsed-back">
         <div class="left-content">
             <div class="mother-grid-inner">
-                <div class="header-main">
-                    <div class="header-left">
-                        {$page.header_left}
-                    </div>
-                    <div class="header-right">
-                        {$page.header_right}
-                    </div>
+                {*<div class="header-main">
+                <div class="header-left">
+                {$page.header_left}
                 </div>
+                <div class="header-right">
+                {$page.header_right}
+                </div>
+                </div>*}
                 <script>
                     $(document).ready(function () {
                         var navoffeset = $(".header-main").offset().top;
@@ -45,5 +45,5 @@
     </div>
     {*.layout-container *}
     <script type="text/javascript"
-            src="/application/app/modules/administrator/themes/system/js/main.js"></script>
+    src="/application/app/modules/administrator/themes/system/js/main.js"></script>
 {/block}

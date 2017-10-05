@@ -32,16 +32,11 @@ class RouteManager {
    * @return RouteCollection
    */
   public function getAllRoutes() {
-    foreach ($this->module_repository->getRepositories() as $id => $info) {
-      $yml_route_files[] = $info['path'] . DS . $this->getModuleName($id) . '.route.yml';
+    foreach ($this->module_repository->getRepositories() as $package => $handler) {
+      $yml_route_files[$package] = $handler->getRoute();
     }
-    $parsed_yml_route_files = array();
-    foreach ($yml_route_files as $yml_route_file) {
-      if (file_exists($yml_route_file)) {
-        $parsed_yml_route_files = array_merge($parsed_yml_route_files, (array) Yaml::parse(file_get_contents($yml_route_file)));
-      }
-    }
-    return $this->addRoutesToCollection($parsed_yml_route_files);
+
+    return $this->addRoutesToCollection($yml_route_files);
   }
 
   private function addRoutesToCollection($routes) {

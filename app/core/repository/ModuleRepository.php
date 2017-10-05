@@ -13,14 +13,15 @@ class ModuleRepository extends Repository {
 
     public function __construct() {
         $this->setDirectories([_MODULES_DIR_,]);
+        $this->handler = handler\ModuleRepositoryHandler::class;
         parent::__construct();
     }
 
     public function getServices() {
-        foreach ($this->getRepositories() as $module => $info) {
-            $service = DS . substr($module, strrpos($module, '_') + 1) . '.services.yml';
-            if (file_exists($info['path'] . $service)) {
-                $this->services[$module] = $info['path'] . $service;
+        foreach ($this->getRepositories() as $package => $handler) {
+            $service = DS .$handler->getName(). '.services.yml';
+            if (file_exists($handler->getPath() . $service)) {
+                $this->services[$package] = $handler->getPath() . $service;
             }
         }
         return $this->services;
