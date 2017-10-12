@@ -17,8 +17,7 @@ class Notification extends Component {
   }
 
   public function render() {
-    $template = $this->getTemplate();
-    return $this->display('ntc_administrator_notification');
+    return $this->display('ntc/administrator/notification');
   }
 
 }

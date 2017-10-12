@@ -1,0 +1,7 @@
+name: BreadCrumb
+description: Displays shop breadcrumb
+target: front
+author: ntc
+package: ntc\shop\breadcrumb
+icon: hello.png
+version: 1.0.0

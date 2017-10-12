@@ -32,12 +32,16 @@ class AssociationForm extends FormController {
 
     public function getSections() {
         $doctrine = $this->doctrine();
-        $sections = $doctrine->getRepository(Section::class)->getShopSections(6);
+        $sections = $doctrine->getRepository(Section::class)->getShopSections(1);
 //        dump($sections);
         return $sections;
     }
 
     function getDependencies() {
         return [Section::class];
+    }
+
+    public function validationRules() {
+        // TODO: Implement validationRules() method.
     }
 }

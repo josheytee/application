@@ -1,6 +1,6 @@
 app\core\entity\ProductImage:
     type: entity
-    table: product_image
+    table: product_images
     repositoryClass: app\core\entity\repository\ProductImageRepository
 
     id:
@@ -22,12 +22,14 @@ app\core\entity\ProductImage:
                 comment: Product image name
         width:
             type: integer
+            nullable: true
             options:
                 fixed: false
                 unsigned: true
                 comment: product image width
         height:
             type: integer
+            nullable: true
             options:
                 fixed: false
                 unsigned: true

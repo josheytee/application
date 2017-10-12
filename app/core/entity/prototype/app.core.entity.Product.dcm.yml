@@ -150,7 +150,8 @@ app\core\entity\Product:
     manyToOne:
         section:
             targetEntity: app\core\entity\Section
-            cascade: {  }
+            cascade:
+              - persist
             fetch: LAZY
             mappedBy: null
             inversedBy: null
@@ -162,7 +163,7 @@ app\core\entity\Product:
     oneToMany:
           images:
               targetEntity: ProductImage
-              cascade: {  }
+              cascade: [all]
               fetch: LAZY
               mappedBy: product
               inversedBy: null

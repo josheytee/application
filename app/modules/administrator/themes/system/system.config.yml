@@ -1,6 +1,7 @@
 regions:
   header_left:
     - ntc\administrator\brand
+    - ntc\administrator\search
 #    - ntc\administrator\quickaccess
   header_right:
     - ntc\administrator\notification

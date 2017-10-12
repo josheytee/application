@@ -30,11 +30,10 @@ class UserAccessChecker implements AuthenticationProviderInterface {
     public function authenticate(Request $request) {
         $route = $request->get('_route_object');
         $permission = $route->getRequirement('_access');
-        dump($this->account->hasPermission($permission));
         if ($this->account->hasPermission($permission)) {
             dump('wonderfull');
         }
-        dump('sorry');
+//        dump('sorry');
     }
 
 }

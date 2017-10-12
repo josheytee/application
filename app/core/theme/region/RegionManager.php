@@ -5,7 +5,7 @@ namespace app\core\theme\region;
 use app\core\component\ComponentManager;
 use app\core\theme\ThemeManager;
 use app\core\utility\ArrayHelper;
-use app\core\view\Renderabletrait;
+use app\core\view\RenderableTrait;
 
 /**
  * Description of Region
@@ -14,7 +14,7 @@ use app\core\view\Renderabletrait;
  */
 class RegionManager implements RegionManagerInterface {
 
-    use Renderabletrait;
+    use RenderableTrait;
     use ArrayHelper;
 
     protected $name;
@@ -59,7 +59,7 @@ class RegionManager implements RegionManagerInterface {
         $components = $this->component_manager->getRegionComponents($region);
         $markup = '';
         foreach ($components as $component) {
-            $markup .= $component->renderComponent($this->activeTheme);
+            $markup .= $component->renderComponent($region);
         }
         $assign = [
 //            'attributes' => 'class="lead"',
@@ -69,12 +69,12 @@ class RegionManager implements RegionManagerInterface {
 //        dump($baseTheme);
         if (isset($baseTheme)) {
             $template = $baseTheme;
-            if (!empty($this->rendertrait($assign, "layout/page__{$template}")))
-                return $this->rendertrait($assign, "layout/page__{$template}");
+            if (!empty($this->renderTrait($assign, "layout/page__{$template}")))
+                return $this->renderTrait($assign, "layout/page__{$template}");
         }
 
 
-        return $this->rendertrait($assign, 'layout/region');
+        return $this->renderTrait($assign, 'layout/region');
 
     }
 

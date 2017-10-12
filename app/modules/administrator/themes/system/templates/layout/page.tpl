@@ -3,14 +3,14 @@
     <div class="page-container sidebar-collapsed-back">
         <div class="left-content">
             <div class="mother-grid-inner">
-                {*<div class="header-main">
-                <div class="header-left">
-                {$page.header_left}
+                <div class="header-main">
+                    <div class="header-left">
+											{$page.header_left}
+                    </div>
+                    <div class="header-right">
+											{$page.header_right}
+                    </div>
                 </div>
-                <div class="header-right">
-                {$page.header_right}
-                </div>
-                </div>*}
                 <script>
                     $(document).ready(function () {
                         var navoffeset = $(".header-main").offset().top;

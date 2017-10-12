@@ -47,3 +47,5 @@ shop.index:
   requirements:
     _access: fop
     url: .+
+  options:
+      _shop_route: true

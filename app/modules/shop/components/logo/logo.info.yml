@@ -1,0 +1,11 @@
+name: logo
+description: "lorep isum freeme lorep isum freeme lorep isum
+freeme lorep isum freeme lorep isum freeme "
+type: component
+target: front
+author: ntc
+package: ntc\shop\logo
+icon: hello.png
+version: 1.2.3
+dependency:
+    - type guesser

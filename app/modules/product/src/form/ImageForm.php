@@ -18,15 +18,15 @@ class ImageForm extends FormController {
     }
 
     public function build(Formbuilder $builder, $entity) {
-        $this->uploadForm($builder)->fetch();
+        $this->uploadForm($builder);
 
-        $builder->block(
-          $builder->label('images')
-          , $builder->file('images', '')->addAttributes(['class' => 'form-control'])
-        )->addAttributes(['class' => 'form-group']);
-
-        $builder->block($builder->submit('save', 'Save')->addAttributes(['class' => 'btn btn-primary']))
-          ->addAttributes(['class' => 'form-group']);
+//        $builder->block(
+//          $builder->label('images')
+//          , $builder->file('images', '')->addAttributes(['class' => 'form-control'])
+//        )->addAttributes(['class' => 'form-group']);
+//
+//        $builder->block($builder->submit('save', 'Save')->addAttributes(['class' => 'btn btn-primary']))
+//          ->addAttributes(['class' => 'form-group']);
 
         return $builder;
     }
@@ -41,6 +41,10 @@ class ImageForm extends FormController {
         $builder->block($builder->submit('upload-image', 'Upload Image')->addAttributes(['class' => 'btn btn-primary']))
           ->addAttributes(['class' => 'form-group']);
 
-        return $builder;
+        return $builder->fetch();
+    }
+
+    public function validationRules() {
+        // TODO: Implement validationRules() method.
     }
 }

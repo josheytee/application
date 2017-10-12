@@ -12,8 +12,7 @@ use app\core\controller\ControllerBase;
 class HomeController extends ControllerBase {
 
     public function index() {
-        $template = $this->getTemplate(__DIR__, 'home.tpl');
-        return $this->renderCustom($template);
+        return $this->renderCustom(__DIR__. '/../../templates/home.tpl');
     }
 
 }

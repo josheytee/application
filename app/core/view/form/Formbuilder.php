@@ -2,10 +2,11 @@
 
 namespace app\core\view\form;
 
+use app\core\http\Request;
 use app\core\view\BuilderInterface;
 use app\core\view\form\elements;
 use app\core\view\form\elements\Select;
-use app\core\view\Renderabletrait;
+use app\core\view\RenderableTrait;
 
 /**
  * handles form building
@@ -13,13 +14,14 @@ use app\core\view\Renderabletrait;
  */
 class Formbuilder implements BuilderInterface {
 
-    use Renderabletrait;
+    use RenderableTrait;
 
     protected $elements;
     protected $labels;
     protected $help_blocks;
     protected $attributes = '';
     protected $method = 'POST';
+    private $request;
 
     public function __construct($template = null) {
         $this->setFormTemplate($template);
@@ -37,14 +39,17 @@ class Formbuilder implements BuilderInterface {
     }
 
     public function text($name, $value = '') {
+        (isset($this->request->$name) ? $value = $this->request->$name : '');
         return $this->elements[$name] = $this->element('text', $name, $value);
     }
 
     public function email($name, $value = '') {
+        (isset($this->request->$name) ? $value = $this->request->$name : '');
         return $this->elements[$name] = $this->element('email', $name, $value);
     }
 
     public function password($name, $value = '') {
+        (isset($this->request->$name) ? $value = $this->request->$name : '');
         return $this->elements[$name] = $this->element('password', $name, $value);
     }
 
@@ -62,6 +67,8 @@ class Formbuilder implements BuilderInterface {
     }
 
     public function radio($name, $value = '', $default = '') {
+        (isset($this->request->$name) ? $default = $this->request->$name : '');
+        (isset($this->request->$name) ? $value = $this->request->$name : '');
         if (is_array($value)) {
             foreach ($value as $radio) {
                 $mu[$name][$radio] = $this->element('radio', $name, $radio, $default);
@@ -72,6 +79,7 @@ class Formbuilder implements BuilderInterface {
     }
 
     public function checkbox($name, $value = null, $default = null) {
+        (isset($this->request->$name) ? $default = $this->request->$name : '');
         if (is_array($value)) {
             foreach ($value as $checkbox) {
                 $mu[$name][$checkbox] = $this->element('checkbox', $name, $checkbox);
@@ -111,7 +119,13 @@ class Formbuilder implements BuilderInterface {
     }
 
     public function textArea($name, $value = '') {
+        (isset($this->request->$name) ? $value = $this->request->$name : '');
         return $this->elements[$name] = $this->element('textArea', $name, $value);
+    }
+
+    public function hidden($name, $value = '') {
+        (isset($this->request->$name) ? $value = $this->request->$name : '');
+        return $this->elements[$name] = $this->element('hidden', $name, $value);
     }
 
     private function element($type, $name, $value = '', $default = null) {
@@ -159,20 +173,24 @@ class Formbuilder implements BuilderInterface {
             }
             $form .= $element->render();
         }
-        return $this->rendertrait(
-                        [
-                    'attributes' => $this->getAttributes(),
-                    'errors' => $this->errors,
-                    'form_body' => $form
-                        ], $this->form_template);
+        return $this->renderTrait(
+          [
+            'attributes' => $this->getAttributes(),
+            'errors' => $this->errors,
+            'form_body' => $form
+          ], $this->form_template);
     }
 
     public function getMethod() {
         return $this->method;
     }
 
-    public function withError($error) {
+    public function setErrors($error) {
         $this->errors = $error;
+        return $this;
     }
 
+    public function setRequest(Request $request) {
+        $this->request = $request;
+    }
 }

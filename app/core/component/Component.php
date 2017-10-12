@@ -3,7 +3,8 @@
 namespace app\core\component;
 
 use app\core\Context;
-use app\core\view\Renderabletrait;
+use app\core\controller\ControllerTrait;
+use app\core\view\RenderableTrait;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -13,7 +14,8 @@ use Symfony\Component\Finder\Finder;
  */
 abstract class Component {
 
-    use Renderabletrait;
+    use RenderableTrait;
+    use ControllerTrait;
 
     public $name;
     public $description;
@@ -21,17 +23,18 @@ abstract class Component {
     public $version;
     public $region;
     public $dependency = [];
+    private $defaultTemplate;
 
     function __construct($details) {
         $details += [
-            'name' => '',
-            'description' => '',
-            'icon' => '',
-            'version' => '',
-            'dependency' => [],
-            'region' => '',
-            'path' => '',
-            'target' => 'front',
+          'name' => '',
+          'description' => '',
+          'icon' => '',
+          'version' => '',
+          'dependency' => [],
+          'region' => '',
+          'path' => '',
+          'target' => 'front',
         ];
         $this->name = $details['name'];
         $this->description = $details['description'];
@@ -63,48 +66,41 @@ abstract class Component {
         }
     }
 
-    /**
-     * @todo find a better alternative for getting templates
-     * @param Finder $dir
-     * @param type $file
-     * @return type
-     */
-//    public function getTemplate($dir, $file = null) {
-//        $finder = new Finder();
-//        $finder->depth(0)->directories()->in($dir);
-//        foreach ($finder as $dir) {
-//            if ($dir->getrelativePathname() == 'templates') {
-//                if (file_exists($dir->getPathName() . DS . $file)) {
-//                    return $dir->getPathName() . DS . $file;
-//                } else {
-//                    return "invalid template: " . $dir->getPathName() . DS . $file;
-//                }
-//            }
-//        }
-//    }
 
     /**
-     * @todo find a better alternative for getting templates
-     * @return type
-     * @internal param Finder $dir
-     * @internal param type $file
+     * should be prepended with __DIR__ if the template is in the component directory
+     * @param $template
      */
-    public function getTemplate() {
-        return '';
+    public function setDefaultTemplate($template) {
+        $this->defaultTemplate = $template;
+    }
+
+    public function getDefaultTemplate() {
+        return $this->defaultTemplate;
+    }
+
+    /**
+     * gets the current region that the component is being rendered
+     */
+    public function getRegion() {
+        $this->region;
     }
 
     public function display($template, $data = null) {
-    //        if (!empty($this->rendertrait($data, "components/{$template}_footer"))) {
-    //            return $this->rendertrait($data, "components/{$template}");
-    //        }
-        return $this->rendertrait($data, 'components/' . $template);
+        if ($this->templateExist("components/{$template}-{$this->region}")) {
+            return $this->renderTrait($data, "components/{$template}-{$this->region}");
+        }
+        if ($this->templateExist("components/{$template}")) {
+            return $this->renderTrait($data, 'components/' . $template);
+        }
+        return $this->renderCustomTrait($this->defaultTemplate, $data);
     }
 
-    public function renderComponent() {
-//        dump($activeTheme);
+    public function renderComponent($region = null) {
+        $this->region = $region;
         $this->init();
         $this->postProcess();
-        return $this->rendertrait(['component' => $this->render()], 'layout/component');
+        return $this->renderTrait(['component' => $this->render()], 'layout/component');
     }
 
     protected function getContainer() {

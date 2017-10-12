@@ -37,4 +37,8 @@ class PriceForm extends FormController {
 
 
     }
+
+    public function validationRules() {
+        // TODO: Implement validationRules() method.
+    }
 }

@@ -5,8 +5,7 @@ package: ntc\genesis
 base theme: false
 engine: smarty
 regions:
-  header_top: Top Header
-  header_bottom: Bottom Header
+  header: Header
   banner: Banner
   highlight: Highlight
   container: Container

@@ -19,11 +19,11 @@ class AdminRouteSubscriber implements EventSubscriberInterface {
     return [RoutingEvents::ALTER => ['onAlterRoutes']];
   }
 
-  /**
-   * it adds information about routes to request to use by it controller_resolver
-   * and route provider
-   * @param GetResponseEvent $event
-   */
+    /**
+     * it adds information about routes to request to use by it controller_resolver
+     * and route provider
+     * @param RouteCollection $collection
+     */
   public function onAdminRequest(RouteCollection $collection) {
     foreach ($collection->all() as $route) {
       if (strpos($route->getPath(), '/admin') === 0 && !$route->hasOption('_admin_route')) {

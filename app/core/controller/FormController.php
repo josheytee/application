@@ -88,8 +88,6 @@ abstract class FormController extends ControllerBase {
                     }
                     if (property_exists($model, $mappedProperty)) {
                         $mappedPropertyObject = $doctrine->getRepository($dependency)->findOneBy([$propertyIdentifier => $request->{$mappedProperty}]);
-                        dump($propertyIdentifier);
-                        dump($request->{$mappedProperty});
                     }
                     $array_replacing[$mappedProperty] = $mappedPropertyObject;
                 }
@@ -103,8 +101,8 @@ abstract class FormController extends ControllerBase {
                 $this->object_set($entity, $key, $value);
             }
         }
-        dump($entity);
-        dump($request->all());
+//        dump($entity);
+//        dump($request->all());
         if (!empty($request->all())) {
             $doctrine->flush();
         }
@@ -123,22 +121,22 @@ abstract class FormController extends ControllerBase {
 
     public function create(Request $request, Formbuilder $builder, $id = 0) {
 //        dump($request->all());
+        $errors = null;
         if (!empty($request->all())) {
             $validator = $this->validate($request->all());
-            if ($validator->passes()) {
+            if ($validator->passes())
                 $this->createEntity($request);
-            } else {
-                dump($validator->errors());
+            else
                 $errors = $this->handleValidationErrors($validator);
-            }
+
         }
         $return['content'] = $this->build($builder, $this->getEntity($request, $id))
-                        ->setAttributes($this->formAttributes())->fetch();
+          ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();
         return $return;
     }
 
     public function handleValidationErrors($validator) {
-
+        return $validator->errors()->getMessages();
     }
 
     /**
@@ -149,19 +147,24 @@ abstract class FormController extends ControllerBase {
      * @internal param int $entity
      */
     public function add(Request $request, Formbuilder $builder) {
-        if ($this->validate($request)) {
+        if ($this->validate($request->all())) {
             $this->process($request);
             $return['content'] = $this->build($builder, null)->setAttributes($this->formAttributes())->fetch();
-//      $this->addEntity($request);
             return $return;
         }
     }
 
     public function update(Request $request, Formbuilder $builder, $id) {
-        if ($this->validate($request)) {
-            $this->updateEntity($request, $id);
+        $errors = null;
+        if (!empty($request->all())) {
+            $validator = $this->validate($request->all());
+            if ($validator->passes())
+                $this->updateEntity($request, $id);
+            else
+                $errors = $this->handleValidationErrors($validator);
         }
-        $return['content'] = $this->build($builder, $this->getEntity($request, $id))->fetch();
+        $return['content'] = $this->build($builder, $this->getEntity($request, $id))
+          ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();
         return $return;
     }
 
@@ -172,8 +175,8 @@ abstract class FormController extends ControllerBase {
         return $validator;
     }
 
-    public function delete($entity) {
-        return $this->deleteEntity($entity);
+    public function delete(Request $request, $id) {
+        return $this->deleteEntity($request, $id);
     }
 
     /**
@@ -219,11 +222,11 @@ abstract class FormController extends ControllerBase {
 
     public function formAttributes() {
         return $this->processArray([
-                    'id' => '',
-                    'class' => '',
-                    'method' => 'post',
-                    'action' => ''
-                        ] + $this->attributes());
+            'id' => '',
+            'class' => '',
+            'method' => 'post',
+            'action' => ''
+          ] + $this->attributes());
     }
 
     public function attributes() {

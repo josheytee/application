@@ -8,7 +8,7 @@ use app\core\routing\RouteMatchInterface;
 use app\core\theme\region\RegionManager;
 use app\core\theme\ThemeManagerInterface;
 use app\core\view\block\BlockManagerInterface;
-use app\core\view\Renderabletrait;
+use app\core\view\RenderableTrait;
 
 /**
  * Description of AdminBlockManager
@@ -17,7 +17,7 @@ use app\core\view\Renderabletrait;
  */
 class AdminBlockManager implements BlockManagerInterface {
 
-    use Renderabletrait;
+    use RenderableTrait;
 
     /**
      * @var ConfigManager
@@ -51,7 +51,7 @@ class AdminBlockManager implements BlockManagerInterface {
 //                return $this->rendertrait(['page' => $page], "layout/page__{$template}");
 //        }
 
-        return $this->rendertrait(['page' => $page], 'layout/page');
+        return $this->renderTrait(['page' => $page], 'layout/page');
     }
 
     public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch) {

@@ -37,4 +37,8 @@ class SEOForm extends FormController {
 
         return $builder;
     }
+
+    public function validationRules() {
+        // TODO: Implement validationRules() method.
+    }
 }

@@ -55,12 +55,22 @@ app\core\entity\Section:
             orphanRemoval: false
         section:
             targetEntity: app\core\entity\Section
-            cascade: {  }
+            cascade: [ persist ]
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
                 id_section:
+                    referencedColumnName: id
+            orphanRemoval: false
+        image:
+            targetEntity: app\core\entity\SectionImage
+            cascade: [ persist ]
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_section_image:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks:

@@ -5,8 +5,7 @@ namespace app\core\entity;
 /**
  * Section
  */
-class Section
-{
+class Section {
     /**
      * @var integer
      */
@@ -38,23 +37,25 @@ class Section
     private $updated;
 
     /**
-     * @var \app\core\entity\Shop
+     * @var Shop
      */
     private $shop;
 
     /**
-     * @var \app\core\entity\Section
+     * @var Section
      */
     private $section;
 
+    public function __construct() {
+        $this->setSection($this);
+    }
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -65,8 +66,7 @@ class Section
      *
      * @return Section
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -77,8 +77,7 @@ class Section
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -89,8 +88,7 @@ class Section
      *
      * @return Section
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
 
         return $this;
@@ -101,8 +99,7 @@ class Section
      *
      * @return string
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -113,8 +110,7 @@ class Section
      *
      * @return Section
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -125,8 +121,7 @@ class Section
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -137,8 +132,7 @@ class Section
      *
      * @return Section
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -149,8 +143,7 @@ class Section
      *
      * @return \DateTime
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -161,8 +154,7 @@ class Section
      *
      * @return Section
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -173,20 +165,18 @@ class Section
      *
      * @return \DateTime
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
 
     /**
      * Set shop
      *
-     * @param \app\core\entity\Shop $shop
+     * @param Shop $shop
      *
      * @return Section
      */
-    public function setShop(\app\core\entity\Shop $shop = null)
-    {
+    public function setShop(Shop $shop = null) {
         $this->shop = $shop;
 
         return $this;
@@ -195,22 +185,20 @@ class Section
     /**
      * Get shop
      *
-     * @return \app\core\entity\Shop
+     * @return Shop
      */
-    public function getShop()
-    {
+    public function getShop() {
         return $this->shop;
     }
 
     /**
      * Set section
      *
-     * @param \app\core\entity\Section $section
+     * @param Section $section
      *
      * @return Section
      */
-    public function setSection(\app\core\entity\Section $section = null)
-    {
+    public function setSection(Section $section = null) {
         $this->section = $section;
 
         return $this;
@@ -219,18 +207,16 @@ class Section
     /**
      * Get section
      *
-     * @return \app\core\entity\Section
+     * @return Section
      */
-    public function getSection()
-    {
+    public function getSection() {
         return $this->section;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function onPrePersist()
-    {
+    public function onPrePersist() {
         $this->created = new \DateTime("now");
         $this->updated = new \DateTime("now");
     }
@@ -238,8 +224,36 @@ class Section
     /**
      * @ORM\PostPersist
      */
-    public function onPostPersist()
-    {
+    public function onPostPersist() {
         $this->updated = new \DateTime("now");
+    }
+    /**
+     * @var SectionImage
+     */
+    private $image;
+
+
+    /**
+     * Set image
+     *
+     * @param SectionImage $image
+     *
+     * @return Section
+     */
+    public function setImage(SectionImage $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return SectionImage
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

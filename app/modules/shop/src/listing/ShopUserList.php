@@ -30,18 +30,11 @@ class ShopUserList extends ListController {
         // TODO: Implement bulkOperation() method.
     }
 
-    function defaultOperation($entity) {
+    function rowOperations($entity) {
         return [
           'edit' => [
             'name' => 'Edit',
             'route' => 'admin.shop.edit',
-            'params' => [
-              'id' => $entity->getID()
-            ]
-          ],
-          'delete' => [
-            'name' => 'Delete',
-            'route' => 'admin.shop.delete',
             'params' => [
               'id' => $entity->getID()
             ]
@@ -52,6 +45,13 @@ class ShopUserList extends ListController {
             'params' => [
               'url' => $entity->getUrl()
             ]
+          ],
+          'delete' => [
+            'name' => 'Delete',
+            'route' => 'admin.shop.delete',
+            'params' => [
+              'id' => $entity->getID()
+            ]
           ]
         ];
     }
@@ -60,4 +60,13 @@ class ShopUserList extends ListController {
         return 'Shop assigned to current user';
     }
 
+    function headOperations($entity) {
+        return [
+          'add' => [
+            'name' => 'Add',
+            'route' => 'admin.shop.add',
+            'icon' => 'glyphicon glyphicon-plus-sign'
+          ]
+        ];
+    }
 }

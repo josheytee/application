@@ -1,0 +1,7 @@
+name: Section Images
+description: Displays images of section pages
+target: section
+author: ntc
+package: ntc\section\sectionimages
+icon: hello.png
+version: 1.2.3

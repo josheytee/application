@@ -6,7 +6,6 @@ use app\core\component\ComponentManager;
 use app\core\controller\ControllerBase;
 use app\core\entity\Shop;
 use app\core\http\Request;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,10 +15,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ShopController extends ControllerBase {
 
-    /**
-     * @var EntityManager
-     */
-    private $entity_manager;
     /**
      * @var ComponentManager
      */
@@ -37,14 +32,11 @@ class ShopController extends ControllerBase {
         $manager = $this->doctrine()->getRepository(Shop::class)->find(1);
 //        dump($manager);
         $components = $this->componentManager->getTargetComponents('shop');
-        return $this->render('shop/ntc_shop', compact('components'));
+        return $this->render('ntc/shop/index', compact('components'));
     }
 
     public function home(Request $request) {
         dump($this->componentManager->getTargetComponents('shop'));
     }
 
-    function title() {
-        // TODO: Implement title() method.
-    }
 }

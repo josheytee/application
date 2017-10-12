@@ -41,6 +41,7 @@ class ComponentInitializer {
         if (!$this->initialized) {
             $this->initializeAll();
         }
+//        dump( $this->components);
         return $this->components;
     }
 

@@ -80,16 +80,16 @@ class ActiveTheme {
      */
     public function __construct(array $values) {
         $values += [
-            'path' => '',
-            'engine' => 'smarty',
-            'owner' => 'smarty',
-            'libraries' => [],
-            'extension' => '.tpl',
-            'base_themes' => [],
-            'regions' => [],
-            'libraries_override' => [],
-            'libraries_extend' => [],
-            'config' => [],
+          'path' => '',
+          'engine' => 'smarty',
+          'owner' => 'smarty',
+          'libraries' => [],
+          'extension' => '.tpl',
+          'base_themes' => [],
+          'regions' => [],
+          'libraries_override' => [],
+          'libraries_extend' => [],
+          'config' => [],
         ];
 
         $this->name = $values['name'];
@@ -220,13 +220,10 @@ class ActiveTheme {
      */
     public function getTemplate($template) {
         $file = $this->getPath() . $this->getTemplateDir() . DS . $template . $this->getExtension();
-        if (file_exists($file)) {
-            if ($this->getBaseThemes()) {
+        if ($this->getBaseThemes()) {
 
-            }
-            return $file;
         }
-        throw new \Exception('template file: ' . $template . ' not found in' . $file . $this->getExtension());
+        return $file;
     }
 
     public function getConfig($section = null) {

@@ -9,7 +9,7 @@ use app\core\routing\RouteMatchInterface;
 use app\core\theme\region\RegionManager;
 use app\core\theme\ThemeManager;
 use app\core\view\Renderable;
-use app\core\view\Renderabletrait;
+use app\core\view\RenderableTrait;
 
 /**
  * Description of TemplateSkeleton
@@ -18,7 +18,7 @@ use app\core\view\Renderabletrait;
  */
 class BlockManager implements Renderable {
 
-    use Renderabletrait;
+    use RenderableTrait;
 
     /**
      * @var ConfigManager
@@ -47,12 +47,13 @@ class BlockManager implements Renderable {
     public function render($page, RouteMatchInterface $routeMatch) {
         if ($routeMatch->getRouteObject()->hasOption('module')) {
             $template = $routeMatch->getRouteObject()->getOption('module');
-            $template = str_replace('\\', '_', $template);
-            if (!empty($this->rendertrait(['page' => $page], "layout/page__{$template}")))
-                return $this->rendertrait(['page' => $page], "layout/page__{$template}");
+            $template = str_replace('\\', '-', $template);
+            if ($this->templateExist("layout/page--{$template}")) {
+                return $this->renderTrait(['page' => $page], "layout/page--{$template}");
+            }
         }
 
-        return $this->rendertrait(['page' => $page], 'layout/page.tpl');
+        return $this->renderTrait(['page' => $page], 'layout/page');
     }
 
     public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch) {

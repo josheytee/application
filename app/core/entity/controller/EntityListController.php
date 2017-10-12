@@ -67,11 +67,11 @@ abstract class EntityListController extends EntityControllerBase {
         //this is done purposely for templates
         $first_template = array_keys($operations);
         $first = array_shift($operations);
-        $compiled[] = $this->rendertrait($first + ['first' => true], 'list/operation/' . $first_template[0] );
+        $compiled[] = $this->renderTrait($first + ['first' => true], 'list/operation/' . $first_template[0] );
         if (!empty($operations)) {
             foreach ($operations as $name => $operation) {
 
-                $compiled[] = $this->rendertrait($operation, 'list/operation/' . $name );
+                $compiled[] = $this->renderTrait($operation, 'list/operation/' . $name );
             }
         }
         return $compiled;
@@ -80,7 +80,7 @@ abstract class EntityListController extends EntityControllerBase {
     public function listing(Request $request) {
         $this->init($request);
         $return['library'] = '';
-        $return['content'] = $this->rendertrait(
+        $return['content'] = $this->renderTrait(
                 [
             'headings' => $this->processHead(),
             'form_body' => $this->processBody()

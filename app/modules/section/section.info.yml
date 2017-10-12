@@ -1,0 +1,11 @@
+name: Section
+type: module
+description: 'Helps manage products section in a shop'
+package: ntc\section
+version: '1.0'
+configure: admin.settings
+dependencies:
+  - product
+sugest:
+  - file
+

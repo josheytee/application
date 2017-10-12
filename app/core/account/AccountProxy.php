@@ -41,7 +41,7 @@ class AccountProxy implements AccountProxyInterface {
                 $this->account = new AnonymousUser();
             }
         }
-        dump($this->account);
+//        dump($this->account);
         return $this->account;
     }
 

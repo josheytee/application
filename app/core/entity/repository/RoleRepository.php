@@ -23,7 +23,6 @@ class RoleRepository extends EntityRepository {
 //        $users = $query->getDQL();
 
 //        $users = $this->findOneBy(['shop' => 1, 'users' => [1]]);
-        dump($users);
         return $users;
     }
 }

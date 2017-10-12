@@ -97,9 +97,9 @@ class CreateShopForm extends FormController {
         ];
     }
 
-    public function title() {
-
-    }
+        public function title() {
+            return 'Shop form';
+        }
 
 
 }

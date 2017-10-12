@@ -130,7 +130,7 @@ class Product {
     public function __construct() {
         $this->images = new ArrayCollection();
         $this->setSection(new Section());
-        $this->setImages(new ProductImage());
+//        $this->setImages(new ProductImage());
     }
 
     /**
@@ -660,4 +660,3 @@ class Product {
     }
 
 }
-

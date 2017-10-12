@@ -5,22 +5,33 @@ namespace app\core\controller;
 
 use app\core\http\Request;
 use app\core\view\form\Formbuilder;
-use app\core\view\Renderabletrait;
+use app\core\view\RenderableTrait;
 
 abstract class FormGroup extends FormController {
-    use Renderabletrait;
+    use RenderableTrait;
 
     protected $form_template = 'form/form_group';
 
     abstract function definition();
 
     public function create(Request $request, Formbuilder $builder, $id = 0) {
-        $this->createEntity($request);
+        $errors = null;
+        if (!empty($request->all())) {
+            $validator = $this->validate($request->all());
+            if ($validator->passes())
+                $this->createEntity($request);
+            else
+                $errors = $this->handleValidationErrors($validator);
+        }
         foreach ($this->definition() as $formId => $form) {
             $builder = new Formbuilder('form/form_group_form');
             $forms[$formId] = $form->build($builder, $this->getEntity($request, $id))->fetch();
         }
-        $return['content'] = $this->rendertrait(['forms' => $forms, 'attributes' => $this->formAttributes()]
+        $return['content'] = $this->renderTrait([
+            'forms' => $forms,
+            'attributes' => $this->formAttributes(),
+            'errors' => $errors
+          ]
           , $this->form_template);
         return $return;
     }
@@ -31,17 +42,17 @@ abstract class FormGroup extends FormController {
             $forms[$formId] = $form->build($builder, $this->getEntity($request, $id))->fetch();
         }
         $this->updateEntity($request, $id);
-        $return['content'] = $this->rendertrait(['forms' => $forms, 'attributes' => $this->formAttributes()]
+        $return['content'] = $this->renderTrait(['forms' => $forms, 'attributes' => $this->formAttributes()]
           , $this->form_template);
         return $return;
     }
 
-    public function delete($entity = 0) {
-        foreach ($this->definition() as $id => $form) {
-            $forms[$id] = $form->delete($entity);
+    public function delete(Request $request, $id) {
+        foreach ($this->definition() as $formId => $form) {
+            $forms[$formId] = $form->delete($request, $id);
             break;
         }
-        $return['content'] = $this->rendertrait(['forms' => $forms], $this->form_template);
+        $return['content'] = $this->renderTrait(['forms' => $forms], $this->form_template);
         return $return;
     }
 
@@ -49,7 +60,7 @@ abstract class FormGroup extends FormController {
         foreach ($this->definition() as $id => $form) {
             $forms[$id] = $form->add($request, $builder);
         }
-        $return['content'] = $this->rendertrait(['forms' => $forms], $this->form_template);
+        $return['content'] = $this->renderTrait(['forms' => $forms], $this->form_template);
         return $return;
     }
 

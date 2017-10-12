@@ -1,0 +1,9 @@
+services:
+  context.shop:
+   class: ntc\shop\routing\ShopContext
+   arguments: ['@current.route.match']
+  shop.theme.resolver:
+   class: ntc\shop\theme\ShopThemeResolver
+   arguments: ['@context.shop']
+   tags:
+     - { name: 'theme' ,priority : 30}

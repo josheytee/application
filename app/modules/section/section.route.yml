@@ -1,0 +1,31 @@
+admin.section.create:
+  path: /admin/section/create
+  defaults:
+    _form: ntc\section\form\SectionForm
+    _model: app\core\entity\Section
+    _title: create Section
+admin.section.update:
+  path: /admin/section/{id}/edit
+  defaults:
+    _form: ntc\section\form\SectionForm
+    _model: app\core\entity\Section.update
+    _title: update Section
+admin.section.delete:
+  path: /admin/section/{id}/delete
+  defaults:
+    _form: ntc\section\form\SectionForm
+    _model: app\core\entity\Section
+    _title: delete Section
+admin.section.list:
+  path: /admin/section/list
+  defaults:
+    _list: ntc\section\listing\SectionList
+    _model: app\core\entity\Section
+    _title: section list
+section.index:
+  path: /section/{url}
+  defaults:
+    _controller: ntc\section\controller\SectionController::index
+    _title: section list
+  options:
+      _shop_route: true

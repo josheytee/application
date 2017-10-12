@@ -1,0 +1,7 @@
+name: Product Overview
+description: Displays product overview
+target: product
+author: ntc
+package: ntc\product\overview
+icon: overview.png
+version: 1.0.0

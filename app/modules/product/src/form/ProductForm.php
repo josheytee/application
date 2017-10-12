@@ -5,11 +5,10 @@ namespace ntc\product\form;
 
 
 use app\core\controller\FormGroup;
-use app\core\entity\ProductImage;
 use app\core\entity\Section;
 
 
-class ProductForm extends FormGroup {
+class  ProductForm extends FormGroup {
 
     function definition() {
         return [
@@ -18,7 +17,7 @@ class ProductForm extends FormGroup {
           'seo' => new SEOForm(),
           'quantity' => new QuantitiesForm(),
           'associations' => new AssociationForm(),
-          'images' => new ImageForm()
+//          'images' => new ImageForm()
         ];
     }
 
@@ -30,10 +29,15 @@ class ProductForm extends FormGroup {
     function getDependencies() {
         return [
           'section' => Section::class,
-          'images' => ProductImage::class];
+//          'images' => ProductImage::class
+        ];
     }
 
     function title() {
         return '';
+    }
+
+    public function validationRules() {
+        // TODO: Implement validationRules() method.
     }
 }

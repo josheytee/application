@@ -1,0 +1,47 @@
+app\core\entity\SectionImage:
+    type: entity
+    table: section_image
+    repositoryClass: app\core\entity\repository\SectionImageRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: Product image name
+        width:
+            type: integer
+            nullable: true
+            options:
+                fixed: false
+                unsigned: true
+                comment: product image width
+        height:
+            type: integer
+            nullable: true
+            options:
+                fixed: false
+                unsigned: true
+                comment: product image height
+    manyToOne:
+        product:
+            targetEntity: Section
+            cascade: [persist,remove]
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: images
+            joinColumns:
+                 id_section:
+                    referencedColumnName: id
+            orphanRemoval: false
+            orderBy: null

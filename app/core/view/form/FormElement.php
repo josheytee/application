@@ -4,7 +4,7 @@ namespace app\core\view\form;
 
 use app\core\utility\ArrayHelper;
 use app\core\utility\StringHelper;
-use app\core\view\Renderabletrait;
+use app\core\view\RenderableTrait;
 
 /**
  * Description of ElementBase
@@ -13,7 +13,7 @@ use app\core\view\Renderabletrait;
  */
 abstract class FormElement implements ElementInterface {
 
-  use Renderabletrait;
+  use RenderableTrait;
   use ArrayHelper;
   use StringHelper;
 
@@ -77,7 +77,7 @@ abstract class FormElement implements ElementInterface {
 
   public function render() {
     $this->normalize();
-    return $this->rendertrait($this->compact(), 'form/' . $this->getTemplate());
+    return $this->renderTrait($this->compact(), 'form/' . $this->getTemplate());
   }
 
 }
