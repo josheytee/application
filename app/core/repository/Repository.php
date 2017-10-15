@@ -18,7 +18,6 @@ class Repository implements RepositoryInterface, RepositoryValidator {
 
     public function __construct() {
         $this->scan();
-        $this->validate();
     }
 
     public function scan() {
@@ -36,11 +35,24 @@ class Repository implements RepositoryInterface, RepositoryValidator {
             echo $e->getMessage();
         }
         foreach ($finder as $dir) {
-            $this->repository[$dir->getFileName()] = ($dir->getPathName());
+          $this->validate($dir);
         }
     }
 
-    /**
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validate($dir) {
+    if (file_exists( $dir->getPathName(). DS . $dir->getFileName() . '.info.yml')) {
+      $info = $dir->getPathName() . DS .  $dir->getFileName() . '.info.yml';
+      $yml = Yaml::parse(file_get_contents($info));
+      $this->repository[$yml['package'] ?? ''] = new $this->handler($dir->getFileName(), $dir->getPathName());
+    }
+  }
+
+
+  /**
      * validated and original repositories
      * @return type
      */
@@ -59,22 +71,5 @@ class Repository implements RepositoryInterface, RepositoryValidator {
     public function getDirectories() {
         return $this->dirs;
     }
-
-    /**
-     * this validate function is creating a re-loop
-     * for the this->repository field find a better way
-     */
-    public function validate() {
-        $validated_repo = [];
-        foreach ($this->repository as $name => $path) {
-            if (file_exists($path . DS . $name . '.info.yml')) {
-                $info = $path . DS . $name . '.info.yml';
-                $yml = Yaml::parse(file_get_contents($info));
-                $validated_repo[$yml['package'] ?? ''] = new $this->handler($name, $path);
-            }
-        }
-        $this->repository = $validated_repo;
-    }
-
 
 }

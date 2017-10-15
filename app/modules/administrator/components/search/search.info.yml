@@ -1,10 +1,9 @@
 name: Search
 type: component
 package: ntc\administrator\search
-description: Search component
+description: admin Search component
 target: admin
 author: ntc
-package: components
 icon: hello.png
 version: 1.2.3
 region:  sidebar

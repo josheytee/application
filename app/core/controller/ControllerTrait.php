@@ -52,14 +52,10 @@ trait ControllerTrait {
         return $this->redirect($this->generateUrl($route, $parameters), $status);
     }
 
-    /**
-     * Shortcut to return the Doctrine Registry service.
-     *
-     * @return Registry
-     *
-     * @throws \LogicException If DoctrineBundle is not available
-     */
-    protected function doctrine() {
+  /**
+   * @return \Doctrine\ORM\EntityManager
+   */
+  protected function doctrine() {
         return Context::getContext()->manager;
     }
 
@@ -84,5 +80,14 @@ trait ControllerTrait {
     public function themeManager() {
         return $this->container->get('theme.manager');
     }
+
+    public function currentUser() {
+        return $this->container->get('current_user');
+    }
+
+    public function currentShop() {
+        return $this->container->get('current_user')->getCurrentShop();
+    }
+
 
 }

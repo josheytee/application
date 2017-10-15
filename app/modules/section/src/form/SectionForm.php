@@ -6,7 +6,10 @@ use app\core\controller\FormController;
 use app\core\entity\{
   Section, Shop
 };
+use app\core\http\UploadedFile;
+use app\core\view\form\elements\File;
 use app\core\view\form\FormBuilder;
+use Illuminate\Support\Str;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,7 +25,7 @@ class SectionForm extends FormController {
 
 
     public function build(Formbuilder $builder, $entity = 0) {
-        $builder->hidden('shop', $this->currentShop(),$entity->getShop());
+        $builder->hidden('shop', $this->currentShop(), $entity->getShop());
 
         $builder->block(
           $builder->label('name')
@@ -35,6 +38,11 @@ class SectionForm extends FormController {
           , $builder->select('section', $this->getSections(), $entity->getSection()->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
+//        $builder->block(
+//          $builder->label('file')
+//          , $builder->file('file')->addAttributes(['class' => 'form-control'])
+//        );
+//
         $builder->block(
           $builder->label('url')
           , $builder->text('url', $entity->getUrl())->addAttributes(['class' => 'form-control'])
@@ -75,6 +83,20 @@ class SectionForm extends FormController {
 
     function title() {
         return 'section';
+    }
+
+    public function attributes() {
+        return ['enctype' => 'multipart/form-data'];
+    }
+
+    public function handleFile($entity, UploadedFile $file) {
+//        /var/www/html/application/extensions/modules/ntc/section/1/imgs
+        dump($file);
+        $name = time() . Str::studly($file->getClientOriginalName());
+        dump($name);
+        dump(is_dir('/var/www/html/application/extensions/modules/ntc/section/1/imgs/'));
+        $file->move('/var/www/html/application/extensions/modules/ntc/section/1/imgs/', $name);
+
     }
 
     public function validationRules() {

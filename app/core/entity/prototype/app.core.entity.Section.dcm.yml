@@ -63,12 +63,12 @@ app\core\entity\Section:
                 id_section:
                     referencedColumnName: id
             orphanRemoval: false
-        image:
+        images:
             targetEntity: app\core\entity\SectionImage
             cascade: [ persist ]
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: section
             joinColumns:
                 id_section_image:
                     referencedColumnName: id

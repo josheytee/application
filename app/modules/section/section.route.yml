@@ -4,6 +4,12 @@ admin.section.create:
     _form: ntc\section\form\SectionForm
     _model: app\core\entity\Section
     _title: create Section
+admin.section.image:
+  path: /admin/section/image
+  defaults:
+    _form: ntc\section\form\SectionImageForm
+    _model: app\core\entity\SectionImage
+    _title: create Section
 admin.section.update:
   path: /admin/section/{id}/edit
   defaults:

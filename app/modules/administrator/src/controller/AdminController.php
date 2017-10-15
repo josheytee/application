@@ -24,7 +24,7 @@ class AdminController extends ControllerBase {
     }
 
     public function hello() {
-        return $this->renderCustom($this->getTemplate(__DIR__, 'testing.tpl'), ['c' => 'welcome to the admin page']);
+        return $this->renderCustom(__DIR__. '/../../templates/testing.tpl', ['c' => 'welcome to the admin page']);
     }
 
     function title() {

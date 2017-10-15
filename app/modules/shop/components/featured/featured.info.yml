@@ -1,9 +1,8 @@
 name: Featured prducts
 type: component
 package: ntc\shop\featured
-description: "Displays featured products on shop home page"
+description: Displays featured products on shop home page
 target: shop
 author: ntc
 icon: hello.png
-version: 1.2.3
-region:  header
+version: 1.0.0

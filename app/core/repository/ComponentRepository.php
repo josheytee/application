@@ -24,10 +24,10 @@ class ComponentRepository extends Repository {
         return [];
     }
 
-    public function getComponentsFromModules(ModuleRepository $moduleRepository) {
-        foreach ($moduleRepository->getRepositories() as $repository) {
+    public function getComponentsDirFromModules(ModuleRepository $moduleRepository) {
+        foreach ($moduleRepository->getRepositories() as $id => $repository) {
             if (is_dir($repository->getPath() . DS . 'components')) {
-                $components[] = $repository->getPath() . DS . 'components';
+                $components[$id] = $repository->getPath() . DS . 'components';
             }
         }
         return $components;
@@ -38,18 +38,8 @@ class ComponentRepository extends Repository {
      * and merges all together
      * @return array
      */
-    public function getComponentDirs() {
-        return $this->components_dir = array_merge((array)_COMPONENT_DIR_, $this->getComponentsFromModules(new ModuleRepository()),
-            $this->getComponentsFromUsers());
-    }
-
-    public function getTargetComponents($target) {
-        foreach ($this->getRepositories() as $name => $path) {
-            $info = $path . DS . $name . '.info.yml';
-            $yml = Yaml::parse(file_get_contents($info));
-            if (isset($yml['target']) && $target == $yml['target'])
-                $components[$name] = $yml + ['path' => $path];
-        }
-        return $components;
+    public function getComponentDirs()    {
+      return $this->components_dir = array_merge((array)_COMPONENT_DIR_,
+          $this->getComponentsDirFromModules(new ModuleRepository()), $this->getComponentsFromUsers());
     }
 }

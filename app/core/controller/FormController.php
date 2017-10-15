@@ -3,6 +3,7 @@
 namespace app\core\controller;
 
 use app\core\http\Request;
+use app\core\http\UploadedFile;
 use app\core\utility\ArrayHelper;
 use app\core\validation\Validator;
 use app\core\view\form\Formbuilder;
@@ -58,17 +59,23 @@ abstract class FormController extends ControllerBase {
         }
         if (isset($sett)) {
             foreach ($sett as $key => $value) {
+                if ($key == 'file') {
+                    $this->handleFile($entity, $value);
+                    continue;
+                }
                 $this->object_set($entity, $key, $value);
             }
         }
 
-        dump($entity);
-        dump($request->all());
+//        dump($entity);
+//        dump($request->all());
         if (!empty($request->all())) {
             $doctrine->persist($entity);
             $doctrine->flush();
         }
     }
+
+    abstract function handleFile($entity, UploadedFile $file);
 
     protected function updateEntity(Request $request, $id) {
         $model = $this->getModel($request);
@@ -124,11 +131,8 @@ abstract class FormController extends ControllerBase {
         $errors = null;
         if (!empty($request->all())) {
             $validator = $this->validate($request->all());
-            if ($validator->passes())
-                $this->createEntity($request);
-            else
-                $errors = $this->handleValidationErrors($validator);
-
+            $validator->passes() ? $this->createEntity($request) :
+              $errors = $this->handleValidationErrors($validator);
         }
         $return['content'] = $this->build($builder, $this->getEntity($request, $id))
           ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();
@@ -158,10 +162,7 @@ abstract class FormController extends ControllerBase {
         $errors = null;
         if (!empty($request->all())) {
             $validator = $this->validate($request->all());
-            if ($validator->passes())
-                $this->updateEntity($request, $id);
-            else
-                $errors = $this->handleValidationErrors($validator);
+            $validator->passes() ? $this->updateEntity($request, $id) : $errors = $this->handleValidationErrors($validator);
         }
         $return['content'] = $this->build($builder, $this->getEntity($request, $id))
           ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();

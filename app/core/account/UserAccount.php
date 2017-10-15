@@ -71,8 +71,8 @@ class UserAccount implements AccountInterface {
         return $this->id() > 0;
     }
 
-    public function getDefaultShop() {
-        $this->user->getDefaultShop();
+    public function getPicture(){
+      return $this->user->getPicture();
     }
 
 }

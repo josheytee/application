@@ -1,8 +1,8 @@
-name: System
+name: Shoppy
 type: theme
 description: A default base theme
 base theme: false
-package: ntc\administrator\system
+package: ntc\administrator\shoppy
 hidden: true
 regions:
   header_left: Header Left

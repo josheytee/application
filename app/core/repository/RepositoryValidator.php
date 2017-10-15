@@ -8,5 +8,10 @@ namespace app\core\repository;
  */
 interface RepositoryValidator {
 
-    public function validate();
+  /**
+   * validate the repository
+   * @param $dir
+   * @return mixed
+   */
+  public function validate($dir);
 }

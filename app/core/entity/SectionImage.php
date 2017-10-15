@@ -138,4 +138,64 @@ class SectionImage
     {
         return $this->product;
     }
+    /**
+     * @var \app\core\entity\Section
+     */
+    private $section;
+
+
+    /**
+     * Set section
+     *
+     * @param \app\core\entity\Section $section
+     *
+     * @return SectionImage
+     */
+    public function setSection(\app\core\entity\Section $section = null)
+    {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * Get section
+     *
+     * @return \app\core\entity\Section
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->section = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add section
+     *
+     * @param \app\core\entity\Section $section
+     *
+     * @return SectionImage
+     */
+    public function addSection(\app\core\entity\Section $section)
+    {
+        $this->section[] = $section;
+
+        return $this;
+    }
+
+    /**
+     * Remove section
+     *
+     * @param \app\core\entity\Section $section
+     */
+    public function removeSection(\app\core\entity\Section $section)
+    {
+        $this->section->removeElement($section);
+    }
 }

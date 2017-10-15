@@ -45,7 +45,7 @@ class CreateShopForm extends FormController {
 
     public function validationRules() {
         return [
-          'name' => "alpha|required|size:128",
+          'name' => "alpha|required|max:128",
           'activity' => 'required',
           'state' => 'required',
           'url' => 'required',

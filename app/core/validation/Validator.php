@@ -161,9 +161,9 @@ class Validator {
      * @var array
      */
     protected $implicitRules = [
-        'Required', 'Filled', 'RequiredWith', 'RequiredWithAll', 'RequiredWithout', 'RequiredWithoutAll',
-        'RequiredIf', 'RequiredUnless', 'Accepted', 'Present',
-            // 'Array', 'Boolean', 'Integer', 'Numeric', 'String',
+      'Required', 'Filled', 'RequiredWith', 'RequiredWithAll', 'RequiredWithout', 'RequiredWithoutAll',
+      'RequiredIf', 'RequiredUnless', 'Accepted', 'Present',
+        // 'Array', 'Boolean', 'Integer', 'Numeric', 'String',
     ];
 
     /**
@@ -172,8 +172,8 @@ class Validator {
      * @var array
      */
     protected $dependentRules = [
-        'RequiredWith', 'RequiredWithAll', 'RequiredWithout', 'RequiredWithoutAll',
-        'RequiredIf', 'RequiredUnless', 'Confirmed', 'Same', 'Different', 'Unique',
+      'RequiredWith', 'RequiredWithAll', 'RequiredWithout', 'RequiredWithoutAll',
+      'RequiredIf', 'RequiredUnless', 'Confirmed', 'Same', 'Different', 'Unique',
     ];
 
     /**
@@ -272,7 +272,7 @@ class Validator {
         $payload = new Fluent($this->attributes());
 
         if (call_user_func($callback, $payload)) {
-            foreach ((array) $attribute as $key) {
+            foreach ((array)$attribute as $key) {
                 $this->mergeRules($key, $rules);
             }
         }
@@ -293,12 +293,12 @@ class Validator {
         $pattern = str_replace('\*', '[^\.]+', preg_quote($attribute));
 
         $data = array_merge($data, $this->extractValuesForWildcards(
-                        $data, $attribute
+          $data, $attribute
         ));
 
         foreach ($data as $key => $value) {
-            if (Str::startsWith($key, $attribute) || (bool) preg_match('/^' . $pattern . '\z/', $key)) {
-                foreach ((array) $rules as $ruleKey => $ruleValue) {
+            if (Str::startsWith($key, $attribute) || (bool)preg_match('/^' . $pattern . '\z/', $key)) {
+                foreach ((array)$rules as $ruleKey => $ruleValue) {
                     if (!is_string($ruleKey) || Str::endsWith($key, $ruleKey)) {
                         $this->implicitAttributes[$attribute][] = $key;
 
@@ -338,7 +338,7 @@ class Validator {
         $pattern = str_replace('\*', '[^\.]+', preg_quote($attribute));
 
         foreach ($data as $key => $value) {
-            if ((bool) preg_match('/^' . $pattern . '/', $key, $matches)) {
+            if ((bool)preg_match('/^' . $pattern . '/', $key, $matches)) {
                 $keys[] = $matches[0];
             }
         }
@@ -427,7 +427,7 @@ class Validator {
         // an array. Then we determine if the given rule accepts other field names as parameters.
         // If so, we will replace any asterisks found in the parameters with the numeric keys.
         if (($keys = $this->getNumericKeys($attribute)) &&
-                $this->dependsOnOtherFields($rule)) {
+          $this->dependsOnOtherFields($rule)) {
             $parameters = $this->replaceAsterisksInParameters($parameters, $keys);
         }
 
@@ -495,8 +495,8 @@ class Validator {
      */
     protected function isValidatable($rule, $attribute, $value) {
         return $this->presentOrRuleIsImplicit($rule, $attribute, $value) &&
-                $this->passesOptionalCheck($attribute) &&
-                $this->hasNotFailedPreviousRuleIfPresenceRule($rule, $attribute);
+          $this->passesOptionalCheck($attribute) &&
+          $this->hasNotFailedPreviousRuleIfPresenceRule($rule, $attribute);
     }
 
     /**
@@ -629,7 +629,7 @@ class Validator {
         } elseif ((is_array($value) || $value instanceof Countable) && count($value) < 1) {
             return false;
         } elseif ($value instanceof File) {
-            return (string) $value->getPath() != '';
+            return (string)$value->getPath() != '';
         }
 
         return true;
@@ -831,8 +831,8 @@ class Validator {
         $this->requireParameterCount(1, $parameters, 'in_array');
 
         $otherValues = Arr::where(Arr::dot($this->data), function ($key) use ($parameters) {
-                    return Str::is($parameters[0], $key);
-                });
+            return Str::is($parameters[0], $key);
+        });
 
         return in_array($value, $otherValues);
     }
@@ -1000,7 +1000,7 @@ class Validator {
     protected function validateDigits($attribute, $value, $parameters) {
         $this->requireParameterCount(1, $parameters, 'digits');
 
-        return $this->validateNumeric($attribute, $value) && strlen((string) $value) == $parameters[0];
+        return $this->validateNumeric($attribute, $value) && strlen((string)$value) == $parameters[0];
     }
 
     /**
@@ -1014,7 +1014,7 @@ class Validator {
     protected function validateDigitsBetween($attribute, $value, $parameters) {
         $this->requireParameterCount(2, $parameters, 'digits_between');
 
-        $length = strlen((string) $value);
+        $length = strlen((string)$value);
 
         return $this->validateNumeric($attribute, $value) && $length >= $parameters[0] && $length <= $parameters[1];
     }
@@ -1119,7 +1119,7 @@ class Validator {
             return count(array_diff($value, $parameters)) == 0;
         }
 
-        return !is_array($value) && in_array((string) $value, $parameters);
+        return !is_array($value) && in_array((string)$value, $parameters);
     }
 
     /**
@@ -1146,8 +1146,8 @@ class Validator {
         $attributeName = $this->getPrimaryAttribute($attribute);
 
         $data = Arr::where(Arr::dot($this->data), function ($key) use ($attribute, $attributeName) {
-                    return $key != $attribute && Str::is($attributeName, $key);
-                });
+            return $key != $attribute && Str::is($attributeName, $key);
+        });
 
         return !in_array($value, array_values($data));
     }
@@ -1196,8 +1196,8 @@ class Validator {
         $extra = $this->getUniqueExtra($parameters);
 
         return $verifier->getCount(
-                        $table, $column, $value, $id, $idColumn, $extra
-                ) == 0;
+            $table, $column, $value, $id, $idColumn, $extra
+          ) == 0;
     }
 
     /**
@@ -1438,13 +1438,14 @@ class Validator {
 
     /**
      * Validate that an attribute contains only alphabetic characters.
-     *
+     * @todo understand this method
      * @param  string $attribute
      * @param  mixed $value
      * @return bool
      */
     protected function validateAlpha($attribute, $value) {
-        return is_string($value) && preg_match('/^[\pL\pM]+$/u', $value);
+        return is_string($value)/* && preg_match('/^[\pL\pM]+$/u', $value)*/
+          ;
     }
 
     /**
@@ -1717,8 +1718,8 @@ class Validator {
         }
 
         return $this->getInlineMessage(
-                        $attribute, $lowerRule, $this->fallbackMessages
-                ) ?: $key;
+          $attribute, $lowerRule, $this->fallbackMessages
+        ) ?: $key;
     }
 
     /**
@@ -1760,7 +1761,7 @@ class Validator {
         $shortKey = preg_replace('/^validation\.custom\./', '', $customKey);
 
         $customMessages = Arr::dot(
-                        (array) $this->translator->trans('validation.custom')
+          (array)$this->translator->trans('validation.custom')
         );
 
         foreach ($customMessages as $key => $message) {
@@ -1826,7 +1827,7 @@ class Validator {
         $value = $this->getAttribute($attribute);
 
         $message = str_replace(
-                [':ATTRIBUTE', ':Attribute', ':attribute'], [Str::upper($value), Str::ucfirst($value), $value], $message
+          [':ATTRIBUTE', ':Attribute', ':attribute'], [Str::upper($value), Str::ucfirst($value), $value], $message
         );
 
         if (isset($this->replacers[Str::snake($rule)])) {
@@ -2266,7 +2267,7 @@ class Validator {
             return;
         }
 
-        $rules = (array) $rules;
+        $rules = (array)$rules;
 
         foreach ($this->rules[$attribute] as $rule) {
             list($rule, $parameters) = $this->parseRule($rule);

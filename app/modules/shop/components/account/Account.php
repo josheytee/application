@@ -3,6 +3,7 @@
 namespace ntc\shop\account;
 
 use app\core\component\Component;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Account extends Component {
 

@@ -70,13 +70,6 @@ interface AccountInterface {
     public function isAnonymous();
 
     /**
-     * Returns the shops user has access to
-     * @return app\core\entity\Shop
-     *
-     */
-    public function getDefaultShop();
-
-    /**
      * @return \app\core\entity\Shop
      */
     public function getCurrentShop();
@@ -121,4 +114,6 @@ interface AccountInterface {
      *   Timestamp of the last access.
      */
     public function getLastAccessedTime();
+
+    public function getPicture();
 }

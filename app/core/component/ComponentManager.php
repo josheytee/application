@@ -57,11 +57,10 @@ class ComponentManager {
     public function getTargetComponents($target) {
         $components = [];
         foreach ($this->getComponents() as $id => $component) {
-            if ($component->target == $target) {
+            if ($component->getTarget() == $target) {
                 $components[$id] = $component;
             }
         }
         return $components;
-
     }
 }

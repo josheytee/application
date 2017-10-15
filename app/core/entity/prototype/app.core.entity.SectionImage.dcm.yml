@@ -33,13 +33,13 @@ app\core\entity\SectionImage:
                 fixed: false
                 unsigned: true
                 comment: product image height
-    manyToOne:
-        product:
+    oneToMany:
+        section:
             targetEntity: Section
             cascade: [persist,remove]
             fetch: LAZY
-            mappedBy: null
-            inversedBy: images
+            mappedBy: images
+            inversedBy: null
             joinColumns:
                  id_section:
                     referencedColumnName: id

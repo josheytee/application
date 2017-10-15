@@ -256,4 +256,33 @@ class Section {
     {
         return $this->image;
     }
+    /**
+     * @var \app\core\entity\SectionImage
+     */
+    private $images;
+
+
+    /**
+     * Set images
+     *
+     * @param \app\core\entity\SectionImage $images
+     *
+     * @return Section
+     */
+    public function setImages(\app\core\entity\SectionImage $images = null)
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * Get images
+     *
+     * @return \app\core\entity\SectionImage
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
 }

@@ -6,6 +6,5 @@ type: component
 author: ntc
 package: ntc\shop\search
 icon: search.png
-version: 1.2.3
-dependency:
-    - type guesser
+version: 1.0.0
+target: shop

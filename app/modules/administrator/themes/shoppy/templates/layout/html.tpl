@@ -7,7 +7,7 @@
     {include file='_partials/head.tpl'}
     {/block}*}
     <title>
-        Guess
+        admin || Guess
     </title>
     <meta charset="utf-8">
     <meta name="robots" content="all,follow">

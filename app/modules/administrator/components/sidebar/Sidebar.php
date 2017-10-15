@@ -12,10 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Sidebar extends Component {
 
-    public static function inject(ContainerInterface $container) {
-        parent::inject($container);
-    }
-
     public function render() {
         $this->setDefaultTemplate(__DIR__ . '/templates/sidebar.tpl');
         return $this->display('ntc/administrator/sidebar');

@@ -5,17 +5,19 @@ namespace app\core\component;
 use app\core\Context;
 use app\core\controller\ControllerTrait;
 use app\core\view\RenderableTrait;
-use Symfony\Component\Finder\Finder;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
- * Description of Component
+ * Component base class
  *
  * @author Tobi
  */
-abstract class Component {
+abstract class Component implements ContainerAwareInterface {
 
     use RenderableTrait;
     use ControllerTrait;
+    use ContainerAwareTrait;
 
     public $name;
     public $description;
@@ -24,6 +26,9 @@ abstract class Component {
     public $region;
     public $dependency = [];
     private $defaultTemplate;
+    private $type;
+    private $target;
+    private $path;
 
     function __construct($details) {
         $details += [
@@ -61,9 +66,9 @@ abstract class Component {
     abstract public function render();
 
     public function postProcess() {
-        if (!empty($_POST) /* || isset($_GET) */) {
+//        if (!empty($_POST) /* || isset($_GET) */) {
 //            var_dump($_POST);
-        }
+//        }
     }
 
 
@@ -86,6 +91,16 @@ abstract class Component {
         $this->region;
     }
 
+  public function getTarget()
+  {
+    return $this->target;
+}
+    /**
+     * Displays template from theme directory and components directory or a custom directory
+     * @param $template
+     * @param null $data
+     * @return mixed
+     */
     public function display($template, $data = null) {
         if ($this->templateExist("components/{$template}-{$this->region}")) {
             return $this->renderTrait($data, "components/{$template}-{$this->region}");
@@ -102,9 +117,4 @@ abstract class Component {
         $this->postProcess();
         return $this->renderTrait(['component' => $this->render()], 'layout/component');
     }
-
-    protected function getContainer() {
-        return Context::getContainer();
-    }
-
 }

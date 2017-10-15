@@ -61,8 +61,16 @@ class AccountProxy implements AccountProxyInterface {
         return $this->getAccount()->getLastAccessedTime();
     }
 
-    public function getRoles($exclude_locked_roles = FALSE): array {
-        return $this->getAccount()->getRoles($exclude_locked_roles);
+    public function getRoles($exclude_locked_roles = FALSE) {
+        return $this->getAccount()->getRoles($exclude_locked_roles)->toArray();
+    }
+
+    public function getRole() {
+        return $this->getAccount()->getRoles();
+    }
+
+    public function getPicture(): string {
+        return $this->getAccount()->getPicture();
     }
 
     public function getUsername(): string {
@@ -104,10 +112,6 @@ class AccountProxy implements AccountProxyInterface {
      */
     protected function loadUserAccount($account_id) {
         return Context::doctrine()->find(User::class, $account_id);
-    }
-
-    public function getDefaultShop() {
-        return $this->getAccount()->getDefaultShop();
     }
 
 }

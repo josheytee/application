@@ -4,6 +4,7 @@ namespace ntc\user\form;
 
 use app\core\controller\FormController;
 use app\core\http\Request;
+use app\core\http\UploadedFile;
 use app\core\view\form\FormBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -60,5 +61,15 @@ class AuthForm extends FormController {
 
   function title() {
     // TODO: Implement title() method.
+  }
+
+  function handleFile($entity, UploadedFile $file)
+  {
+    // TODO: Implement handleFile() method.
+  }
+
+  public function validationRules()
+  {
+    // TODO: Implement validationRules() method.
   }
 }
