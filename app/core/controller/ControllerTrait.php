@@ -10,56 +10,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * common features needed in controller
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-trait ControllerTrait {
+trait ControllerTrait
+{
 
-    /**
-     * Generates a URL from the given parameters.
-     *
-     * @param string $route         The name of the route
-     * @param mixed  $parameters    An array of parameters
-     * @param int    $referenceType The type of reference (one of the constants in UrlGeneratorInterface)
-     *
-     * @return string The generated URL
-     *
-     * @see UrlGeneratorInterface
-     */
-    protected function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH) {
-        return $this->container->get('url.generator')->generate($route, $parameters, $referenceType);
-    }
-
-    /**
-     * Returns a RedirectResponse to the given URL.
-     *
-     * @param string $url    The URL to redirect to
-     * @param int    $status The status code to use for the Response
-     *
-     * @return RedirectResponse
-     */
-    protected function redirect($url, $status = 302) {
-        return new RedirectResponse($url, $status);
-    }
-
-    /**
-     * Returns a RedirectResponse to the given route with the given parameters.
-     *
-     * @param string $route      The name of the route
-     * @param array  $parameters An array of parameters
-     * @param int    $status     The status code to use for the Response
-     *
-     * @return RedirectResponse
-     */
-    protected function redirectToRoute($route, array $parameters = array(), $status = 302) {
-        return $this->redirect($this->generateUrl($route, $parameters), $status);
-    }
-
-  /**
-   * @return \Doctrine\ORM\EntityManager
-   */
-  protected function doctrine() {
-        return Context::getContext()->manager;
-    }
-
-    public function smarty() {
+    public function smarty()
+    {
         return $this->container->get('smarty');
     }
 
@@ -69,24 +24,80 @@ trait ControllerTrait {
      * @return \app\core\routing\RouteMatchInterface
      *   The currently active route match object.
      */
-    public function routeMatch() {
+    public function routeMatch()
+    {
         return $this->container->get('current.route.match');
     }
 
-    public function componentManager() {
+    public function componentManager()
+    {
         return $this->container->get('component.manager');
     }
 
-    public function themeManager() {
+    public function themeManager()
+    {
         return $this->container->get('theme.manager');
     }
 
-    public function currentUser() {
+    public function currentUser()
+    {
         return $this->container->get('current_user');
     }
 
-    public function currentShop() {
+    public function currentShop()
+    {
         return $this->container->get('current_user')->getCurrentShop();
+    }
+
+    /**
+     * Returns a RedirectResponse to the given route with the given parameters.
+     *
+     * @param string $route The name of the route
+     * @param array $parameters An array of parameters
+     * @param int $status The status code to use for the Response
+     *
+     * @return RedirectResponse
+     */
+    protected function redirectToRoute($route, array $parameters = array(), $status = 302)
+    {
+        return $this->redirect($this->generateUrl($route, $parameters), $status);
+    }
+
+    /**
+     * Returns a RedirectResponse to the given URL.
+     *
+     * @param string $url The URL to redirect to
+     * @param int $status The status code to use for the Response
+     *
+     * @return RedirectResponse
+     */
+    protected function redirect($url, $status = 302)
+    {
+        return new RedirectResponse($url, $status);
+    }
+
+    /**
+     * Generates a URL from the given parameters.
+     *
+     * @param string $route The name of the route
+     * @param mixed $parameters An array of parameters
+     * @param int $referenceType The type of reference (one of the constants in UrlGeneratorInterface)
+     *
+     * @return string The generated URL
+     *
+     * @see UrlGeneratorInterface
+     */
+    protected function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    {
+        return $this->container->get('url.generator')->generate($route, $parameters, $referenceType);
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    protected function doctrine()
+    {
+        return Context::getContext()->manager;
     }
 
 

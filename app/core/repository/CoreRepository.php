@@ -7,9 +7,11 @@ namespace app\core\repository;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class CoreRepository extends Repository {
+class CoreRepository extends Repository
+{
 
-    function __construct() {
+    function __construct()
+    {
 
     }
 

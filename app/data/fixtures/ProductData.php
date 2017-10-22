@@ -8,9 +8,11 @@ use Doctrine\Common\Persistence\ObjectManager;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ProductData implements FixtureInterface {
+class ProductData implements FixtureInterface
+{
 
-  public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
 //    $faker = Faker\Factory::create();
 //    for ($i = 1; $i <= 10; $i++) {
 //
@@ -34,6 +36,6 @@ class ProductData implements FixtureInterface {
 //    }
 //    $manager->flush();
 //    $manager->clear();
-  }
+    }
 
 }

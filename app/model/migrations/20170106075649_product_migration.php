@@ -2,10 +2,12 @@
 
 use app\core\database\Migration;
 
-class ProductMigration extends Migration {
+class ProductMigration extends Migration
+{
 
-    public function up() {
-        $this->schema->create('product', function(Illuminate\Database\Schema\Blueprint $table) {
+    public function up()
+    {
+        $this->schema->create('product', function (Illuminate\Database\Schema\Blueprint $table) {
             $table->engine = 'InnoDB';
             // Auto-increment id
             $table->increments('id_product');
@@ -24,7 +26,8 @@ class ProductMigration extends Migration {
         });
     }
 
-    public function down() {
+    public function down()
+    {
         $this->schema->drop('product');
     }
 

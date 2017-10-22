@@ -4,7 +4,8 @@ namespace app\model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Auth extends Model {
+class Auth extends Model
+{
 
     protected $primaryKey = 'id_auth';
     protected $table = 'auth';

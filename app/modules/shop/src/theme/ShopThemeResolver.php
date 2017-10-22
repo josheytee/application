@@ -7,26 +7,29 @@ use app\core\theme\ActiveThemeResolverInterface;
 use ntc\shop\routing\ShopContext;
 
 /**
- *ShopThemeResolver
+ * ShopThemeResolver
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ShopThemeResolver implements ActiveThemeResolverInterface {
+class ShopThemeResolver implements ActiveThemeResolverInterface
+{
 
     /**
      * @var ShopContext
      */
     private $context;
 
-    public function __construct(ShopContext $context) {
-
+    public function __construct(ShopContext $context)
+    {
         $this->context = $context;
     }
 
-    public function applies(RouteMatchInterface $route_match): bool {
+    public function applies(RouteMatchInterface $route_match)
+    {
         return $this->context->isShopRoute($route_match->getRouteObject());
     }
 
-    public function resolveActiveTheme(RouteMatchInterface $route_match) {
+    public function resolveActiveTheme(RouteMatchInterface $route_match)
+    {
         return 'ntc\shop\new-shop';
     }
 

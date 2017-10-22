@@ -2,10 +2,12 @@
 
 use app\core\database\Migration;
 
-class SectionMigration extends Migration {
+class SectionMigration extends Migration
+{
 
-    public function up() {
-        $this->schema->create('section', function(Illuminate\Database\Schema\Blueprint $table) {
+    public function up()
+    {
+        $this->schema->create('section', function (Illuminate\Database\Schema\Blueprint $table) {
             $table->engine = 'InnoDB';
             // Auto-increment id
             $table->increments('id_section');
@@ -21,7 +23,8 @@ class SectionMigration extends Migration {
         });
     }
 
-    public function down() {
+    public function down()
+    {
         $this->schema->drop('section');
     }
 

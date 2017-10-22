@@ -28,7 +28,7 @@ regions:
     - contacts
 shop:
   components:
-    -
+    -kdk
 
 section:
   components:

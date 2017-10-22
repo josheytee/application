@@ -4,10 +4,12 @@ namespace ntc\shop\search;
 
 use app\core\component\Component;
 
-class Search extends Component {
+class Search extends Component
+{
 
-  public function render() {
-    return $this->display('ntc/shop/search');
-  }
+    public function render()
+    {
+        return $this->display('ntc/shop/search');
+    }
 
 }

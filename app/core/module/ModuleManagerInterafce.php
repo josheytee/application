@@ -6,7 +6,8 @@ namespace app\core\module;
  *
  * @author adapter
  */
-interface ModuleManagerInterafce {
+interface ModuleManagerInterafce
+{
 
     public function install();
 

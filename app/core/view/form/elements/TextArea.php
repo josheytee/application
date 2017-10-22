@@ -10,11 +10,13 @@ use app\core\view\form\FormElement;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class TextArea extends FormElement {
+class TextArea extends FormElement
+{
 
-  protected $template = 'textarea';
+    protected $template = 'textarea';
 
-    public function __construct($name, $value = null, $attribute = null) {
+    public function __construct($name, $value = null, $attribute = null)
+    {
         parent::__construct($name, $value, $attribute);
 //        $this->addAttribute('class', 'help-block');
     }
@@ -24,7 +26,7 @@ class TextArea extends FormElement {
      */
     public function compact()
     {
-        return['value' => $this->value, 'attributes' => $this->processAttribute()];
+        return ['value' => $this->value, 'attributes' => $this->processAttribute()];
     }
 
 }

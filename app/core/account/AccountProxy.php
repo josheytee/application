@@ -3,34 +3,28 @@
 namespace app\core\account;
 
 use app\core\Context;
-use app\core\entity\Shop;
 use app\core\entity\User;
 
 /**
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail dot com>
  */
-class AccountProxy implements AccountProxyInterface {
+class AccountProxy implements AccountProxyInterface
+{
 
     private $initialAccountId;
     private $account;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setAccount(AccountInterface $account) {
-        // If the passed account is already proxied, use the actual account instead
-        // to prevent loops.
-        if ($account instanceof static) {
-            $account = $account->getAccount();
-        }
-        $this->account = $account;
+    public function getAccountName()
+    {
+        return $this->getAccount()->getAccountName();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getAccount() {
+    public function getAccount()
+    {
         if (!isset($this->account)) {
             if ($this->initialAccountId) {
                 // After the container is rebuilt, DrupalKernel sets the initial
@@ -45,63 +39,17 @@ class AccountProxy implements AccountProxyInterface {
         return $this->account;
     }
 
-    public function getAccountName(): string {
-        return $this->getAccount()->getAccountName();
-    }
-
-    public function getCurrentShop(): Shop {
-        return $this->getAccount()->getCurrentShop();
-    }
-
-    public function getEmail(): string {
-        return $this->getAccount()->getEmail();
-    }
-
-    public function getLastAccessedTime(): int {
-        return $this->getAccount()->getLastAccessedTime();
-    }
-
-    public function getRoles($exclude_locked_roles = FALSE) {
-        return $this->getAccount()->getRoles($exclude_locked_roles)->toArray();
-    }
-
-    public function getRole() {
-        return $this->getAccount()->getRoles();
-    }
-
-    public function getPicture(): string {
-        return $this->getAccount()->getPicture();
-    }
-
-    public function getUsername(): string {
-        return $this->getAccount()->getUsername();
-    }
-
-    public function hasPermission($permission): bool {
-        return $this->getAccount()->hasPermission($permission);
-    }
-
-    public function id(): int {
-        return $this->getAccount()->id();
-    }
-
-    public function isAnonymous(): bool {
-        return $this->getAccount()->isAnonymous();
-    }
-
-    public function isAuthenticated(): bool {
-        return $this->getAccount()->isAuthenticated();
-    }
-
     /**
      * {@inheritdoc}
      */
-    public function setInitialAccountId($account_id) {
-        if (isset($this->account)) {
-            throw new \LogicException('AccountProxyInterface::setInitialAccountId() cannot be called after an account was set on the AccountProxy');
+    public function setAccount(AccountInterface $account)
+    {
+        // If the passed account is already proxied, use the actual account instead
+        // to prevent loops.
+        if ($account instanceof static) {
+            $account = $account->getAccount();
         }
-
-        $this->initialAccountId = $account_id;
+        $this->account = $account;
     }
 
     /**
@@ -110,8 +58,81 @@ class AccountProxy implements AccountProxyInterface {
      * @return null|object
      * @internal param type $acount_id
      */
-    protected function loadUserAccount($account_id) {
+    protected function loadUserAccount($account_id)
+    {
         return Context::doctrine()->find(User::class, $account_id);
+    }
+
+    public function getCurrentShop()
+    {
+        return $this->getAccount()->getCurrentShop();
+    }
+
+    public function getEmail()
+    {
+        return $this->getAccount()->getEmail();
+    }
+
+    public function getLastAccessedTime()
+    {
+        return $this->getAccount()->getLastAccessedTime();
+    }
+
+    public function getRoles($exclude_locked_roles = FALSE)
+    {
+        return $this->getAccount()->getRoles($exclude_locked_roles)->toArray();
+    }
+
+    public function getRole()
+    {
+        return $this->getAccount()->getRoles();
+    }
+
+    public function getPicture()
+    {
+        return $this->getAccount()->getPicture();
+    }
+
+    public function getUsername()
+    {
+        return $this->getAccount()->getUsername();
+    }
+
+    public function hasPermissions($permission)
+    {
+        return $this->getAccount()->hasPermissions($permission);
+    }
+
+    public function getPermissions()
+    {
+        return $this->getAccount()->getPermissions();
+    }
+
+    public function id()
+    {
+        return $this->getAccount()->id();
+    }
+
+    public function isAnonymous()
+    {
+        return $this->getAccount()->isAnonymous();
+    }
+
+    public function isAuthenticated()
+    {
+        return $this->getAccount()->isAuthenticated();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setInitialAccountId($account_id)
+    {
+        if (isset($this->account)) {
+            throw new \LogicException('AccountProxyInterface::setInitialAccountId() cannot be called after an account was set on the AccountProxy');
+        }
+
+        $this->initialAccountId = $account_id;
     }
 
 }

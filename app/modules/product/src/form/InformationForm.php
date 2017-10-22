@@ -6,30 +6,34 @@ namespace ntc\product\form;
 use app\core\controller\FormController;
 use app\core\view\form\Formbuilder;
 
-class InformationForm extends FormController {
+class InformationForm extends FormController
+{
 
-    function title() {
+    function title()
+    {
         // TODO: Implement title() method.
     }
 
-    function getDependencies() {
+    function getDependencies()
+    {
     }
 
-    public function build(Formbuilder $builder, $entity) {
+    public function build(Formbuilder $builder, $entity)
+    {
 //    dump($entity->getAvailable());
         $builder->block(
-          $builder->label('type')
-          , $builder->radio('type', $this->type(), $entity->getType())
+            $builder->label('type')
+            , $builder->radio('type', $this->type(), $entity->getType())
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-          $builder->label('name')
-          , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
+            $builder->label('name')
+            , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-          $builder->label('condition')
-          , $builder->select('condition', $this->condition(), $entity->getCondition())->addAttributes(['class' => 'form-control'])
+            $builder->label('condition')
+            , $builder->select('condition', $this->condition(), $entity->getCondition())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
 //    $builder->block(
@@ -48,8 +52,8 @@ class InformationForm extends FormController {
 //    )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-          $builder->label('options')
-          , $builder->checkbox('options', $this->getOptions(), $entity->getOnlineOnly())
+            $builder->label('options')
+            , $builder->checkbox('options', $this->getOptions(), $entity->getOnlineOnly())
         )->addAttributes(['class' => 'form-group']);
 
 //        $builder->block(
@@ -58,38 +62,42 @@ class InformationForm extends FormController {
 //        )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-          $builder->label('short_description')
-          , $builder->textArea('short_description', $entity->getShortDescription())->addAttributes(['class' => 'form-control'])
+            $builder->label('short_description')
+            , $builder->textArea('short_description', $entity->getShortDescription())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-          $builder->label('description')
-          , $builder->textArea('description', $entity->getDescription())->addAttributes(['class' => 'form-control', 'rows' => 5])
+            $builder->label('description')
+            , $builder->textArea('description', $entity->getDescription())->addAttributes(['class' => 'form-control', 'rows' => 5])
         )->addAttributes(['class' => 'form-group']);
 
 
         $builder->block($builder->submit('save', 'Save')->addAttributes(['class' => 'btn btn-primary']))
-          ->addAttributes(['class' => 'form-group']);
+            ->addAttributes(['class' => 'form-group']);
         return $builder;
     }
 
-    public function type() {
+    public function type()
+    {
         return ['simple' => 'simple', 'pack' => 'pack', 'virtual' => 'virtual'];
     }
 
-    public function condition() {
+    public function condition()
+    {
         return ['new' => 'new', 'used' => 'used', 'refurbished' => 'refurbished'];
     }
 
-    public function getOptions() {
+    public function getOptions()
+    {
         return [
-          'available' => 'available',
-          'show_price' => 'Show Price',
-          'online_only' => 'online_only'
+            'available' => 'available',
+            'show_price' => 'Show Price',
+            'online_only' => 'online_only'
         ];
     }
 
-    public function validationRules() {
+    public function validationRules()
+    {
         return ['name' => 'required'];
     }
 }

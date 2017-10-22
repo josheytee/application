@@ -1,7 +1,6 @@
 <?php
 
 use app\core\database\Seeder;
-use Illuminate\Database\Capsule\Manager as Capsule;
 
 /**
  * used to seed shop relation.
@@ -10,7 +9,8 @@ use Illuminate\Database\Capsule\Manager as Capsule;
  * except if know what you are doing
  * thats why its commented by default
  */
-class ShopRelationsSeeder extends Seeder {
+class ShopRelationsSeeder extends Seeder
+{
 
     /**
      * Run Method.
@@ -20,7 +20,8 @@ class ShopRelationsSeeder extends Seeder {
      * More information on writing seeders is available here:
      * http://docs.phinx.org/en/latest/seeding.html
      */
-    public function run() {
+    public function run()
+    {
 //        for ($index = 0; $index < 500; $index++) {
 //            Capsule::table('user_shop')->insert([
 //                    ['id_user' => random_int(1, 201), 'id_shop' => random_int(1, 101)]

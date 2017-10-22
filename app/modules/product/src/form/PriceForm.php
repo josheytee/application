@@ -7,17 +7,21 @@ use app\core\controller\FormController;
 use app\core\entity\Product;
 use app\core\view\form\Formbuilder;
 
-class PriceForm extends FormController {
+class PriceForm extends FormController
+{
 
-    function title() {
+    function title()
+    {
         // TODO: Implement title() method.
     }
 
-    function model() {
+    function model()
+    {
         return Product::class;
     }
 
-    public function build(Formbuilder $builder, $entity) {
+    public function build(Formbuilder $builder, $entity)
+    {
 
         $builder->block(
             $builder->label('price')
@@ -38,7 +42,8 @@ class PriceForm extends FormController {
 
     }
 
-    public function validationRules() {
+    public function validationRules()
+    {
         // TODO: Implement validationRules() method.
     }
 }

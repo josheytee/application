@@ -9,24 +9,26 @@ use model\Shop;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ShopData implements FixtureInterface {
+class ShopData implements FixtureInterface
+{
 
-  public function load(ObjectManager $manager) {
-    $faker = Faker\Factory::create();
-    for ($i = 1; $i <= 10; $i++) {
-      $activity = $manager->find('model\Activity', $i);
-      $shop = new Shop();
-      $shop->setName($faker->company);
-      $shop->setDescription($faker->paragraph);
-      $shop->setActivity($activity);
-      $shop->setUrl($faker->url);
-      $shop->setCreated($faker->dateTime);
-      $shop->setUpdated($faker->dateTime);
+    public function load(ObjectManager $manager)
+    {
+        $faker = Faker\Factory::create();
+        for ($i = 1; $i <= 10; $i++) {
+            $activity = $manager->find('model\Activity', $i);
+            $shop = new Shop();
+            $shop->setName($faker->company);
+            $shop->setDescription($faker->paragraph);
+            $shop->setActivity($activity);
+            $shop->setUrl($faker->url);
+            $shop->setCreated($faker->dateTime);
+            $shop->setUpdated($faker->dateTime);
 
-      $manager->persist($shop);
+            $manager->persist($shop);
+        }
+        $manager->flush();
+        $manager->clear();
     }
-    $manager->flush();
-    $manager->clear();
-  }
 
 }

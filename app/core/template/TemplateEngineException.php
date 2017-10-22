@@ -7,6 +7,7 @@ namespace app\core\template;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class TemplateEngineException extends \Exception {
+class TemplateEngineException extends \Exception
+{
 
 }

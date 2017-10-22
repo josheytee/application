@@ -4,12 +4,15 @@
 namespace app\core\validation;
 
 
-class Tools {
-    public static function getNamespacedClass($class_name) {
+class Tools
+{
+    public static function getNamespacedClass($class_name)
+    {
         return '\\' . __NAMESPACE__ . '\\' . $class_name;
     }
 
-    public static function strtolower($str) {
+    public static function strtolower($str)
+    {
         if (is_array($str)) {
             return false;
         }
@@ -24,7 +27,8 @@ class Tools {
      * @param string $pattern
      * @return string pattern
      */
-    public static function cleanNonUnicodeSupport($pattern) {
+    public static function cleanNonUnicodeSupport($pattern)
+    {
         if (!defined('PREG_BAD_UTF8_OFFSET')) {
             return $pattern;
         }
@@ -38,7 +42,8 @@ class Tools {
      * @param bool $htmlentities By default at true for parsing error message with htmlentities
      * @return mixed|string
      */
-    public static function displayError($string = 'Fatal error', $htmlentities = true, Context $context = null) {
+    public static function displayError($string = 'Fatal error', $htmlentities = true, Context $context = null)
+    {
         global $_ERRORS;
 
 //        if (is_null($context)) {
@@ -58,17 +63,22 @@ class Tools {
         return $htmlentities ? Tools::htmlentitiesUTF8(stripslashes($str)) : $str;
     }
 
-    public static function htmlentitiesUTF8($string, $type = ENT_QUOTES) {
+    public static function htmlentitiesUTF8($string, $type = ENT_QUOTES)
+    {
         if (is_array($string)) {
             return array_map(array('Tools', 'htmlentitiesUTF8'), $string);
         }
 
         return htmlentities((string)$string, $type, 'utf-8');
     }
-    public static function isEmpty($field) {
+
+    public static function isEmpty($field)
+    {
         return ($field === '' || $field === null);
     }
-    public static function strlen($str, $encoding = 'UTF-8') {
+
+    public static function strlen($str, $encoding = 'UTF-8')
+    {
         if (is_array($str)) {
             return false;
         }

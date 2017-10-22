@@ -4,7 +4,8 @@ namespace app\model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model {
+class Section extends Model
+{
 
     protected $primaryKey = 'id_section';
     protected $table = 'section';
@@ -16,16 +17,19 @@ class Section extends Model {
      */
     protected $fillable = ['id_parent', 'id_shop', 'name', 'description', 'url'];
 
-    public function shop() {
+    public function shop()
+    {
         return $this->belongsTo('app\model\Shop', 'id_section', 'id_shop');
     }
 
-    public function products() {
+    public function products()
+    {
         return $this->hasMany('app\model\Product', 'id_section');
     }
 
-    public function parent() {
-    return $this->hasOne($this, 'id_parent', 'id_section');
+    public function parent()
+    {
+        return $this->hasOne($this, 'id_parent', 'id_section');
 
     }
 

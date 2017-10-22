@@ -10,7 +10,8 @@ namespace app\core\theme;
  * @see \app\core\theme\ThemeManager
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ActiveTheme {
+class ActiveTheme
+{
 
     /**
      * The name of the active theme.
@@ -78,18 +79,19 @@ class ActiveTheme {
      * @param array $values
      *   The properties of the object, keyed by the names.
      */
-    public function __construct(array $values) {
+    public function __construct(array $values)
+    {
         $values += [
-          'path' => '',
-          'engine' => 'smarty',
-          'owner' => 'smarty',
-          'libraries' => [],
-          'extension' => '.tpl',
-          'base_themes' => [],
-          'regions' => [],
-          'libraries_override' => [],
-          'libraries_extend' => [],
-          'config' => [],
+            'path' => '',
+            'engine' => 'smarty',
+            'owner' => 'smarty',
+            'libraries' => [],
+            'extension' => '.tpl',
+            'base_themes' => [],
+            'regions' => [],
+            'libraries_override' => [],
+            'libraries_extend' => [],
+            'config' => [],
         ];
 
         $this->name = $values['name'];
@@ -110,17 +112,9 @@ class ActiveTheme {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
-    }
-
-    /**
-     * Returns the path to the theme directory.
-     *
-     * @return string
-     */
-    public function getPath() {
-        return $this->path;
     }
 
     /**
@@ -128,15 +122,9 @@ class ActiveTheme {
      *
      * @return string
      */
-    public function getEngine() {
+    public function getEngine()
+    {
         return $this->engine;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getExtension() {
-        return $this->extension;
     }
 
     /**
@@ -145,17 +133,9 @@ class ActiveTheme {
      *
      * @return mixed
      */
-    public function getOwner() {
+    public function getOwner()
+    {
         return $this->owner;
-    }
-
-    public function getTemplateDir() {
-        return $this->template_dir;
-    }
-
-    public function setTemplateDir($template_dir) {
-        $this->template_dir = $template_dir;
-        return $this;
     }
 
     /**
@@ -163,20 +143,9 @@ class ActiveTheme {
      *
      * @return mixed
      */
-    public function getLibraries() {
+    public function getLibraries()
+    {
         return $this->libraries;
-    }
-
-    /**
-     * Returns an array of base theme active theme objects keyed by name.
-     *
-     * The order starts with the base theme of $this and ends with the root of
-     * the dependency chain.
-     *
-     * @return static[]
-     */
-    public function getBaseThemes() {
-        return $this->base_themes;
     }
 
     /**
@@ -186,7 +155,8 @@ class ActiveTheme {
      * @throws \Exception
      * @see system_region_list()
      */
-    public function getRegions() {
+    public function getRegions()
+    {
         if (!is_null($this->regions))
             return array_keys($this->regions);
         throw new \Exception('regions must defined inside ' . $this->name . '.info.yml file');
@@ -198,7 +168,8 @@ class ActiveTheme {
      * @return array
      *   The list of libraries overrides.
      */
-    public function getLibrariesOverride() {
+    public function getLibrariesOverride()
+    {
         return $this->libraries_override;
     }
 
@@ -208,7 +179,8 @@ class ActiveTheme {
      * @return array
      *   The list of libraries-extend definitions.
      */
-    public function getLibrariesExtend() {
+    public function getLibrariesExtend()
+    {
         return $this->libraries_extend;
     }
 
@@ -218,7 +190,8 @@ class ActiveTheme {
      * @return string
      * @throws \Exception
      */
-    public function getTemplate($template) {
+    public function getTemplate($template)
+    {
         $file = $this->getPath() . $this->getTemplateDir() . DS . $template . $this->getExtension();
         if ($this->getBaseThemes()) {
 
@@ -226,7 +199,55 @@ class ActiveTheme {
         return $file;
     }
 
-    public function getConfig($section = null) {
-        return $this->config[$section] ?? [];
+    /**
+     * Returns the path to the theme directory.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function getTemplateDir()
+    {
+        return $this->template_dir;
+    }
+
+    public function setTemplateDir($template_dir)
+    {
+        $this->template_dir = $template_dir;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExtension()
+    {
+        return $this->extension;
+    }
+
+    /**
+     * Returns an array of base theme active theme objects keyed by name.
+     *
+     * The order starts with the base theme of $this and ends with the root of
+     * the dependency chain.
+     *
+     * @return static[]
+     */
+    public function getBaseThemes()
+    {
+        return $this->base_themes;
+    }
+
+    public function getConfig($section = null)
+    {
+        return $section ? $this->config[$section] ?? [] : $this->config ?? [];
+    }
+
+    public function setConfig($key, $value)
+    {
+
     }
 }

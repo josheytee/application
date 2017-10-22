@@ -9,9 +9,11 @@ use app\core\component\Component;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Quickaccess extends Component {
+class Quickaccess extends Component
+{
 
-    public function render() {
+    public function render()
+    {
         return $this->display('ntc/administrator/quickaccess');
     }
 

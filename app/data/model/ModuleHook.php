@@ -10,7 +10,8 @@ namespace model;
  * @Index(name="id_hook_id_module_idx",  columns={"id_module","id_hook"})
  * })
  */
-class ModuleHook {
+class ModuleHook
+{
 
     /**
      * @var int
@@ -52,8 +53,19 @@ class ModuleHook {
      *
      * @return integer
      */
-    public function getIdModule() {
+    public function getIdModule()
+    {
         return $this->id_module;
+    }
+
+    /**
+     * Get position
+     *
+     * @return string
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     /**
@@ -63,30 +75,9 @@ class ModuleHook {
      *
      * @return ModuleHook
      */
-    public function setPosition($position) {
+    public function setPosition($position)
+    {
         $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return string
-     */
-    public function getPosition() {
-        return $this->position;
-    }
-
-    /**
-     * Set active
-     *
-     * @param string $active
-     *
-     * @return ModuleHook
-     */
-    public function setActive($active) {
-        $this->active = $active;
 
         return $this;
     }
@@ -96,19 +87,21 @@ class ModuleHook {
      *
      * @return string
      */
-    public function getActive() {
+    public function getActive()
+    {
         return $this->active;
     }
 
     /**
-     * Set module
+     * Set active
      *
-     * @param \model\Module $module
+     * @param string $active
      *
      * @return ModuleHook
      */
-    public function setModule(\model\Module $module) {
-        $this->module = $module;
+    public function setActive($active)
+    {
+        $this->active = $active;
 
         return $this;
     }
@@ -118,19 +111,21 @@ class ModuleHook {
      *
      * @return \model\Module
      */
-    public function getModule() {
+    public function getModule()
+    {
         return $this->module;
     }
 
     /**
-     * Set hook
+     * Set module
      *
-     * @param \model\Hook $hook
+     * @param \model\Module $module
      *
      * @return ModuleHook
      */
-    public function setHook(\model\Hook $hook) {
-        $this->hook = $hook;
+    public function setModule(\model\Module $module)
+    {
+        $this->module = $module;
 
         return $this;
     }
@@ -140,8 +135,23 @@ class ModuleHook {
      *
      * @return \model\Hook
      */
-    public function getHook() {
+    public function getHook()
+    {
         return $this->hook;
+    }
+
+    /**
+     * Set hook
+     *
+     * @param \model\Hook $hook
+     *
+     * @return ModuleHook
+     */
+    public function setHook(\model\Hook $hook)
+    {
+        $this->hook = $hook;
+
+        return $this;
     }
 
 }

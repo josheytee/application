@@ -3,23 +3,25 @@
 namespace app\core\view\form\elements;
 
 
-
 /**
  * Description of PHPClass
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class OptionGroup extends Option {
+class OptionGroup extends Option
+{
 
-  public $options;
+    public $options;
 
-  public function __construct($slug, $disabled = false) {
-    parent::__construct($slug, NULL, $disabled);
-    $this->type = 'group';
-  }
+    public function __construct($slug, $disabled = false)
+    {
+        parent::__construct($slug, NULL, $disabled);
+        $this->type = 'group';
+    }
 
-  public function addOptions(Option $options) {
-    $this->options[] = $options;
-  }
+    public function addOptions(Option $options)
+    {
+        $this->options[] = $options;
+    }
 
 }

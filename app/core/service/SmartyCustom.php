@@ -7,14 +7,17 @@ namespace app\core\service;
  *
  * @author Tobi
  */
-class SmartyCustom extends \Smarty implements KernelServiceInterface {
+class SmartyCustom extends \Smarty implements KernelServiceInterface
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->initSmarty();
     }
 
-    public function initSmarty() {
+    public function initSmarty()
+    {
         $this->setCompileDir('./app/cache/smarty/compile/');
         $this->setConfigDir(__DIR__ . \DIRECTORY_SEPARATOR . 'config');
         $this->setCacheDir('./app/cache/smarty/cache/');
@@ -22,11 +25,13 @@ class SmartyCustom extends \Smarty implements KernelServiceInterface {
         $this->debugging = TRUE;
     }
 
-    public function stop() {
+    public static function start()
+    {
 
     }
 
-    public static function start() {
+    public function stop()
+    {
 
     }
 

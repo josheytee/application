@@ -2,6 +2,8 @@
 
 namespace app\core\entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * SectionImage
  */
@@ -28,10 +30,21 @@ class SectionImage
     private $height;
 
     /**
-     * @var \app\core\entity\Product
+     * @var Product
      */
     private $product;
+    /**
+     * @var Section
+     */
+    private $section;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->section = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -41,6 +54,16 @@ class SectionImage
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -58,13 +81,13 @@ class SectionImage
     }
 
     /**
-     * Get name
+     * Get width
      *
-     * @return string
+     * @return integer
      */
-    public function getName()
+    public function getWidth()
     {
-        return $this->name;
+        return $this->width;
     }
 
     /**
@@ -82,13 +105,13 @@ class SectionImage
     }
 
     /**
-     * Get width
+     * Get height
      *
      * @return integer
      */
-    public function getWidth()
+    public function getHeight()
     {
-        return $this->width;
+        return $this->height;
     }
 
     /**
@@ -106,23 +129,23 @@ class SectionImage
     }
 
     /**
-     * Get height
+     * Get product
      *
-     * @return integer
+     * @return Product
      */
-    public function getHeight()
+    public function getProduct()
     {
-        return $this->height;
+        return $this->product;
     }
 
     /**
      * Set product
      *
-     * @param \app\core\entity\Product $product
+     * @param Product $product
      *
      * @return SectionImage
      */
-    public function setProduct(\app\core\entity\Product $product = null)
+    public function setProduct(Product $product = null)
     {
         $this->product = $product;
 
@@ -130,28 +153,23 @@ class SectionImage
     }
 
     /**
-     * Get product
+     * Get section
      *
-     * @return \app\core\entity\Product
+     * @return Section
      */
-    public function getProduct()
+    public function getSection()
     {
-        return $this->product;
+        return $this->section;
     }
-    /**
-     * @var \app\core\entity\Section
-     */
-    private $section;
-
 
     /**
      * Set section
      *
-     * @param \app\core\entity\Section $section
+     * @param Section $section
      *
      * @return SectionImage
      */
-    public function setSection(\app\core\entity\Section $section = null)
+    public function setSection(Section $section = null)
     {
         $this->section = $section;
 
@@ -159,30 +177,13 @@ class SectionImage
     }
 
     /**
-     * Get section
-     *
-     * @return \app\core\entity\Section
-     */
-    public function getSection()
-    {
-        return $this->section;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->section = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add section
      *
-     * @param \app\core\entity\Section $section
+     * @param Section $section
      *
      * @return SectionImage
      */
-    public function addSection(\app\core\entity\Section $section)
+    public function addSection(Section $section)
     {
         $this->section[] = $section;
 
@@ -192,9 +193,9 @@ class SectionImage
     /**
      * Remove section
      *
-     * @param \app\core\entity\Section $section
+     * @param Section $section
      */
-    public function removeSection(\app\core\entity\Section $section)
+    public function removeSection(Section $section)
     {
         $this->section->removeElement($section);
     }

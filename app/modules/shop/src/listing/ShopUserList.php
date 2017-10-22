@@ -4,9 +4,11 @@ namespace ntc\shop\listing;
 
 use app\core\controller\ListController;
 
-class ShopUserList extends ListController {
+class ShopUserList extends ListController
+{
 
-    function head() {
+    function head()
+    {
         $head['id'] = "ID";
         $head['name'] = "Name";
         $head['url'] = "Url";
@@ -16,7 +18,8 @@ class ShopUserList extends ListController {
         return $head;
     }
 
-    function row($entity) {
+    function row($entity)
+    {
         $row['id'] = $entity->getID();
         $row['name'] = $entity->getName();
         $row['url'] = $entity->getUrl();
@@ -26,47 +29,51 @@ class ShopUserList extends ListController {
         return $row;
     }
 
-    function bulkOperation() {
+    function bulkOperation()
+    {
         // TODO: Implement bulkOperation() method.
     }
 
-    function rowOperations($entity) {
+    function rowOperations($entity)
+    {
         return [
-          'edit' => [
-            'name' => 'Edit',
-            'route' => 'admin.shop.edit',
-            'params' => [
-              'id' => $entity->getID()
+            'edit' => [
+                'name' => 'Edit',
+                'route' => 'admin.shop.edit',
+                'params' => [
+                    'id' => $entity->getID()
+                ]
+            ],
+            'preview' => [
+                'name' => 'Preview',
+                'route' => 'shop.index',
+                'params' => [
+                    'url' => $entity->getUrl()
+                ]
+            ],
+            'delete' => [
+                'name' => 'Delete',
+                'route' => 'admin.shop.delete',
+                'params' => [
+                    'id' => $entity->getID()
+                ]
             ]
-          ],
-          'preview' => [
-            'name' => 'Preview',
-            'route' => 'shop.index',
-            'params' => [
-              'url' => $entity->getUrl()
-            ]
-          ],
-          'delete' => [
-            'name' => 'Delete',
-            'route' => 'admin.shop.delete',
-            'params' => [
-              'id' => $entity->getID()
-            ]
-          ]
         ];
     }
 
-    function title() {
+    function title()
+    {
         return 'Shop assigned to current user';
     }
 
-    function headOperations($entity) {
+    function headOperations($entity)
+    {
         return [
-          'add' => [
-            'name' => 'Add',
-            'route' => 'admin.shop.add',
-            'icon' => 'glyphicon glyphicon-plus-sign'
-          ]
+            'add' => [
+                'name' => 'Add',
+                'route' => 'admin.shop.add',
+                'icon' => 'glyphicon glyphicon-plus-sign'
+            ]
         ];
     }
 }

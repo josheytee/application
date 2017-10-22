@@ -2,7 +2,8 @@
 
 namespace app\core\event;
 
-interface EventDispatcherInterface {
+interface EventDispatcherInterface
+{
 
     public function dispatch($eventName, Event $event = null);
 

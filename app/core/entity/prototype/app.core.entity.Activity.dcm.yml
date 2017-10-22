@@ -50,4 +50,7 @@ app\core\entity\Activity:
         updated:
             type: datetime
             nullable: false
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ onPrePersist ]
+        postPersist: [ onPostPersist ]
+

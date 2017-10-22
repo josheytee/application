@@ -10,24 +10,26 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class RegisterLazyRouteEnhancersPass implements CompilerPassInterface {
+class RegisterLazyRouteEnhancersPass implements CompilerPassInterface
+{
 
-  /**
-   * {@inheritdoc}
-   */
-  public function process(ContainerBuilder $container) {
-    if (!$container->hasDefinition('route_enhancer.lazy_collector')) {
-      return;
-    }
+    /**
+     * {@inheritdoc}
+     */
+    public function process(ContainerBuilder $container)
+    {
+        if (!$container->hasDefinition('route_enhancer.lazy_collector')) {
+            return;
+        }
 
-    $service_ids = [];
+        $service_ids = [];
 
-    foreach ($container->findTaggedServiceIds('dynamic_router_route_enhancer') as $id => $attributes) {
-      $service_ids[$id] = $id;
-    }
-    $container
+        foreach ($container->findTaggedServiceIds('dynamic_router_route_enhancer') as $id => $attributes) {
+            $service_ids[$id] = $id;
+        }
+        $container
             ->getDefinition('route_enhancer.lazy_collector')
             ->addArgument($service_ids);
-  }
+    }
 
 }

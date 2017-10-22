@@ -7,14 +7,17 @@ namespace app\core\cache;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class CacheManager {
+class CacheManager
+{
 
-  public function get($key) {
+    public function get($key)
+    {
 
-  }
+    }
 
-  public function set($key, $value) {
-    
-  }
+    public function set($key, $value)
+    {
+
+    }
 
 }

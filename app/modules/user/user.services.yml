@@ -8,10 +8,10 @@ services:
         class: ntc\user\authentication\provider\Cookie
 #        arguments: ['@entity.manager']
         tags:
-          - { name: authentication_provider, provider_id: 'cookie', priority: 0, global: TRUE }
+          - { name: authentication_provider, provider_id: 'cookie',  global: TRUE }
 
     user.authentication.access_checker:
         class: ntc\user\authentication\provider\UserAccessChecker
         arguments: ['@current_user']
         tags:
-          - { name: authentication_provider, provider_id: 'access', priority: 1, global: TRUE }
+          - { name: authentication_provider, provider_id: 'access',  global: TRUE }

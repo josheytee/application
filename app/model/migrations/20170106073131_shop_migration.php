@@ -2,10 +2,12 @@
 
 use app\core\database\Migration;
 
-class ShopMigration extends Migration {
+class ShopMigration extends Migration
+{
 
-    public function up() {
-        $this->schema->create('shop', function(Illuminate\Database\Schema\Blueprint $table) {
+    public function up()
+    {
+        $this->schema->create('shop', function (Illuminate\Database\Schema\Blueprint $table) {
             $table->engine = 'InnoDB';
             // Auto-increment id
             $table->increments('id_shop');
@@ -20,7 +22,8 @@ class ShopMigration extends Migration {
         });
     }
 
-    public function down() {
+    public function down()
+    {
         $this->schema->drop('shop');
     }
 

@@ -2,10 +2,10 @@
 
 namespace app\core\entity\fixtures;
 
+use app\core\entity\Profile;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use app\core\entity\Profile;
 use Faker;
 
 /**
@@ -13,9 +13,11 @@ use Faker;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ProfileData extends AbstractFixture implements OrderedFixtureInterface {
+class ProfileData extends AbstractFixture implements OrderedFixtureInterface
+{
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $faker = Faker\Factory::create();
         for ($i = 1; $i <= 10; $i++) {
             $profile = new Profile();
@@ -29,7 +31,8 @@ class ProfileData extends AbstractFixture implements OrderedFixtureInterface {
         $this->addReference('profile', $profile);
     }
 
-    public function getOrder(): int {
+    public function getOrder(): int
+    {
         return 2;
     }
 

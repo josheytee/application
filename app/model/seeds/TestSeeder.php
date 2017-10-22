@@ -2,7 +2,8 @@
 
 use app\core\database\Seeder;
 
-class TestSeeder extends Seeder {
+class TestSeeder extends Seeder
+{
 
     /**
      * Run Method.
@@ -12,7 +13,8 @@ class TestSeeder extends Seeder {
      * More information on writing seeders is available here:
      * http://docs.phinx.org/en/latest/seeding.html
      */
-    public function run() {
+    public function run()
+    {
         $faker = Faker\Factory::create();
 //        for ($i = 0; $i < 100; $i++) {
 //            app\model\Shop::create([

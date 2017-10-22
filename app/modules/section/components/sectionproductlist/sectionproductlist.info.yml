@@ -1,7 +1,7 @@
-name: Section Images
-description: Displays images of section pages
+name: Section Product list
+description: Displays products list in section page
 target: section
 author: ntc
 package: ntc\section\sectionproductlist
 icon: hello.png
-version: 1.2.3
+version: 1.0.0

@@ -10,7 +10,8 @@
  * -------------------------------------------------------------
  */
 
-function smarty_function_dump($params) {
+function smarty_function_dump($params)
+{
     if (empty($params['v'])) {
         trigger_error("insert variable: missing 'v' parameter");
         return;

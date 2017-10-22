@@ -7,12 +7,14 @@ namespace app\core\service;
  *
  * @author Tobi
  */
-class UserAccountService extends KernelService {
+class UserAccountService extends KernelService
+{
 
     public $name = 'user account service';
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->db = KernelService::getService("DatabaseManagementService");
     }
@@ -20,7 +22,8 @@ class UserAccountService extends KernelService {
     /**
      * generates token with date_userID_uniqueID_shopID
      */
-    public function getUserToken() {
+    public function getUserToken()
+    {
 
     }
 
@@ -28,15 +31,18 @@ class UserAccountService extends KernelService {
      * get the current logged in user
      * @return type
      */
-    public function getCurrentUser() {
-        return (int) 1;
+    public function getCurrentUser()
+    {
+        return (int)1;
     }
 
-    public function getCurrentShop() {
-        return (int) 1;
+    public function getCurrentShop()
+    {
+        return (int)1;
     }
 
-    public function errorRedirect() {
+    public function errorRedirect()
+    {
 
     }
 

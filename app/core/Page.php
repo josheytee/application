@@ -11,56 +11,63 @@ use app\core\theme\Theme;
  * @see Theme;
  * @author Tobi
  */
-class Page {
-
-    protected $title;
-    protected $meta = [];
-    protected $name;
-    protected $components;
-    protected $theme;
-    protected $url;
-    public $smarty;
+class Page
+{
 
     const POSITION_HEADER = 'HEADER';
     const POSITION_CONTENT = 'CONTENT';
     const POSITION_FOOTER = 'FOOTER';
     const TYPE_ADMIN = 'admin';
     const TYPE_FRONT = 'front';
+    public $smarty;
+    protected $title;
+    protected $meta = [];
+    protected $name;
+    protected $components;
+    protected $theme;
+    protected $url;
 
-    public function __construct($name = '', $title = '') {
+    public function __construct($name = '', $title = '')
+    {
         $this->name = $name;
         $this->title = $title;
     }
 
-    public static function getPage($page, $type = self::TYPE_FRONT) {
+    public static function getPage($page, $type = self::TYPE_FRONT)
+    {
         $p = "app\page\\$type\\" . $page;
 
         return new $p();
     }
 
-    public function registerComponent(Component $component, $position = self::POSITION_CONTENT) {
+    public function registerComponent(Component $component, $position = self::POSITION_CONTENT)
+    {
         $this->components[$position][] = $component;
     }
 
-    public function initPage() {
-
-    }
-
-    public function setTheme(Theme $theme) {
+    public function setTheme(Theme $theme)
+    {
         $this->theme = $theme;
     }
 
-    public function setMedia() {
+    public function setMedia()
+    {
 
     }
 
-    public function create() {
+    public function create()
+    {
         $this->initPage();
 //        var_dump($this->components);
 //        if ($this->components != null) {
         $this->theme->addComponents($this->components);
         return $this->theme->publish();
 //        }
+    }
+
+    public function initPage()
+    {
+
     }
 
 }

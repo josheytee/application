@@ -10,19 +10,22 @@ use Symfony\Component\Routing\RouteCollection;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class RouteBuildEvent extends Event {
+class RouteBuildEvent extends Event
+{
 
-  /**
-   * @var RouteCollection
-   */
-  private $route_collection;
+    /**
+     * @var RouteCollection
+     */
+    private $route_collection;
 
-  public function __construct(RouteCollection $route_collection) {
-    $this->route_collection = $route_collection;
-  }
+    public function __construct(RouteCollection $route_collection)
+    {
+        $this->route_collection = $route_collection;
+    }
 
-  public function getRouteCollection() {
-    return $this->route_collection;
-  }
+    public function getRouteCollection()
+    {
+        return $this->route_collection;
+    }
 
 }

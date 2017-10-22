@@ -1,10 +1,8 @@
 name: navigation
-description: "lorep isum freeme lorep isum freeme lorep isum
-freeme lorep isum freeme lorep isum freeme "
+description: shop navigation component
 target: front
 author: ntc
 package: ntc\shop\navigation
 icon: hello.png
-version: 1.2.3
-dependency:
-    - type guesser
+version: 1.0.0
+configurable: true

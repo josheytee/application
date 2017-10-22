@@ -9,20 +9,23 @@ use app\core\theme\ActiveTheme;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class LibraryManager {
+class LibraryManager
+{
 
-  /**
-   * @var ActiveTheme
-   */
-  private $theme;
+    /**
+     * @var ActiveTheme
+     */
+    private $theme;
 
-  public function __construct(ActiveTheme $theme) {
+    public function __construct(ActiveTheme $theme)
+    {
 
-    $this->theme = $theme;
-  }
+        $this->theme = $theme;
+    }
 
-  public function getLibraries() {
-    return $this->theme->getLibraries();
-  }
+    public function getLibraries()
+    {
+        return $this->theme->getLibraries();
+    }
 
 }

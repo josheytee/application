@@ -8,7 +8,8 @@ use app\core\http\Request;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail dot com>
  */
-interface AuthenticationProviderInterface {
+interface AuthenticationProviderInterface
+{
 
     public function applies(Request $request);
 

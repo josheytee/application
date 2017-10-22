@@ -10,9 +10,11 @@ use Phinx\Seed\AbstractSeed;
  *
  * @author Tobi
  */
-class Seeder extends AbstractSeed {
+class Seeder extends AbstractSeed
+{
 
-    protected function init() {
+    protected function init()
+    {
         $this->capsule = new Capsule;
         $this->capsule->addConnection([
             'driver' => 'mysql',

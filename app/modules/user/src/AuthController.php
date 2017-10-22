@@ -9,6 +9,7 @@ use app\core\controller\ControllerBase;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class AuthController extends ControllerBase {
+class AuthController extends ControllerBase
+{
 
 }

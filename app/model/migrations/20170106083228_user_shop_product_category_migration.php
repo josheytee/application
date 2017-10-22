@@ -2,10 +2,12 @@
 
 use app\core\database\Migration;
 
-class UserShopProductCategoryMigration extends Migration {
+class UserShopProductCategoryMigration extends Migration
+{
 
-    public function up() {
-        $this->schema->create('user_shop', function(Illuminate\Database\Schema\Blueprint $table) {
+    public function up()
+    {
+        $this->schema->create('user_shop', function (Illuminate\Database\Schema\Blueprint $table) {
             $table->engine = 'InnoDB';
             // Auto-increment id
             $table->integer('id_user');
@@ -23,7 +25,8 @@ class UserShopProductCategoryMigration extends Migration {
 //        });
     }
 
-    public function down() {
+    public function down()
+    {
         $this->schema->drop('user_shop');
 //        $this->schema->drop('product_shop');
     }

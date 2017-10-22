@@ -7,14 +7,16 @@ namespace app\core\service;
  *
  * @author Tobi
  */
-class ShopManagementService extends KernelService {
+class ShopManagementService extends KernelService
+{
 
-    private $database;
     public $fileds;
+    private $database;
     private $uas;
     private $current_shop;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->database = KernelService::getService("DatabaseManagementService");
         $this->uas = KernelService::getService("UserAccountService");
@@ -23,20 +25,23 @@ class ShopManagementService extends KernelService {
         $this->getShopByURL('/defaultshop');
     }
 
-    public function getShopsFromUser() {
+    public function getShopByURL($url)
+    {
+        $q = "SELECT * FROM shop WHERE url='$url'";
+        $shop = $this->database->fetchQuery($q);
+    }
+
+    public function getShopsFromUser()
+    {
         $user_id = $this->uas->getCurrentUser();
-        $sql = "SELECT * FROM shop s INNER JOIN user_shop us on us.id_shop=s.id_shop AND us.id_user=" . $user_id;
+        $sql = "SELECT * FROM shop s INNER JOIN user_shop us ON us.id_shop=s.id_shop AND us.id_user=" . $user_id;
         $shop = $this->database->fetchAllQuery($sql);
         var_dump($shop);
         return $shop;
     }
 
-    public function getShopByURL($url) {
-        $q = "SELECT * FROM shop WHERE url='$url'";
-        $shop = $this->database->fetchQuery($q);
-    }
-
-    public function newShop() {
+    public function newShop()
+    {
 
     }
 

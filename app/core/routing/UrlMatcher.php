@@ -9,10 +9,12 @@ use Symfony\Cmf\Component\Routing\NestedMatcher\UrlMatcher as BaseUrlMatcher;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class UrlMatcher extends BaseUrlMatcher {
+class UrlMatcher extends BaseUrlMatcher
+{
 
-  public function __construct() {
+    public function __construct()
+    {
 
-  }
+    }
 
 }

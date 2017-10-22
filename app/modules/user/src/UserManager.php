@@ -7,14 +7,17 @@ namespace ntc\user;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class UserManager {
+class UserManager
+{
 
-  public function authenticate($username, $password) {
+    public function authenticate($username, $password)
+    {
 
-  }
+    }
 
-  public function authorize($username) {
-    
-  }
+    public function authorize($username)
+    {
+
+    }
 
 }

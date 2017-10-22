@@ -9,10 +9,10 @@ namespace model;
  * @Table(indexes={
  * @Index(name="id_hook_name_idx",  columns={"id_hook","name"})
  * })
-
  * @author adapter
  */
-class Hook {
+class Hook
+{
 
     /**
      * @var int
@@ -69,6 +69,16 @@ class Hook {
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -83,13 +93,13 @@ class Hook {
     }
 
     /**
-     * Get name
+     * Get description
      *
      * @return string
      */
-    public function getName()
+    public function getDescription()
     {
-        return $this->name;
+        return $this->description;
     }
 
     /**
@@ -107,13 +117,13 @@ class Hook {
     }
 
     /**
-     * Get description
+     * Get icon
      *
      * @return string
      */
-    public function getDescription()
+    public function getIcon()
     {
-        return $this->description;
+        return $this->icon;
     }
 
     /**
@@ -128,16 +138,6 @@ class Hook {
         $this->icon = $icon;
 
         return $this;
-    }
-
-    /**
-     * Get icon
-     *
-     * @return string
-     */
-    public function getIcon()
-    {
-        return $this->icon;
     }
 
     /**

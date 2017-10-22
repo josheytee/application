@@ -9,16 +9,19 @@ use app\core\view\form\FormElement;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Block extends FormElement {
+class Block extends FormElement
+{
 
     protected $elements;
     protected $template = 'block';
 
-    public function __construct($name, $attributes = []) {
+    public function __construct($name, $attributes = [])
+    {
         parent::__construct($name, null, $attributes);
     }
 
-    public function compact() {
+    public function compact()
+    {
 //    $this->normalize();
         return [
             'attributes' => $this->processAttribute(),
@@ -26,7 +29,8 @@ class Block extends FormElement {
         ];
     }
 
-    public function addElements($elements) {
+    public function addElements($elements)
+    {
         foreach ($elements as $element) {
             if (is_array($element)) {
                 foreach ($element as $name => $group) {

@@ -8,7 +8,8 @@ namespace app\core\view\form;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-abstract class InputElement extends FormElement {
+abstract class InputElement extends FormElement
+{
 
     /**
      * List of field types
@@ -24,7 +25,8 @@ abstract class InputElement extends FormElement {
 
     protected $template = 'input';
 
-    public function compact() {
+    public function compact()
+    {
 
         if (!isset($this->id)) {
             $this->id = lcfirst($this->name);

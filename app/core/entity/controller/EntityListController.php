@@ -1,6 +1,7 @@
 <?php
 
 namespace app\core\entity\controller;
+
 use app\core\http\Request;
 
 
@@ -10,33 +11,52 @@ use app\core\http\Request;
  * the controller method arguments. *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-abstract class EntityListController extends EntityControllerBase {
+abstract class EntityListController extends EntityControllerBase
+{
 
     protected $headings;
     protected $operations;
     protected $entities = [];
 
-    public function init(Request $request) {
+    public function listing(Request $request)
+    {
+        $this->init($request);
+        $return['library'] = '';
+        $return['content'] = $this->renderTrait(
+            [
+                'headings' => $this->processHead(),
+                'form_body' => $this->processBody()
+            ], 'list/listing');
+        return $return;
+    }
+
+    public function init(Request $request)
+    {
         $doctrine = $this->doctrine();
         $this->entities = $doctrine->getRepository($this->getModel($request))->findAll();
     }
 
-    public function processHead() {
+    public function processHead()
+    {
         return $this->head();
     }
 
-    public function processBody() {
+    abstract function head();
+
+    public function processBody()
+    {
         $rows = [];
         foreach ($this->entities as $entity) {
             $rows[] = $this->processRow($entity) + [
-                'operations' => $this->processOperation($entity),
-            ];
+                    'operations' => $this->processOperation($entity),
+                ];
         }
 //        dump($rows);
         return $rows;
     }
 
-    public function processRow($entity) {
+    public function processRow($entity)
+    {
         $row_array = [];
         foreach ($this->row($entity) as $row => $value) {
             if (is_array($value) && isset($value['callback'])) {
@@ -48,7 +68,10 @@ abstract class EntityListController extends EntityControllerBase {
         return $row_array;
     }
 
-    public function processOperation($entity) {
+    abstract function row($entity);
+
+    public function processOperation($entity)
+    {
         if (!is_null($this->defaultOperation($entity)) || !empty($this->defaultOperation($entity))) {
             foreach ($this->defaultOperation($entity) as $action => $config) {
                 if (isset($config['route'])) {
@@ -63,36 +86,22 @@ abstract class EntityListController extends EntityControllerBase {
         return null;
     }
 
-    public function compileOperations($operations) {
+    abstract function defaultOperation($entity);
+
+    public function compileOperations($operations)
+    {
         //this is done purposely for templates
         $first_template = array_keys($operations);
         $first = array_shift($operations);
-        $compiled[] = $this->renderTrait($first + ['first' => true], 'list/operation/' . $first_template[0] );
+        $compiled[] = $this->renderTrait($first + ['first' => true], 'list/operation/' . $first_template[0]);
         if (!empty($operations)) {
             foreach ($operations as $name => $operation) {
 
-                $compiled[] = $this->renderTrait($operation, 'list/operation/' . $name );
+                $compiled[] = $this->renderTrait($operation, 'list/operation/' . $name);
             }
         }
         return $compiled;
     }
 
-    public function listing(Request $request) {
-        $this->init($request);
-        $return['library'] = '';
-        $return['content'] = $this->renderTrait(
-                [
-            'headings' => $this->processHead(),
-            'form_body' => $this->processBody()
-                ], 'list/listing');
-        return $return;
-    }
-
-    abstract function head();
-
-    abstract function row($entity);
-
     abstract function bulkOperation();
-
-    abstract function defaultOperation($entity);
 }

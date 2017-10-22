@@ -2,8 +2,8 @@
 
 namespace app\core\dependencyInjection\compiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 
 /**
@@ -11,14 +11,12 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
  *
  * @author joshua
  */
-class DoctrineEnumPass implements CompilerPassInterface {
+class DoctrineEnumPass implements CompilerPassInterface
+{
 
-    public function process(ContainerBuilder $container) {
+    public function process(ContainerBuilder $container)
+    {
         $get = $container->get('entity.manager');
-
-
-
-
 
 
 //        $get->refresh(new \app\core\entity\User());

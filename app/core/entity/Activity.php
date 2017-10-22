@@ -5,7 +5,8 @@ namespace app\core\entity;
 /**
  * Activity
  */
-class Activity {
+class Activity
+{
     /**
      * @var integer
      */
@@ -47,8 +48,19 @@ class Activity {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -58,30 +70,9 @@ class Activity {
      *
      * @return Activity
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Activity
-     */
-    public function setUrl($url) {
-        $this->url = $url;
 
         return $this;
     }
@@ -91,19 +82,21 @@ class Activity {
      *
      * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
     /**
-     * Set icon
+     * Set url
      *
-     * @param string $icon
+     * @param string $url
      *
      * @return Activity
      */
-    public function setIcon($icon) {
-        $this->icon = $icon;
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
         return $this;
     }
@@ -113,19 +106,21 @@ class Activity {
      *
      * @return string
      */
-    public function getIcon() {
+    public function getIcon()
+    {
         return $this->icon;
     }
 
     /**
-     * Set description
+     * Set icon
      *
-     * @param string $description
+     * @param string $icon
      *
      * @return Activity
      */
-    public function setDescription($description) {
-        $this->description = $description;
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
 
         return $this;
     }
@@ -135,19 +130,21 @@ class Activity {
      *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
-     * Set created
+     * Set description
      *
-     * @param \DateTime $created
+     * @param string $description
      *
      * @return Activity
      */
-    public function setCreated($created) {
-        $this->created = $created;
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -157,19 +154,21 @@ class Activity {
      *
      * @return \DateTime
      */
-    public function getCreated() {
+    public function getCreated()
+    {
         return $this->created;
     }
 
     /**
-     * Set updated
+     * Set created
      *
-     * @param \DateTime $updated
+     * @param \DateTime $created
      *
      * @return Activity
      */
-    public function setUpdated($updated) {
-        $this->updated = $updated;
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
         return $this;
     }
@@ -179,7 +178,40 @@ class Activity {
      *
      * @return \DateTime
      */
-    public function getUpdated() {
+    public function getUpdated()
+    {
         return $this->updated;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Activity
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->created = new \DateTime("now");
+        $this->updated = new \DateTime("now");
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        $this->updated = new \DateTime("now");
     }
 }

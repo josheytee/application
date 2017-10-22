@@ -4,16 +4,21 @@
             <div class="core-slider_viewport">
                 <div class="core-slider_list" style="width: 3900px; transform: translateX(0px);">
                     <div class="core-slider_item" style="width: 975px;">
-                        <img src="/application/app/themes/genesis/images/b1.jpg" class="img-responsive" alt="">
+                        {*<img src="/application/app/themes/genesis/images/b1.jpg" class="img-responsive" alt="">*}
+                        <img src="/application/extensions/modules/ntc/shop/ntc/components/slider/img/b1.jpg"
+                             class="img-responsive" alt="">
                     </div>
                     <div class="core-slider_item" style="width: 975px;">
-                        <img src="/application/app/themes/genesis/images/b2.jpg" class="img-responsive" alt="">
+                        <img src="/application/extensions/modules/ntc/shop/ntc/components/slider/img/b2.jpg"
+                             class="img-responsive" alt="">
                     </div>
                     <div class="core-slider_item" style="width: 975px;">
-                        <img src="/application/app/themes/genesis/images/b3.jpg" class="img-responsive" alt="">
+                        <img src="/application/extensions/modules/ntc/shop/ntc/components/slider/img/b3.jpg"
+                             class="img-responsive" alt="">
                     </div>
                     <div class="core-slider_item" style="width: 975px;">
-                        <img src="/application/app/themes/genesis/images/b4.jpg" class="img-responsive" alt="">
+                        <img src="/application/extensions/modules/ntc/shop/ntc/components/slider/img/b4.jpg"
+                             class="img-responsive" alt="">
                     </div>
                 </div>
             </div>
@@ -21,11 +26,16 @@
                 <div class="core-slider_arrow core-slider_arrow__right"></div>
                 <div class="core-slider_arrow core-slider_arrow__left"></div>
             </div>
-            <div class="core-slider_control-nav"><div class="core-slider_control-nav-item is-active"></div><div class="core-slider_control-nav-item"></div><div class="core-slider_control-nav-item"></div><div class="core-slider_control-nav-item"></div></div>
+            <div class="core-slider_control-nav">
+                <div class="core-slider_control-nav-item is-active"></div>
+                <div class="core-slider_control-nav-item"></div>
+                <div class="core-slider_control-nav-item"></div>
+                <div class="core-slider_control-nav-item"></div>
+            </div>
         </div>
     </div>
-    <link href="/application/app/themes/genesis/css/coreSlider.css" rel="stylesheet" type="text/css">
-    <script src="/application/app/themes/genesis/js/coreSlider.js"></script>
+    <link href="/application/app/modules/shop/themes/new-shop/css/coreSlider.css" rel="stylesheet" type="text/css">
+    <script src="/application/app/modules/shop/themes/new-shop/js/coreSlider.js"></script>
     <script>
         $('#example1').coreSlider({
             pauseOnHover: false,

@@ -4,9 +4,11 @@ namespace ntc\section\listing;
 
 use app\core\controller\ListController;
 
-class SectionList extends ListController {
+class SectionList extends ListController
+{
 
-    function head() {
+    function head()
+    {
         $head['id'] = "ID";
         $head['name'] = "Name";
         $head['url'] = "Url";
@@ -15,7 +17,8 @@ class SectionList extends ListController {
         return $head;
     }
 
-    function row($entity) {
+    function row($entity)
+    {
         $row['id'] = $entity->getID();
         $row['name'] = $entity->getName();
         $row['url'] = $entity->getUrl();
@@ -24,47 +27,51 @@ class SectionList extends ListController {
         return $row;
     }
 
-    function bulkOperation() {
+    function bulkOperation()
+    {
         // TODO: Implement bulkOperation() method.
     }
 
-    function rowOperations($entity) {
+    function rowOperations($entity)
+    {
         return [
-          'edit' => [
-            'name' => 'Edit',
-            'route' => 'admin.section.update',
-            'params' => [
-              'id' => $entity->getID()
-            ]
-          ],
-          'preview' => [
-            'name' => 'Preview',
-            'route' => 'section.index',
-            'params' => [
-              'url' => $entity->getUrl()
-            ]
-          ],
-          'delete' => [
-            'name' => 'Delete',
-            'route' => 'admin.section.delete',
-            'params' => [
-              'id' => $entity->getID()
-            ]
-          ],
+            'edit' => [
+                'name' => 'Edit',
+                'route' => 'admin.section.update',
+                'params' => [
+                    'id' => $entity->getID()
+                ]
+            ],
+            'preview' => [
+                'name' => 'Preview',
+                'route' => 'section.index',
+                'params' => [
+                    'url' => $entity->getUrl()
+                ]
+            ],
+            'delete' => [
+                'name' => 'Delete',
+                'route' => 'admin.section.delete',
+                'params' => [
+                    'id' => $entity->getID()
+                ]
+            ],
         ];
     }
 
-    function title() {
+    function title()
+    {
         return 'Shop Sections';
     }
 
-    public function headOperations($entity) {
+    public function headOperations($entity)
+    {
         return [
-          'add' => [
-            'name' => 'Add',
-            'route' => 'admin.section.create',
-            'icon' => 'glyphicon glyphicon-plus-sign'
-          ]
+            'add' => [
+                'name' => 'Add',
+                'route' => 'admin.section.create',
+                'icon' => 'glyphicon glyphicon-plus-sign'
+            ]
         ];
     }
 

@@ -7,15 +7,16 @@ namespace app\core\template;
  *
  * @author Tobi
  */
-interface TemplateEngineInterface {
+interface TemplateEngineInterface
+{
 
-  public function configure();
+    public function configure();
 
-  public function fetch($template = NULL, $params = array());
+    public function fetch($template = NULL, $params = array());
 
-  public function display($template = NULL, $params = array());
+    public function display($template = NULL, $params = array());
 
-  public function output($template, $data = null);
+    public function output($template, $data = null);
 
-  public function makeTemplate($template, $params = array());
+    public function makeTemplate($template, $params = array());
 }

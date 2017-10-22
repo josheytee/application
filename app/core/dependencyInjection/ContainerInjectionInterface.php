@@ -10,7 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * This interface gives classes who need services a factory method for
  * instantiation rather than defining a new service.
  */
-interface ContainerInjectionInterface {
+interface ContainerInjectionInterface
+{
 
     /**
      * Instantiates a new instance of this class.

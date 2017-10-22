@@ -5,13 +5,16 @@ namespace ntc\product\form;
 use app\core\controller\FormController;
 use app\core\view\form\Formbuilder;
 
-class SEOForm extends FormController {
+class SEOForm extends FormController
+{
 
-    function title() {
+    function title()
+    {
         // TODO: Implement title() method.
     }
 
-    public function build(Formbuilder $builder, $entity) {
+    public function build(Formbuilder $builder, $entity)
+    {
         $builder->block(
             $builder->label('meta_title')
             , $builder->text('meta_title', '')->addAttributes(['class' => 'form-control'])
@@ -38,7 +41,8 @@ class SEOForm extends FormController {
         return $builder;
     }
 
-    public function validationRules() {
+    public function validationRules()
+    {
         // TODO: Implement validationRules() method.
     }
 }

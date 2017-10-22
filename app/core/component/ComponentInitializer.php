@@ -11,33 +11,32 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ComponentInitializer {
+class ComponentInitializer
+{
 
     use ContainerAwareTrait;
 
+    protected $initialized;
     /**
      * @var ClassResolver
      */
     private $resolver;
-    protected $initialized;
     private $components;
     /**
      * @var ComponentRepository
      */
     private $componentRepository;
 
-    public function __construct(ClassResolver $resolver, ComponentRepository $componentRepository) {
+    public function __construct(ClassResolver $resolver, ComponentRepository $componentRepository)
+    {
 
         $this->resolver = $resolver;
         $this->componentRepository = $componentRepository;
         $this->initialized = FALSE;
     }
 
-    public function initialize($component, $details) {
-        return $this->resolver->getInstanceFromDefinition($component, $details);
-    }
-
-    public function getComponents() {
+    public function getComponents()
+    {
         if (!$this->initialized) {
             $this->initializeAll();
         }
@@ -48,12 +47,18 @@ class ComponentInitializer {
     /**
      * @return type
      */
-    public function initializeAll() {
+    public function initializeAll()
+    {
         foreach ($this->componentRepository->getRepositories() as $package => $handler) {
             $this->components[$package] = $this->initialize($handler->getClass(),
-              $handler->getInfo() + ['path' => $handler->getPath()]);
+                $handler->getInfo() + ['path' => $handler->getPath()]);
         }
         $this->initialized = true;
+    }
+
+    public function initialize($component, $details)
+    {
+        return $this->resolver->getInstanceFromDefinition($component, $details);
     }
 
     /**
@@ -61,7 +66,8 @@ class ComponentInitializer {
      * @param type $component_name
      * @return type
      */
-    public function getByName($component_name) {
+    public function getByName($component_name)
+    {
         if (!$this->initialized) {
             $this->initializeAll();
         }

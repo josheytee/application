@@ -5,13 +5,16 @@ namespace ntc\product\form;
 use app\core\controller\FormController;
 use app\core\view\form\Formbuilder;
 
-class QuantitiesForm extends FormController {
+class QuantitiesForm extends FormController
+{
 
-    function title() {
+    function title()
+    {
         // TODO: Implement title() method.
     }
 
-    public function build(Formbuilder $builder, $entity) {
+    public function build(Formbuilder $builder, $entity)
+    {
         $builder->block(
             $builder->label('quantity')
             , $builder->text('quantity', '')->addAttributes(['class' => 'form-control'])
@@ -34,7 +37,8 @@ class QuantitiesForm extends FormController {
         return $builder;
     }
 
-    public function validationRules() {
+    public function validationRules()
+    {
         // TODO: Implement validationRules() method.
     }
 }

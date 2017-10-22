@@ -10,428 +10,458 @@ namespace model;
  * @Index(name="product_price_name_idx",  columns={"id_product","price","name"})
  * })
  */
-class Product {
+class Product
+{
 
-  /**
-   * @var int
-   *
-   * @Id
-   * @GeneratedValue
-   * @Column(type="integer")
-   */
-  public $id_product;
+    /**
+     * @var int
+     *
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    public $id_product;
 
-  /**
-   * @OneToOne(targetEntity="Shop")
-   * @JoinColumn(name="id_shop",referencedColumnName="id_shop")
-   */
-  public $shop;
+    /**
+     * @OneToOne(targetEntity="Shop")
+     * @JoinColumn(name="id_shop",referencedColumnName="id_shop")
+     */
+    public $shop;
 
-  /**
-   * @OneToOne(targetEntity="Section")
-   * @JoinColumn(name="id_section",referencedColumnName="id_section")
-   */
-  public $section;
+    /**
+     * @OneToOne(targetEntity="Section")
+     * @JoinColumn(name="id_section",referencedColumnName="id_section")
+     */
+    public $section;
 
-  /**
-   * @var string
-   *
-   * @Column(type="string")
-   */
-  public $name;
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $name;
 
-  /**
-   * @var string
-   *
-   * @Column(type="text",length=320)
-   */
-  public $short_description;
+    /**
+     * @var string
+     *
+     * @Column(type="text",length=320)
+     */
+    public $short_description;
 
-  /**
-   * @var string
-   *
-   * @Column(type="text", length=700)
-   */
-  public $description;
+    /**
+     * @var string
+     *
+     * @Column(type="text", length=700)
+     */
+    public $description;
 
-  /**
-   * @var string
-   *
-   * @Column(type="string", columnDefinition="ENUM('new', 'used', 'refurbished')")
-   */
-  public $condition;
+    /**
+     * @var string
+     *
+     * @Column(type="string", columnDefinition="ENUM('new', 'used', 'refurbished')")
+     */
+    public $condition;
 
-  /**
-   * @var string
-   *
-   * @Column(type="string", columnDefinition="ENUM('simple', 'pack', 'virtual')")
-   */
-  public $type;
+    /**
+     * @var string
+     *
+     * @Column(type="string", columnDefinition="ENUM('simple', 'pack', 'virtual')")
+     */
+    public $type;
 
-  /**
-   * @var string
-   *
-   * @Column(type="boolean")
-   */
-  public $available_for_order;
+    /**
+     * @var string
+     *
+     * @Column(type="boolean")
+     */
+    public $available_for_order;
 
-  /**
-   * @var string
-   *
-   * @Column(type="boolean")
-   */
-  public $show_price;
+    /**
+     * @var string
+     *
+     * @Column(type="boolean")
+     */
+    public $show_price;
 
-  /**
-   * @var string
-   *
-   * @Column(type="decimal",scale=4)
-   */
-  public $price;
+    /**
+     * @var string
+     *
+     * @Column(type="decimal",scale=4)
+     */
+    public $price;
 
-  /**
-   * @var string
-   *
-   * @Column(type="boolean")
-   */
-  public $online_only;
+    /**
+     * @var string
+     *
+     * @Column(type="boolean")
+     */
+    public $online_only;
 
-  /**
-   * @var string
-   *
-   * @Column(type="boolean")
-   */
-  public $active;
+    /**
+     * @var string
+     *
+     * @Column(type="boolean")
+     */
+    public $active;
 
-  /**
-   * @var \DateTime
-   *
-   * @Column(type="datetime")
-   */
-  public $created;
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $created;
 
-  /**
-   * @var \DateTime
-   *
-   * @Column(type="datetime")
-   */
-  public $updated;
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $updated;
 
-  /**
-   * Get idProduct
-   *
-   * @return integer
-   */
-  public function getIdProduct() {
-    return $this->id_product;
-  }
+    /**
+     * Get idProduct
+     *
+     * @return integer
+     */
+    public function getIdProduct()
+    {
+        return $this->id_product;
+    }
 
-  /**
-   * Set name
-   *
-   * @param string $name
-   *
-   * @return Product
-   */
-  public function setName($name) {
-    $this->name = $name;
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-    return $this;
-  }
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Product
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
-  /**
-   * Get name
-   *
-   * @return string
-   */
-  public function getName() {
-    return $this->name;
-  }
+        return $this;
+    }
 
-  /**
-   * Set description
-   *
-   * @param string $description
-   *
-   * @return Product
-   */
-  public function setDescription($description) {
-    $this->description = $description;
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-    return $this;
-  }
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Product
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
-  /**
-   * Get description
-   *
-   * @return string
-   */
-  public function getDescription() {
-    return $this->description;
-  }
+        return $this;
+    }
 
-  /**
-   * Set price
-   *
-   * @param string $price
-   *
-   * @return Product
-   */
-  public function setPrice($price) {
-    $this->price = $price;
+    /**
+     * Get price
+     *
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
 
-    return $this;
-  }
+    /**
+     * Set price
+     *
+     * @param string $price
+     *
+     * @return Product
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
 
-  /**
-   * Get price
-   *
-   * @return string
-   */
-  public function getPrice() {
-    return $this->price;
-  }
+        return $this;
+    }
 
-  /**
-   * Set created
-   *
-   * @param \DateTime $created
-   *
-   * @return Product
-   */
-  public function setCreated($created) {
-    $this->created = $created;
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
 
-    return $this;
-  }
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Product
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
-  /**
-   * Get created
-   *
-   * @return \DateTime
-   */
-  public function getCreated() {
-    return $this->created;
-  }
+        return $this;
+    }
 
-  /**
-   * Set updated
-   *
-   * @param \DateTime $updated
-   *
-   * @return Product
-   */
-  public function setUpdated($updated) {
-    $this->updated = $updated;
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
 
-    return $this;
-  }
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Product
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
 
-  /**
-   * Get updated
-   *
-   * @return \DateTime
-   */
-  public function getUpdated() {
-    return $this->updated;
-  }
+        return $this;
+    }
 
-  /**
-   * Set section
-   *
-   * @param \model\Section $section
-   *
-   * @return Product
-   */
-  public function setSection(\model\Section $section = null) {
-    $this->section = $section;
+    /**
+     * Get section
+     *
+     * @return \model\Section
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
 
-    return $this;
-  }
+    /**
+     * Set section
+     *
+     * @param \model\Section $section
+     *
+     * @return Product
+     */
+    public function setSection(\model\Section $section = null)
+    {
+        $this->section = $section;
 
-  /**
-   * Get section
-   *
-   * @return \model\Section
-   */
-  public function getSection() {
-    return $this->section;
-  }
+        return $this;
+    }
 
-  /**
-   * Set shop
-   *
-   * @param \model\Shop $shop
-   *
-   * @return Product
-   */
-  public function setShop(\model\Shop $shop = null) {
-    $this->shop = $shop;
+    /**
+     * Get shop
+     *
+     * @return \model\Shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
 
-    return $this;
-  }
+    /**
+     * Set shop
+     *
+     * @param \model\Shop $shop
+     *
+     * @return Product
+     */
+    public function setShop(\model\Shop $shop = null)
+    {
+        $this->shop = $shop;
 
-  /**
-   * Get shop
-   *
-   * @return \model\Shop
-   */
-  public function getShop() {
-    return $this->shop;
-  }
+        return $this;
+    }
 
-  /**
-   * Set availableForOrder
-   *
-   * @param boolean $availableForOrder
-   *
-   * @return Product
-   */
-  public function setAvailableForOrder($availableForOrder) {
-    $this->available_for_order = $availableForOrder;
+    /**
+     * Get availableForOrder
+     *
+     * @return boolean
+     */
+    public function getAvailableForOrder()
+    {
+        return $this->available_for_order;
+    }
 
-    return $this;
-  }
+    /**
+     * Set availableForOrder
+     *
+     * @param boolean $availableForOrder
+     *
+     * @return Product
+     */
+    public function setAvailableForOrder($availableForOrder)
+    {
+        $this->available_for_order = $availableForOrder;
 
-  /**
-   * Get availableForOrder
-   *
-   * @return boolean
-   */
-  public function getAvailableForOrder() {
-    return $this->available_for_order;
-  }
+        return $this;
+    }
 
-  /**
-   * Set showPrice
-   *
-   * @param boolean $showPrice
-   *
-   * @return Product
-   */
-  public function setShowPrice($showPrice) {
-    $this->show_price = $showPrice;
+    /**
+     * Get showPrice
+     *
+     * @return boolean
+     */
+    public function getShowPrice()
+    {
+        return $this->show_price;
+    }
 
-    return $this;
-  }
+    /**
+     * Set showPrice
+     *
+     * @param boolean $showPrice
+     *
+     * @return Product
+     */
+    public function setShowPrice($showPrice)
+    {
+        $this->show_price = $showPrice;
 
-  /**
-   * Get showPrice
-   *
-   * @return boolean
-   */
-  public function getShowPrice() {
-    return $this->show_price;
-  }
+        return $this;
+    }
 
-  /**
-   * Set onlineOnly
-   *
-   * @param boolean $onlineOnly
-   *
-   * @return Product
-   */
-  public function setOnlineOnly($onlineOnly) {
-    $this->online_only = $onlineOnly;
+    /**
+     * Get onlineOnly
+     *
+     * @return boolean
+     */
+    public function getOnlineOnly()
+    {
+        return $this->online_only;
+    }
 
-    return $this;
-  }
+    /**
+     * Set onlineOnly
+     *
+     * @param boolean $onlineOnly
+     *
+     * @return Product
+     */
+    public function setOnlineOnly($onlineOnly)
+    {
+        $this->online_only = $onlineOnly;
 
-  /**
-   * Get onlineOnly
-   *
-   * @return boolean
-   */
-  public function getOnlineOnly() {
-    return $this->online_only;
-  }
+        return $this;
+    }
 
-  /**
-   * Set active
-   *
-   * @param boolean $active
-   *
-   * @return Product
-   */
-  public function setActive($active) {
-    $this->active = $active;
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
 
-    return $this;
-  }
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Product
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
 
-  /**
-   * Get active
-   *
-   * @return boolean
-   */
-  public function getActive() {
-    return $this->active;
-  }
+        return $this;
+    }
 
-  /**
-   * Set condition
-   *
-   * @param string $condition
-   *
-   * @return Product
-   */
-  public function setCondition($condition) {
-    $this->condition = $condition;
+    /**
+     * Get condition
+     *
+     * @return string
+     */
+    public function getCondition()
+    {
+        return $this->condition;
+    }
 
-    return $this;
-  }
+    /**
+     * Set condition
+     *
+     * @param string $condition
+     *
+     * @return Product
+     */
+    public function setCondition($condition)
+    {
+        $this->condition = $condition;
 
-  /**
-   * Get condition
-   *
-   * @return string
-   */
-  public function getCondition() {
-    return $this->condition;
-  }
+        return $this;
+    }
 
-  /**
-   * Set type
-   *
-   * @param string $type
-   *
-   * @return Product
-   */
-  public function setType($type) {
-    $this->type = $type;
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 
-    return $this;
-  }
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Product
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
 
-  /**
-   * Get type
-   *
-   * @return string
-   */
-  public function getType() {
-    return $this->type;
-  }
+        return $this;
+    }
 
-  /**
-   * Set shortDescription
-   *
-   * @param string $shortDescription
-   *
-   * @return Product
-   */
-  public function setShortDescription($shortDescription) {
-    $this->short_description = $shortDescription;
+    /**
+     * Get shortDescription
+     *
+     * @return string
+     */
+    public function getShortDescription()
+    {
+        return $this->short_description;
+    }
 
-    return $this;
-  }
+    /**
+     * Set shortDescription
+     *
+     * @param string $shortDescription
+     *
+     * @return Product
+     */
+    public function setShortDescription($shortDescription)
+    {
+        $this->short_description = $shortDescription;
 
-  /**
-   * Get shortDescription
-   *
-   * @return string
-   */
-  public function getShortDescription() {
-    return $this->short_description;
-  }
+        return $this;
+    }
 
 }

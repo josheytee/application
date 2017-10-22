@@ -48,7 +48,7 @@ app\core\entity\Section:
             cascade: {  }
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: sections
             joinColumns:
                 id_shop:
                     referencedColumnName: id

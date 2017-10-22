@@ -15,21 +15,35 @@ use Illuminate\Support\Str;
  * the controller method arguments. *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-abstract class FormController extends ControllerBase {
+abstract class FormController extends ControllerBase
+{
 
     use ArrayHelper;
 
-    abstract public function build(Formbuilder $builder, $entity);
-
-    public function getEntity(Request $request, $id) {
-        $model = $this->getModel($request);
-        if ($id === 0) {
-            return new $model();
+    public function create(Request $request, Formbuilder $builder, $id = 0)
+    {
+//        dump($request->all());
+        $errors = null;
+        if (!empty($request->all())) {
+            $validator = $this->validate($request->all());
+            $validator->passes() ? $this->createEntity($request) :
+                $errors = $this->handleValidationErrors($validator);
         }
-        return $this->doctrine()->find($model, $id);
+        $return['content'] = $this->build($builder, $this->getEntity($request, $id))
+            ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();
+        return $return;
     }
 
-    public function createEntity(Request $request) {
+    public function validate($request)
+    {
+        $validator = new Validator($request, $this->validationRules() ?? []);
+        return $validator;
+    }
+
+    abstract public function validationRules();
+
+    public function createEntity(Request $request)
+    {
         $model = $this->getModel($request);
         $doctrine = $this->doctrine();
         $dependencies = $this->getDependencies();
@@ -75,9 +89,94 @@ abstract class FormController extends ControllerBase {
         }
     }
 
-    abstract function handleFile($entity, UploadedFile $file);
+    public function handleFile($entity, UploadedFile $file)
+    {
+    }
 
-    protected function updateEntity(Request $request, $id) {
+    /**
+     * Get an item from an object using "dot" notation.
+     *
+     * @param  object $object
+     * @param  string $key
+     * @param null $value
+     * @internal param mixed $default
+     * @return mixed
+     */
+    function object_set($object, $key, $value = null)
+    {
+        if (is_null($key) || trim($key) == '') {
+            return $object;
+        }
+        $object = $object->{'set' . Str::studly($key)}($value);
+        return $object;
+    }
+
+    public function handleValidationErrors($validator)
+    {
+        return $validator->errors()->getMessages();
+    }
+
+    abstract public function build(Formbuilder $builder, $entity);
+
+    public function getEntity(Request $request, $id)
+    {
+        $model = $this->getModel($request);
+        if ($id === 0) {
+            return new $model();
+        }
+        return $this->doctrine()->find($model, $id);
+    }
+
+    public function formAttributes()
+    {
+        return $this->processArray([
+                'id' => '',
+                'class' => '',
+                'method' => 'post',
+                'action' => ''
+            ] + $this->attributes());
+    }
+
+    public function attributes()
+    {
+        return [];
+    }
+
+    /**
+     * This is the method for _form routes without _model
+     * @param Request $request
+     * @param Formbuilder $builder
+     * @return mixed
+     * @internal param int $entity
+     */
+    public function add(Request $request, Formbuilder $builder)
+    {
+        if ($this->validate($request->all())) {
+            $this->process($request);
+            $return['content'] = $this->build($builder, null)->setAttributes($this->formAttributes())->fetch();
+            return $return;
+        }
+    }
+
+    public function process(Request $request)
+    {
+
+    }
+
+    public function update(Request $request, Formbuilder $builder, $id)
+    {
+        $errors = null;
+        if (!empty($request->all())) {
+            $validator = $this->validate($request->all());
+            $validator->passes() ? $this->updateEntity($request, $id) : $errors = $this->handleValidationErrors($validator);
+        }
+        $return['content'] = $this->build($builder, $this->getEntity($request, $id))
+            ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();
+        return $return;
+    }
+
+    protected function updateEntity(Request $request, $id)
+    {
         $model = $this->getModel($request);
         $key = $request->get('_key');
         $doctrine = $this->doctrine();
@@ -115,7 +214,13 @@ abstract class FormController extends ControllerBase {
         }
     }
 
-    public function deleteEntity(Request $request, $id) {
+    public function delete(Request $request, $id)
+    {
+        return $this->deleteEntity($request, $id);
+    }
+
+    public function deleteEntity(Request $request, $id)
+    {
         $doctrine = $this->doctrine();
         $entity = $doctrine->find($this->getModel($request), $id);
         if (!$entity) {
@@ -126,60 +231,6 @@ abstract class FormController extends ControllerBase {
         $doctrine->flush();
     }
 
-    public function create(Request $request, Formbuilder $builder, $id = 0) {
-//        dump($request->all());
-        $errors = null;
-        if (!empty($request->all())) {
-            $validator = $this->validate($request->all());
-            $validator->passes() ? $this->createEntity($request) :
-              $errors = $this->handleValidationErrors($validator);
-        }
-        $return['content'] = $this->build($builder, $this->getEntity($request, $id))
-          ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();
-        return $return;
-    }
-
-    public function handleValidationErrors($validator) {
-        return $validator->errors()->getMessages();
-    }
-
-    /**
-     * This is the method for _form routes without _model
-     * @param Request $request
-     * @param Formbuilder $builder
-     * @return mixed
-     * @internal param int $entity
-     */
-    public function add(Request $request, Formbuilder $builder) {
-        if ($this->validate($request->all())) {
-            $this->process($request);
-            $return['content'] = $this->build($builder, null)->setAttributes($this->formAttributes())->fetch();
-            return $return;
-        }
-    }
-
-    public function update(Request $request, Formbuilder $builder, $id) {
-        $errors = null;
-        if (!empty($request->all())) {
-            $validator = $this->validate($request->all());
-            $validator->passes() ? $this->updateEntity($request, $id) : $errors = $this->handleValidationErrors($validator);
-        }
-        $return['content'] = $this->build($builder, $this->getEntity($request, $id))
-          ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();
-        return $return;
-    }
-
-    abstract public function validationRules();
-
-    public function validate($request) {
-        $validator = new Validator($request, $this->validationRules() ?? []);
-        return $validator;
-    }
-
-    public function delete(Request $request, $id) {
-        return $this->deleteEntity($request, $id);
-    }
-
     /**
      * Get an item from an object using "dot" notation.
      *
@@ -188,7 +239,8 @@ abstract class FormController extends ControllerBase {
      * @param  mixed $default
      * @return mixed
      */
-    function object_get($object, $key, $default = null) {
+    function object_get($object, $key, $default = null)
+    {
         if (is_null($key) || trim($key) == '') {
             return $object;
         }
@@ -202,40 +254,6 @@ abstract class FormController extends ControllerBase {
         }
 
         return $object;
-    }
-
-    /**
-     * Get an item from an object using "dot" notation.
-     *
-     * @param  object $object
-     * @param  string $key
-     * @param null $value
-     * @internal param mixed $default
-     * @return mixed
-     */
-    function object_set($object, $key, $value = null) {
-        if (is_null($key) || trim($key) == '') {
-            return $object;
-        }
-        $object = $object->{'set' . Str::studly($key)}($value);
-        return $object;
-    }
-
-    public function formAttributes() {
-        return $this->processArray([
-            'id' => '',
-            'class' => '',
-            'method' => 'post',
-            'action' => ''
-          ] + $this->attributes());
-    }
-
-    public function attributes() {
-        return [];
-    }
-
-    public function process(Request $request) {
-
     }
 
 }

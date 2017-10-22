@@ -7,6 +7,7 @@ namespace app\core\config;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class StorageException extends \Exception {
+class StorageException extends \Exception
+{
 
 }

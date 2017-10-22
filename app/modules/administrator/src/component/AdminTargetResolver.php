@@ -18,7 +18,8 @@ use app\core\routing\RouteMatchInterface;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class AdminTargetResolver implements ComponentTargetResolverInterface {
+class AdminTargetResolver implements ComponentTargetResolverInterface
+{
 
     /**
      * @var AdminContext
@@ -30,16 +31,19 @@ class AdminTargetResolver implements ComponentTargetResolverInterface {
      */
     private $componentManager;
 
-    public function __construct(AdminContext $context, ComponentManager $componentManager) {
+    public function __construct(AdminContext $context, ComponentManager $componentManager)
+    {
         $this->context = $context;
         $this->componentManager = $componentManager;
     }
 
-    public function appliesTo(RouteMatchInterface $route_match) {
+    public function appliesTo(RouteMatchInterface $route_match)
+    {
         return $this->context->isAdminRoute($route_match->getRouteObject());
     }
 
-    public function resolveTarget(RouteMatchInterface $route_match) {
+    public function resolveTarget(RouteMatchInterface $route_match)
+    {
         return $this->componentManager->getTargetComponents('admin');
     }
 

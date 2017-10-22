@@ -9,14 +9,17 @@ use app\core\repository\ModuleRepository;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ComponentClassResolver {
+class ComponentClassResolver
+{
 
-  public function __construct(ModuleRepository $repository) {
+    public function __construct(ModuleRepository $repository)
+    {
 
-  }
+    }
 
-  public function getClass() {
+    public function getClass()
+    {
 
-  }
+    }
 
 }

@@ -4,7 +4,8 @@ namespace app\model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model {
+class Product extends Model
+{
 
     protected $primaryKey = 'id_product';
     protected $table = 'product';
@@ -16,11 +17,13 @@ class Product extends Model {
      */
     protected $fillable = ['id_shop', 'id_section', 'name', 'description', 'price', 'availability'];
 
-    public function shop() {
+    public function shop()
+    {
         return $this->hasOne('app\model\Shop', 'id_shop', 'id_product');
     }
 
-    public function section() {
+    public function section()
+    {
         return $this->hasOne('app\model\Section', 'id_section', 'id_product');
     }
 

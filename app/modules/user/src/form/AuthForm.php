@@ -13,63 +13,69 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class AuthForm extends FormController {
+class AuthForm extends FormController
+{
 
-  public static function inject(ContainerInterface $container) {
-    return new static();
-  }
+    public static function inject(ContainerInterface $container)
+    {
+        return new static();
+    }
 
-  public function build(FormBuilder $builder, $entity) {
-    $builder->block(
-      $builder->label('username')
-      , $builder->text('username', '')->addAttributes(['class' => 'form-control'])
-    )->addAttributes(['class' => 'form-group']);
-    $builder->block(
-      $builder->label('password')
-      , $builder->password('password', '')->addAttributes(['class' => 'form-control'])
-    )->addAttributes(['class' => 'form-group']);
+    public function build(FormBuilder $builder, $entity)
+    {
+        $builder->block(
+            $builder->label('username')
+            , $builder->text('username', '')->addAttributes(['class' => 'form-control'])
+        )->addAttributes(['class' => 'form-group']);
+        $builder->block(
+            $builder->label('password')
+            , $builder->password('password', '')->addAttributes(['class' => 'form-control'])
+        )->addAttributes(['class' => 'form-group']);
 
-    $builder->block(
-      $builder->label('remember_me')
-      , $builder->checkbox('remember_me', '')
-    )->addAttributes(['class' => 'form-group']);
+        $builder->block(
+            $builder->label('remember_me')
+            , $builder->checkbox('remember_me', '')
+        )->addAttributes(['class' => 'form-group']);
 
-    $builder->block($builder->submit('Login', 'Login')->addAttributes(['class' => 'btn btn-primary']))
-      ->addAttributes(['class' => 'form-group']);
-    return $builder;
-  }
+        $builder->block($builder->submit('Login', 'Login')->addAttributes(['class' => 'btn btn-primary']))
+            ->addAttributes(['class' => 'form-group']);
+        return $builder;
+    }
 
-  public function formID() {
-    return 'user';
-  }
+    public function formID()
+    {
+        return 'user';
+    }
 
-  public function process(Request $request) {
-    if (!$request->session()->has('logged')) {
+    public function process(Request $request)
+    {
+        if (!$request->session()->has('logged')) {
 //            dump($request->all());
-      if (isset($request->username)) {
-        $doctrine = $this->doctrine();
-        $user = $doctrine->getRepository('app\core\entity\User');
-        $data = $user->findOneBy(['username' => $request->username]);
-        if ($data) {
-          $request->session()->set('logged', $data->getId());
-          $this->redirect('admin.index');
-        }
-      }
-    } else
-      $this->redirect('admin.index');
-  }
+            if (isset($request->username)) {
+                $doctrine = $this->doctrine();
+                $user = $doctrine->getRepository('app\core\entity\User');
+                $data = $user->findOneBy(['username' => $request->username]);
+                if ($data) {
+                    $request->session()->set('logged', $data->getId());
+                    $this->redirect('admin.index');
+                }
+            }
+        } else
+            $this->redirect('admin.index');
+    }
 
-  function title() {
-    // TODO: Implement title() method.
-  }
+    function title()
+    {
+        // TODO: Implement title() method.
+    }
 
-  function handleFile($entity, UploadedFile $file)
-  {
-    // TODO: Implement handleFile() method.
-  }
+    function handleFile($entity, UploadedFile $file)
+    {
+        // TODO: Implement handleFile() method.
+    }
 
-  public function validationRules()
-  {
-    // TODO: Implement validationRules() method.
-  }
+    public function validationRules()
+    {
+        // TODO: Implement validationRules() method.
+    }
 }

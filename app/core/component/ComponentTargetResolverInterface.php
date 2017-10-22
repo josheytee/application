@@ -8,7 +8,8 @@ use app\core\routing\RouteMatchInterface;
  *
  * @author  Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-interface ComponentTargetResolverInterface {
+interface ComponentTargetResolverInterface
+{
 
     public function appliesTo(RouteMatchInterface $route_match);
 

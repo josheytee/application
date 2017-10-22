@@ -4,9 +4,11 @@ namespace ntc\product\listing;
 
 use app\core\controller\ListController;
 
-class ProductList extends ListController {
+class ProductList extends ListController
+{
 
-    function head() {
+    function head()
+    {
         $head['id'] = "ID";
         $head['image'] = "Image";
         $head['name'] = "Name";
@@ -17,7 +19,8 @@ class ProductList extends ListController {
         return $head;
     }
 
-    function row($entity) {
+    function row($entity)
+    {
         $row['id'] = $entity->getID();
         $row['image'][] = $entity->getName();
         $row['image']['callback'] = 'setImage';
@@ -30,57 +33,63 @@ class ProductList extends ListController {
         return $row;
     }
 
-    public function setActiveIcon($product) {
+    public function setActiveIcon($product)
+    {
         return $product ? "<span class='glyphicon glyphicon-ok' style='color: #0F9E5E' aria-hidden='true'></span>" :
-          "<span class='glyphicon glyphicon-remove' style='color: #d41308' aria-hidden='true'></span>";
+            "<span class='glyphicon glyphicon-remove' style='color: #d41308' aria-hidden='true'></span>";
     }
 
-    public function setImage($product) {
+    public function setImage($product)
+    {
         return $product ? "<img src='/{$product}'>" : "";
     }
 
-    function bulkOperation() {
+    function bulkOperation()
+    {
         // TODO: Implement bulkOperation() method.
     }
 
-    function rowOperations($entity) {
+    function rowOperations($entity)
+    {
         return [
-          'preview' => [
-            'name' => 'View',
-            'route' => 'product.index',
-            'params' => [
-              'id' => $entity->getId(),
-              'url' => $entity->getLinkRewrite()
+            'preview' => [
+                'name' => 'View',
+                'route' => 'product.index',
+                'params' => [
+                    'id' => $entity->getId(),
+                    'url' => $entity->getLinkRewrite()
+                ]
+            ],
+            'edit' => [
+                'name' => 'Edit',
+                'route' => 'admin.product.edit',
+                'params' => [
+                    'id' => $entity->getID()
+                ]
+            ],
+            'delete' => [
+                'name' => 'Delete',
+                'route' => 'admin.product.delete',
+                'params' => [
+                    'id' => $entity->getID()
+                ]
             ]
-          ],
-          'edit' => [
-            'name' => 'Edit',
-            'route' => 'admin.product.edit',
-            'params' => [
-              'id' => $entity->getID()
-            ]
-          ],
-          'delete' => [
-            'name' => 'Delete',
-            'route' => 'admin.product.delete',
-            'params' => [
-              'id' => $entity->getID()
-            ]
-          ]
         ];
     }
 
-    function title() {
+    function title()
+    {
         return 'Product list';
     }
 
-    public function headOperations($entity) {
+    public function headOperations($entity)
+    {
         return [
-          'add' => [
-            'name' => 'Add',
-            'route' => 'admin.product.create',
-            'icon' => 'glyphicon glyphicon-plus-sign'
-          ]
+            'add' => [
+                'name' => 'Add',
+                'route' => 'admin.product.create',
+                'icon' => 'glyphicon glyphicon-plus-sign'
+            ]
         ];
     }
 }

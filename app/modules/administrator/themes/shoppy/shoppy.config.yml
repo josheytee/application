@@ -1,15 +1,12 @@
 regions:
-  header_left:
-    - ntc\administrator\brand
-    - ntc\administrator\search
-#    - ntc\administrator\quickaccess
-  header_right:
-    - ntc\administrator\notification
-    - ntc\administrator\userinfo
-  breadcrumb:
-
-  help:
-  sidebar:
-    - ntc\administrator\sidebar
-#  container: Container
-  footer:
+    header_left:
+        - ntc\administrator\brand
+        - ntc\administrator\search
+    header_right:
+        - ntc\administrator\notification
+        - ntc\administrator\userinfo
+    breadcrumb: null
+    help: null
+    sidebar:
+        - ntc\administrator\sidebar
+    footer: null

@@ -10,7 +10,8 @@
  * -------------------------------------------------------------
  */
 
-function smarty_function_getTemplate() {
+function smarty_function_getTemplate()
+{
     $answers = array('Yes',
         'No',
         'No way',

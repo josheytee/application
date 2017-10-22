@@ -2,18 +2,19 @@
 
 namespace ntc\user\subscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use app\core\account\AuthenticationProviderInterface;
 use app\core\account\AccountProxyInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
+use app\core\account\AuthenticationProviderInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail dot com>
  */
-class AuthSubscriber implements EventSubscriberInterface {
+class AuthSubscriber implements EventSubscriberInterface
+{
 
     /**
      * @var \app\core\account\AuthenticationProviderInterface
@@ -25,17 +26,20 @@ class AuthSubscriber implements EventSubscriberInterface {
      */
     private $account_proxy;
 
-    public function __construct(AuthenticationProviderInterface $authentication_provider, AccountProxyInterface $account_proxy) {
+    public function __construct(AuthenticationProviderInterface $authentication_provider, AccountProxyInterface $account_proxy)
+    {
 
         $this->account_proxy = $account_proxy;
         $this->authentication_provider = $authentication_provider;
     }
 
-    public static function getSubscribedEvents(): array {
+    public static function getSubscribedEvents(): array
+    {
         return [KernelEvents::REQUEST => ['authorizeRequest', 31]];
     }
 
-    public function authorizeRequest(GetResponseEvent $event) {
+    public function authorizeRequest(GetResponseEvent $event)
+    {
         if ($event->getRequestType() === HttpKernelInterface::MASTER_REQUEST) {
             $request = $event->getRequest();
             if ($this->authentication_provider->applies($request)) {

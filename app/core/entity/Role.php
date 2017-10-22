@@ -7,211 +7,229 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Role
  */
-class Role {
-  /**
-   * @var integer
-   */
-  private $id = 0;
+class Role
+{
+    /**
+     * @var integer
+     */
+    private $id = 0;
 
-  /**
-   * @var string
-   */
-  private $name;
+    /**
+     * @var string
+     */
+    private $name;
 
-  /**
-   * @var array
-   */
-  private $permissions;
+    /**
+     * @var array
+     */
+    private $permissions;
 
-  /**
-   * @var \DateTime
-   */
-  private $created;
+    /**
+     * @var \DateTime
+     */
+    private $created;
 
-  /**
-   * @var \DateTime
-   */
-  private $updated;
+    /**
+     * @var \DateTime
+     */
+    private $updated;
 
-  /**
-   * @var Shop
-   */
-  private $shop;
+    /**
+     * @var Shop
+     */
+    private $shop;
 
-  /**
-   * @var \Doctrine\Common\Collections\Collection
-   */
-  private $users;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $users;
 
-  /**
-   * Constructor
-   */
-  public function __construct() {
-    $this->users = new ArrayCollection();
-  }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
-  /**
-   * Get id
-   *
-   * @return integer
-   */
-  public function getId() {
-    return $this->id;
-  }
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-  /**
-   * Set name
-   *
-   * @param string $name
-   *
-   * @return Role
-   */
-  public function setName($name) {
-    $this->name = $name;
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-    return $this;
-  }
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Role
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
-  /**
-   * Get name
-   *
-   * @return string
-   */
-  public function getName() {
-    return $this->name;
-  }
+        return $this;
+    }
 
-  /**
-   * Set permissions
-   *
-   * @param array $permissions
-   *
-   * @return Role
-   */
-  public function setPermissions($permissions) {
-    $this->permissions = $permissions;
+    /**
+     * Get permissions
+     *
+     * @return array
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
 
-    return $this;
-  }
+    /**
+     * Set permissions
+     *
+     * @param array $permissions
+     *
+     * @return Role
+     */
+    public function setPermissions($permissions)
+    {
+        $this->permissions = $permissions;
 
-  /**
-   * Get permissions
-   *
-   * @return array
-   */
-  public function getPermissions() {
-    return $this->permissions;
-  }
+        return $this;
+    }
 
-  /**
-   * Set created
-   *
-   * @param \DateTime $created
-   *
-   * @return Role
-   */
-  public function setCreated($created) {
-    $this->created = $created;
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
 
-    return $this;
-  }
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Role
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
-  /**
-   * Get created
-   *
-   * @return \DateTime
-   */
-  public function getCreated() {
-    return $this->created;
-  }
+        return $this;
+    }
 
-  /**
-   * Set updated
-   *
-   * @param \DateTime $updated
-   *
-   * @return Role
-   */
-  public function setUpdated($updated) {
-    $this->updated = $updated;
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
 
-    return $this;
-  }
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Role
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
 
-  /**
-   * Get updated
-   *
-   * @return \DateTime
-   */
-  public function getUpdated() {
-    return $this->updated;
-  }
+        return $this;
+    }
 
-  /**
-   * Set shop
-   *
-   * @param Shop $shop
-   *
-   * @return Role
-   */
-  public function setShop(Shop $shop = null) {
-    $this->shop = $shop;
+    /**
+     * Get shop
+     *
+     * @return Shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
 
-    return $this;
-  }
+    /**
+     * Set shop
+     *
+     * @param Shop $shop
+     *
+     * @return Role
+     */
+    public function setShop(Shop $shop = null)
+    {
+        $this->shop = $shop;
 
-  /**
-   * Get shop
-   *
-   * @return Shop
-   */
-  public function getShop() {
-    return $this->shop;
-  }
+        return $this;
+    }
 
-  /**
-   * Add user
-   *
-   * @param User $user
-   *
-   * @return Role
-   */
-  public function addUser(User $user) {
-    $this->users[] = $user;
+    /**
+     * Add user
+     *
+     * @param User $user
+     *
+     * @return Role
+     */
+    public function addUser(User $user)
+    {
+        $this->users[] = $user;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Remove user
-   *
-   * @param User $user
-   */
-  public function removeUser(User $user) {
-    $this->users->removeElement($user);
-  }
+    /**
+     * Remove user
+     *
+     * @param User $user
+     */
+    public function removeUser(User $user)
+    {
+        $this->users->removeElement($user);
+    }
 
-  /**
-   * Get users
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getUsers() {
-    return $this->users;
-  }
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
 
-  /**
-   * @ORM\PrePersist
-   */
-  public function onPrePersist() {
-    $this->created = new \DateTime("now");
-    $this->updated = new \DateTime("now");
-  }
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->created = new \DateTime("now");
+        $this->updated = new \DateTime("now");
+    }
 
-  /**
-   * @ORM\PostPersist
-   */
-  public function onPostPersist() {
-    $this->updated = new \DateTime("now");
-  }
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        $this->updated = new \DateTime("now");
+    }
 }

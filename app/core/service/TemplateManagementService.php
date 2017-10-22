@@ -2,6 +2,7 @@
 
 namespace app\core\service;
 
+use app\core\template\SmartyTemplateEngine;
 use app\core\template\TemplateEngineInterface;
 
 /**
@@ -10,29 +11,35 @@ use app\core\template\TemplateEngineInterface;
  * uses smarty as its default
  * @author Tobi
  */
-class TemplateManagementService extends KernelService {
+class TemplateManagementService extends KernelService
+{
 
     public $templateEngine;
 
-    public function __construct() {
-        $this->setTemplateEngine(new \app\core\template\SmartyTemplateEngine);
+    public function __construct()
+    {
+        $this->setTemplateEngine(new SmartyTemplateEngine);
     }
 
-    public function __call($method, $args) {
-        $this->templateEngine->$method($args[0]);
-    }
-
-    public function setTemplateEngine(TemplateEngineInterface $templateEngine) {
+    public function setTemplateEngine(TemplateEngineInterface $templateEngine)
+    {
         $this->templateEngine = $templateEngine;
     }
 
-    public static function subscribe($object = null) {
+    public static function subscribe($object = null)
+    {
         parent::subscribe($object);
-        return new \app\core\template\SmartyTemplateEngine();
+        return new SmartyTemplateEngine();
     }
 
-    public static function start() {
+    public static function start()
+    {
         parent::start();
+    }
+
+    public function __call($method, $args)
+    {
+        $this->templateEngine->$method($args[0]);
     }
 
 }

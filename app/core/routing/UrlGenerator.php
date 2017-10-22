@@ -12,7 +12,8 @@ use Symfony\Component\Routing\RequestContext;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class UrlGenerator extends ProviderBasedGenerator {
+class UrlGenerator extends ProviderBasedGenerator
+{
 
     /**
      * @var RequestStack
@@ -21,19 +22,13 @@ class UrlGenerator extends ProviderBasedGenerator {
 
     /**
      * @param RouteProviderInterface $provider
-     * @param LoggerInterface        $request_stack
+     * @param LoggerInterface $request_stack
      */
-    public function __construct(RouteProviderInterface $provider, RequestStack $request_stack) {
+    public function __construct(RouteProviderInterface $provider, RequestStack $request_stack)
+    {
         $this->provider = $provider;
         $this->context = new RequestContext();
         $this->request_stack = $request_stack;
-    }
-
-    public function generateFromRoute($name, $parameters = array()) {
-        $path = $this->generate($name, $parameters);
-        $host = $this->context->getHost();
-        $scheme = $this->context->getScheme();
-        return $scheme . '://' . $host . $path;
     }
 
     /**
@@ -52,11 +47,20 @@ class UrlGenerator extends ProviderBasedGenerator {
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *   A redirect response object that may be returned by the controller.
      */
-    public function redirect($route_name, array $route_parameters = []) {
+    public function redirect($route_name, array $route_parameters = [])
+    {
         $url = $this->generateFromRoute($route_name, $route_parameters);
         $request = $this->request_stack->getCurrentRequest();
         dump($this->request_stack);
         $request->attributes->set('_redirect', $url);
+    }
+
+    public function generateFromRoute($name, $parameters = array())
+    {
+        $path = $this->generate($name, $parameters);
+        $host = $this->context->getHost();
+        $scheme = $this->context->getScheme();
+        return $scheme . '://' . $host . $path;
     }
 
 }

@@ -12,7 +12,8 @@ use Symfony\Component\Routing\RequestContext;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class AccessAwareRouter implements AccessAwareRouterInterface {
+class AccessAwareRouter implements AccessAwareRouterInterface
+{
 
     /**
      * @var AccessChecker
@@ -24,29 +25,35 @@ class AccessAwareRouter implements AccessAwareRouterInterface {
      */
     private $chain_router;
 
-    public function __construct(ChainRouter $chain_router, AccessChecker $access_checker) {
+    public function __construct(ChainRouter $chain_router, AccessChecker $access_checker)
+    {
 
         $this->chain_router = $chain_router;
         $this->access_checker = $access_checker;
     }
 
-    public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH): string {
+    public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH): string
+    {
         return $this->chain_router->generate($name, $parameters, $referenceType);
     }
 
-    public function getContext() {
+    public function getContext()
+    {
         return $this->chain_router->getContext();
     }
 
-    public function getRouteCollection() {
+    public function getRouteCollection()
+    {
         return $this->chain_router->getRouteCollection();
     }
 
-    public function match($pathinfo) {
+    public function match($pathinfo)
+    {
         return $this->matchRequest(Request::create($pathinfo));
     }
 
-    public function matchRequest(Request $request) {
+    public function matchRequest(Request $request)
+    {
         $parameters = $this->chain_router->matchRequest($request);
         $request->attributes->add($parameters);
         $this->checkAccess($request);
@@ -55,12 +62,14 @@ class AccessAwareRouter implements AccessAwareRouterInterface {
         return $request->attributes->all();
     }
 
-    protected function checkAcess(Request $request) {
-        $this->access_checker->checkRequest($request, $account);
+    public function setContext(RequestContext $context)
+    {
+        $this->chain_router->setContext($context);
     }
 
-    public function setContext(RequestContext $context) {
-        $this->chain_router->setContext($context);
+    protected function checkAcess(Request $request)
+    {
+        $this->access_checker->checkRequest($request, $account);
     }
 
 }

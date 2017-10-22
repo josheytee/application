@@ -6,7 +6,8 @@ namespace app\core\theme\region;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-interface RegionManagerInterface {
+interface RegionManagerInterface
+{
 
-  public function getContent($region);
+    public function getContent($region);
 }

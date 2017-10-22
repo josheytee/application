@@ -3,13 +3,13 @@
 namespace app\core\entity\types;
 
 
-
 /**
  * Description of ProductCondition
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ProductType extends EnumType {
+class ProductType extends EnumType
+{
 
     protected $name = 'product_type';
     protected $values = ['simple', 'pack', 'virtual'];

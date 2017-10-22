@@ -8,9 +8,11 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
 
-class RoleData extends AbstractFixture implements OrderedFixtureInterface {
+class RoleData extends AbstractFixture implements OrderedFixtureInterface
+{
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $faker = Faker\Factory::create();
         for ($i = 1; $i <= 10; $i++) {
             $role = new Role();
@@ -34,7 +36,8 @@ class RoleData extends AbstractFixture implements OrderedFixtureInterface {
      *
      * @return integer
      */
-    function getOrder() {
+    function getOrder()
+    {
         return 6;
     }
 

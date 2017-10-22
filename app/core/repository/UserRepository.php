@@ -7,6 +7,7 @@ namespace app\core\repository;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class UserRepository extends Repository {
+class UserRepository extends Repository
+{
 
 }

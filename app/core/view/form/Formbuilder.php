@@ -3,6 +3,7 @@
 namespace app\core\view\form;
 
 use app\core\http\Request;
+use app\core\validation\Validator;
 use app\core\view\BuilderInterface;
 use app\core\view\form\elements;
 use app\core\view\form\elements\Select;
@@ -12,19 +13,35 @@ use app\core\view\RenderableTrait;
  * handles form building
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Formbuilder implements BuilderInterface {
+class Formbuilder implements BuilderInterface
+{
 
     use RenderableTrait;
 
-    protected $elements;
+    protected $elements = [];
     protected $labels;
     protected $help_blocks;
     protected $attributes = '';
     protected $method = 'POST';
+    protected $form_template = 'form/form';
+    protected $errors;
     private $request;
 
-    public function __construct($template = null) {
+    public function __construct($template = null)
+    {
         $this->setFormTemplate($template);
+    }
+
+    /**
+     * @param string $form_template
+     * @return $this
+     */
+    public function setFormTemplate($form_template)
+    {
+        if ($form_template) {
+            $this->form_template = $form_template;
+        }
+        return $this;
     }
 
     /**
@@ -33,40 +50,55 @@ class Formbuilder implements BuilderInterface {
      * @param string $value
      * @return elements\Label
      */
-    public function label($for, $value = '') {
+    public function label($for, $value = '')
+    {
         $this->labels[$for] = 'id_' . $for;
         return $this->elements[md5($for)] = $this->element('label', $for, $value);
     }
 
-    public function text($name, $value = '') {
+    private function element($type, $name, $value = '', $default = null)
+    {
+        $type = \ucfirst($type);
+        $el_class = "app\\core\\view\\form\\elements\\{$type}";
+        return new $el_class($name, $value, $default);
+    }
+
+    public function text($name, $value = '')
+    {
         (isset($this->request->$name) ? $value = $this->request->$name : '');
         return $this->elements[$name] = $this->element('text', $name, $value);
     }
 
-    public function email($name, $value = '') {
+    public function email($name, $value = '')
+    {
         (isset($this->request->$name) ? $value = $this->request->$name : '');
         return $this->elements[$name] = $this->element('email', $name, $value);
     }
 
-    public function password($name, $value = '') {
+    public function password($name, $value = '')
+    {
         (isset($this->request->$name) ? $value = $this->request->$name : '');
         return $this->elements[$name] = $this->element('password', $name, $value);
     }
 
-    public function file($name, $value = '') {
+    public function file($name, $value = '')
+    {
         return $this->elements[$name] = $this->element('file', $name, $value);
     }
 
-    public function submit($value = '') {
+    public function submit($value = '')
+    {
         $name = '';
         return $this->elements[$name] = $this->element('submit', $name, $value);
     }
 
-    public function reset($name, $value = '') {
+    public function reset($name, $value = '')
+    {
         return $this->elements[$name] = $this->element('reset', $name, $value);
     }
 
-    public function radio($name, $value = '', $default = '') {
+    public function radio($name, $value = '', $default = '')
+    {
         (isset($this->request->$name) ? $default = $this->request->$name : '');
         (isset($this->request->$name) ? $value = $this->request->$name : '');
         if (is_array($value)) {
@@ -78,7 +110,8 @@ class Formbuilder implements BuilderInterface {
         return $this->elements[$name] = $this->element('radio', $name, $value);
     }
 
-    public function checkbox($name, $value = null, $default = null) {
+    public function checkbox($name, $value = null, $default = null)
+    {
         (isset($this->request->$name) ? $default = $this->request->$name : '');
         if (is_array($value)) {
             foreach ($value as $checkbox) {
@@ -89,11 +122,13 @@ class Formbuilder implements BuilderInterface {
         return $this->elements[$name] = $this->element('checkbox', $name, $value, $default);
     }
 
-    public function select($name, $value = '', $default = null) {
+    public function select($name, $value = '', $default = null)
+    {
         return $this->elements[$name] = new Select($name, $value, $default);
     }
 
-    public function block(...$elements) {
+    public function block(...$elements)
+    {
         $key = uniqid('block_');
         $name = $attributes['name'] ?? '';
         $block = new elements\Block($name);
@@ -112,56 +147,55 @@ class Formbuilder implements BuilderInterface {
         return $this->elements[$key] = $block;
     }
 
-    public function help($text) {
+    public function help($text)
+    {
         $name = uniqid();
         $this->help_blocks[$name] = $name;
         return $this->elements[$name] = $this->element('help', $name, $text);
     }
 
-    public function textArea($name, $value = '') {
+    public function textArea($name, $value = '')
+    {
         (isset($this->request->$name) ? $value = $this->request->$name : '');
         return $this->elements[$name] = $this->element('textArea', $name, $value);
     }
 
-    public function hidden($name, $value = '') {
+    public function hidden($name, $value = '')
+    {
         (isset($this->request->$name) ? $value = $this->request->$name : '');
         return $this->elements[$name] = $this->element('hidden', $name, $value);
     }
 
-    private function element($type, $name, $value = '', $default = null) {
-        $type = \ucfirst($type);
-        $el_class = "app\\core\\view\\form\\elements\\{$type}";
-        return new $el_class($name, $value, $default);
+    public function validate(Request $request, $rules = [])
+    {
+        $validator = new Validator($request->all(), $rules);
+        return $validator->passes() ? true : $this->setErrors($validator->errors()->getMessages());
     }
 
-    public function getAttributes() {
-        return $this->attributes;
-    }
-
-    /**
-     * @param mixed $attributes
-     * @return $this
-     */
-    public function setAttributes($attributes) {
-        $this->attributes = $attributes;
+    public function setErrors($error)
+    {
+        $this->errors = $error;
         return $this;
     }
 
-    protected $form_template = 'form/form';
-    protected $errors;
+    public function getMethod()
+    {
+        return $this->method;
+    }
 
-    /**
-     * @param string $form_template
-     * @return $this
-     */
-    public function setFormTemplate($form_template) {
-        if ($form_template) {
-            $this->form_template = $form_template;
-        }
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
         return $this;
     }
 
-    public function fetch() {
+//    public function __toString()
+//    {
+//        return $this->fetch();
+//    }
+
+    public function fetch()
+    {
         $form = '';
         foreach ($this->elements as $element) {
             if (is_array($element)) {
@@ -174,23 +208,26 @@ class Formbuilder implements BuilderInterface {
             $form .= $element->render();
         }
         return $this->renderTrait(
-          [
-            'attributes' => $this->getAttributes(),
-            'errors' => $this->errors,
-            'form_body' => $form
-          ], $this->form_template);
+            [
+                'attributes' => $this->getAttributes(),
+                'errors' => $this->errors,
+                'form_body' => $form
+            ], $this->form_template);
     }
 
-    public function getMethod() {
-        return $this->method;
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 
-    public function setErrors($error) {
-        $this->errors = $error;
+    /**
+     * @param mixed $attributes
+     * @return $this
+     */
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
         return $this;
     }
 
-    public function setRequest(Request $request) {
-        $this->request = $request;
-    }
 }

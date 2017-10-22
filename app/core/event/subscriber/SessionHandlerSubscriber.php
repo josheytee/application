@@ -2,28 +2,31 @@
 
 namespace app\core\event\subscriber;
 
-use Symfony\Component\HttpKernel\EventListener\SessionListener;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\EventListener\SessionListener;
 
 /**
  * Description of SessionSubscriber
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class SessionHandlerSubscriber extends SessionListener {
+class SessionHandlerSubscriber extends SessionListener
+{
 
-  private $container;
+    private $container;
 
-  public function __construct(ContainerInterface $container) {
-    $this->container = $container;
-  }
-
-  protected function getSession() {
-    if (!$this->container->has('session')) {
-      return;
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
     }
 
-    return $this->container->get('session');
-  }
+    protected function getSession()
+    {
+        if (!$this->container->has('session')) {
+            return;
+        }
+
+        return $this->container->get('session');
+    }
 
 }

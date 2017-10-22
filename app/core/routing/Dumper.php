@@ -11,7 +11,8 @@ use Symfony\Component\Routing\RouteCollection;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Dumper {
+class Dumper
+{
 
     /**
      * @var EntityManager
@@ -19,12 +20,14 @@ class Dumper {
     private $entity_manager;
     private $routes;
 
-    public function __construct(EntityManager $entity_manager) {
+    public function __construct(EntityManager $entity_manager)
+    {
 
         $this->entity_manager = $entity_manager;
     }
 
-    public function dump() {
+    public function dump()
+    {
         $this->entity_manager->getRepository('app\core\entity\Routing')->deleteAll();
         foreach ($this->routes->all() as $name => $route) {
 
@@ -44,7 +47,8 @@ class Dumper {
     /**
      * {@inheritdoc}
      */
-    public function addRoutes(RouteCollection $routes) {
+    public function addRoutes(RouteCollection $routes)
+    {
         if (empty($this->routes)) {
             $this->routes = $routes;
         } else {
@@ -52,7 +56,8 @@ class Dumper {
         }
     }
 
-    public function getRoutes() {
+    public function getRoutes()
+    {
         return $this->routes;
     }
 

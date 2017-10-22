@@ -10,225 +10,241 @@ namespace model;
  * @Index(name="section_url_idx",  columns={"id_section","url"})
  * })
  */
-class Section {
+class Section
+{
 
-  /**
-   * @var int
-   *
-   * @Id
-   * @GeneratedValue
-   * @Column(type="integer")
-   */
-  public $id_section;
+    /**
+     * @var int
+     *
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    public $id_section;
 
-  /**
-   * @OneToOne(targetEntity="Section")
-   * @JoinColumn(name="id_section",referencedColumnName="id_section")
-   */
-  public $parent;
+    /**
+     * @OneToOne(targetEntity="Section")
+     * @JoinColumn(name="id_section",referencedColumnName="id_section")
+     */
+    public $parent;
 
-  /**
-   * @OneToOne(targetEntity="Shop")
-   * @JoinColumn(name="id_shop",referencedColumnName="id_shop")
-   */
-  public $shop;
+    /**
+     * @OneToOne(targetEntity="Shop")
+     * @JoinColumn(name="id_shop",referencedColumnName="id_shop")
+     */
+    public $shop;
 
-  /**
-   * @var string
-   *
-   * @Column(type="string")
-   */
-  public $name;
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $name;
 
-  /**
-   * @var string
-   *
-   * @Column(type="string")
-   */
-  public $description;
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $description;
 
-  /**
-   * @var string
-   *
-   * @Column(type="string")
-   */
-  public $url;
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $url;
 
-  /**
-   * @var \DateTime
-   *
-   * @Column(type="datetime")
-   */
-  public $created;
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $created;
 
-  /**
-   * @var \DateTime
-   *
-   * @Column(type="datetime")
-   */
-  public $updated;
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $updated;
 
-  /**
-   * Get idSection
-   *
-   * @return integer
-   */
-  public function getIdSection() {
-    return $this->id_section;
-  }
+    /**
+     * Get idSection
+     *
+     * @return integer
+     */
+    public function getIdSection()
+    {
+        return $this->id_section;
+    }
 
-  /**
-   * Set name
-   *
-   * @param string $name
-   *
-   * @return Section
-   */
-  public function setName($name) {
-    $this->name = $name;
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-    return $this;
-  }
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Section
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
-  /**
-   * Get name
-   *
-   * @return string
-   */
-  public function getName() {
-    return $this->name;
-  }
+        return $this;
+    }
 
-  /**
-   * Set description
-   *
-   * @param string $description
-   *
-   * @return Section
-   */
-  public function setDescription($description) {
-    $this->description = $description;
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-    return $this;
-  }
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Section
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
-  /**
-   * Get description
-   *
-   * @return string
-   */
-  public function getDescription() {
-    return $this->description;
-  }
+        return $this;
+    }
 
-  /**
-   * Set url
-   *
-   * @param string $url
-   *
-   * @return Section
-   */
-  public function setUrl($url) {
-    $this->url = $url;
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
-    return $this;
-  }
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Section
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
-  /**
-   * Get url
-   *
-   * @return string
-   */
-  public function getUrl() {
-    return $this->url;
-  }
+        return $this;
+    }
 
-  /**
-   * Set created
-   *
-   * @param \DateTime $created
-   *
-   * @return Section
-   */
-  public function setCreated($created) {
-    $this->created = $created;
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
 
-    return $this;
-  }
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Section
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
-  /**
-   * Get created
-   *
-   * @return \DateTime
-   */
-  public function getCreated() {
-    return $this->created;
-  }
+        return $this;
+    }
 
-  /**
-   * Set updated
-   *
-   * @param \DateTime $updated
-   *
-   * @return Section
-   */
-  public function setUpdated($updated) {
-    $this->updated = $updated;
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
 
-    return $this;
-  }
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Section
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
 
-  /**
-   * Get updated
-   *
-   * @return \DateTime
-   */
-  public function getUpdated() {
-    return $this->updated;
-  }
+        return $this;
+    }
 
-  /**
-   * Set parent
-   *
-   * @param \model\Section $parent
-   *
-   * @return Section
-   */
-  public function setParent(\model\Section $parent = null) {
-    $this->parent = $parent;
+    /**
+     * Get parent
+     *
+     * @return \model\Section
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 
-    return $this;
-  }
+    /**
+     * Set parent
+     *
+     * @param \model\Section $parent
+     *
+     * @return Section
+     */
+    public function setParent(\model\Section $parent = null)
+    {
+        $this->parent = $parent;
 
-  /**
-   * Get parent
-   *
-   * @return \model\Section
-   */
-  public function getParent() {
-    return $this->parent;
-  }
+        return $this;
+    }
 
-  /**
-   * Set shop
-   *
-   * @param \model\Shop $shop
-   *
-   * @return Section
-   */
-  public function setShop(\model\Shop $shop = null) {
-    $this->shop = $shop;
+    /**
+     * Get shop
+     *
+     * @return \model\Shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
 
-    return $this;
-  }
+    /**
+     * Set shop
+     *
+     * @param \model\Shop $shop
+     *
+     * @return Section
+     */
+    public function setShop(\model\Shop $shop = null)
+    {
+        $this->shop = $shop;
 
-  /**
-   * Get shop
-   *
-   * @return \model\Shop
-   */
-  public function getShop() {
-    return $this->shop;
-  }
+        return $this;
+    }
 
 }

@@ -5,9 +5,11 @@ namespace ntc\product\form;
 use app\core\controller\FormGroup;
 use app\core\entity\Section;
 
-class ProductForm extends FormGroup {
+class ProductForm extends FormGroup
+{
 
-    function definition() {
+    function definition()
+    {
         return [
             'information' => new InformationForm(),
             'prices' => new PriceForm(),
@@ -18,22 +20,26 @@ class ProductForm extends FormGroup {
         ];
     }
 
-    public function attributes() {
+    public function attributes()
+    {
         return ['enctype' => 'multipart/form-data'];
     }
 
-    function getDependencies() {
+    function getDependencies()
+    {
         return [
             'section' => Section::class,
 //          'images' => ProductImage::class
         ];
     }
 
-    function title() {
+    function title()
+    {
         return '';
     }
 
-    public function validationRules() {
+    public function validationRules()
+    {
         // TODO: Implement validationRules() method.
     }
 

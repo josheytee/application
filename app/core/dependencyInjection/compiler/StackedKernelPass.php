@@ -45,12 +45,14 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * @see \Stack\Builder
  */
-class StackedKernelPass implements CompilerPassInterface {
+class StackedKernelPass implements CompilerPassInterface
+{
 
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container) {
+    public function process(ContainerBuilder $container)
+    {
 
         if (!$container->hasDefinition('stacked.http_kernel')) {
             return;

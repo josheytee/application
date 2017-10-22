@@ -9,15 +9,17 @@ namespace app\core\entity\fixtures;
  * Time: 8:47 PM
  */
 use app\core\entity\User;
-use Faker;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker;
 
-class LoadUserData extends AbstractFixture implements OrderedFixtureInterface {
+class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
+{
 
 //2553
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $faker = Faker\Factory::create();
         $role = $manager->getRepository('app\core\entity\Role')->findAll();
 
@@ -40,7 +42,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface {
         $this->addReference('user', $user);
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         // the order in which fixtures will be loaded
         // the lower the number, the sooner that this fixture is loaded
         return 1;

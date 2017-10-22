@@ -7,6 +7,7 @@ namespace ntc\administrator;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class AdminManager {
-    
+class AdminManager
+{
+
 }

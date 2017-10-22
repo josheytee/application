@@ -10,11 +10,28 @@ use app\core\view\form\Formbuilder;
  *
  * @author joshua
  */
-abstract class EntityFormController extends EntityControllerBase {
+abstract class EntityFormController extends EntityControllerBase
+{
+
+    public function create(Request $request, Formbuilder $builder, $entity = 0)
+    {
+//        dump($request->all());
+        if ($this->validate()) {
+            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
+            $this->addEntity($request);
+            return $return;
+        }
+    }
+
+    public function validate()
+    {
+        return true;
+    }
 
     abstract public function build(Formbuilder $builder, $entity);
 
-    public function getEntity(Request $request, $entity_id) {
+    public function getEntity(Request $request, $entity_id)
+    {
         if ($entity_id === 0) {
             return $this->getDefaults($this->getModel($request));
         }
@@ -23,7 +40,17 @@ abstract class EntityFormController extends EntityControllerBase {
         return $entity;
     }
 
-    public function addEntity(Request $request) {
+    public function getDefaults($model)
+    {
+        $strripos = strripos($model, '\\');
+        $len = strlen($model);
+        $default = substr($model, $strripos + 1);
+        $class = '\app\core\entity\defaults\en\\' . $default;
+        return new $class();
+    }
+
+    public function addEntity(Request $request)
+    {
         $model = $this->getModel($request);
         $doctrine = $this->doctrine();
         $dependencies = $this->getDependencies();
@@ -64,7 +91,51 @@ abstract class EntityFormController extends EntityControllerBase {
         }
     }
 
-    protected function updateEntity(Request $request, $entity_id) {
+    /**
+     * Get an item from an object using "dot" notation.
+     *
+     * @param  object $object
+     * @param  string $key
+     * @param null $value
+     * @internal param mixed $default
+     * @return mixed
+     */
+    function object_set($object, $key, $value = null)
+    {
+        if (is_null($key) || trim($key) == '') {
+            return $object;
+        }
+        $object = $object->{'set' . ucfirst($key)}($value);
+        return $object;
+    }
+
+    /**
+     * This is the method for _form routes without _model
+     * @param Request $request
+     * @param Formbuilder $builder
+     * @param int $entity
+     * @return mixed
+     */
+    public function add(Request $request, Formbuilder $builder)
+    {
+        if ($this->validate()) {
+            $return['content'] = $this->build($builder, $this->getEntity($request))->fetch();
+            $this->addEntity($request);
+            return $return;
+        }
+    }
+
+    public function update(Request $request, Formbuilder $builder, $entity)
+    {
+        if ($this->validate()) {
+            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
+            $this->updateEntity($request, $entity);
+            return $return;
+        }
+    }
+
+    protected function updateEntity(Request $request, $entity_id)
+    {
         $model = $this->getModel($request);
         $key = $request->get('_key');
         $doctrine = $this->doctrine();
@@ -99,7 +170,13 @@ abstract class EntityFormController extends EntityControllerBase {
         }
     }
 
-    public function deleteEntity(Request $request, $entity) {
+    public function delete($entity)
+    {
+        return $this->deleteEntity($entity);
+    }
+
+    public function deleteEntity(Request $request, $entity)
+    {
         $doctrine = $this->doctrine();
         $entity = $doctrine->find($this->getModel($request), $entity);
         if (!$entity) {
@@ -110,55 +187,6 @@ abstract class EntityFormController extends EntityControllerBase {
         $doctrine->flush();
     }
 
-    public function getDefaults($model) {
-        $strripos = strripos($model, '\\');
-        $len = strlen($model);
-        $default = substr($model, $strripos + 1);
-        $class = '\app\core\entity\defaults\en\\' . $default;
-        return new $class();
-    }
-
-
-    public function create(Request $request, Formbuilder $builder, $entity = 0) {
-//        dump($request->all());
-        if ($this->validate()) {
-            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
-            $this->addEntity($request);
-            return $return;
-        }
-    }
-
-    /**
-     * This is the method for _form routes without _model
-     * @param Request $request
-     * @param Formbuilder $builder
-     * @param int $entity
-     * @return mixed
-     */
-    public function add(Request $request, Formbuilder $builder) {
-        if ($this->validate()) {
-            $return['content'] = $this->build($builder, $this->getEntity($request))->fetch();
-            $this->addEntity($request);
-            return $return;
-        }
-    }
-
-    public function update(Request $request, Formbuilder $builder, $entity) {
-        if ($this->validate()) {
-            $return['content'] = $this->build($builder, $this->getEntity($request, $entity))->fetch();
-            $this->updateEntity($request, $entity);
-            return $return;
-        }
-    }
-
-    public function validate() {
-        return true;
-    }
-
-    public function delete($entity) {
-        return $this->deleteEntity($entity);
-    }
-
     /**
      * Get an item from an object using "dot" notation.
      *
@@ -167,7 +195,8 @@ abstract class EntityFormController extends EntityControllerBase {
      * @param  mixed $default
      * @return mixed
      */
-    function object_get($object, $key, $default = null) {
+    function object_get($object, $key, $default = null)
+    {
         if (is_null($key) || trim($key) == '') {
             return $object;
         }
@@ -180,23 +209,6 @@ abstract class EntityFormController extends EntityControllerBase {
             $object = $object->{$segment};
         }
 
-        return $object;
-    }
-
-    /**
-     * Get an item from an object using "dot" notation.
-     *
-     * @param  object $object
-     * @param  string $key
-     * @param null $value
-     * @internal param mixed $default
-     * @return mixed
-     */
-    function object_set($object, $key, $value = null) {
-        if (is_null($key) || trim($key) == '') {
-            return $object;
-        }
-        $object = $object->{'set' . ucfirst($key)}($value);
         return $object;
     }
 

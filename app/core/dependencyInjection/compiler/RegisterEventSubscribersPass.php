@@ -2,39 +2,41 @@
 
 namespace app\core\dependencyInjection\compiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Description of RegisterEventSubscribersPass
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class RegisterEventSubscribersPass implements CompilerPassInterface {
+class RegisterEventSubscribersPass implements CompilerPassInterface
+{
 
-  /**
-   * {@inheritdoc}
-   */
-  public function process(ContainerBuilder $container) {
-    if (!$container->hasDefinition('event.dispatcher')) {
-      return;
-    }
+    /**
+     * {@inheritdoc}
+     */
+    public function process(ContainerBuilder $container)
+    {
+        if (!$container->hasDefinition('event.dispatcher')) {
+            return;
+        }
 
 //    $definition = $container->getDefinition('event.dispatcher');
-    $definition = $container->get('event.dispatcher');
+        $definition = $container->get('event.dispatcher');
 //    dump($definition);
 //    $event_subscriber_info = [];
-    foreach ($container->findTaggedServiceIds('event_subscriber') as $id => $attributes) {
+        foreach ($container->findTaggedServiceIds('event_subscriber') as $id => $attributes) {
 
-      // We must assume that the class value has been correctly filled, even if
-      // the service is created by a factory.
-      $class = $container->getDefinition($id)->getClass();
-      $refClass = new \ReflectionClass($class);
-      $interface = 'Symfony\Component\EventDispatcher\EventSubscriberInterface';
-      if (!$refClass->implementsInterface($interface)) {
-        throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
-      }
-      $definition->addSubscriberService($id, $class);
+            // We must assume that the class value has been correctly filled, even if
+            // the service is created by a factory.
+            $class = $container->getDefinition($id)->getClass();
+            $refClass = new \ReflectionClass($class);
+            $interface = 'Symfony\Component\EventDispatcher\EventSubscriberInterface';
+            if (!$refClass->implementsInterface($interface)) {
+                throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
+            }
+            $definition->addSubscriberService($id, $class);
 //
 //      // Get all subscribed events.
 //      foreach ($class::getSubscribedEvents() as $event_name => $params) {
@@ -51,12 +53,12 @@ class RegisterEventSubscribersPass implements CompilerPassInterface {
 //          }
 //        }
 //      }
-    }
+        }
 
 //    foreach (array_keys($event_subscriber_info) as $event_name) {
 //      krsort($event_subscriber_info[$event_name]);
 //    }
 //    $definition->addArgument($event_subscriber_info);
-  }
+    }
 
 }

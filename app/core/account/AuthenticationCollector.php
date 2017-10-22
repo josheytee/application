@@ -5,7 +5,8 @@ namespace app\core\account;
 /**
  * A collector class for authentication providers.
  */
-class AuthenticationCollector {
+class AuthenticationCollector
+{
 
     /**
      * Array of all registered authentication providers, keyed by ID.
@@ -36,7 +37,8 @@ class AuthenticationCollector {
     /**
      * {@inheritdoc}
      */
-    public function addProvider(AuthenticationProviderInterface $provider, $provider_id, $priority = 0, $global = FALSE) {
+    public function addProvider(AuthenticationProviderInterface $provider, $provider_id, $priority = 0, $global = FALSE)
+    {
         $this->providers[$provider_id] = $provider;
         $this->providerOrders[$priority][$provider_id] = $provider;
 // Force the providers to be re-sorted.
@@ -50,21 +52,24 @@ class AuthenticationCollector {
     /**
      * {@inheritdoc}
      */
-    public function isGlobal($provider_id) {
+    public function isGlobal($provider_id)
+    {
         return isset($this->globalProviders[$provider_id]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getProvider($provider_id) {
+    public function getProvider($provider_id)
+    {
         return isset($this->providers[$provider_id]) ? $this->providers[$provider_id] : NULL;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getSortedProviders() {
+    public function getSortedProviders()
+    {
         if (!isset($this->sortedProviders)) {
 // Sort the providers according to priority.
             krsort($this->providerOrders);

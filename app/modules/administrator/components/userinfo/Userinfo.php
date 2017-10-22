@@ -12,22 +12,22 @@ use app\core\component\Component;
 class Userinfo extends Component
 {
 
-  private $user;
+    private $user;
 
-  public function init()
-  {
+    public function init()
+    {
 //    dump($this->currentUser()->getRoles());
-    $this->user = $this->currentUser();
-  }
+        $this->user = $this->currentUser();
+    }
 
-  public function render()
-  {
+    public function render()
+    {
 
-    return $this->display('ntc/administrator/userinfo', [
-        'name' => $this->user->getAccountName(),
-        'picture' => $this->user->getPicture(),
-        'role' => 'super admin'
-    ]);
-  }
+        return $this->display('ntc/administrator/userinfo', [
+            'name' => $this->user->getAccountName(),
+            'picture' => $this->user->getPicture(),
+            'role' => 'super admin'
+        ]);
+    }
 
 }

@@ -39,6 +39,16 @@ class Routing
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -53,13 +63,13 @@ class Routing
     }
 
     /**
-     * Get name
+     * Get path
      *
      * @return string
      */
-    public function getName()
+    public function getPath()
     {
-        return $this->name;
+        return $this->path;
     }
 
     /**
@@ -77,13 +87,13 @@ class Routing
     }
 
     /**
-     * Get path
+     * Get route
      *
-     * @return string
+     * @return \stdClass
      */
-    public function getPath()
+    public function getRoute()
     {
-        return $this->path;
+        return $this->route;
     }
 
     /**
@@ -98,15 +108,5 @@ class Routing
         $this->route = $route;
 
         return $this;
-    }
-
-    /**
-     * Get route
-     *
-     * @return \stdClass
-     */
-    public function getRoute()
-    {
-        return $this->route;
     }
 }

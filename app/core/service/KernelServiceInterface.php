@@ -7,7 +7,8 @@ namespace app\core\service;
  *
  * @author Tobi
  */
-interface KernelServiceInterface {
+interface KernelServiceInterface
+{
 
     public static function start();
 

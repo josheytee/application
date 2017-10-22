@@ -7,10 +7,12 @@ namespace app\core\service;
  *
  * @author adapter
  */
-class Authentication {
+class Authentication
+{
 
-    public function __construct() {
-        
+    public function __construct()
+    {
+
     }
 
 }

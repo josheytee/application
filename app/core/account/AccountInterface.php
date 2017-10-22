@@ -11,7 +11,8 @@ namespace app\core\account;
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail dot com>
  *
  */
-interface AccountInterface {
+interface AccountInterface
+{
 
     /**
      * Role ID for anonymous users.
@@ -51,7 +52,8 @@ interface AccountInterface {
      * @return bool
      *   TRUE if the user has the permission, FALSE otherwise.
      */
-    public function hasPermission($permission);
+    public function hasPermissions($permission);
+    public function getPermissions();
 
     /**
      * Returns TRUE if the account is authenticated.

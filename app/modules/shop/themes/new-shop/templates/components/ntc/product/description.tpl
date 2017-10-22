@@ -4,7 +4,7 @@
 	<div class="product-grids">
 		<div class="col-md-4 product-grid">
 			<div id="owl-demo" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
-				<div class="owl-wrapper-outer"><div class="owl-wrapper" style="width: 784px; left: 0px; display: block; transition: all 800ms ease; transform: translate3d(-196px, 0px, 0px);"><div class="owl-item" style="width: 196px;"><div class="item">
+				<div class="owl-wrapper-outer"><div class="owl-wrapper" style="width: 784px; left: 0; display: block; transition: all 800ms ease; transform: translate3d(-196px, 0px, 0px);"><div class="owl-item" style="width: 196px;"><div class="item">
 								<div class="recent-grids">
 									<div class="recent-left">
 										<a href="single.html"><img class="img-responsive " src="/application/app/modules/shop/themes/new-shop/images/r.jpg" alt=""></a>
@@ -12,7 +12,7 @@
 									<div class="recent-right">
 										<h6 class="best2"><a href="single.html">Lorem ipsum dolor </a></h6>
 										<div class="block">
-											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0;"></div><div class="colorbar" style="width: 0;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
 										</div>
 										<span class=" price-in1"> $ 29.00</span>
 									</div>
@@ -25,7 +25,7 @@
 									<div class="recent-right">
 										<h6 class="best2"><a href="single.html">Duis aute irure </a></h6>
 										<div class="block">
-											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0;"></div><div class="colorbar" style="width: 0;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
 										</div>
 										<span class=" price-in1"> $ 19.00</span>
 									</div>
@@ -38,7 +38,7 @@
 									<div class="recent-right">
 										<h6 class="best2"><a href="single.html">Lorem ipsum dolor </a></h6>
 										<div class="block">
-											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0;"></div><div class="colorbar" style="width: 0;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
 										</div>
 										<span class=" price-in1"> $ 19.00</span>
 									</div>
@@ -51,7 +51,7 @@
 									<div class="recent-right">
 										<h6 class="best2"><a href="single.html">Ut enim ad minim </a></h6>
 										<div class="block">
-											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0;"></div><div class="colorbar" style="width: 0;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
 										</div>
 										<span class=" price-in1">$ 45.00</span>
 									</div>
@@ -65,7 +65,7 @@
 									<div class="recent-right">
 										<h6 class="best2"><a href="single.html">Lorem ipsum dolor </a></h6>
 										<div class="block">
-											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0;"></div><div class="colorbar" style="width: 0;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
 										</div>
 										<span class=" price-in1"> $ 29.00</span>
 									</div>
@@ -78,7 +78,7 @@
 									<div class="recent-right">
 										<h6 class="best2"><a href="single.html">Duis aute irure </a></h6>
 										<div class="block">
-											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0;"></div><div class="colorbar" style="width: 0;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
 										</div>
 										<span class=" price-in1"> $ 19.00</span>
 									</div>
@@ -91,7 +91,7 @@
 									<div class="recent-right">
 										<h6 class="best2"><a href="single.html">Lorem ipsum dolor </a></h6>
 										<div class="block">
-											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0;"></div><div class="colorbar" style="width: 0;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
 										</div>
 										<span class=" price-in1"> $ 19.00</span>
 									</div>
@@ -104,7 +104,7 @@
 									<div class="recent-right">
 										<h6 class="best2"><a href="single.html">Ut enim ad minim </a></h6>
 										<div class="block">
-											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+											<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0;"></div><div class="colorbar" style="width: 0;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
 										</div>
 										<span class=" price-in1">$ 45.00</span>
 									</div>
@@ -165,7 +165,7 @@
 									<p>Your email address will not be published. Required fields are marked *</p>
 									<p>Your Rating</p>
 									<div class="block">
-										<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+										<div class="starbox small ghosting"><div class="positioner" style=""><div class="stars"><div class="ghost" style="display: none; width: 0;"></div><div class="colorbar" style="width: 0;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
 									</div>
 									<form action="#" method="post">
 										<label>Your Review </label>

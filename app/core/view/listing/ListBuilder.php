@@ -7,6 +7,7 @@ namespace app\core\view\listing;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ListBuilder {
-  //put your code here
+class ListBuilder
+{
+    //put your code here
 }

@@ -1,8 +1,23 @@
-component.index:
-  path: '/component'
+components.index:
+  path: admin/components
   defaults:
-    name: ~
-    _title: 'Amin | Product'
-    _controller: 'ntc\component\controller\ComponentController::index'
+    id: ~
+    _title: Amin | Product
+    _controller: ntc\component\controller\ComponentController::index
   requirements:
-    _permission: 'administer actions'
+    _permission: administer actions
+
+component.index:
+  path: admin/component/{id}
+  defaults:
+    id: ~
+    _title: Amin | Product
+    _controller: ntc\component\controller\ComponentController::single
+
+
+component.configure:
+  path: admin/component/{id}/configure
+  defaults:
+    id: ~
+    _title: Amin | Product
+    _controller: ntc\component\controller\ComponentController::configure

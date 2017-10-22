@@ -7,9 +7,11 @@ namespace app\core\hook;
  *
  * @author adapter
  */
-class HookManager implements HookManagerInterface {
+class HookManager implements HookManagerInterface
+{
 
-    public function call($hook_name) {
+    public function call($hook_name)
+    {
 
     }
 

@@ -7,6 +7,7 @@ namespace app\core\exception;
  *
  * @author adapter
  */
-class GraphqlException extends \Exception {
+class GraphqlException extends \Exception
+{
 
 }

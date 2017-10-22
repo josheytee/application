@@ -11,7 +11,8 @@ use beta\library\Tools;
  *
  * @author Tobi
  */
-class Cookie {
+class Cookie
+{
 
     /** @var array Contain cookie content in a key => value format */
     protected $_data = array();
@@ -42,10 +43,11 @@ class Cookie {
      * @param $name string Cookie name before encrypting
      * @param $path string
      */
-    public function __construct($name, $path = '', $expire = null, $shared_urls = null, $standalone = false, $secure = false) {
+    public function __construct($name, $path = '', $expire = null, $shared_urls = null, $standalone = false, $secure = false)
+    {
         $this->_data = array();
         $this->_standalone = $standalone;
-        $this->_expire = is_null($expire) ? time() + 1728000 : (int) $expire;
+        $this->_expire = is_null($expire) ? time() + 1728000 : (int)$expire;
 //        $this->_path = trim(($this->_standalone ? '' : Context::getContext()->shop->physical_uri) . $path, '/\\') . '/';
 //        if ($this->_path{0} != '/') {
 //            $this->_path = '/' . $this->_path;
@@ -64,77 +66,17 @@ class Cookie {
         } else {
             $this->_cipherTool = new Rijndael(_RIJNDAEL_KEY_, _RIJNDAEL_IV_);
         }
-        $this->_secure = (bool) $secure;
+        $this->_secure = (bool)$secure;
 
         $this->update();
-    }
-
-    /**
-     * Set expiration date
-     *
-     * @param int $expire Expiration time from now
-     */
-    public function setExpire($expire) {
-        $this->_expire = (int) ($expire);
-    }
-
-    /**
-     * Magic method wich return cookie data from _data array
-     *
-     * @param string $key key wanted
-     * @return string value corresponding to the key
-     */
-    public function __get($key) {
-        return isset($this->_data[$key]) ? $this->_data[$key] : null;
-    }
-
-    /**
-     * Magic method which check if key exists in the cookie
-     *
-     * @param string $key key wanted
-     * @return bool key existence
-     */
-    public function __isset($key) {
-        return isset($this->_data[$key]);
-    }
-
-    /**
-     * Magic method which adds data into _data array
-     *
-     * @param string $key Access key for the value
-     * @param mixed $value Value corresponding to the key
-     * @throws Exception
-     */
-    public function __set($key, $value) {
-        if (is_array($value)) {
-            die(var_dump($value) . 'must not be arry');
-        }
-        if (preg_match('/¤|\|/', $key . $value)) {
-            throw new \Exception('Forbidden chars in cookie');
-        }
-        if (!$this->_modified && (!isset($this->_data[$key]) || (isset($this->_data[$key]) && $this->_data[$key] != $value))) {
-            $this->_modified = true;
-        }
-        $this->_data[$key] = $value;
-    }
-
-    /**
-     * Magic method wich delete data into _data array
-     *
-     * @param string $key key wanted
-     */
-    public function __unset($key) {
-        if (isset($this->_data[$key])) {
-            $this->_modified = true;
-        }
-        unset($this->_data[$key]);
     }
 
     /**
      * Get cookie content
      * @internal param bool $nullValues
      */
-    public function update() {
+    public function update()
+    {
         if (isset($_COOKIE[$this->_name])) {
             /* Decrypt cookie content */
             $content = $this->_cipherTool->decrypt($_COOKIE[$this->_name]);
@@ -158,7 +100,7 @@ class Cookie {
             }
             /* Blowfish fix */
             if (isset($this->_data['checksum'])) {
-                $this->_data['checksum'] = (int) ($this->_data['checksum']);
+                $this->_data['checksum'] = (int)($this->_data['checksum']);
             }
             //printf("\$this->_data['checksum'] = %s<br />", $this->_data['checksum']);
             //die();
@@ -182,7 +124,136 @@ class Cookie {
 //        }
     }
 
-    protected function getDomain($shared_urls = null) {
+    /**
+     * Delete cookie
+     * As of version 1.5 don't call this function, use Customer::logout() or Employee::logout() instead;
+     */
+    public function logout()
+    {
+        $this->_data = array();
+        $this->_setcookie();
+        unset($_COOKIE[$this->_name]);
+        $this->_modified = true;
+    }
+
+    /**
+     * Setcookie according to php version
+     */
+    protected function _setcookie($cookie = null)
+    {
+        if ($cookie) {
+            $content = $this->_cipherTool->encrypt($cookie);
+            $time = $this->_expire;
+        } else {
+            $content = 0;
+            $time = 1;
+        }
+        if (PHP_VERSION_ID <= 50200) { /* PHP version > 5.2.0 */
+            return setcookie($this->_name, $content, $time, $this->_path, $this->_domain, $this->_secure);
+        } else {
+            return setcookie($this->_name, $content, $time, $this->_path, $this->_domain, $this->_secure, true);
+        }
+    }
+
+    /**
+     * Set expiration date
+     *
+     * @param int $expire Expiration time from now
+     */
+    public function setExpire($expire)
+    {
+        $this->_expire = (int)($expire);
+    }
+
+    /**
+     * Magic method wich return cookie data from _data array
+     *
+     * @param string $key key wanted
+     * @return string value corresponding to the key
+     */
+    public function __get($key)
+    {
+        return isset($this->_data[$key]) ? $this->_data[$key] : null;
+    }
+
+    /**
+     * Magic method which adds data into _data array
+     *
+     * @param string $key Access key for the value
+     * @param mixed $value Value corresponding to the key
+     * @throws Exception
+     */
+    public function __set($key, $value)
+    {
+        if (is_array($value)) {
+            die(var_dump($value) . 'must not be arry');
+        }
+        if (preg_match('/¤|\|/', $key . $value)) {
+            throw new \Exception('Forbidden chars in cookie');
+        }
+        if (!$this->_modified && (!isset($this->_data[$key]) || (isset($this->_data[$key]) && $this->_data[$key] != $value))) {
+            $this->_modified = true;
+        }
+        $this->_data[$key] = $value;
+    }
+
+    /**
+     * Magic method which check if key exists in the cookie
+     *
+     * @param string $key key wanted
+     * @return bool key existence
+     */
+    public function __isset($key)
+    {
+        return isset($this->_data[$key]);
+    }
+
+    /**
+     * Magic method wich delete data into _data array
+     *
+     * @param string $key key wanted
+     */
+    public function __unset($key)
+    {
+        if (isset($this->_data[$key])) {
+            $this->_modified = true;
+        }
+        unset($this->_data[$key]);
+    }
+
+    public function __destruct()
+    {
+        $this->write();
+    }
+
+    /**
+     * Save cookie with setcookie()
+     */
+    public function write()
+    {
+        if (!$this->_modified || headers_sent() || !$this->_allow_writing) {
+            return;
+        }
+
+        $cookie = '';
+
+        /* Serialize cookie content */
+        if (isset($this->_data['checksum'])) {
+            unset($this->_data['checksum']);
+        }
+        foreach ($this->_data as $key => $value) {
+            $cookie .= $key . '|' . $value . '¤';
+        }
+
+        /* Add checksum to cookie */
+        $cookie .= 'checksum|' . crc32($this->_salt . $cookie);
+        $this->_modified = false;
+        /* Cookies are encrypted for evident security reasons */
+        return $this->_setcookie($cookie);
+    }
+
+    protected function getDomain($shared_urls = null)
+    {
         $r = '!(?:(\w+)://)?(?:(\w+)\:(\w+)@)?([^/:]+)?(?:\:(\d*))?([^#?]+)?(?:\?([^#]+))?(?:#(.+$))?!i';
 
         if (!preg_match($r, Tools::getHttpHost(false, false), $out) || !isset($out[4])) {
@@ -190,8 +261,8 @@ class Cookie {
         }
 
         if (preg_match('/^(((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]{1}[0-9]|[1-9]).)' .
-                        '{1}((25[0-5]|2[0-4][0-9]|[1]{1}[0-9]{2}|[1-9]{1}[0-9]|[0-9]).)' .
-                        '{2}((25[0-5]|2[0-4][0-9]|[1]{1}[0-9]{2}|[1-9]{1}[0-9]|[0-9]){1}))$/', $out[4])) {
+            '{1}((25[0-5]|2[0-4][0-9]|[1]{1}[0-9]{2}|[1-9]{1}[0-9]|[0-9]).)' .
+            '{2}((25[0-5]|2[0-4][0-9]|[1]{1}[0-9]{2}|[1-9]{1}[0-9]|[0-9]){1}))$/', $out[4])) {
             return false;
         }
         if (!strstr(Tools::getHttpHost(false, false), '.')) {
@@ -214,64 +285,6 @@ class Cookie {
             $domain = $out[4];
         }
         return $domain;
-    }
-
-    /**
-     * Setcookie according to php version
-     */
-    protected function _setcookie($cookie = null) {
-        if ($cookie) {
-            $content = $this->_cipherTool->encrypt($cookie);
-            $time = $this->_expire;
-        } else {
-            $content = 0;
-            $time = 1;
-        }
-        if (PHP_VERSION_ID <= 50200) { /* PHP version > 5.2.0 */
-            return setcookie($this->_name, $content, $time, $this->_path, $this->_domain, $this->_secure);
-        } else {
-            return setcookie($this->_name, $content, $time, $this->_path, $this->_domain, $this->_secure, true);
-        }
-    }
-
-    public function __destruct() {
-        $this->write();
-    }
-
-    /**
-     * Delete cookie
-     * As of version 1.5 don't call this function, use Customer::logout() or Employee::logout() instead;
-     */
-    public function logout() {
-        $this->_data = array();
-        $this->_setcookie();
-        unset($_COOKIE[$this->_name]);
-        $this->_modified = true;
-    }
-
-    /**
-     * Save cookie with setcookie()
-     */
-    public function write() {
-        if (!$this->_modified || headers_sent() || !$this->_allow_writing) {
-            return;
-        }
-
-        $cookie = '';
-
-        /* Serialize cookie content */
-        if (isset($this->_data['checksum'])) {
-            unset($this->_data['checksum']);
-        }
-        foreach ($this->_data as $key => $value) {
-            $cookie .= $key . '|' . $value . '¤';
-        }
-
-        /* Add checksum to cookie */
-        $cookie .= 'checksum|' . crc32($this->_salt . $cookie);
-        $this->_modified = false;
-        /* Cookies are encrypted for evident security reasons */
-        return $this->_setcookie($cookie);
     }
 
 }

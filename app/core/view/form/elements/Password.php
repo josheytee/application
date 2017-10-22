@@ -9,9 +9,11 @@ use app\core\view\form\InputElement;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Password extends InputElement {
+class Password extends InputElement
+{
 
-    public function __construct($name, $value = null, $attribute = null) {
+    public function __construct($name, $value = null, $attribute = null)
+    {
         parent::__construct($name, $value, $attribute);
         $this->addAttribute('type', 'password');
     }

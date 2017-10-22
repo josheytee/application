@@ -10,198 +10,212 @@ namespace model;
  * @Index(name="id_activity_url_idx",  columns={"id_activity","url"})
  * })
  */
-class Activity {
+class Activity
+{
 
-  /**
-   * @var int
-   *
-   * @Id
-   * @GeneratedValue
-   * @Column(type="integer")
-   */
-  public $id_activity;
+    /**
+     * @var int
+     *
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    public $id_activity;
 
-  /**
-   * @var string
-   *
-   * @Column(type="string")
-   */
-  public $name;
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $name;
 
-  /**
-   * @var string
-   *
-   * @Column(type="text", length=320)
-   */
-  public $description;
+    /**
+     * @var string
+     *
+     * @Column(type="text", length=320)
+     */
+    public $description;
 
-  /**
-   * @var string
-   *
-   * @Column(type="string")
-   */
-  public $url;
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $url;
 
-  /**
-   * @var string
-   *
-   * @Column(type="string")
-   */
-  public $icon;
+    /**
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    public $icon;
 
-  /**
-   * @var \DateTime
-   *
-   * @Column(type="datetime")
-   */
-  public $created;
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $created;
 
-  /**
-   * @var \DateTime
-   *
-   * @Column(type="datetime")
-   */
-  public $updated;
+    /**
+     * @var \DateTime
+     *
+     * @Column(type="datetime")
+     */
+    public $updated;
 
-  /**
-   * Set name
-   *
-   * @param string $name
-   *
-   * @return Activity
-   */
-  public function setName($name) {
-    $this->name = $name;
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-    return $this;
-  }
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Activity
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
-  /**
-   * Get name
-   *
-   * @return string
-   */
-  public function getName() {
-    return $this->name;
-  }
+        return $this;
+    }
 
-  /**
-   * Set description
-   *
-   * @param string $description
-   *
-   * @return Activity
-   */
-  public function setDescription($description) {
-    $this->description = $description;
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-    return $this;
-  }
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Activity
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
-  /**
-   * Get description
-   *
-   * @return string
-   */
-  public function getDescription() {
-    return $this->description;
-  }
+        return $this;
+    }
 
-  /**
-   * Set url
-   *
-   * @param string $url
-   *
-   * @return Activity
-   */
-  public function setUrl($url) {
-    $this->url = $url;
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
-    return $this;
-  }
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Activity
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
-  /**
-   * Get url
-   *
-   * @return string
-   */
-  public function getUrl() {
-    return $this->url;
-  }
+        return $this;
+    }
 
-  /**
-   * Set icon
-   *
-   * @param string $icon
-   *
-   * @return Activity
-   */
-  public function setIcon($icon) {
-    $this->icon = $icon;
+    /**
+     * Get icon
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
 
-    return $this;
-  }
+    /**
+     * Set icon
+     *
+     * @param string $icon
+     *
+     * @return Activity
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
 
-  /**
-   * Get icon
-   *
-   * @return string
-   */
-  public function getIcon() {
-    return $this->icon;
-  }
+        return $this;
+    }
 
-  /**
-   * Set created
-   *
-   * @param \DateTime $created
-   *
-   * @return Activity
-   */
-  public function setCreated($created) {
-    $this->created = $created;
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
 
-    return $this;
-  }
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Activity
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
-  /**
-   * Get created
-   *
-   * @return \DateTime
-   */
-  public function getCreated() {
-    return $this->created;
-  }
+        return $this;
+    }
 
-  /**
-   * Set updated
-   *
-   * @param \DateTime $updated
-   *
-   * @return Activity
-   */
-  public function setUpdated($updated) {
-    $this->updated = $updated;
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
 
-    return $this;
-  }
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Activity
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
 
-  /**
-   * Get updated
-   *
-   * @return \DateTime
-   */
-  public function getUpdated() {
-    return $this->updated;
-  }
+        return $this;
+    }
 
-  /**
-   * Get idActivity
-   *
-   * @return integer
-   */
-  public function getIdActivity() {
-    return $this->id_activity;
-  }
+    /**
+     * Get idActivity
+     *
+     * @return integer
+     */
+    public function getIdActivity()
+    {
+        return $this->id_activity;
+    }
 
 }

@@ -8,3 +8,4 @@ package: ntc\shop\search
 icon: search.png
 version: 1.0.0
 target: shop
+configurable: true

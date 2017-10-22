@@ -7,19 +7,23 @@ namespace app\core\service;
  *
  * @author Tobi
  */
-class ResourceManagementService extends KernelService {
+class ResourceManagementService extends KernelService
+{
 
     private $resiurce_list = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function getResource($filename) {
+    public function getResource($filename)
+    {
 
     }
 
-    public function useResource($resource_name) {
+    public function useResource($resource_name)
+    {
         $json = file_get_contents("app/resource/bootstrap/resource.json");
         $json_decode = json_decode($json);
         if (in_array($resource_name, $json_decode)) {

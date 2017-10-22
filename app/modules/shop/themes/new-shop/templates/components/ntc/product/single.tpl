@@ -229,7 +229,7 @@
 					<div id="owl-demo" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
 						<div class="owl-wrapper-outer">
 							<div class="owl-wrapper"
-									 style="width: 784px; left: 0px; display: block; transition: all 800ms ease; transform: translate3d(-196px, 0px, 0px);">
+									 style="width: 784px; left: 0; display: block; transition: all 800ms ease; transform: translate3d(-196px, 0px, 0px);">
 								<div class="owl-item" style="width: 196px;">
 									<div class="item">
 										<div class="recent-grids">
@@ -242,8 +242,8 @@
 													<div class="starbox small ghosting">
 														<div class="positioner" style="">
 															<div class="stars">
-																<div class="ghost" style="display: none; width: 0px;"></div>
-																<div class="colorbar" style="width: 0px;"></div>
+																<div class="ghost" style="display: none; width: 0;"></div>
+																<div class="colorbar" style="width: 0;"></div>
 																<div class="star_holder">
 																	<div class="star star-0"></div>
 																	<div class="star star-1"></div>
@@ -269,8 +269,8 @@
 													<div class="starbox small ghosting">
 														<div class="positioner" style="">
 															<div class="stars">
-																<div class="ghost" style="display: none; width: 0px;"></div>
-																<div class="colorbar" style="width: 0px;"></div>
+																<div class="ghost" style="display: none; width: 0;"></div>
+																<div class="colorbar" style="width: 0;"></div>
 																<div class="star_holder">
 																	<div class="star star-0"></div>
 																	<div class="star star-1"></div>
@@ -296,8 +296,8 @@
 													<div class="starbox small ghosting">
 														<div class="positioner" style="">
 															<div class="stars">
-																<div class="ghost" style="display: none; width: 0px;"></div>
-																<div class="colorbar" style="width: 0px;"></div>
+																<div class="ghost" style="display: none; width: 0;"></div>
+																<div class="colorbar" style="width: 0;"></div>
 																<div class="star_holder">
 																	<div class="star star-0"></div>
 																	<div class="star star-1"></div>
@@ -323,8 +323,8 @@
 													<div class="starbox small ghosting">
 														<div class="positioner" style="">
 															<div class="stars">
-																<div class="ghost" style="display: none; width: 0px;"></div>
-																<div class="colorbar" style="width: 0px;"></div>
+																<div class="ghost" style="display: none; width: 0;"></div>
+																<div class="colorbar" style="width: 0;"></div>
 																<div class="star_holder">
 																	<div class="star star-0"></div>
 																	<div class="star star-1"></div>
@@ -354,8 +354,8 @@
 													<div class="starbox small ghosting">
 														<div class="positioner" style="">
 															<div class="stars">
-																<div class="ghost" style="display: none; width: 0px;"></div>
-																<div class="colorbar" style="width: 0px;"></div>
+																<div class="ghost" style="display: none; width: 0;"></div>
+																<div class="colorbar" style="width: 0;"></div>
 																<div class="star_holder">
 																	<div class="star star-0"></div>
 																	<div class="star star-1"></div>
@@ -381,8 +381,8 @@
 													<div class="starbox small ghosting">
 														<div class="positioner" style="">
 															<div class="stars">
-																<div class="ghost" style="display: none; width: 0px;"></div>
-																<div class="colorbar" style="width: 0px;"></div>
+																<div class="ghost" style="display: none; width: 0;"></div>
+																<div class="colorbar" style="width: 0;"></div>
 																<div class="star_holder">
 																	<div class="star star-0"></div>
 																	<div class="star star-1"></div>
@@ -408,8 +408,8 @@
 													<div class="starbox small ghosting">
 														<div class="positioner" style="">
 															<div class="stars">
-																<div class="ghost" style="display: none; width: 0px;"></div>
-																<div class="colorbar" style="width: 0px;"></div>
+																<div class="ghost" style="display: none; width: 0;"></div>
+																<div class="colorbar" style="width: 0;"></div>
 																<div class="star_holder">
 																	<div class="star star-0"></div>
 																	<div class="star star-1"></div>
@@ -435,8 +435,8 @@
 													<div class="starbox small ghosting">
 														<div class="positioner" style="">
 															<div class="stars">
-																<div class="ghost" style="display: none; width: 0px;"></div>
-																<div class="colorbar" style="width: 0px;"></div>
+																<div class="ghost" style="display: none; width: 0;"></div>
+																<div class="colorbar" style="width: 0;"></div>
 																<div class="star_holder">
 																	<div class="star star-0"></div>
 																	<div class="star star-1"></div>
@@ -538,8 +538,8 @@
 												<div class="starbox small ghosting">
 													<div class="positioner" style="">
 														<div class="stars">
-															<div class="ghost" style="display: none; width: 0px;"></div>
-															<div class="colorbar" style="width: 0px;"></div>
+															<div class="ghost" style="display: none; width: 0;"></div>
+															<div class="colorbar" style="width: 0;"></div>
 															<div class="star_holder">
 																<div class="star star-0"></div>
 																<div class="star star-1"></div>

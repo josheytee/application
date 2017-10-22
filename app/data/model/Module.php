@@ -9,10 +9,10 @@ namespace model;
  * @Table(indexes={
  * @Index(name="id_module_name_version_idx",  columns={"id_module","name","version"})
  * })
-
  * @author adapter
  */
-class Module {
+class Module
+{
 
     /**
      * @var int
@@ -90,6 +90,16 @@ class Module {
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -104,13 +114,13 @@ class Module {
     }
 
     /**
-     * Get name
+     * Get description
      *
      * @return string
      */
-    public function getName()
+    public function getDescription()
     {
-        return $this->name;
+        return $this->description;
     }
 
     /**
@@ -128,13 +138,13 @@ class Module {
     }
 
     /**
-     * Get description
+     * Get version
      *
      * @return string
      */
-    public function getDescription()
+    public function getVersion()
     {
-        return $this->description;
+        return $this->version;
     }
 
     /**
@@ -152,13 +162,13 @@ class Module {
     }
 
     /**
-     * Get version
+     * Get icon
      *
      * @return string
      */
-    public function getVersion()
+    public function getIcon()
     {
-        return $this->version;
+        return $this->icon;
     }
 
     /**
@@ -176,13 +186,13 @@ class Module {
     }
 
     /**
-     * Get icon
+     * Get created
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getIcon()
+    public function getCreated()
     {
-        return $this->icon;
+        return $this->created;
     }
 
     /**
@@ -200,13 +210,13 @@ class Module {
     }
 
     /**
-     * Get created
+     * Get updated
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getUpdated()
     {
-        return $this->created;
+        return $this->updated;
     }
 
     /**
@@ -221,16 +231,6 @@ class Module {
         $this->updated = $updated;
 
         return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
     }
 
     /**

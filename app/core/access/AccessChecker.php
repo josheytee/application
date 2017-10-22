@@ -10,13 +10,16 @@ use app\core\routing\RouteMatchInterface;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail dot com>
  */
-class AccessChecker {
+class AccessChecker
+{
 
-    public function checkRequest(Request $request, $account) {
+    public function checkRequest(Request $request, $account)
+    {
 
     }
 
-    public function doCheck(RouteMatchInterface $route_match) {
+    public function doCheck(RouteMatchInterface $route_match)
+    {
         $route = $route_match->getRouteObject();
         $checks = $route->getOption('_check') ?: [];
     }

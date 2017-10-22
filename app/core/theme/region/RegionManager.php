@@ -12,7 +12,8 @@ use app\core\view\RenderableTrait;
  *
  * @author adapter
  */
-class RegionManager implements RegionManagerInterface {
+class RegionManager implements RegionManagerInterface
+{
 
     use RenderableTrait;
     use ArrayHelper;
@@ -29,7 +30,8 @@ class RegionManager implements RegionManagerInterface {
     protected $tag = 'div';
     protected $activeTheme;
 
-    public function __construct(ComponentManager $component_manager, ThemeManager $theme_manager) {
+    public function __construct(ComponentManager $component_manager, ThemeManager $theme_manager)
+    {
 
         $this->component_manager = $component_manager;
         $this->theme_manager = $theme_manager;
@@ -37,16 +39,19 @@ class RegionManager implements RegionManagerInterface {
 
     }
 
-    function setTemplate($template) {
+    function setTemplate($template)
+    {
         $this->template = $template;
         return $this;
     }
 
-    public function getComponents() {
+    public function getComponents()
+    {
         return $this->component_manager->getComponents();
     }
 
-    public function setMax($max) {
+    public function setMax($max)
+    {
         $this->max = $max;
         return $this;
     }
@@ -55,7 +60,8 @@ class RegionManager implements RegionManagerInterface {
      * @param $region
      * @return null
      */
-    public function getContent($region) {
+    public function getContent($region)
+    {
         $components = $this->component_manager->getRegionComponents($region);
         $markup = '';
         foreach ($components as $component) {

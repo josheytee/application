@@ -4,7 +4,8 @@ namespace app\model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model {
+class User extends Model
+{
 
     protected $primaryKey = 'id_user';
 
@@ -23,7 +24,8 @@ class User extends Model {
      */
     protected $hidden = array('password', 'remember_token');
 
-    public function shops() {
+    public function shops()
+    {
         return $this->belongsToMany('app\model\Shop', 'user_shop', 'id_user', 'id_shop');
     }
 

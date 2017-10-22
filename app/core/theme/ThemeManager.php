@@ -12,7 +12,8 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
  *
  * @author adapter
  */
-class ThemeManager implements ThemeManagerInterface {
+class ThemeManager implements ThemeManagerInterface
+{
 
     use ContainerAwareTrait;
     use StringHelper;
@@ -32,10 +33,24 @@ class ThemeManager implements ThemeManagerInterface {
      */
     private $themeInitializer;
 
-    public function __construct(ThemeInitializer $themeInitializer, ActiveThemeResolverInterface $theme_resolver, ConfigManager $config = null) {
+    public function __construct(ThemeInitializer $themeInitializer, ActiveThemeResolverInterface $theme_resolver, ConfigManager $config = null)
+    {
         $this->config = $config;
         $this->theme_resolver = $theme_resolver;
         $this->themeInitializer = $themeInitializer;
+    }
+
+    /**
+     *
+     * @param RouteMatchInterface|null $route_match
+     * @return ActiveTheme
+     */
+    public function getActiveTheme(RouteMatchInterface $route_match = NULL)
+    {
+        if (!isset($this->active_theme)) {
+            $this->initTheme($route_match);
+        }
+        return $this->active_theme;
     }
 
     /**
@@ -44,7 +59,8 @@ class ThemeManager implements ThemeManagerInterface {
      * @param \app\core\routing\RouteMatchInterface $route_match
      *   The current route match.
      */
-    protected function initTheme(RouteMatchInterface $route_match = NULL) {
+    protected function initTheme(RouteMatchInterface $route_match = NULL)
+    {
         // Determine the active theme for the theme negotiator service. This includes
         // the default theme as well as really specific ones like the ajax base theme.
         if (!$route_match) {
@@ -58,31 +74,31 @@ class ThemeManager implements ThemeManagerInterface {
         $this->active_theme = $this->themeInitializer->initTheme($theme);
     }
 
-    /**
-     *
-     * @param RouteMatchInterface|null $route_match
-     * @return ActiveTheme
-     */
-    public function getActiveTheme(RouteMatchInterface $route_match = NULL) {
-        if (!isset($this->active_theme)) {
-            $this->initTheme($route_match);
-        }
-        return $this->active_theme;
+    public function setConfig($data)
+    {
+        $route_match = $this->container->get('current.route.match');
+
+        $activeThemeRepository = $this->themeInitializer->getThemeRepository()->getRepository($this->theme_resolver->resolveActiveTheme($route_match));
+        return $activeThemeRepository->setConfig($data);
     }
 
-    public function render() {
+    public function render()
+    {
 
     }
 
-    public function getTheme($name) {
+    public function getTheme($name)
+    {
 
     }
 
-    public function getName($theme) {
+    public function getName($theme)
+    {
 
     }
 
-    public function themeExists($theme): bool {
+    public function themeExists($theme): bool
+    {
 
     }
 

@@ -9,7 +9,8 @@ use app\core\theme\ThemeManager;
  *
  * @author adapter
  */
-class ComponentManager {
+class ComponentManager
+{
 
     /**
      * @var ComponentInitializer
@@ -21,23 +22,16 @@ class ComponentManager {
      */
     private $theme;
 
-    public function __construct(ComponentInitializer $initializer, ThemeManager $theme) {
+    public function __construct(ComponentInitializer $initializer, ThemeManager $theme)
+    {
         $this->theme = $theme;
         $this->initializer = $initializer;
     }
 
-    public function getComponents() {
-        return ($this->initializer->getComponents());
-    }
-
-    public function getThemeConfig($region = '') {
-        return $this->theme->getActiveTheme()->getConfig('regions')[$region] ?? [];
-    }
-
-
-    public function getRegionComponents($region) {
+    public function getRegionComponents($region)
+    {
         $components = $this->getComponents();
-        $config = $this->getThemeConfig($region) ?? [];
+        $config = $this->getThemeConfig('regions')[$region] ?? [];
         $flip = array_flip($config);
 //        dump($components);
 //        $c = 0;
@@ -54,7 +48,26 @@ class ComponentManager {
 
     }
 
-    public function getTargetComponents($target) {
+    public function getComponents()
+    {
+        return ($this->initializer->getComponents());
+    }
+
+    public function getThemeConfig($key = null)
+    {
+        return $key ?
+            $this->theme->getActiveTheme()->getConfig($key) :
+            $this->theme->getActiveTheme()->getConfig();
+
+    }
+
+    public function setThemeConfig($key, $value)
+    {
+
+    }
+
+    public function getTargetComponents($target)
+    {
         $components = [];
         foreach ($this->getComponents() as $id => $component) {
             if ($component->getTarget() == $target) {
@@ -62,5 +75,10 @@ class ComponentManager {
             }
         }
         return $components;
+    }
+
+    public function getComponent($component, $encoded = true)
+    {
+        return $encoded ? $this->getComponents()[base64_decode($component)] : $this->getComponents()[$component];
     }
 }

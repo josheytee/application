@@ -14,46 +14,51 @@ use Symfony\Component\Routing\RouteCollection;
  *
  * @author adapter
  */
-class RouteBuilder {
+class RouteBuilder
+{
 
+    protected $building;
+    protected $rebuild_needed;
     /**
      * @var Dumper
      */
     private $dumper;
-
     /**
      * @var EventDispatcherInterface
      */
     private $dispatcher;
     private $manager;
-    protected $building;
-    protected $rebuild_needed;
 
-    public function __construct(ModuleManager $manager, Dumper $dumper, EventDispatcherInterface $dispatcher) {
+    public function __construct(ModuleManager $manager, Dumper $dumper, EventDispatcherInterface $dispatcher)
+    {
         $this->manager = $manager;
         $this->dispatcher = $dispatcher;
         $this->dumper = $dumper;
     }
 
-    public function build() {
+    public function build()
+    {
 
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setRebuildNeeded() {
+    public function setRebuildNeeded()
+    {
         $this->rebuild_needed = TRUE;
     }
 
-    public function rebuildIfNeeded() {
+    public function rebuildIfNeeded()
+    {
         if ($this->rebuild_needed) {
             return $this->rebuild();
         }
         return FALSE;
     }
 
-    public function rebuild() {
+    public function rebuild()
+    {
         if ($this->building) {
             throw new \RuntimeException('Recursive router rebuild detected.');
         }
@@ -62,13 +67,13 @@ class RouteBuilder {
             $collection[$moduleId] = new RouteCollection();
             foreach ($route_collection as $name => $route_info) {
                 $route_info += array(
-                  'defaults' => array(),
-                  'requirements' => array(),
-                  'options' => array(),
-                  'host' => NULL,
-                  'schemes' => array(),
-                  'methods' => array(),
-                  'condition' => '',
+                    'defaults' => array(),
+                    'requirements' => array(),
+                    'options' => array(),
+                    'host' => NULL,
+                    'schemes' => array(),
+                    'methods' => array(),
+                    'condition' => '',
                 );
 
                 $route = new Route($route_info['path'], $route_info['defaults'], $route_info['requirements'], $route_info['options'], $route_info['host'], $route_info['schemes'], $route_info['methods'], $route_info['condition']);
@@ -91,7 +96,8 @@ class RouteBuilder {
      * get all available routes form modules
      * @return RouteCollection
      */
-    public function getRouteDefinitions() {
+    public function getRouteDefinitions()
+    {
         $route_definitions = [];
         foreach ($this->manager->getModulesDirectory() as $package => $handler) {
             $route_definitions[$package] = $handler->getRoute();

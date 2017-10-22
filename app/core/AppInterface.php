@@ -9,7 +9,8 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author adapter
  */
-interface AppInterface extends HttpKernelInterface, ContainerAwareInterface {
+interface AppInterface extends HttpKernelInterface, ContainerAwareInterface
+{
 
     /**
      * Loads the container configuration.

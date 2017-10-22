@@ -9,10 +9,12 @@ use app\core\component\Component;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Notification extends Component {
+class Notification extends Component
+{
 
-  public function render() {
-    return $this->display('ntc/administrator/notification');
-  }
+    public function render()
+    {
+        return $this->display('ntc/administrator/notification');
+    }
 
 }

@@ -2,10 +2,13 @@
 
 namespace app\core\entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Shop
  */
-class Shop {
+class Shop
+{
     /**
      * @var integer
      */
@@ -45,8 +48,14 @@ class Shop {
      * @var Activity
      */
     private $activity;
+    /**
+     * @var array
+     */
+    private $config;
 
-    public function __construct() {
+    public function __construct()
+    {
+        $this->sections = new ArrayCollection();
         $this->setActivity(new Activity());
         $this->setState(new State());
     }
@@ -56,8 +65,19 @@ class Shop {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -67,30 +87,9 @@ class Shop {
      *
      * @return Shop
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Shop
-     */
-    public function setUrl($url) {
-        $this->url = $url;
 
         return $this;
     }
@@ -100,19 +99,21 @@ class Shop {
      *
      * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
     /**
-     * Set description
+     * Set url
      *
-     * @param string $description
+     * @param string $url
      *
      * @return Shop
      */
-    public function setDescription($description) {
-        $this->description = $description;
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
         return $this;
     }
@@ -122,19 +123,21 @@ class Shop {
      *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
-     * Set created
+     * Set description
      *
-     * @param \DateTime $created
+     * @param string $description
      *
      * @return Shop
      */
-    public function setCreated($created) {
-        $this->created = $created;
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -144,19 +147,21 @@ class Shop {
      *
      * @return \DateTime
      */
-    public function getCreated() {
+    public function getCreated()
+    {
         return $this->created;
     }
 
     /**
-     * Set updated
+     * Set created
      *
-     * @param \DateTime $updated
+     * @param \DateTime $created
      *
      * @return Shop
      */
-    public function setUpdated($updated) {
-        $this->updated = $updated;
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
         return $this;
     }
@@ -166,19 +171,21 @@ class Shop {
      *
      * @return \DateTime
      */
-    public function getUpdated() {
+    public function getUpdated()
+    {
         return $this->updated;
     }
 
     /**
-     * Set state
+     * Set updated
      *
-     * @param State $state
+     * @param \DateTime $updated
      *
      * @return Shop
      */
-    public function setState(State $state = null) {
-        $this->state = $state;
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
 
         return $this;
     }
@@ -188,19 +195,21 @@ class Shop {
      *
      * @return State
      */
-    public function getState() {
+    public function getState()
+    {
         return $this->state;
     }
 
     /**
-     * Set activity
+     * Set state
      *
-     * @param Activity $activity
+     * @param State $state
      *
      * @return Shop
      */
-    public function setActivity(Activity $activity = null) {
-        $this->activity = $activity;
+    public function setState(State $state = null)
+    {
+        $this->state = $state;
 
         return $this;
     }
@@ -210,25 +219,21 @@ class Shop {
      *
      * @return Activity
      */
-    public function getActivity() {
+    public function getActivity()
+    {
         return $this->activity;
     }
 
     /**
-     * @var array
-     */
-    private $config;
-
-
-    /**
-     * Set config
+     * Set activity
      *
-     * @param array $config
+     * @param Activity $activity
      *
      * @return Shop
      */
-    public function setConfig($config) {
-        $this->config = $config;
+    public function setActivity(Activity $activity = null)
+    {
+        $this->activity = $activity;
 
         return $this;
     }
@@ -238,14 +243,30 @@ class Shop {
      *
      * @return array
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         return $this->config;
+    }
+
+    /**
+     * Set config
+     *
+     * @param array $config
+     *
+     * @return Shop
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+
+        return $this;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function onPrePersist() {
+    public function onPrePersist()
+    {
         $this->created = new \DateTime("now");
         $this->updated = new \DateTime("now");
     }
@@ -253,7 +274,47 @@ class Shop {
     /**
      * @ORM\PostPersist
      */
-    public function onPostPersist() {
+    public function onPostPersist()
+    {
         $this->updated = new \DateTime("now");
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sections;
+
+
+    /**
+     * Add section
+     *
+     * @param Section $section
+     *
+     * @return Shop
+     */
+    public function addSection(Section $section)
+    {
+        $this->sections[] = $section;
+
+        return $this;
+    }
+
+    /**
+     * Remove section
+     *
+     * @param Section $section
+     */
+    public function removeSection(Section $section)
+    {
+        $this->sections->removeElement($section);
+    }
+
+    /**
+     * Get sections
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSections()
+    {
+        return $this->sections;
     }
 }

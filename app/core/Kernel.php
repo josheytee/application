@@ -11,19 +11,23 @@ use app\core\service\KernelService;
  *
  * @author Tobi
  */
-class Kernel {
+class Kernel
+{
 
     protected $services = [];
 
-    public function __construct() {
+    public function __construct()
+    {
 
     }
 
-    public function installService(KernelService $service) {
+    public function installService(KernelService $service)
+    {
         $this->services[$service->name] = $service;
     }
 
-    public function uninstallService(KernelService $service) {
+    public function uninstallService(KernelService $service)
+    {
         if (!array_key_exists($service->name, $this->services)) {
             echo "{$service->name} is not installed";
             return FALSE;
@@ -31,21 +35,25 @@ class Kernel {
         $this->services[$service->name] = null;
     }
 
-    public function getInstalledServices() {
+    public function getInstalledServices()
+    {
 
     }
 
-    public function startAllServices() {
+    public function startAllServices()
+    {
         foreach ($this->services as $service) {
             $service->start();
         }
     }
 
-    function stopAllServices() {
+    function stopAllServices()
+    {
 
     }
 
-    public function handle(Request $request) {
+    public function handle(Request $request)
+    {
         $response = new Response();
         $response->process($request);
         return $response;

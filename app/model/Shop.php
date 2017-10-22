@@ -4,7 +4,8 @@ namespace app\model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Shop extends Model {
+class Shop extends Model
+{
 
     protected $primaryKey = 'id_shop';
     protected $table = 'shop';
@@ -16,19 +17,23 @@ class Shop extends Model {
      */
     protected $fillable = ['id_user', 'id_category', 'name', 'description', 'url'];
 
-    public function category() {
+    public function category()
+    {
         return $this->hasOne('app\model\Category', 'id_category', 'id_shop');
     }
 
-    public function sections() {
+    public function sections()
+    {
         return $this->hasMany('app\model\Section', 'id_section');
     }
 
-    public function product() {
+    public function product()
+    {
         return $this->belongsTo('app\model\Product', 'id_shop', 'id_product');
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->belongsToMany('app\model\User', 'user_shop', 'id_shop', 'id_user');
     }
 

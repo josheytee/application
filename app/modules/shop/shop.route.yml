@@ -38,6 +38,45 @@ admin.shop.list:
   requirements:
     _permission: administer actions
 
+admin.shop.activity.create:
+  path: admin/shop/activity/create
+  defaults:
+    _title: Amin | Home
+    _form: ntc\shop\form\ActivityForm
+    _model: app\core\entity\Activity.create
+#    _key: url
+  requirements:
+    _permission: administer actions
+
+admin.shop.activity.edit:
+  path: admin/shop/activity/{id}/edit
+  defaults:
+    _title: Amin | Create Shop
+    _form: ntc\shop\form\ActivityForm
+    _model: app\core\entity\Activity.update
+    id: 1
+  requirements:
+    id: \d+
+
+admin.shop.activity.delete:
+  path: admin/shop/activity/{id}/delete
+  defaults:
+    _title: Amin | Create Shop
+    _form: ntc\shop\form\ActivityForm
+    _model: app\core\entity\Activity.delete
+  requirements:
+    id: \d+
+    _permission: administer actions
+
+admin.shop.activity.list:
+  path: admin/shop/activity/list
+  defaults:
+    _title: Amin | User Shop List
+    _list: ntc\shop\listing\ShopActivityList
+    _model: app\core\entity\Activity
+  requirements:
+    _permission: administer actions
+
 shop.index:
   path: shop/{url}
   defaults:

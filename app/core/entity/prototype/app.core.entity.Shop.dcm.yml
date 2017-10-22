@@ -69,6 +69,18 @@ app\core\entity\Shop:
                 id_activity:
                     referencedColumnName: id
             orphanRemoval: false
+    oneToMany:
+        sections:
+            targetEntity: Section
+            cascade: [persist,remove]
+            fetch: LAZY
+            mappedBy: shop
+            inversedBy: null
+#            joinColumns:
+#                 id_section:
+#                    referencedColumnName: id
+            orphanRemoval: false
+            orderBy: null
     lifecycleCallbacks:
         prePersist: [ onPrePersist ]
         postPersist: [ onPostPersist ]

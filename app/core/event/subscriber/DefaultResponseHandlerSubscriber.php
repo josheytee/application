@@ -13,7 +13,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class DefaultResponseHandlerSubscriber implements EventSubscriberInterface {
+class DefaultResponseHandlerSubscriber implements EventSubscriberInterface
+{
 
     /**
      * @var RouteMatchInterface
@@ -25,17 +26,20 @@ class DefaultResponseHandlerSubscriber implements EventSubscriberInterface {
      */
     private $block;
 
-    public function __construct(BlockManager $block, RouteMatchInterface $route_match) {
+    public function __construct(BlockManager $block, RouteMatchInterface $route_match)
+    {
 
         $this->block = $block;
         $this->route_match = $route_match;
     }
 
-    public static function getSubscribedEvents(): array {
+    public static function getSubscribedEvents(): array
+    {
         return [KernelEvents::VIEW => ['controller', 1]];
     }
 
-    public function controller(GetResponseForControllerResultEvent $event) {
+    public function controller(GetResponseForControllerResultEvent $event)
+    {
         $result = $event->getControllerResult();
         $request = $event->getRequest();
 //        dump($this->route_match);

@@ -4,56 +4,50 @@ namespace ntc\shop\form;
 
 use app\core\controller\FormController;
 use app\core\entity\Activity;
+use app\core\http\UploadedFile;
 use app\core\view\form\Formbuilder;
 
 /**
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class CreateShopForm extends FormController {
+class CreateShopForm extends FormController
+{
 
-    public function build(Formbuilder $builder, $entity = 0) {
+    public function build(Formbuilder $builder, $entity = 0)
+    {
         $builder->block(
-          $builder->label('name')
-          , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
+            $builder->label('name')
+            , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-          $builder->label('activity')
-          , $builder->select('activity', $this->activities(), $entity->getActivity()->getId())->addAttributes(['class' => 'form-control'])
+            $builder->label('activity')
+            , $builder->select('activity', $this->activities(), $entity->getActivity()->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-          $builder->label('state')
-          , $builder->select('state', $this->states(), $entity->getState()->getId())->addAttributes(['class' => 'form-control'])
+            $builder->label('state')
+            , $builder->select('state', $this->states(), $entity->getState()->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block(
-          $builder->label('url')
-          , $builder->text('url', $entity->getUrl())->addAttributes(['class' => 'form-control'])
-          , $builder->help('eg. /example')
+            $builder->label('url')
+            , $builder->text('url', $entity->getUrl())->addAttributes(['class' => 'form-control'])
+            , $builder->help('eg. /example')
         );
         $builder->block(
-          $builder->label('description')
-          , $builder->textArea('description', $entity->getDescription())->addAttributes(['class' => 'form-control'])
+            $builder->label('description')
+            , $builder->textArea('description', $entity->getDescription())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
         $builder->block($builder->submit('Save')->addAttributes(['class' => 'btn btn-primary']))
-          ->addAttributes(['class' => 'form-group']);
+            ->addAttributes(['class' => 'form-group']);
         return $builder;
     }
 
-    public function validationRules() {
-        return [
-          'name' => "alpha|required|max:128",
-          'activity' => 'required',
-          'state' => 'required',
-          'url' => 'required',
-          'description' => 'required',
-        ];
-    }
-
-    private function activities() {
+    private function activities()
+    {
 //        return array(
 //            0 => 'Choose your main activity',
 //            1 => 'Lingerie and Adult',
@@ -80,26 +74,45 @@ class CreateShopForm extends FormController {
         return $this->doctrine()->getRepository(Activity::class)->getActivities();
     }
 
-    private function states() {
+    private function states()
+    {
         return ['choose your state', 'oyo', 'abuja'];
     }
 
-    public function formID() {
+    public function validationRules()
+    {
+        return [
+            'name' => "alpha|required|max:128",
+            'activity' => 'required',
+            'state' => 'required',
+            'url' => 'required',
+            'description' => 'required',
+        ];
+    }
+
+    public function formID()
+    {
 
         return "createShop";
     }
 
-    function getDependencies() {
+    function getDependencies()
+    {
 
         return [
-          'activity | id' => 'app\core\entity\Activity',
-          'state' => 'app\core\entity\State'
+            'activity | id' => 'app\core\entity\Activity',
+            'state' => 'app\core\entity\State'
         ];
     }
 
-        public function title() {
-            return 'Shop form';
-        }
+    public function title()
+    {
+        return 'Shop form';
+    }
 
 
+    function handleFile($entity, UploadedFile $file)
+    {
+        // TODO: Implement handleFile() method.
+    }
 }

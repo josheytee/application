@@ -11,7 +11,8 @@ use Symfony\Component\Yaml\Parser;
  *
  * @author adapter
  */
-class Schema {
+class Schema
+{
 
     /**
      * List of field types
@@ -74,13 +75,15 @@ class Schema {
         )
     );
 
-    public function build() {
+    public function build()
+    {
         $dumper = new Dumper();
         $yaml = $dumper->dump($definition, 2);
         file_put_contents(__DIR__ . '/../../model/schema/product_schema.yml', $yaml);
     }
 
-    public function collect($filename) {
+    public function collect($filename)
+    {
         try {
             $yaml = new Parser();
             $value = $yaml->parse(file_get_contents(__DIR__ . '/../../model/schema/' . $filename));

@@ -8,6 +8,7 @@ namespace app\core\dependencyInjection;
  * container is not initialized yet.
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ContainerNotInitializedException extends \RuntimeException {
+class ContainerNotInitializedException extends \RuntimeException
+{
 
 }

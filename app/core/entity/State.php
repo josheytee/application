@@ -34,6 +34,16 @@ class State
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -48,13 +58,13 @@ class State
     }
 
     /**
-     * Get name
+     * Get url
      *
      * @return string
      */
-    public function getName()
+    public function getUrl()
     {
-        return $this->name;
+        return $this->url;
     }
 
     /**
@@ -69,15 +79,5 @@ class State
         $this->url = $url;
 
         return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
     }
 }

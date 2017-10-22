@@ -16,27 +16,28 @@ use app\core\view\RenderableTrait;
  *
  * @author adapter
  */
-class BlockManager implements Renderable {
+class BlockManager implements Renderable
+{
 
     use RenderableTrait;
 
+    protected $default_regions;
+    protected $regions;
     /**
      * @var ConfigManager
      */
     private $config;
-
     /**
      * @var ThemeManager
      */
     private $theme;
-    protected $default_regions;
-    protected $regions;
     /**
      * @var RegionManager
      */
     private $region_manager;
 
-    public function __construct(ThemeManager $theme, RegionManager $region_manager, ConfigManager $config = null) {
+    public function __construct(ThemeManager $theme, RegionManager $region_manager, ConfigManager $config = null)
+    {
 
         $this->theme = $theme;
         $this->config = $config;
@@ -44,19 +45,8 @@ class BlockManager implements Renderable {
         $this->region_manager = $region_manager;
     }
 
-    public function render($page, RouteMatchInterface $routeMatch) {
-        if ($routeMatch->getRouteObject()->hasOption('module')) {
-            $template = $routeMatch->getRouteObject()->getOption('module');
-            $template = str_replace('\\', '-', $template);
-            if ($this->templateExist("layout/page--{$template}")) {
-                return $this->renderTrait(['page' => $page], "layout/page--{$template}");
-            }
-        }
-
-        return $this->renderTrait(['page' => $page], 'layout/page');
-    }
-
-    public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch) {
+    public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch)
+    {
         $page = null;
         foreach ($this->default_regions as $region) {
 //      if (!empty($page[$region])) {
@@ -69,6 +59,19 @@ class BlockManager implements Renderable {
 
         $response = new Response($this->render($page, $routeMatch));
         return $response;
+    }
+
+    public function render($page, RouteMatchInterface $routeMatch)
+    {
+        if ($routeMatch->getRouteObject()->hasOption('module')) {
+            $template = $routeMatch->getRouteObject()->getOption('module');
+            $template = str_replace('\\', '-', $template);
+            if ($this->templateExist("layout/page--{$template}")) {
+                return $this->renderTrait(['page' => $page], "layout/page--{$template}");
+            }
+        }
+
+        return $this->renderTrait(['page' => $page], 'layout/page');
     }
 
 }

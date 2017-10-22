@@ -6,7 +6,8 @@ namespace app\core\repository;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-interface RepositoryInterface {
+interface RepositoryInterface
+{
 
     /**
      * Scans the repository using regex if provider

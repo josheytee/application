@@ -9,11 +9,13 @@ use app\core\view\form\InputElement;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Reset extends InputElement {
+class Reset extends InputElement
+{
 
-  public function __construct($name, $value = null, $attribute = null) {
-    parent::__construct($name, $value, $attribute);
-    $this->addAttribute('type', 'reset');
-  }
+    public function __construct($name, $value = null, $attribute = null)
+    {
+        parent::__construct($name, $value, $attribute);
+        $this->addAttribute('type', 'reset');
+    }
 
 }

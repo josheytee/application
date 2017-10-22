@@ -7,19 +7,22 @@ namespace app\core\service;
  *
  * @author Tobi
  */
-class KernelService implements KernelServiceInterface {
+class KernelService implements KernelServiceInterface
+{
 
     public static $running;
-    public $name;
-    public $log;
     public static $service_list = [];
     public static $instances = [];
+    public $name;
+    public $log;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->name = get_called_class();
     }
 
-    public static function getService($service) {
+    public static function getService($service)
+    {
         $service = "\app\core\service\\" . $service;
         if (!array_key_exists($service, self::$instances)) {
             self::$instances[$service] = new $service();
@@ -27,18 +30,21 @@ class KernelService implements KernelServiceInterface {
         return self::$instances[$service];
     }
 
-    public static function start() {
+    public static function start()
+    {
 //        if (!self::$running) {
 //            self::$running = TRUE;
         return self::getInstance();
 //        }
     }
 
-    public function stop() {
+    public function stop()
+    {
         $this->running = FALSE;
     }
 
-    public function log($status = null) {
+    public function log($status = null)
+    {
         if ($status) {
             return $this->log[date("Y-M-d H:i:s")] = $status;
         }

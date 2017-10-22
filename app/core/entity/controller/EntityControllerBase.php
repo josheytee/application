@@ -10,13 +10,17 @@ use app\core\http\Request;
  *
  * @author joshua
  */
-abstract class EntityControllerBase extends ControllerBase {
+abstract class EntityControllerBase extends ControllerBase
+{
 
 //    abstract function title();
 
-    function getDependencies(){}
+    function getDependencies()
+    {
+    }
 
-    public function getModel(Request $request) {
+    public function getModel(Request $request)
+    {
         return $request->get('_model');
     }
 }

@@ -9,11 +9,13 @@ use app\core\view\form\InputElement;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Tel extends InputElement {
+class Tel extends InputElement
+{
 
-  public function __construct($name, $value = null, $attributes = null) {
-    parent::__construct($name, $value, $attributes);
-    $this->addAttribute('type', 'tel');
-  }
+    public function __construct($name, $value = null, $attributes = null)
+    {
+        parent::__construct($name, $value, $attributes);
+        $this->addAttribute('type', 'tel');
+    }
 
 }

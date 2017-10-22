@@ -3,16 +3,17 @@
 namespace ntc\administrator\sidebar;
 
 use app\core\component\Component;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  *
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Sidebar extends Component {
+class Sidebar extends Component
+{
 
-    public function render() {
+    public function render()
+    {
         $this->setDefaultTemplate(__DIR__ . '/templates/sidebar.tpl');
         return $this->display('ntc/administrator/sidebar');
     }

@@ -2,10 +2,10 @@
 
 namespace app\core\entity\fixtures;
 
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use app\core\entity\Activity;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
 
 /**
@@ -13,9 +13,11 @@ use Faker;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ActivityData extends AbstractFixture implements OrderedFixtureInterface {
+class ActivityData extends AbstractFixture implements OrderedFixtureInterface
+{
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $faker = Faker\Factory::create();
         foreach ($this->data() as $key => $value) {
             $activity = new Activity();
@@ -32,7 +34,8 @@ class ActivityData extends AbstractFixture implements OrderedFixtureInterface {
         $this->addReference('activity', $activity);
     }
 
-    public function data() {
+    public function data()
+    {
         return array(
             0 => 'Choose your main activity',
             1 => 'Lingerie and Adult',
@@ -58,7 +61,8 @@ class ActivityData extends AbstractFixture implements OrderedFixtureInterface {
         );
     }
 
-    public function getOrder(): int {
+    public function getOrder(): int
+    {
         return 3;
     }
 

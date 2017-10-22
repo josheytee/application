@@ -8,6 +8,7 @@ namespace app\core\module;
  * if module dependencies are not installed
  * @author adapter
  */
-class ModuleDependencyNotFoundException extends \RuntimeException {
+class ModuleDependencyNotFoundException extends \RuntimeException
+{
 
 }

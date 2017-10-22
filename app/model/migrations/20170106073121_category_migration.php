@@ -2,10 +2,12 @@
 
 use app\core\database\Migration;
 
-class CategoryMigration extends Migration {
+class CategoryMigration extends Migration
+{
 
-    public function up() {
-        $this->schema->create('category', function(Illuminate\Database\Schema\Blueprint $table) {
+    public function up()
+    {
+        $this->schema->create('category', function (Illuminate\Database\Schema\Blueprint $table) {
             $table->engine = 'InnoDB';
             // Auto-increment id
             $table->increments('id_category');
@@ -18,7 +20,8 @@ class CategoryMigration extends Migration {
         });
     }
 
-    public function down() {
+    public function down()
+    {
         $this->schema->drop('category');
     }
 

@@ -9,11 +9,13 @@ use app\core\view\form\InputElement;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Hidden extends InputElement {
+class Hidden extends InputElement
+{
 
-  public function __construct($name, $value = null, $attributes = null) {
-    parent::__construct($name, $value, $attributes);
-    $this->addAttribute('type', 'hidden');
-  }
+    public function __construct($name, $value = null, $attributes = null)
+    {
+        parent::__construct($name, $value, $attributes);
+        $this->addAttribute('type', 'hidden');
+    }
 
 }

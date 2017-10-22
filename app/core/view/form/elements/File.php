@@ -9,11 +9,13 @@ use app\core\view\form\InputElement;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class File extends InputElement {
+class File extends InputElement
+{
 
-  public function __construct($name, $value = null, $attributes = []) {
-    parent::__construct($name, $value, $attributes);
-    $this->addAttribute('type', 'file');
-  }
+    public function __construct($name, $value = null, $attributes = [])
+    {
+        parent::__construct($name, $value, $attributes);
+        $this->addAttribute('type', 'file');
+    }
 
 }

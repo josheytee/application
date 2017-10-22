@@ -9,17 +9,21 @@ use app\core\entity\controller\EntityListController;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Listing extends EntityListController {
+class Listing extends EntityListController
+{
 
-    public function upper($param) {
+    public function upper($param)
+    {
         return ucfirst($param);
     }
 
-    public function bulkOperation() {
+    public function bulkOperation()
+    {
 
     }
 
-    public function head() {
+    public function head()
+    {
         $head['id'] = 'ID';
         $head['name'] = "First Name";
 //        $head['name'] = "Last Name";
@@ -27,11 +31,13 @@ class Listing extends EntityListController {
         return $head;
     }
 
-    public function model() {
+    public function model()
+    {
         return 'app\core\entity\User';
     }
 
-    public function row($entity) {
+    public function row($entity)
+    {
         $row['id'] = $entity->getID();
         $row['firstname'][] = $entity->getName();
         $row['firstname']['callback'] = 'upper';
@@ -40,11 +46,13 @@ class Listing extends EntityListController {
         return $row;
     }
 
-    public function title() {
+    public function title()
+    {
 
     }
 
-    public function defaultOperation($entity) {
+    public function defaultOperation($entity)
+    {
         $operations['edit'] = [
             'route' => 'admin.product.edit',
             'name' => 'Edit',

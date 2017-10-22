@@ -1,3 +1,4 @@
+{dump v=$sections}
 <div class="logo-nav-left1">
     <nav class="navbar navbar-default">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -12,83 +13,116 @@
         </div>
         <div class="navbar-collapse collapse in" id="bs-megadropdown-tabs" style="height: auto;">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html" class="act">Home</a></li>
-                <!-- Mega Menu -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Women<b class="caret"></b></a>
-                    <ul class="dropdown-menu multi-column columns-3">
-                        <div class="row">
-                            <div class="col-sm-3  multi-gd-img">
-                                <ul class="multi-column-dropdown">
-                                    <h6>Submenu1</h6>
-                                    <li><a href="products.html">Clothing</a></li>
-                                    <li><a href="products.html">Wallets</a></li>
-                                    <li><a href="products.html">Shoes</a></li>
-                                    <li><a href="products.html">Watches</a></li>
-                                    <li><a href="products.html"> Underwear </a></li>
-                                    <li><a href="products.html">Accessories</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-3  multi-gd-img">
-                                <ul class="multi-column-dropdown">
-                                    <h6>Submenu2</h6>
-                                    <li><a href="products.html">Sunglasses</a></li>
-                                    <li><a href="products.html">Wallets,Bags</a></li>
-                                    <li><a href="products.html">Footwear</a></li>
-                                    <li><a href="products.html">Watches</a></li>
-                                    <li><a href="products.html">Accessories</a></li>
-                                    <li><a href="products.html">Jewellery</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-3  multi-gd-img">
-                                <a href="products.html"><img src="images/woo.jpg" alt=" "></a>
-                            </div>
-                            <div class="col-sm-3  multi-gd-img">
-                                <a href="products.html"><img src="images/woo1.jpg" alt=" "></a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Men <b class="caret"></b></a>
-                    <ul class="dropdown-menu multi-column columns-3">
-                        <div class="row">
-                            <div class="col-sm-3  multi-gd-img">
-                                <ul class="multi-column-dropdown">
-                                    <h6>Submenu1</h6>
-                                    <li><a href="products.html">Clothing</a></li>
-                                    <li><a href="products.html">Wallets</a></li>
-                                    <li><a href="products.html">Shoes</a></li>
-                                    <li><a href="products.html">Watches</a></li>
-                                    <li><a href="products.html"> Underwear </a></li>
-                                    <li><a href="products.html">Accessories</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-3  multi-gd-img">
-                                <ul class="multi-column-dropdown">
-                                    <h6>Submenu2</h6>
-                                    <li><a href="products.html">Sunglasses</a></li>
-                                    <li><a href="products.html">Wallets,Bags</a></li>
-                                    <li><a href="products.html">Footwear</a></li>
-                                    <li><a href="products.html">Watches</a></li>
-                                    <li><a href="products.html">Accessories</a></li>
-                                    <li><a href="products.html">Jewellery</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-3  multi-gd-img">
-                                <a href="products1.html"><img src="images/woo3.jpg" alt=" "></a>
-                            </div>
-                            <div class="col-sm-3  multi-gd-img">
-                                <a href="products1.html"><img src="images/woo4.jpg" alt=" "></a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </ul>
-                </li>
-                <li><a href="codes.html">Short Codes</a></li>
-                <li><a href="mail.html">Mail Us</a></li>
+                {foreach $sections as $section}
+                    {*{if $section->isRoot()}*}
+                        {*<li class="">*}
+                            {*<a href="{$section->getUrl()}" class="act">{$section->getName()}</a>*}
+                        {*</li>*}
+                    {*{/if}*}
+                    {if $section->hasParent()}
+                        <li class="dropdown ">
+                            <a href="{$section->getSection()->getUrl()}" class="act">{$section->getSection()->getName()}</a>
+                        </li>
+                        <ul class="dropdown-menu multi-column columns-3">
+                            {*{foreach $section->getName() as $child}*}
+                                <li class="active">
+                                    <a href="{$section->getUrl()}" class="act">{$section->getName()}</a>
+                                </li>
+                            {*{/foreach}*}
+                        </ul>
+                    {/if}
+                {/foreach}
             </ul>
         </div>
     </nav>
 </div>
+
+{*<ul class="nav navbar-nav">*}
+{*<li class="active"><a href="index.html" class="act">Home</a></li>*}
+{*<!-- Mega Menu -->*}
+{*<li class="dropdown">*}
+{*<a href="#" class="dropdown-toggle" data-toggle="dropdown">Women<b class="caret"></b></a>*}
+{*<ul class="dropdown-menu multi-column columns-3">*}
+{*<div class="row">*}
+{*<div class="col-sm-3  multi-gd-img">*}
+{*<ul class="multi-column-dropdown">*}
+{*<h6>Submenu1</h6>*}
+{*<li><a href="products.html">Clothing</a></li>*}
+{*<li><a href="products.html">Wallets</a></li>*}
+{*<li><a href="products.html">Shoes</a></li>*}
+{*<li><a href="products.html">Watches</a></li>*}
+{*<li><a href="products.html"> Underwear </a></li>*}
+{*<li><a href="products.html">Accessories</a></li>*}
+{*</ul>*}
+{*</div>*}
+{*<div class="col-sm-3  multi-gd-img">*}
+{*<ul class="multi-column-dropdown">*}
+{*<h6>Submenu2</h6>*}
+{*<li><a href="products.html">Sunglasses</a></li>*}
+{*<li><a href="products.html">Wallets,Bags</a></li>*}
+{*<li><a href="products.html">Footwear</a></li>*}
+{*<li><a href="products.html">Watches</a></li>*}
+{*<li><a href="products.html">Accessories</a></li>*}
+{*<li><a href="products.html">Jewellery</a></li>*}
+{*</ul>*}
+{*</div>*}
+{*<div class="col-sm-3  multi-gd-img">*}
+{*<a href="products.html">*}
+{*<img src="/application/extensions/modules/ntc/shop/ntc/components/navigation/img/woo.jpg"*}
+{*alt=" ">*}
+{*</a>*}
+{*</div>*}
+{*<div class="col-sm-3  multi-gd-img">*}
+{*<a href="products.html">*}
+{*<img src="/application/extensions/modules/ntc/shop/ntc/components/navigation/img/woo1.jpg"*}
+{*alt=" ">*}
+{*</a>*}
+{*</div>*}
+{*<div class="clearfix"></div>*}
+{*</div>*}
+{*</ul>*}
+{*</li>*}
+{*<li class="dropdown">*}
+{*<a href="#" class="dropdown-toggle" data-toggle="dropdown">Men <b class="caret"></b></a>*}
+{*<ul class="dropdown-menu multi-column columns-3">*}
+{*<div class="row">*}
+{*<div class="col-sm-3  multi-gd-img">*}
+{*<ul class="multi-column-dropdown">*}
+{*<h6>Submenu1</h6>*}
+{*<li><a href="products.html">Clothing</a></li>*}
+{*<li><a href="products.html">Wallets</a></li>*}
+{*<li><a href="products.html">Shoes</a></li>*}
+{*<li><a href="products.html">Watches</a></li>*}
+{*<li><a href="products.html"> Underwear </a></li>*}
+{*<li><a href="products.html">Accessories</a></li>*}
+{*</ul>*}
+{*</div>*}
+{*<div class="col-sm-3  multi-gd-img">*}
+{*<ul class="multi-column-dropdown">*}
+{*<h6>Submenu2</h6>*}
+{*<li><a href="products.html">Sunglasses</a></li>*}
+{*<li><a href="products.html">Wallets,Bags</a></li>*}
+{*<li><a href="products.html">Footwear</a></li>*}
+{*<li><a href="products.html">Watches</a></li>*}
+{*<li><a href="products.html">Accessories</a></li>*}
+{*<li><a href="products.html">Jewellery</a></li>*}
+{*</ul>*}
+{*</div>*}
+{*<div class="col-sm-3  multi-gd-img">*}
+{*<a href="products1.html">*}
+{*<img src="/application/extensions/modules/ntc/shop/ntc/components/navigation/img/woo3.jpg"*}
+{*alt=" ">*}
+{*</a>*}
+{*</div>*}
+{*<div class="col-sm-3  multi-gd-img">*}
+{*<a href="products1.html">*}
+{*<img src="/application/extensions/modules/ntc/shop/ntc/components/navigation/img/woo4.jpg"*}
+{*alt=" "></a>*}
+{*</div>*}
+{*<div class="clearfix"></div>*}
+{*</div>*}
+{*</ul>*}
+{*</li>*}
+{*<li><a href="codes.html">Short Codes</a></li>*}
+{*<li><a href="mail.html">Mail Us</a></li>*}
+{*</ul>*}

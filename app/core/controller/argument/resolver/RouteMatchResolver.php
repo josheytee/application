@@ -2,10 +2,10 @@
 
 namespace app\core\controller\argument\resolver;
 
+use app\core\routing\RouteMatch;
+use app\core\routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use app\core\routing\RouteMatchInterface;
-use app\core\routing\RouteMatch;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 /**
@@ -13,14 +13,17 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class RouteMatchResolver implements ArgumentValueResolverInterface {
+class RouteMatchResolver implements ArgumentValueResolverInterface
+{
 
-  public function resolve(Request $request, ArgumentMetadata $argument): \Generator {
-    yield RouteMatch::createFromRequest($request);
-  }
+    public function resolve(Request $request, ArgumentMetadata $argument): \Generator
+    {
+        yield RouteMatch::createFromRequest($request);
+    }
 
-  public function supports(Request $request, ArgumentMetadata $argument): bool {
-    return ($argument->getName() == RouteMatchInterface::class) || is_subclass_of($argument->getName(), RouteMatchInterface::class);
-  }
+    public function supports(Request $request, ArgumentMetadata $argument): bool
+    {
+        return ($argument->getName() == RouteMatchInterface::class) || is_subclass_of($argument->getName(), RouteMatchInterface::class);
+    }
 
 }

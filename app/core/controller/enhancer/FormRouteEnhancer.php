@@ -9,19 +9,22 @@ use Symfony\Component\Routing\Route;
 /**
  * Enhancer to add a wrapping controller for _form routes.
  */
-class FormRouteEnhancer implements RouteEnhancerInterface {
+class FormRouteEnhancer implements RouteEnhancerInterface
+{
 
     /**
      * {@inheritdoc}
      */
-    public function applies(Route $route) {
+    public function applies(Route $route)
+    {
         return $route->hasDefault('_form') && !$route->hasDefault('_controller');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function enhance(array $defaults, Request $request) {
+    public function enhance(array $defaults, Request $request)
+    {
         $action = 'add';
         if (isset($defaults['_model']) && strpos($defaults['_model'], '.') !== FALSE) {
             list($entity, $action) = explode('.', $defaults['_model']);

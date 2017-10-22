@@ -7,7 +7,8 @@ namespace app\core\event;
  *
  * @author Tobi
  */
-class Event {
+class Event
+{
 
     const TYPE_DATA = 'DATA';
     const TYPE_REQUEST = 'REQUEST';
@@ -18,16 +19,19 @@ class Event {
     public $response;
     public $dispatcher;
 
-    public function __construct($name, $type = self::TYPE_ACTION) {
+    public function __construct($name, $type = self::TYPE_ACTION)
+    {
 
     }
 
-    public function notify(EventDispatcher $dispatcher) {
+    public function notify(EventDispatcher $dispatcher)
+    {
 
     }
 
-    public function notifyAll() {
-        
+    public function notifyAll()
+    {
+
     }
 
 }

@@ -6,21 +6,24 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Description of repository
+ *
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Repository implements RepositoryInterface, RepositoryValidator {
+class Repository implements RepositoryInterface, RepositoryValidator
+{
 
     protected $repository;
     protected $dirs;
     protected $handler;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->scan();
     }
 
-    public function scan() {
+    public function scan()
+    {
         try {
             $finder = new Finder();
             $finder = $finder->depth(0)->directories();
@@ -35,41 +38,49 @@ class Repository implements RepositoryInterface, RepositoryValidator {
             echo $e->getMessage();
         }
         foreach ($finder as $dir) {
-          $this->validate($dir);
+            $this->validate($dir);
         }
-    }
-
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validate($dir) {
-    if (file_exists( $dir->getPathName(). DS . $dir->getFileName() . '.info.yml')) {
-      $info = $dir->getPathName() . DS .  $dir->getFileName() . '.info.yml';
-      $yml = Yaml::parse(file_get_contents($info));
-      $this->repository[$yml['package'] ?? ''] = new $this->handler($dir->getFileName(), $dir->getPathName());
-    }
-  }
-
-
-  /**
-     * validated and original repositories
-     * @return type
-     */
-    public function getRepositories() {
-        return $this->repository;
-    }
-
-    public function setDirectories($dirs) {
-        $this->dirs = $dirs;
     }
 
     /**
      * gets the Directories that it scans
      * @return array of directories
      */
-    public function getDirectories() {
+    public function getDirectories()
+    {
         return $this->dirs;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function validate($dir)
+    {
+        if (file_exists($dir->getPathName() . DS . $dir->getFileName() . '.info.yml')) {
+//        dump($this->getDirectories());
+//        dump($dir->getPathName());
+            $info = $dir->getPathName() . DS . $dir->getFileName() . '.info.yml';
+            $yml = Yaml::parse(file_get_contents($info));
+            $this->repository[$yml['package'] ?? ''] = new $this->handler($dir->getFileName(), $dir->getPathName());
+        }
+    }
+
+    /**
+     * validated and original repositories
+     * @return type
+     */
+    public function getRepositories()
+    {
+        return $this->repository;
+    }
+
+    public function setDirectories($dirs)
+    {
+        $this->dirs = $dirs;
+    }
+
+    public function getRepository($repository)
+    {
+        return $this->repository[$repository] ?? null;
+    }
 }

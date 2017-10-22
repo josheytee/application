@@ -1,4 +1,5 @@
 <?php
+
 namespace app\core\entity\fixtures;
 
 /**
@@ -11,9 +12,11 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 
-class RouteData implements FixtureInterface {
+class RouteData implements FixtureInterface
+{
 
-  public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
 //    $faker = Faker\Factory::create();
 //    for ($i = 1; $i <= 10; $i++) {
 //      $route = new Router();
@@ -25,6 +28,6 @@ class RouteData implements FixtureInterface {
 //    }
 //    $manager->flush();
 //    $manager->clear();
-  }
+    }
 
 }

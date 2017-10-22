@@ -12,13 +12,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class UserForm extends FormController {
+class UserForm extends FormController
+{
 
-    public static function inject(ContainerInterface $container) {
+    public static function inject(ContainerInterface $container)
+    {
         return new static();
     }
 
-    public function build(FormBuilder $builder, $entity) {
+    public function build(FormBuilder $builder, $entity)
+    {
 
         $builder->block(
             $builder->label('name', 'Full Name')
@@ -65,11 +68,13 @@ class UserForm extends FormController {
         return $builder;
     }
 
-    public function formID() {
+    public function formID()
+    {
         return 'user';
     }
 
-    public function process(Request $request) {
+    public function process(Request $request)
+    {
 //    if (isset($request->register))
 //      dump($request->all());
 //  }
@@ -77,7 +82,8 @@ class UserForm extends FormController {
         return $request->all();
     }
 
-    function title() {
+    function title()
+    {
         // TODO: Implement title() method.
     }
 }

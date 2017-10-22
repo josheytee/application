@@ -2,10 +2,10 @@
 
 namespace app\core\entity\fixtures;
 
+use app\core\entity\Shop;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use app\core\entity\Shop;
 use Faker;
 
 /**
@@ -13,9 +13,11 @@ use Faker;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class ShopData extends AbstractFixture implements OrderedFixtureInterface {
+class ShopData extends AbstractFixture implements OrderedFixtureInterface
+{
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $faker = Faker\Factory::create();
         for ($i = 1; $i <= 10; $i++) {
             $activity = $manager->getRepository('app\core\entity\Activity')->findAll();
@@ -34,7 +36,8 @@ class ShopData extends AbstractFixture implements OrderedFixtureInterface {
         $this->addReference('shop', $shop);
     }
 
-    public function getOrder(): int {
+    public function getOrder(): int
+    {
         return 5;
     }
 

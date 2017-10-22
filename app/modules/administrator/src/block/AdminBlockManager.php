@@ -15,15 +15,16 @@ use app\core\view\RenderableTrait;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class AdminBlockManager implements BlockManagerInterface {
+class AdminBlockManager implements BlockManagerInterface
+{
 
     use RenderableTrait;
 
+    protected $default_regions;
     /**
      * @var ConfigManager
      */
     private $config;
-
     /**
      * @var ThemeManager
      */
@@ -32,9 +33,9 @@ class AdminBlockManager implements BlockManagerInterface {
      * @var RegionManager
      */
     private $regionManager;
-    protected $default_regions;
 
-    public function __construct(ThemeManagerInterface $theme, RegionManager $regionManager, ConfigManager $config = null) {
+    public function __construct(ThemeManagerInterface $theme, RegionManager $regionManager, ConfigManager $config = null)
+    {
 
         $this->theme = $theme;
         $this->regionManager = $regionManager;
@@ -42,19 +43,8 @@ class AdminBlockManager implements BlockManagerInterface {
         $this->config = $config;
     }
 
-
-    public function render($page, RouteMatchInterface $routeMatch) {
-//        if ($routeMatch->getRouteObject()->hasOption('module')) {
-//            $template = $routeMatch->getRouteObject()->getOption('module');
-//            var_dump($this->rendertrait(['page' => $page]));
-//            if (null !== ($this->rendertrait(['page' => $page], "layout/page__{$template}")))
-//                return $this->rendertrait(['page' => $page], "layout/page__{$template}");
-//        }
-
-        return $this->renderTrait(['page' => $page], 'layout/page');
-    }
-
-    public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch) {
+    public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch)
+    {
         $page = null;
         foreach ($this->default_regions as $region) {
 //      if (!empty($page[$region])) {
@@ -69,7 +59,20 @@ class AdminBlockManager implements BlockManagerInterface {
         return $response;
     }
 
-    public function init() {
+    public function render($page, RouteMatchInterface $routeMatch)
+    {
+//        if ($routeMatch->getRouteObject()->hasOption('module')) {
+//            $template = $routeMatch->getRouteObject()->getOption('module');
+//            var_dump($this->rendertrait(['page' => $page]));
+//            if (null !== ($this->rendertrait(['page' => $page], "layout/page__{$template}")))
+//                return $this->rendertrait(['page' => $page], "layout/page__{$template}");
+//        }
+
+        return $this->renderTrait(['page' => $page], 'layout/page');
+    }
+
+    public function init()
+    {
         // TODO: Implement init() method.
     }
 }

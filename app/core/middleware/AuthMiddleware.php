@@ -13,7 +13,8 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  * premature initialization of session storage (database). Instead the session
  * service is retrieved from the container only when handling the request.
  */
-class AuthMiddleware implements HttpKernelInterface {
+class AuthMiddleware implements HttpKernelInterface
+{
 
     use ContainerAwareTrait;
 
@@ -39,7 +40,8 @@ class AuthMiddleware implements HttpKernelInterface {
      * @param string $service_name
      *   The name of the session service, defaults to "session".
      */
-    public function __construct(HttpKernelInterface $http_kernel, $service_name = 'session') {
+    public function __construct(HttpKernelInterface $http_kernel, $service_name = 'session')
+    {
         $this->httpKernel = $http_kernel;
         $this->sessionServiceName = $service_name;
     }
@@ -47,7 +49,8 @@ class AuthMiddleware implements HttpKernelInterface {
     /**
      * {@inheritdoc}
      */
-    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
+    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE)
+    {
 
 
         $result = $this->httpKernel->handle($request, $type, $catch);

@@ -10,64 +10,68 @@ use app\core\view\form\FormElement;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Select extends FormElement {
+class Select extends FormElement
+{
 
-  protected $template = 'select';
-  protected $default = '';
-  protected $options = [];
+    protected $template = 'select';
+    protected $default = '';
+    protected $options = [];
 
-  /**
-   * echo Form::select('size', array('L' => 'Large', 'S' => 'Small'), 'S');
-
-   *  array(
-    'Cats' => array('leopard' => 'Leopard','lion'=>'Lion'),
-    'Dogs' => array('spaniel' => 'Spaniel'),
-    ))
-   * @param type $name
-   * @param type $value
-   * @param type $default
-   * @param type $attribute
-   */
-  public function __construct($name, $value = null, $default = '', $attribute = null) {
-    parent::__construct($name, $value, $attribute);
-    $this->default = $default;
-  }
-
-  /**
-   * extract from processValue()
-   * @param type $key
-   * @param type $value
-   */
-  private function _addGroup($key, $value) {
-    $this->options[$key] = new OptionGroup($key);
-
-    foreach ($value as $o_key => $o_value) {
-      $selected = ($this->default == $o_key) ? true : false;
-      $this->options[$key]->addOptions(new Option($o_key, $o_value, $selected));
+    /**
+     * echo Form::select('size', array('L' => 'Large', 'S' => 'Small'), 'S');
+     *  array(
+     * 'Cats' => array('leopard' => 'Leopard','lion'=>'Lion'),
+     * 'Dogs' => array('spaniel' => 'Spaniel'),
+     * ))
+     * @param type $name
+     * @param type $value
+     * @param type $default
+     * @param type $attribute
+     */
+    public function __construct($name, $value = null, $default = '', $attribute = null)
+    {
+        parent::__construct($name, $value, $attribute);
+        $this->default = $default;
     }
-  }
 
-  public function processValue() {
-    if (is_array($this->value)) {
-      foreach ($this->value as $key => $value) {
-        if (is_array($value)) {
-          $this->_addGroup($key, $value);
-        } else {
-          $this->options[$key] = new Option($key, $value, ($this->default == $key) ? true : false);
+    public function compact(): array
+    {
+        $this->processValue();
+
+        return [
+            'attributes' => $this->processAttribute(),
+            'options' => $this->options,
+            'default' => $this->default
+        ];
+    }
+
+    public function processValue()
+    {
+        if (is_array($this->value)) {
+            foreach ($this->value as $key => $value) {
+                if (is_array($value)) {
+                    $this->_addGroup($key, $value);
+                } else {
+                    $this->options[$key] = new Option($key, $value, ($this->default == $key) ? true : false);
+                }
+            }
         }
-      }
+        return $this->options;
     }
-    return $this->options;
-  }
 
-  public function compact(): array {
-    $this->processValue();
+    /**
+     * extract from processValue()
+     * @param type $key
+     * @param type $value
+     */
+    private function _addGroup($key, $value)
+    {
+        $this->options[$key] = new OptionGroup($key);
 
-    return [
-        'attributes' => $this->processAttribute(),
-        'options' => $this->options,
-        'default' => $this->default
-    ];
-  }
+        foreach ($value as $o_key => $o_value) {
+            $selected = ($this->default == $o_key) ? true : false;
+            $this->options[$key]->addOptions(new Option($o_key, $o_value, $selected));
+        }
+    }
 
 }

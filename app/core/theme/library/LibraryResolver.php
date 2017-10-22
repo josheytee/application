@@ -7,10 +7,12 @@ namespace app\core\theme\library;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class LibraryResolver {
+class LibraryResolver
+{
 
-  public function getDependencies($libraries) {
-    
-  }
+    public function getDependencies($libraries)
+    {
+
+    }
 
 }

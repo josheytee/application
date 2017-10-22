@@ -21,7 +21,8 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
  *
  * @author Tobi
  */
-class App implements AppInterface, TerminableInterface {
+class App implements AppInterface, TerminableInterface
+{
 
 
     protected $container;
@@ -32,16 +33,18 @@ class App implements AppInterface, TerminableInterface {
      * @var ClassLoader
      */
     protected $classLoader;
-    private $root;
     protected $enviroment;
+    private $root;
     private $booted;
 
-    public function __construct(ClassLoader $class_loader) {
+    public function __construct(ClassLoader $class_loader)
+    {
         $this->root = _ABSOLUTE_ROOT_DIR_;
         $this->classLoader = $class_loader;
     }
 
-    public function handle(BaseRequest $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
+    public function handle(BaseRequest $request, $type = self::MASTER_REQUEST, $catch = TRUE)
+    {
         $this->boot();
         try {
             $response = $this->getHttpKernel()->handle($request, $type, $catch);
@@ -56,6 +59,45 @@ class App implements AppInterface, TerminableInterface {
         return $response;
     }
 
+    public function boot()
+    {
+        $moduleRepositories = (new ModuleRepository())->getRepositories();
+        $componentRepositories = (new ComponentRepository())->getRepositories();
+        $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($moduleRepositories));
+        $this->classLoaderAddMultiplePsr4($this->getComponentNamespacesPsr4($componentRepositories));
+        $this->initializeContainer();
+
+        $this->booted = true;
+    }
+
+    /**
+     * Registers a list of namespaces with PSR-4 directories for class loading.
+     *
+     * @param array $namespaces
+     *   Array where each key is a namespace like 'app\system', and each value
+     *   is either a PSR-4 base directory, or an array of PSR-4 base directories
+     *   associated with this namespace.
+     */
+    protected function classLoaderAddMultiplePsr4(array $namespaces = array())
+    {
+//        var_dump($namespaces);
+        foreach ($namespaces as $prefix => $paths) {
+            if (is_array($paths)) {
+                foreach ($paths as $key => $value) {
+//                    $paths[$key] = $this->root . '/' . $value;
+                    $paths[$key] = $value;
+                }
+            } elseif (is_string($paths)) {
+//                $paths = $this->root . '/' . $paths;
+                $paths = $paths;
+            }
+//            echo $prefix.'\\';
+//            dump($paths);
+//            dump($this->classLoader);
+            $this->classLoader->addPsr4($prefix . '\\', $paths);
+        }
+    }
+
     /**
      * Gets the PSR-4 base directories for module namespaces.
      *
@@ -67,7 +109,8 @@ class App implements AppInterface, TerminableInterface {
      *   Array where each key is a module namespace like 'app\system', and each
      *   value is the PSR-4 base directory associated with the module namespace.
      */
-    protected function getModuleNamespacesPsr4($module_file_names) {
+    protected function getModuleNamespacesPsr4($module_file_names)
+    {
         $namespaces = array();
         foreach ($module_file_names as $package => $handler) {
             $namespaces[$package][] = $handler->getPath() . '/src';
@@ -88,7 +131,8 @@ class App implements AppInterface, TerminableInterface {
      *   Array where each key is a component namespace like 'app\system', and each
      *   value is the PSR-4 base directory associated with the module namespace.
      */
-    protected function getComponentNamespacesPsr4($component_file_names) {
+    protected function getComponentNamespacesPsr4($component_file_names)
+    {
         $namespaces = array();
         foreach ($component_file_names as $package => $handler) {
 
@@ -97,54 +141,8 @@ class App implements AppInterface, TerminableInterface {
         return $namespaces;
     }
 
-    /**
-     * Registers a list of namespaces with PSR-4 directories for class loading.
-     *
-     * @param array $namespaces
-     *   Array where each key is a namespace like 'app\system', and each value
-     *   is either a PSR-4 base directory, or an array of PSR-4 base directories
-     *   associated with this namespace.
-     */
-    protected function classLoaderAddMultiplePsr4(array $namespaces = array()) {
-//        var_dump($namespaces);
-        foreach ($namespaces as $prefix => $paths) {
-            if (is_array($paths)) {
-                foreach ($paths as $key => $value) {
-//                    $paths[$key] = $this->root . '/' . $value;
-                    $paths[$key] = $value;
-                }
-            } elseif (is_string($paths)) {
-//                $paths = $this->root . '/' . $paths;
-                $paths = $paths;
-            }
-//            echo $prefix.'\\';
-//            dump($paths);
-//            dump($this->classLoader);
-            $this->classLoader->addPsr4($prefix . '\\', $paths);
-        }
-    }
-
-    public function setContainer(ContainerInterface $container = null) {
-        if (isset($this->container)) {
-            throw new \Exception('The container should not override an existing container.');
-        }
-        if ($this->booted) {
-            throw new \Exception('The container cannot be set after a booted kernel.');
-        }
-
-        $this->container = $container;
-        return $this;
-    }
-
-    public function terminate(BaseRequest $request, BaseResponse $response) {
-
-    }
-
-    public function getContainerBuilder() {
-        return new ContainerBuilder();
-    }
-
-    public function initializeContainer() {
+    public function initializeContainer()
+    {
         if (isset($this->container)) {
             // Save the id of the currently logged in user.
             if ($this->container->initialized('current_user')) {
@@ -158,7 +156,8 @@ class App implements AppInterface, TerminableInterface {
         }
     }
 
-    public function compileContainer() {
+    public function compileContainer()
+    {
         $container = $this->getContainerBuilder();
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
 
@@ -178,13 +177,20 @@ class App implements AppInterface, TerminableInterface {
         return $container;
     }
 
-    public function loadModuleServices(&$loader) {
+    public function getContainerBuilder()
+    {
+        return new ContainerBuilder();
+    }
+
+    public function loadModuleServices(&$loader)
+    {
         foreach ((new ModuleRepository())->getServices() as $service => $path) {
             $loader->load($path);
         }
     }
 
-    public function registerPass(&$container) {
+    public function registerPass(&$container)
+    {
         $container->addCompilerPass(new RegisterListenersPass('event.dispatcher', 'listenerTag', 'event_subscriber'));
 //    $container->addCompilerPass(new dependencyInjection\compiler\RegisterEventSubscribersPass());
         $container->addCompilerPass(new dependencyInjection\compiler\ArgumentResolverPass());
@@ -202,45 +208,61 @@ class App implements AppInterface, TerminableInterface {
      *
      * @return \Symfony\Component\HttpKernel\HttpKernelInterface
      */
-    protected function getHttpKernel() {
+    protected function getHttpKernel()
+    {
         return $this->container->get('stacked.http_kernel');
     }
 
-    public function boot() {
-        $moduleRepositories = (new ModuleRepository())->getRepositories();
-        $componentRepositories = (new ComponentRepository())->getRepositories();
-        $this->classLoaderAddMultiplePsr4($this->getModuleNamespacesPsr4($moduleRepositories));
-        $this->classLoaderAddMultiplePsr4($this->getComponentNamespacesPsr4($componentRepositories));
-        $this->initializeContainer();
+    public function terminate(BaseRequest $request, BaseResponse $response)
+    {
 
-        $this->booted = true;
     }
 
-    public function getContainer(): ContainerInterface {
+    public function getContainer(): ContainerInterface
+    {
         return $this->container;
     }
 
-    public function getEnvironment(): string {
+    public function setContainer(ContainerInterface $container = null)
+    {
+        if (isset($this->container)) {
+            throw new \Exception('The container should not override an existing container.');
+        }
+        if ($this->booted) {
+            throw new \Exception('The container cannot be set after a booted kernel.');
+        }
+
+        $this->container = $container;
+        return $this;
+    }
+
+    public function getEnvironment(): string
+    {
         return $this->enviroment;
     }
 
-    public function getName(): string {
+    public function getName(): string
+    {
 
     }
 
-    public function getRootDir(): string {
+    public function getRootDir(): string
+    {
 
     }
 
-    public function isDebug(): bool {
+    public function isDebug(): bool
+    {
 
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader) {
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
 
     }
 
-    public function shutdown() {
+    public function shutdown()
+    {
 
     }
 

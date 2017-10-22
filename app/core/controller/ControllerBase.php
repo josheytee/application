@@ -14,45 +14,54 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author adapter
  */
-abstract class ControllerBase implements ContainerInjectionInterface, ContainerAwareInterface {
+abstract class ControllerBase implements ContainerInjectionInterface, ContainerAwareInterface
+{
 
     use RenderableTrait;
     use ContainerAwareTrait;
     use ControllerTrait;
 
-    public static function inject(ContainerInterface $container) {
+    public static function inject(ContainerInterface $container)
+    {
         return new static();
     }
 
-    public function l($param0) {
+    public function l($param0)
+    {
         return $param0;
     }
 
-    public function getModel(Request $request) {
+    public function getModel(Request $request)
+    {
         return $request->get('_model') ?? '';
     }
 
     /**
      * This is for from and list controller
      */
-    public function title() {
+    public function title()
+    {
     }
 
-    public function getDependencies() {
+    public function getDependencies()
+    {
     }
 
 
-    public function addLibrary($name) {
+    public function addLibrary($name)
+    {
     }
 
-    public function renderCustom($template, $content = '') {
+    public function renderCustom($template, $content = '')
+    {
         $return = [];
         $return['libraries'] = '';
         $return['content'] = $this->renderCustomTrait($template, $content);
         return $return;
     }
 
-    public function render($template, $content = '') {
+    public function render($template, $content = '')
+    {
         $return = [];
         $return['libraries'] = '';
         $return['content'] = $this->renderTrait($content, $template);

@@ -12,36 +12,38 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class TaggedResolverPass implements CompilerPassInterface {
+class TaggedResolverPass implements CompilerPassInterface
+{
 
     /**
-      public function process(ContainerBuilder $container) {
-      foreach ($container->findTaggedServiceIds('resolver_collector') as $id => $collector_attributes) {
-      dump($collector_attributes);
-      $tag_collector = $collector_attributes[0]['tag'];
-      $tag_collector = $collector_attributes[0]['call'];
-      $definition = $container->getDefinition($id);
-      foreach ($container->findTaggedServiceIds('resolver') as $id => $resolver_attributes) {
-      $priority = $resolver_attributes[0]['priority'] ?? 1;
-      $tag = $resolver_attributes[0]['tag'] ?? 1;
-      $handler = $container->getDefinition($id);
-      //        $interface = 'app\core\theme\ActiveThemeResolverInterface';
-      //        if (!$refClass->implementsInterface($interface)) {
-      //          throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
-      //        }
-      $args = [];
-      foreach ($handler->getArguments() as $handler_arguments) {
-      $args[] = $container->get($handler_arguments);
-      }
-      $resolver = new \ReflectionClass($handler->getClass());
-      if ($tag_collector == $tag)
-      $definition->addMethodCall('addResolver', [$resolver->newInstanceArgs($args ?? null), $priority]);
-      }
-      }
-      }
+     * public function process(ContainerBuilder $container) {
+     * foreach ($container->findTaggedServiceIds('resolver_collector') as $id => $collector_attributes) {
+     * dump($collector_attributes);
+     * $tag_collector = $collector_attributes[0]['tag'];
+     * $tag_collector = $collector_attributes[0]['call'];
+     * $definition = $container->getDefinition($id);
+     * foreach ($container->findTaggedServiceIds('resolver') as $id => $resolver_attributes) {
+     * $priority = $resolver_attributes[0]['priority'] ?? 1;
+     * $tag = $resolver_attributes[0]['tag'] ?? 1;
+     * $handler = $container->getDefinition($id);
+     * //        $interface = 'app\core\theme\ActiveThemeResolverInterface';
+     * //        if (!$refClass->implementsInterface($interface)) {
+     * //          throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
+     * //        }
+     * $args = [];
+     * foreach ($handler->getArguments() as $handler_arguments) {
+     * $args[] = $container->get($handler_arguments);
+     * }
+     * $resolver = new \ReflectionClass($handler->getClass());
+     * if ($tag_collector == $tag)
+     * $definition->addMethodCall('addResolver', [$resolver->newInstanceArgs($args ?? null), $priority]);
+     * }
+     * }
+     * }
      *
      */
-    public function process(ContainerBuilder $container) {
+    public function process(ContainerBuilder $container)
+    {
         foreach ($container->findTaggedServiceIds('resolver_collector') as $consumer_id => $passes) {
             foreach ($passes as $pass) {
                 $tag = isset($pass['tag']) ? $pass['tag'] : $consumer_id;

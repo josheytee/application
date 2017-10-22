@@ -12,15 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
-  public function getRole($shopID)
-  {
-    $query = $this->getEntityManager()->createQuery("SELECT r.permissions FROM {$this->getEntityName()} r" .
-        " JOIN r.users u WHERE r.shop ={$shopID} AND u.id = {$user_id}");
-    $users = $query->getResult();
+    public function getRole($shopID)
+    {
+        $query = $this->getEntityManager()->createQuery("SELECT r.permissions FROM {$this->getEntityName()} r" .
+            " JOIN r.users u WHERE r.shop ={$shopID} AND u.id = {$user_id}");
+        $users = $query->getResult();
 //        $users = $query->getDQL();
 
 //        $users = $this->findOneBy(['shop' => 1, 'users' => [1]]);
-    return $users;
+        return $users;
 
-  }
+    }
 }
