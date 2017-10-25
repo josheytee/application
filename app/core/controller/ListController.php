@@ -18,6 +18,7 @@ abstract class ListController extends ControllerBase
     protected $operations;
     protected $entities = [];
     protected $headOperations;
+    private $paginatorData = [];
 
     public function listing(Request $request)
     {
@@ -29,15 +30,17 @@ abstract class ListController extends ControllerBase
                 'headings' => $this->processHead(),
                 'form_body' => $this->processBody(),
                 'headOperations' => $this->headOperations,
+                'paginator' => $this->paginatorData
             ], 'list/listing');
         return $return;
     }
 
     public function init(Request $request)
     {
-//        dump($request->page);
-        $doctrine = $this->doctrine();
-        $this->entities = $doctrine->getRepository($this->getModel($request))->paginate(3);
+        $page = $request->get('page', 1);
+        $paginator = $this->doctrine()->getRepository($this->getModel($request))->paginate((int)$page, 5);
+        $this->entities = $paginator['data'];
+        $this->paginatorData = $paginator['templateData'];
     }
 
     public function processHead()

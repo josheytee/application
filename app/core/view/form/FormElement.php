@@ -66,6 +66,13 @@ abstract class FormElement implements ElementInterface
             return $all[$name];
         }
     }
+//@todo complete this function
+    public function __set($name, $value)
+    {
+        if (property_exists($this, $name)) {
+            (is_array($this->$name)) ? $this->$name[] = $value : $this->$name = $value;
+        }
+    }
 
     public function all()
     {

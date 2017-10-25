@@ -15,10 +15,10 @@ class ArgumentResolverPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('argument_resolver')) {
+        if (!$container->hasDefinition('argument.resolver')) {
             return;
         }
-        $definition = $container->getDefinition('argument_resolver');
+        $definition = $container->getDefinition('argument.resolver');
 
         $argumentValueResolvers = [];
         foreach ($container->findTaggedServiceIds('argument.value_resolver') as $id => $attributes) {

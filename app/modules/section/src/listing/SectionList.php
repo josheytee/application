@@ -20,10 +20,10 @@ class SectionList extends ListController
     function row($entity)
     {
         $row['id'] = $entity->getID();
-        $row['name'] = $entity->getName();
+        $row['name'] = $entity->getTitle();
         $row['url'] = $entity->getUrl();
         $row['description'] = $entity->getDescription();
-        $row['section'] = $entity->getSection()->getName();
+        $row['section'] = $entity->getParent()->getTitle();
         return $row;
     }
 

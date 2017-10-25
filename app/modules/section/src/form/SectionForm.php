@@ -30,14 +30,14 @@ class SectionForm extends FormController
         $builder->hidden('shop', $this->currentShop(), $entity->getShop());
 
         $builder->block(
-            $builder->label('name')
-            , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
+            $builder->label('title')
+            , $builder->text('title', $entity->getTitle())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
 
         $builder->block(
-            $builder->label('section', 'Parent')
-            , $builder->select('section', $this->getSections(), $entity->getSection()->getId())->addAttributes(['class' => 'form-control'])
+            $builder->label('parent')
+            , $builder->select('parent', $this->getSections(), $entity->getParent()->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
 //        $builder->block(
@@ -81,7 +81,7 @@ class SectionForm extends FormController
     public function getDependencies()
     {
         return [
-            'section' => Section::class,
+            'parent' => Section::class,
             'shop' => Shop::class
         ];
     }
@@ -110,7 +110,8 @@ class SectionForm extends FormController
     public function validationRules()
     {
         return [
-            'name' => 'required'
+            'title' => 'required'
         ];
     }
+
 }

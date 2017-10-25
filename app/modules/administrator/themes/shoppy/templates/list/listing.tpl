@@ -31,21 +31,21 @@
         <tbody>
         {foreach $form_body as $rows}
             <tr>
-                <td><input type="checkbox" name="product[]" value="id"/></td>
-                {foreach $rows as $key=> $data}
+                <td><input type="checkbox" name="product[]" value="id" title="bb"/></td>
+                {foreach $rows as $key => $data}
                     <td>
                         {if ($key == 'operations')}
                             <!-- Split button -->
                             <div class="btn-group">
                                 {$data[0]}
-                                {if $data|count >1}
+                                {if $data|count > 1}
                                     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        {for $i=1; $i <= $data|count-1; $i++}
+                                        {for $i = 1; $i <= $data|count-1; $i++}
                                             {if $data[$i].name != 'delete'}
                                                 <li>{$data[$i].action}</li>
                                             {else}
@@ -61,6 +61,10 @@
                         {/if} {*end if operation*}
                     </td>
                 {/foreach}
+            </tr>
+            {foreachelse}
+            <tr>
+                <td colspan="{count($headings) + 1}"> ..no results..</td>
             </tr>
         {/foreach}
         </tbody>
@@ -96,4 +100,29 @@
             </li>
         </ul>
     </div>
+    {if $paginator.totalPages > 1}
+        <nav>
+            <ul class="pagination">
+                {section name = page start = 1 loop = $paginator.totalPages + 1}
+                    {if $smarty.section.page.first}
+                        <li class="prev {if $paginator.currentPage eq 1}disabled{/if}">
+                            <a href="{current_url}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {/if}
+                    <li{if $paginator.currentPage eq $smarty.section.page.index} class="active"{/if}>
+                        <a href="{current_url}?page={$smarty.section.page.index}">{$smarty.section.page.index}</a>
+                    </li>
+                    {if $smarty.section.page.last}
+                        <li class="next {if $paginator.currentPage eq $paginator.totalPages}disabled{/if}">
+                            <a href="{current_url}?page={$paginator.totalPages}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {/if}
+                {/section}
+            </ul>
+        </nav>
+    {/if}
 </div>

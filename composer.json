@@ -35,7 +35,8 @@
     "doctrine/migrations": "^1.5",
     "stack/builder": "^1.0",
     "zendframework/zend-diactoros": "^1.5",
-    "symfony/psr-http-message-bridge": "^1.0"
+    "symfony/psr-http-message-bridge": "^1.0",
+    "gedmo/doctrine-extensions": "^2.4"
   },
   "autoload": {
     "psr-0": {

@@ -7,7 +7,9 @@
     {include file='_partials/head.tpl'}
     {/block}*}
     <title>
-        admin || Guess
+        {block name='title'}
+            {($page.title) ? $page.title : admin || Guess}
+        {/block}
     </title>
     <meta charset="utf-8">
     <meta name="robots" content="all,follow">
@@ -31,7 +33,13 @@
             src="/application/app/modules/administrator/themes/system/js/jquery-2.1.1.min.js"></script>
     <!-- js -->
     <!-- script-->
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
     <!-- script-->
 
 </head>

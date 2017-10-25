@@ -1,4 +1,3 @@
-{dump v=$sections}
 <div class="logo-nav-left1">
     <nav class="navbar navbar-default">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -14,23 +13,9 @@
         <div class="navbar-collapse collapse in" id="bs-megadropdown-tabs" style="height: auto;">
             <ul class="nav navbar-nav">
                 {foreach $sections as $section}
-                    {*{if $section->isRoot()}*}
-                        {*<li class="">*}
-                            {*<a href="{$section->getUrl()}" class="act">{$section->getName()}</a>*}
-                        {*</li>*}
-                    {*{/if}*}
-                    {if $section->hasParent()}
-                        <li class="dropdown ">
-                            <a href="{$section->getSection()->getUrl()}" class="act">{$section->getSection()->getName()}</a>
-                        </li>
-                        <ul class="dropdown-menu multi-column columns-3">
-                            {*{foreach $section->getName() as $child}*}
-                                <li class="active">
-                                    <a href="{$section->getUrl()}" class="act">{$section->getName()}</a>
-                                </li>
-                            {*{/foreach}*}
-                        </ul>
-                    {/if}
+                    <li class="">
+                        <a href="{$section->getUrl()}" class="act">{$section->getTitle()}</a>
+                    </li>
                 {/foreach}
             </ul>
         </div>

@@ -11,16 +11,29 @@ class BaseRepository extends EntityRepository
 {
     public function paginate($page, $no_per_page = 10)
     {
-        $dql = "SELECT p FROM {$this->getEntityName()} p ";
+        $dql = "SELECT e FROM {$this->getEntityName()} e WHERE e.id > 0";
         /*JOIN p.comments c*/
+        $page = $page - 1;
+        $offset = 0;
+        if ($page > 0) {
+            $offset = $page * $no_per_page;
+        }
         $query = $this->getEntityManager()->createQuery($dql)
-//        $query = $this->findAll()
-            ->setFirstResult(0)
+            ->setFirstResult($offset)
             ->setMaxResults($no_per_page);
         $paginator = new Paginator($query, $fetchJoinCollection = true);
-        $c = count($paginator);
-
-//        dump($paginator);
-        return $paginator;
+        $count = count($paginator);
+        $totalPages = ceil($count / $no_per_page);
+        if ($page * $no_per_page > $count) {
+            $totalPages = $page;
+        }
+        $return = [
+            'data' => $paginator,
+            'templateData' => [
+                'currentPage' => (int)$page + 1,
+                'totalPages' => (int)$totalPages
+            ]
+        ];
+        return $return;
     }
 }

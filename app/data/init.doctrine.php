@@ -16,10 +16,30 @@ $dbParams = [
 ];
 // Dev mode?
 $dev = true;
+// general ORM configuration
+$config = new Doctrine\ORM\Configuration();
+$config->setProxyDir(sys_get_temp_dir());
+$config->setProxyNamespace('Proxy');
+$config->setAutoGenerateProxyClasses(true); // this can be based on production config.
+// register metadata driver
+//$config->setMetadataDriverImpl($driverChain);
+//// use our allready initialized cache driver
+//$config->setMetadataCacheImpl($cache);
+//$config->setQueryCacheImpl($cache);
+
+// Third, create event manager and hook prefered extension listeners
+$evm = new Doctrine\Common\EventManager();
+// gedmo extension listeners
+
+
+// tree
+$treeListener = new Gedmo\Tree\TreeListener();
+//$treeListener->setAnnotationReader($cachedAnnotationReader);
+$evm->addEventSubscriber($treeListener);
 
 $config = Setup::createYAMLMetadataConfiguration($entitiesPath, $dev);
 
-Context::getContext()->manager = EntityManager::create($dbParams, $config);
+Context::getContext()->manager = EntityManager::create($dbParams, $config,$evm);
 $connection = Context::getContext()->manager->getConnection();
 Type::addType('product_type', 'app\core\entity\types\ProductType');
 Type::addType('product_condition', 'app\core\entity\types\ProductCondition');

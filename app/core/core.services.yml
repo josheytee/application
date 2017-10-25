@@ -37,9 +37,9 @@ services:
   event.dispatcher:
     class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
     arguments: ['@service_container']
-  argument_resolver:
+  argument.resolver:
     class: Symfony\Component\HttpKernel\Controller\ArgumentResolver
-  request_stack:
+  request.stack:
     class: Symfony\Component\HttpFoundation\RequestStack
     tags:
     - { name: persist }
@@ -47,7 +47,7 @@ services:
     class: Stack\StackedHttpKernel
   http_kernel:
     class: Symfony\Component\HttpKernel\HttpKernel
-    arguments: ['@event.dispatcher', '@controller_resolver', '@request_stack','@argument_resolver']
+    arguments: ['@event.dispatcher', '@controller.resolver', '@request.stack','@argument.resolver']
   request.context:
     class: Symfony\Component\Routing\RequestContext
 
@@ -55,7 +55,7 @@ services:
     class: app\core\dependencyInjection\ClassResolver
     calls:
       - [setContainer, ['@service_container']]
-  controller_resolver:
+  controller.resolver:
     class: app\core\controller\ControllerResolver
     arguments: ['@class.resolver']
   module.repository:
@@ -76,13 +76,13 @@ services:
     arguments: ['@route.manager']
   current.route.match:
     class: app\core\routing\CurrentRouteMatch
-    arguments: ['@request_stack']
+    arguments: ['@request.stack']
   router.routes:
     class: app\core\routing\RouteManager
     arguments: ['@module.repository']
   url.generator:
     class: app\core\routing\UrlGenerator
-    arguments: ['@router.provider','@request_stack']
+    arguments: ['@router.provider','@request.stack']
   router.provider:
     class: app\core\routing\RouteProvider
     arguments: ['@entity.manager']
@@ -139,9 +139,12 @@ services:
   link.manager:
     class: app\core\view\link\LinkManager
     arguments: ['@route.manager','@cache.manager']
+  title.resolver:
+    class: app\core\controller\TitleResolver
+    arguments: ['@controller.resolver','@argument.resolver']
   block.manager:
     class: app\core\view\block\BlockManager
-    arguments: ['@theme.manager','@region.manager']
+    arguments: ['@theme.manager','@region.manager','@title.resolver']
   region.manager:
     class: app\core\theme\region\RegionManager
     arguments: ['@component.manager','@theme.manager']
@@ -179,7 +182,7 @@ services:
       - { name: event_subscriber }
   router.handler:
     class: Symfony\Component\HttpKernel\EventListener\RouterListener
-    arguments: ['@router.no_access_checks', '@request_stack', '@request.context', NULL]
+    arguments: ['@router.no_access_checks', '@request.stack', '@request.context', NULL]
     tags:
       - { name: event_subscriber }
   route_enhancer_subscriber:

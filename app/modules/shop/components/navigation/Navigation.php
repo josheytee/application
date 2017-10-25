@@ -3,6 +3,7 @@
 namespace ntc\shop\navigation;
 
 use app\core\component\Component;
+use app\core\entity\Section;
 use app\core\http\Request;
 use app\core\view\form\Formbuilder;
 
@@ -43,11 +44,24 @@ class Navigation extends Component
     {
 //        dump($this->currentShop());
 //        dump($this->doctrine()->createQuery('SELECT s FROM app\core\entity\Section s WHERE s.shop =' . $this->currentShop()->getId())->getResult());
-        $sections = $this->doctrine()->
-        createQuery('SELECT s FROM app\core\entity\Section s WHERE s.shop ='
-            . $this->currentShop()->getId())->getResult();
-        array_shift($sections);
-        return $this->display('ntc/shop/navigation',compact('sections'));
+        $sections =[];
+
+        $query = $this->doctrine()->createQuery('SELECT s FROM app\core\entity\Section s WHERE s.shop ='
+            . $this->currentShop()->getId());
+        $repo = $this->doctrine()->getRepository(Section::class);
+//        $query = $this->doctrine()
+//            ->createQueryBuilder()
+//            ->select('node')
+//            ->from(Section::class, 'node')
+//            ->orderBy('node.root, node.lft', 'ASC')
+//            ->where('node.root = 1')
+//            ->getQuery()
+//        ;
+//        $options = array('decorate' => true);
+//        $sections = $repo->buildTree($query->getArrayResult());
+//        dump($sections);
+
+        return $this->display('ntc/shop/navigation', compact('sections'));
     }
 
 }

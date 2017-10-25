@@ -15,6 +15,8 @@ use Symfony\Component\Routing\RequestContext;
 class UrlGenerator extends ProviderBasedGenerator
 {
 
+    protected $context;
+    protected $provider;
     /**
      * @var RequestStack
      */
@@ -22,7 +24,7 @@ class UrlGenerator extends ProviderBasedGenerator
 
     /**
      * @param RouteProviderInterface $provider
-     * @param LoggerInterface $request_stack
+     * @param LoggerInterface|RequestStack $request_stack
      */
     public function __construct(RouteProviderInterface $provider, RequestStack $request_stack)
     {
@@ -38,14 +40,12 @@ class UrlGenerator extends ProviderBasedGenerator
      *   The name of the route to which to redirect.
      * @param array $route_parameters
      *   (optional) Parameters for the route.
-     * @param array $options
-     *   (optional) An associative array of additional options.
-     * @param int $status
-     *   (optional) The HTTP redirect status code for the redirect. The default is
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse A redirect response object that may be returned by the controller.
+     * A redirect response object that may be returned by the controller.
+     * @internal param array $options (optional) An associative array of additional options.*   (optional) An associative array of additional options.
+     * @internal param int $status (optional) The HTTP redirect status code for the redirect. The default is*   (optional) The HTTP redirect status code for the redirect. The default is
      *   302 Found.
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *   A redirect response object that may be returned by the controller.
      */
     public function redirect($route_name, array $route_parameters = [])
     {
@@ -61,6 +61,16 @@ class UrlGenerator extends ProviderBasedGenerator
         $host = $this->context->getHost();
         $scheme = $this->context->getScheme();
         return $scheme . '://' . $host . $path;
+    }
+
+    public function currentUrl()
+    {
+        return $this->generate($this->currentRoute());
+    }
+
+    public function currentRoute()
+    {
+        return $this->request_stack->getCurrentRequest()->get('_route');
     }
 
 }

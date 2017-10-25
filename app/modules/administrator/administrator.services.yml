@@ -11,9 +11,9 @@ services:
    arguments: ['@context.admin','@component.manager']
    tags:
      - { name: 'component_target' ,priority : 30}
-  admin.block.manager:
-    class: ntc\administrator\block\AdminBlockManager
-    arguments: ['@theme.manager','@region.manager']
+#  admin.block.manager:
+#    class: ntc\administrator\block\AdminBlockManager
+#    arguments: ['@theme.manager','@region.manager']
   admin.route:
     class: ntc\administrator\event\subscriber\AdminRouteSubscriber
 #    arguments: ['@router.provider']
@@ -21,6 +21,6 @@ services:
       - { name: event_subscriber }
   admin.response.handler:
     class: ntc\administrator\event\subscriber\AdminResponseHandlerSubscriber
-    arguments: ['@context.admin','@admin.block.manager','@current.route.match']
+    arguments: ['@context.admin','@block.manager','@current.route.match']
     tags:
       - { name: event_subscriber }

@@ -2,6 +2,9 @@
 
 namespace app\core\entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 /**
  * Section
  */
@@ -15,7 +18,7 @@ class Section
     /**
      * @var string
      */
-    private $name;
+    private $title;
 
     /**
      * @var string
@@ -28,14 +31,34 @@ class Section
     private $description;
 
     /**
-     * @var \DateTime
+     * @var integer
      */
-    private $created;
+    private $lft;
 
     /**
-     * @var \DateTime
+     * @var integer
      */
-    private $updated;
+    private $rgt;
+
+    /**
+     * @var integer
+     */
+    private $lvl;
+
+    /**
+     * @var Collection
+     */
+    private $children;
+
+    /**
+     * @var Section
+     */
+    private $root;
+
+    /**
+     * @var Section
+     */
+    private $parent;
 
     /**
      * @var Shop
@@ -43,43 +66,50 @@ class Section
     private $shop;
 
     /**
-     * @var Section
-     */
-    private $section;
-    /**
-     * @var SectionImage
-     */
-    private $image;
-    /**
      * @var SectionImage
      */
     private $images;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->setSection($this);
+        $this->children = new ArrayCollection();
+//        $this->setShop();
+        $this->setParent($this);
     }
 
     /**
-     * Get name
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get title
      *
      * @return string
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
-     * Set name
+     * Set title
      *
-     * @param string $name
+     * @param string $title
      *
      * @return Section
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -133,49 +163,155 @@ class Section
     }
 
     /**
-     * Get created
+     * Get lft
      *
-     * @return \DateTime
+     * @return integer
      */
-    public function getCreated()
+    public function getLft()
     {
-        return $this->created;
+        return $this->lft;
     }
 
     /**
-     * Set created
+     * Set lft
      *
-     * @param \DateTime $created
+     * @param integer $lft
      *
      * @return Section
      */
-    public function setCreated($created)
+    public function setLft($lft)
     {
-        $this->created = $created;
+        $this->lft = $lft;
 
         return $this;
     }
 
     /**
-     * Get updated
+     * Get rgt
      *
-     * @return \DateTime
+     * @return integer
      */
-    public function getUpdated()
+    public function getRgt()
     {
-        return $this->updated;
+        return $this->rgt;
     }
 
     /**
-     * Set updated
+     * Set rgt
      *
-     * @param \DateTime $updated
+     * @param integer $rgt
      *
      * @return Section
      */
-    public function setUpdated($updated)
+    public function setRgt($rgt)
     {
-        $this->updated = $updated;
+        $this->rgt = $rgt;
+
+        return $this;
+    }
+
+    /**
+     * Get lvl
+     *
+     * @return integer
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * Set lvl
+     *
+     * @param integer $lvl
+     *
+     * @return Section
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+
+        return $this;
+    }
+
+    /**
+     * Add child
+     *
+     * @param Section $child
+     *
+     * @return Section
+     */
+    public function addChild(Section $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param Section $child
+     */
+    public function removeChild(Section $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Get root
+     *
+     * @return Section
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * Set root
+     *
+     * @param Section $root
+     *
+     * @return Section
+     */
+    public function setRoot(Section $root = null)
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return Section
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param Section $parent
+     *
+     * @return Section
+     */
+    public function setParent(Section $parent = null)
+    {
+        $this->parent = $parent;
 
         return $this;
     }
@@ -200,70 +336,6 @@ class Section
     public function setShop(Shop $shop = null)
     {
         $this->shop = $shop;
-        return $this;
-    }
-
-    /**
-     * Get section
-     *
-     * @return Section
-     */
-    public function getSection()
-    {
-        return $this->section;
-    }
-
-    /**
-     * Set section
-     *
-     * @param Section $section
-     *
-     * @return Section
-     */
-    public function setSection(Section $section = null)
-    {
-        $this->section = $section;
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        $this->created = new \DateTime("now");
-        $this->updated = new \DateTime("now");
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        $this->updated = new \DateTime("now");
-    }
-
-    /**
-     * Get image
-     *
-     * @return SectionImage
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Set image
-     *
-     * @param SectionImage $image
-     *
-     * @return Section
-     */
-    public function setImage(SectionImage $image = null)
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -294,32 +366,7 @@ class Section
 
     public function hasParent()
     {
-        return (bool)$this->section->getId() > 0;
+        return (bool)$this->parent->id > 0;
     }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function isRoot()
-    {
-        return (bool)$this->section->getId() == 0;
-    }
-
-    public function hasChildren()
-    {
-//        dump($this->name, (bool)$this->section->getId() > 0);
-//        return (bool)$this->section->getId() > 0;
-    }
-
-//    public function getParent()
-//    {
-//        return $this->section;
-//    }
 }
+

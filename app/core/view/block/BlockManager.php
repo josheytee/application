@@ -3,12 +3,12 @@
 namespace app\core\view\block;
 
 use app\core\config\ConfigManager;
+use app\core\controller\TitleResolverInterface;
 use app\core\http\Request;
 use app\core\http\Response;
 use app\core\routing\RouteMatchInterface;
 use app\core\theme\region\RegionManager;
 use app\core\theme\ThemeManager;
-use app\core\view\Renderable;
 use app\core\view\RenderableTrait;
 
 /**
@@ -16,7 +16,7 @@ use app\core\view\RenderableTrait;
  *
  * @author adapter
  */
-class BlockManager implements Renderable
+class BlockManager implements BlockManagerInterface
 {
 
     use RenderableTrait;
@@ -35,24 +35,27 @@ class BlockManager implements Renderable
      * @var RegionManager
      */
     private $region_manager;
+    /**
+     * @var TitleResolverInterface
+     */
+    private $titleResolver;
 
-    public function __construct(ThemeManager $theme, RegionManager $region_manager, ConfigManager $config = null)
+    public function __construct(ThemeManager $theme, RegionManager $region_manager, TitleResolverInterface $titleResolver, ConfigManager $config = null)
     {
 
         $this->theme = $theme;
         $this->config = $config;
         $this->default_regions = $this->theme->getActiveTheme()->getRegions();
         $this->region_manager = $region_manager;
+        $this->titleResolver = $titleResolver;
     }
 
     public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch)
     {
-        $page = null;
+        $page = [];
+        $page['title'] = $this->titleResolver->getTitle($request, $routeMatch->getRouteObject());
         foreach ($this->default_regions as $region) {
-//      if (!empty($page[$region])) {
-//      $page[$region]['#theme_wrappers'][] = 'region';
             $page[$region] = $this->region_manager->getContent($region);
-//      }
         }
 //    $libraries = $result['libraries'];
         $page['content'] = $result['content'];
@@ -74,4 +77,8 @@ class BlockManager implements Renderable
         return $this->renderTrait(['page' => $page], 'layout/page');
     }
 
+    public function init()
+    {
+        // TODO: Implement init() method.
+    }
 }

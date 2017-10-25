@@ -1,78 +1,89 @@
 app\core\entity\Section:
-    type: entity
-    table: Section
-    repositoryClass: app\core\entity\repository\SectionRepository
-    indexes:
-        section_url_idx:
-            columns:
-                - id
-                - url
+  type: entity
+  repositoryClass: app\core\entity\repository\SectionRepository
+#  repositoryClass: Gedmo\Tree\Entity\Repository\NestedTreeRepository
+#  table: categories
+  gedmo:
+    tree:
+      type: nested
+  id:
     id:
-        id:
-            type: integer
-            options:
-                unsigned: true
-            id: true
-            generator:
-                strategy: IDENTITY
-    fields:
-        name:
-            type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
-        url:
-            type: string
-            nullable: true
-            length: 255
-            options:
-                fixed: false
-                comment: 'Shop''s url string'
-        description:
-            type: text
-            nullable: false
-            length: 65535
-            options:
-                fixed: false
-                comment: 'Shop''s description'
-        created:
-            type: datetime
-            nullable: false
-        updated:
-            type: datetime
-            nullable: false
-    manyToOne:
-        shop:
-            targetEntity: app\core\entity\Shop
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: sections
-            joinColumns:
-                id_shop:
-                    referencedColumnName: id
-            orphanRemoval: false
-        section:
-            targetEntity: app\core\entity\Section
-            cascade: [ persist ]
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_section:
-                    referencedColumnName: id
-            orphanRemoval: false
-        images:
-            targetEntity: app\core\entity\SectionImage
-            cascade: [ persist ]
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: section
-            joinColumns:
-                id_section_image:
-                    referencedColumnName: id
-            orphanRemoval: false
-    lifecycleCallbacks:
-         prePersist: [ onPrePersist ]
-         postPersist: [ onPostPersist ]
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    title:
+      type: string
+      length: 64
+    url:
+      type: string
+      nullable: true
+      length: 255
+      options:
+          fixed: false
+          comment: 'Shop''s url string'
+    description:
+      type: text
+      nullable: false
+      length: 65535
+      options:
+          fixed: false
+          comment: 'Shop''s description'  
+    lft:
+      type: integer
+      gedmo:
+        - treeLeft
+    rgt:
+      type: integer
+      gedmo:
+        - treeRight
+    lvl:
+      type: integer
+      gedmo:
+        - treeLevel
+  manyToOne:
+    root:
+      targetEntity: Section
+      cascade: [ persist ]
+      joinColumn:
+        name: tree_root
+        referencedColumnName: id
+        onDelete: CASCADE
+      gedmo:
+        - treeRoot
+    parent:
+      targetEntity: Section
+      cascade: [ persist ]
+      inversedBy: children
+      joinColumn:
+        name: parent_id
+        referencedColumnName: id
+        onDelete: CASCADE
+      gedmo:
+        - treeParent
+    shop:
+      targetEntity: Shop
+      cascade: {  }
+      fetch: LAZY
+      mappedBy: null
+      inversedBy: sections
+      joinColumn:
+        name: id_shop
+        referencedColumnName: id
+      orphanRemoval: false
+    images:
+      targetEntity: app\core\entity\SectionImage
+      cascade: [ persist ]
+      fetch: LAZY
+      mappedBy: null
+      inversedBy: section
+      joinColumns:
+          id_section_image:
+              referencedColumnName: id
+      orphanRemoval: true
+  oneToMany:
+    children:
+      targetEntity: Section
+      mappedBy: parent
+      orderBy:
+        lft: ASC
