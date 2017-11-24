@@ -59,7 +59,7 @@ class Listing extends EntityListController
             'params' => ['id' => $entity->getID()]
         ];
         $operations['delete'] = [
-            'route' => 'admin.product.add',
+            'route' => 'admin.product.create',
             'name' => 'Delete',
 //            'params' => ['id' => $entity->getID()]
         ];

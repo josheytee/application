@@ -1,42 +1,40 @@
 app\core\entity\SectionImage:
-    type: entity
-    table: section_image
-    repositoryClass: app\core\entity\repository\SectionImageRepository
+  type: entity
+  table: section_image
+  gedmo:
+    uploadable:
+      allowOverwrite: true
+      appendNumber: true
+#      path: '/my/path'
+      pathMethod: path
+#      callback: callbackMethod
+      filenameGenerator: SHA1
+  id:
     id:
-        id:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            id: true
-            generator:
-                strategy: IDENTITY
-    fields:
-        name:
-            type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
-                comment: Product image name
-        width:
-            type: integer
-            nullable: true
-            options:
-                fixed: false
-                unsigned: true
-                comment: product image width
-        height:
-            type: integer
-            nullable: true
-            options:
-                fixed: false
-                unsigned: true
-                comment: product image height
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    path:
+      type: string
+      gedmo:
+        - uploadableFilePath
+    name:
+      type: string
+      gedmo:
+        - uploadableFileName
+    mimeType:
+      type: string
+      gedmo:
+        - uploadableFileMimeType
+    size:
+      type: decimal
+      gedmo:
+        - uploadableFileSize
     oneToMany:
         section:
             targetEntity: Section
-            cascade: [persist,remove]
+#            cascade: [persist,remove]
             fetch: LAZY
             mappedBy: images
             inversedBy: null

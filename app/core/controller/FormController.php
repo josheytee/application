@@ -81,8 +81,8 @@ abstract class FormController extends ControllerBase
             }
         }
 //
-//        dump($entity);
-//        dump($request->all());
+        dump($entity);
+        dump($request->all());
         if (!empty($request->all())) {
             $doctrine->persist($entity);
             $doctrine->flush();

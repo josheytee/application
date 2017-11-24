@@ -369,4 +369,3 @@ class Section
         return (bool)$this->parent->id > 0;
     }
 }
-

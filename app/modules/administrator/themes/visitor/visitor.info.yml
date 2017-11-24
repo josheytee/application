@@ -1,5 +1,5 @@
 name: Visitor
-base_themes: system
+base_themes: shoppy
 type: theme
 description: Visitor admin theme
 package: ntc\administrator\visitor

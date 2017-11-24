@@ -1,5 +1,5 @@
-{if $content}
-  {*<div {if isset($attributes)}{$attributes}{/if}>*}
-    {$content }
-  {*</div>*}
-{/if}
+{*{if $components}*}
+{foreach $components as $component}
+    {$component}
+{/foreach}
+{*{/if}*}

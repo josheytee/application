@@ -19,27 +19,29 @@
     <meta name="author" content="Agbeja oluwatobiloba | tobiagbeja4@gmail.com">
     <meta name="keywords" content="">
     <!-- css -->
-    <link rel="stylesheet" href="/application/app/modules/administrator/themes/system/css/bootstrap.css" type="text/css"
+    <link rel="stylesheet" href="/application/app/modules/administrator/themes/shoppy/css/bootstrap.css" type="text/css"
           media="all"/>
-    <link rel="stylesheet" href="/application/app/modules/administrator/themes/system/css/style.css" type="text/css"
+    <link rel="stylesheet" href="/application/app/modules/administrator/themes/shoppy/css/style.css" type="text/css"
           media="all"/>
-    <link rel="stylesheet" href="/application/app/modules/administrator/themes/system/css/font-awesome.css"
+    <link rel="stylesheet" href="/application/app/modules/administrator/themes/shoppy/css/font-awesome.css"
           type="text/css"
           media="all"/>
     <!-- css -->
 
     <!-- js -->
     <script type="text/javascript"
-            src="/application/app/modules/administrator/themes/system/js/jquery-2.1.1.min.js"></script>
+            src="/application/app/modules/administrator/themes/shoppy/js/jquery-2.1.1.min.js"></script>
     <!-- js -->
     <!-- script-->
-    <script type="application/x-javascript"> addEventListener("load", function () {
+    <script type="application/x-javascript">
+      addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
 
         function hideURLbar() {
             window.scrollTo(0, 1);
-        } </script>
+        }
+    </script>
     <!-- script-->
 
 </head>
@@ -51,7 +53,9 @@
 {/block}
 <!-- js -->
 <script type="text/javascript"
-        src="/application/app/modules/administrator/themes/system/js/bootstrap.js"></script>
+        src="/application/app/modules/administrator/themes/shoppy/js/bootstrap.js"></script>
+<script type="text/javascript" src="/application/app/modules/administrator/themes/shoppy/js/main.js"></script>
+
 <!-- js -->
 
 </body>

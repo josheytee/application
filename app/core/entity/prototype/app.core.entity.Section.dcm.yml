@@ -1,8 +1,6 @@
 app\core\entity\Section:
   type: entity
   repositoryClass: app\core\entity\repository\SectionRepository
-#  repositoryClass: Gedmo\Tree\Entity\Repository\NestedTreeRepository
-#  table: categories
   gedmo:
     tree:
       type: nested
@@ -73,7 +71,7 @@ app\core\entity\Section:
       orphanRemoval: false
     images:
       targetEntity: app\core\entity\SectionImage
-      cascade: [ persist ]
+      cascade: [ persist,remove ]
       fetch: LAZY
       mappedBy: null
       inversedBy: section

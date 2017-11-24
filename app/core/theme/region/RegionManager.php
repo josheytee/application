@@ -8,7 +8,6 @@ use app\core\utility\ArrayHelper;
 use app\core\view\RenderableTrait;
 
 /**
- * Description of Region
  *
  * @author adapter
  */
@@ -63,24 +62,11 @@ class RegionManager implements RegionManagerInterface
     public function getContent($region)
     {
         $components = $this->component_manager->getRegionComponents($region);
-        $markup = '';
-        foreach ($components as $component) {
-            $markup .= $component->renderComponent($region);
+        $markup = [];
+        foreach ($components as $id => $component) {
+            $markup[$id] = $component->renderComponent($region);
         }
-        $assign = [
-//            'attributes' => 'class="lead"',
-            'content' => $markup
-        ];
-        $baseTheme = $this->activeTheme->getBaseThemes();
-//        dump($baseTheme);
-        if (isset($baseTheme)) {
-            $template = $baseTheme;
-            if (!empty($this->renderTrait($assign, "layout/page__{$template}")))
-                return $this->renderTrait($assign, "layout/page__{$template}");
-        }
-
-
-        return $this->renderTrait($assign, 'layout/region');
+        return $this->renderTrait(['components' => $markup], 'layout/region');
 
     }
 

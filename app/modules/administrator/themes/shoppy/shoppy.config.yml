@@ -10,3 +10,5 @@ regions:
     sidebar:
         - ntc\administrator\sidebar
     footer: null
+components:
+    navigation: tobi

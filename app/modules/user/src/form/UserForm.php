@@ -86,4 +86,9 @@ class UserForm extends FormController
     {
         // TODO: Implement title() method.
     }
+
+    public function validationRules()
+    {
+        // TODO: Implement validationRules() method.
+    }
 }

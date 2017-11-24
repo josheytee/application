@@ -1,6 +1,7 @@
 app\core\entity\Routing:
     type: entity
     table: Routing
+    repositoryClass: app\core\entity\repository\RoutingRepository
     id:
         id:
             type: integer

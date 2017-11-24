@@ -4,11 +4,11 @@ parameters:
     dbname: ntc_yml
     host: localhost
     user: root
-    password: 1234567
+    password: ~
  doctrine.dev:
     true
  doctrine.entities.path:
-     -  '/opt/lampp/htdocs/application/app/core/entity/prototype'
+     -  'C:\wamp\www\application\app\core\entity\prototype'
 services:
   doctrine.setup:
     class: Doctrine\ORM\Tools\Setup

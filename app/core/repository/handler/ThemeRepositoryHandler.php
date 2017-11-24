@@ -19,12 +19,18 @@ class ThemeRepositoryHandler extends BaseHandler
         } else {
             $configFile = $this->getConfiguration();
         }
-        @chmod($this->path . DS . $this->name . '.config.yml', 0666 & ~umask());
+//        @chmod($this->path . DS . $this->name . '.config.yml', 0666 & ~umask());
 
 //        dump(Yaml::dump($this->getConfiguration(),3));
 //        dump($configFile);
         dump(Yaml::dump($configFile, 3));
-        file_put_contents($this->path . DS . $this->name . '.config.yml', Yaml::dump($configFile,3));
+        dump(stat($this->path . DS . $this->name . '.config.yml'));
+        dump(filegroup($this->path . DS . $this->name . '.config.yml'));
+        dump(fileowner($this->path . DS . $this->name . '.config.yml'));
+        dump(fileperms($this->path . DS . $this->name . '.config.yml'));
+        unlink($this->path . DS . $this->name . '.config.yml');
+        file_put_contents($this->path . DS . $this->name . '.config.yml', Yaml::dump($configFile, 3));
+//        file_put_contents('../application/app/modules/administrator/themes/shoppy/shoppy.config.yml', Yaml::dump($configFile,3));
     }
 
     public function getConfiguration($key = null)

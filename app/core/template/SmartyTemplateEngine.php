@@ -18,10 +18,11 @@ class SmartyTemplateEngine extends \Smarty implements TemplateEngineInterface
 
     public function configure()
     {
-        $this->setCompileDir('/var/smarty/compile/');
+//      C:\wamp\www\application\app\core\entity\prototype
+        $this->setCompileDir('./app/cache/smarty/compile/');
         $this->setConfigDir(__DIR__ . \DIRECTORY_SEPARATOR . 'config');
         $this->setCacheDir('/var/smarty/cache/');
-        $this->addPluginsDir('/var/www/html/application/app/core/template/smarty/plugin');
+        $this->addPluginsDir('C:\wamp\www\application\app\core\template/smarty/plugin');
         $this->debugging = TRUE;
     }
 

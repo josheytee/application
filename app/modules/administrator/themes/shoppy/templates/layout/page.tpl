@@ -46,5 +46,4 @@
         </div>
     </div>
     {*.layout-container *}
-    <script type="text/javascript" src="/application/app/modules/administrator/themes/system/js/main.js"></script>
 {/block}

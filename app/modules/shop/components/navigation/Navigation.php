@@ -49,17 +49,17 @@ class Navigation extends Component
         $query = $this->doctrine()->createQuery('SELECT s FROM app\core\entity\Section s WHERE s.shop ='
             . $this->currentShop()->getId());
         $repo = $this->doctrine()->getRepository(Section::class);
-//        $query = $this->doctrine()
-//            ->createQueryBuilder()
-//            ->select('node')
-//            ->from(Section::class, 'node')
-//            ->orderBy('node.root, node.lft', 'ASC')
-//            ->where('node.root = 1')
-//            ->getQuery()
-//        ;
+        $query = $this->doctrine()
+            ->createQueryBuilder()
+            ->select('node')
+            ->from(Section::class, 'node')
+            ->orderBy('node.root, node.lft', 'ASC')
+            ->where('node.root = 1')
+            ->getQuery()
+        ;
 //        $options = array('decorate' => true);
-//        $sections = $repo->buildTree($query->getArrayResult());
-//        dump($sections);
+        $sections = $repo->buildTree($query->getArrayResult());
+        dump($sections);
 
         return $this->display('ntc/shop/navigation', compact('sections'));
     }

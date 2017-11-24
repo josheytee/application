@@ -51,7 +51,7 @@ app\core\entity\Shop:
     manyToOne:
         state:
             targetEntity: app\core\entity\State
-            cascade: {  }
+            cascade: [persist]
             fetch: LAZY
             mappedBy: null
             inversedBy: null
@@ -61,7 +61,7 @@ app\core\entity\Shop:
             orphanRemoval: false
         activity:
             targetEntity: app\core\entity\Activity
-            cascade: {  }
+            cascade: [persist]
             fetch: LAZY
             mappedBy: null
             inversedBy: null

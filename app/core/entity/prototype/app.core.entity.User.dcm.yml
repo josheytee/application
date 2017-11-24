@@ -76,7 +76,7 @@ app\core\entity\User:
     manyToOne:
         current_shop:
             targetEntity: app\core\entity\Shop
-            cascade: {  }
+            cascade: [persist]
             fetch: LAZY
             mappedBy: null
             inversedBy: null

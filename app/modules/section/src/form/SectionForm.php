@@ -40,11 +40,11 @@ class SectionForm extends FormController
             , $builder->select('parent', $this->getSections(), $entity->getParent()->getId())->addAttributes(['class' => 'form-control'])
         )->addAttributes(['class' => 'form-group']);
 
-//        $builder->block(
-//          $builder->label('file')
-//          , $builder->file('file')->addAttributes(['class' => 'form-control'])
-//        );
-//
+        $builder->block(
+            $builder->label('file')
+            , $builder->file('file')->addAttributes(['class' => 'form-control'])
+        );
+
         $builder->block(
             $builder->label('url')
             , $builder->text('url', $entity->getUrl())->addAttributes(['class' => 'form-control'])
@@ -102,9 +102,8 @@ class SectionForm extends FormController
         dump($file);
         $name = time() . Str::studly($file->getClientOriginalName());
         dump($name);
-        dump(is_dir('/var/www/html/application/extensions/modules/ntc/section/1/images/'));
-        $file->move('/var/www/html/application/extensions/modules/ntc/section/1/images/', $name);
-
+        dump(is_dir('/application/extensions/modules/ntc/section/1/images/'));
+        $file->move('C:\wamp\www\application\extensions\modules\ntc\section\1\images\\', $name);
     }
 
     public function validationRules()
