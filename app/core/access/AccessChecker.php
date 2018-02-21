@@ -12,16 +12,30 @@ use app\core\routing\RouteMatchInterface;
  */
 class AccessChecker
 {
+    /**
+     * @var AccessCheckerCollector
+     */
+    private $checkerCollector;
+
+    public function __construct(AccessCheckerCollector $checkerCollector)
+    {
+        $this->checkerCollector = $checkerCollector;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check(RouteMatchInterface $route_match)
+    {
+    }
+
 
     public function checkRequest(Request $request, $account)
     {
-
-    }
-
-    public function doCheck(RouteMatchInterface $route_match)
-    {
-        $route = $route_match->getRouteObject();
-        $checks = $route->getOption('_check') ?: [];
+        foreach ($this->checkerCollector->getSortedCheckers() as $priority => $checker) {
+            $checker->check($request, $account);
+        }
     }
 
 }

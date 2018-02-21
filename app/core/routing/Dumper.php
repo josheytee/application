@@ -2,10 +2,9 @@
 
 namespace app\core\routing;
 
-use app\core\entity\Routing;
-use Doctrine\ORM\EntityManager;
+use app\core\entity\Route;
 use Symfony\Component\Routing\RouteCollection;
-
+use Illuminate\Database\Capsule\Manager as Capsule;
 /**
  * Description of Dumper
  *
@@ -14,33 +13,22 @@ use Symfony\Component\Routing\RouteCollection;
 class Dumper
 {
 
-    /**
-     * @var EntityManager
-     */
-    private $entity_manager;
     private $routes;
-
-    public function __construct(EntityManager $entity_manager)
-    {
-
-        $this->entity_manager = $entity_manager;
-    }
 
     public function dump()
     {
-        $this->entity_manager->getRepository('app\core\entity\Routing')->deleteAll();
+//        Route::destroy(Route::all());
+        Capsule::table('routes')->truncate();
         foreach ($this->routes->all() as $name => $route) {
 
 //      $compiled = $route->compile();
 //      dump($compiled);
-            $router = new Routing();
-            $router->setName($name);
-            $router->setPath($route->getPath());
-            $router->setRoute($route);
-
-            $this->entity_manager->persist($router);
+            $router = new Route();
+            $router->name = $name;
+            $router->path = $route->getPath();
+            $router->object = $route;
+            $router->save();
         }
-        $this->entity_manager->flush();
         $this->routes = null;
     }
 

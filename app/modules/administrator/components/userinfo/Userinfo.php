@@ -3,6 +3,7 @@
 namespace ntc\administrator\userinfo;
 
 use app\core\component\Component;
+use app\core\http\Request;
 
 /**
  * Description of UserInfo
@@ -14,9 +15,9 @@ class Userinfo extends Component
 
     private $user;
 
-    public function init()
+    public function init(Request $request)
     {
-//    dump($this->currentUser()->getRoles());
+//    dump($this->currentUser());
         $this->user = $this->currentUser();
     }
 

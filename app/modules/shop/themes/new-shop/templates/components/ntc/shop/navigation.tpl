@@ -11,10 +11,12 @@
             </button>
         </div>
         <div class="navbar-collapse collapse in" id="bs-megadropdown-tabs" style="height: auto;">
+            {*{$sections}*}
             <ul class="nav navbar-nav">
                 {foreach $sections as $section}
+                    {*{$section->images}*}
                     <li class="">
-                        <a href="{$section->getUrl()}" class="act">{$section->getTitle()}</a>
+                        <a href="{route n='section.index' p=['url'=>$section->url]}" class="act">{$section->name}</a>
                     </li>
                 {/foreach}
             </ul>

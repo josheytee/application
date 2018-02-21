@@ -3,9 +3,11 @@
 namespace app\core\routing;
 
 use app\core\access\AccessChecker;
+use app\core\account\AccountInterface;
 use Symfony\Cmf\Component\Routing\ChainRouter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Route;
 
 /**
  * Description of AccessAwareRouter
@@ -24,12 +26,17 @@ class AccessAwareRouter implements AccessAwareRouterInterface
      * @var ChainRouter
      */
     private $chain_router;
+    /**
+     * @var AccountInterface
+     */
+    private $account;
 
-    public function __construct(ChainRouter $chain_router, AccessChecker $access_checker)
+    public function __construct(ChainRouter $chain_router, AccessChecker $access_checker, AccountInterface $account)
     {
 
         $this->chain_router = $chain_router;
         $this->access_checker = $access_checker;
+        $this->account = $account;
     }
 
     public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH): string
@@ -67,9 +74,8 @@ class AccessAwareRouter implements AccessAwareRouterInterface
         $this->chain_router->setContext($context);
     }
 
-    protected function checkAcess(Request $request)
+    protected function checkAccess(Request $request)
     {
-        $this->access_checker->checkRequest($request, $account);
+        $this->access_checker->checkRequest($request, $this->account);
     }
-
 }

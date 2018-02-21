@@ -2,6 +2,8 @@
 
 namespace app\core\theme\region;
 
+use app\core\http\Request;
+
 /**
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
@@ -9,5 +11,5 @@ namespace app\core\theme\region;
 interface RegionManagerInterface
 {
 
-    public function getContent($region);
+    public function getContent(Request $request, $region);
 }

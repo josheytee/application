@@ -3,9 +3,9 @@
 namespace app\core\controller;
 
 use app\core\http\Request;
-use app\core\http\UploadedFile;
 use app\core\utility\ArrayHelper;
 use app\core\validation\Validator;
+use app\core\view\form\FormBag;
 use app\core\view\form\Formbuilder;
 use Illuminate\Support\Str;
 
@@ -17,30 +17,44 @@ use Illuminate\Support\Str;
  */
 abstract class FormController extends ControllerBase
 {
-
     use ArrayHelper;
+    protected $attributes = [];
+    protected $redirctUrl = '/';
+    protected $redirectRoute = 'admin.index';
 
     public function create(Request $request, Formbuilder $builder, $id = 0)
     {
-//        dump($request->all());
-        $errors = null;
+
         if (!empty($request->all())) {
-            $validator = $this->validate($request->all());
-            $validator->passes() ? $this->createEntity($request) :
-                $errors = $this->handleValidationErrors($validator);
+//            $validator = $this->validate($request->all());
+//            $validator->passes() ?
+            if ($this->createEntity($request)) {
+                $this->redirectToRoute($this->redirectRoute);
+            }
+//                :$errors = $this->handleValidationErrors($validator);
         }
-        $return['content'] = $this->build($builder, $this->getEntity($request, $id))
-            ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();
+
+        $errors = null;
+        $formBag = new FormBag();
+        $formBag->addStorage($request);
+        $return['content'] = $this->build($builder)
+            ->setFormBag($formBag)
+            ->render();
         return $return;
     }
+                
 
-    public function validate($request)
+    function validate($all)
     {
-        $validator = new Validator($request, $this->validationRules() ?? []);
-        return $validator;
+        return true;
     }
 
-    abstract public function validationRules();
+    public function handleValidate($request, $params = [])
+    {
+        $validator = new Validator($request->all(), $params ?? []);
+        return $validator->passes() ? $this->createEntity($request) :
+            $errors = $this->handleValidationErrors($validator);
+    }
 
     public function createEntity(Request $request)
     {
@@ -74,7 +88,7 @@ abstract class FormController extends ControllerBase
         if (isset($sett)) {
             foreach ($sett as $key => $value) {
                 if ($key == 'file') {
-                    $this->handleFile($entity, $value);
+//                    $this->handleFile($entity, $value);
                     continue;
                 }
                 $this->object_set($entity, $key, $value);
@@ -87,10 +101,6 @@ abstract class FormController extends ControllerBase
             $doctrine->persist($entity);
             $doctrine->flush();
         }
-    }
-
-    public function handleFile($entity, UploadedFile $file)
-    {
     }
 
     /**
@@ -116,7 +126,7 @@ abstract class FormController extends ControllerBase
         return $validator->errors()->getMessages();
     }
 
-    abstract public function build(Formbuilder $builder, $entity);
+    abstract public function build(Formbuilder $builder);
 
     public function getEntity(Request $request, $id)
     {
@@ -133,13 +143,19 @@ abstract class FormController extends ControllerBase
                 'id' => '',
                 'class' => '',
                 'method' => 'post',
-                'action' => ''
-            ] + $this->attributes());
+                'action' => '',
+                'enctype' => "multipart/form-data"
+            ] + $this->attributes);
     }
 
-    public function attributes()
+    public function options($request, $params = [])
     {
-        return [];
+        return [
+            'file' => true,
+            'upload' => function () {
+
+            }
+        ];
     }
 
     /**
@@ -151,11 +167,26 @@ abstract class FormController extends ControllerBase
      */
     public function add(Request $request, Formbuilder $builder)
     {
+
+//        if (!empty($request->all())) {
+//            $validator = $this->validate($request->all());
+//            $validator->passes() ?
+//            if ($this->createEntity($request)) {
+//                $this->redirectToRoute($this->redirectRoute);
+//            }
+//                :$errors = $this->handleValidationErrors($validator);
+//        }
+
+        $errors = null;
+        $formBag = new FormBag();
+        $formBag->addStorage($request);
         if ($this->validate($request->all())) {
             $this->process($request);
-            $return['content'] = $this->build($builder, null)->setAttributes($this->formAttributes())->fetch();
-            return $return;
         }
+        $return['content'] = $this->build($builder)
+            ->setFormBag($formBag)
+            ->render();
+        return $return;
     }
 
     public function process(Request $request)
@@ -165,13 +196,22 @@ abstract class FormController extends ControllerBase
 
     public function update(Request $request, Formbuilder $builder, $id)
     {
-        $errors = null;
         if (!empty($request->all())) {
-            $validator = $this->validate($request->all());
-            $validator->passes() ? $this->updateEntity($request, $id) : $errors = $this->handleValidationErrors($validator);
+//            $validator = $this->validate($request->all());
+//            $validator->passes() ?
+            if ($this->updateEntity($request)) {
+                $this->redirectToRoute($this->redirectRoute);
+            }
+//                :$errors = $this->handleValidationErrors($validator);
         }
-        $return['content'] = $this->build($builder, $this->getEntity($request, $id))
-            ->setErrors($errors)->setAttributes($this->formAttributes())->fetch();
+        $model = $this->getModel($request);
+        $errors = null;
+        $formBag = new FormBag();
+        $formBag->addStorage($request);
+        $formBag->addStorage($model::find($id));
+        $return['content'] = $this->build($builder)
+            ->setFormBag($formBag)
+            ->render();
         return $return;
     }
 

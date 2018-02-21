@@ -45,7 +45,7 @@ class ComponentInitializer
     }
 
     /**
-     * @return type
+     * @return void
      */
     public function initializeAll()
     {

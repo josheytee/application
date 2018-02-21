@@ -1,0 +1,15 @@
+name: Shopper
+type: theme
+description: A simple bootstrap theme
+package: ntc\shop\shopper
+base theme: false
+engine: smarty
+regions:
+  header_top: Top Header
+  header_bottom: Bottom Header
+  breadcrumb: Banner
+#  highlight: Highlight
+  sidebar: SideBar
+  container: Container
+  footer: Footer
+libraries: makm.js

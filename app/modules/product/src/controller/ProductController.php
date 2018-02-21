@@ -4,7 +4,7 @@ namespace ntc\product\controller;
 
 use app\core\component\ComponentManager;
 use app\core\controller\ControllerBase;
-use app\core\entity\Section;
+use app\core\http\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductController extends ControllerBase
@@ -24,12 +24,14 @@ class ProductController extends ControllerBase
         return new static($container->get('component.manager'));
     }
 
-    public function index($url)
+    public function index(Request $request, $url)
     {
-        $manager = $this->doctrine()->getRepository(Section::class)->findOneByUrl($url);
-//        dump($manager);
         $components = $this->componentManager->getTargetComponents('product');
-        return $this->render('ntc/product/single', compact('components'));
+        $product_component = '';
+        foreach ($components as $component) {
+            $product_component .= $component->renderComponent($request);
+        }
+        return $this->render('ntc/product/single', ['output' => $product_component]);
     }
 
 }

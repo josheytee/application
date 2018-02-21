@@ -4,8 +4,13 @@ namespace ntc\shop\form;
 
 use app\core\controller\FormController;
 use app\core\entity\Activity;
+use app\core\entity\Category;
 use app\core\http\UploadedFile;
 use app\core\view\form\Formbuilder;
+use app\core\view\form\Select;
+use app\core\view\form\Submit;
+use app\core\view\form\Text;
+use app\core\view\form\TextArea;
 
 /**
  *
@@ -14,64 +19,55 @@ use app\core\view\form\Formbuilder;
 class CreateShopForm extends FormController
 {
 
-    public function build(Formbuilder $builder, $entity = 0)
+    public function build(Formbuilder $builder)
     {
-        $builder->block(
-            $builder->label('name')
-            , $builder->text('name', $entity->getName())->addAttributes(['class' => 'form-control'])
-        )->addAttributes(['class' => 'form-group']);
+        $builder->add('name', Text::class);
+        $builder->add('category_id', Select::class, function ($category) {
+            $category->options = $this->activities();
+            $category->label='category';
 
-        $builder->block(
-            $builder->label('activity')
-            , $builder->select('activity', $this->activities(), $entity->getActivity()->getId())->addAttributes(['class' => 'form-control'])
-        )->addAttributes(['class' => 'form-group']);
+        });
+        $builder->add('state', Select::class, function ($condition) {
+            $condition->options = [
+                'new' => 'New',
+                'used' => 'Used',
+                'refurbished' => 'Refurbished.'
+            ];
+        });
+        $builder->add('url', Text::class);
+        $builder->add('description', TextArea::class);
+        $builder->add('create', Submit::class);
 
-        $builder->block(
-            $builder->label('state')
-            , $builder->select('state', $this->states(), $entity->getState()->getId())->addAttributes(['class' => 'form-control'])
-        )->addAttributes(['class' => 'form-group']);
 
-        $builder->block(
-            $builder->label('url')
-            , $builder->text('url', $entity->getUrl())->addAttributes(['class' => 'form-control'])
-            , $builder->help('eg. /example')
-        );
-        $builder->block(
-            $builder->label('description')
-            , $builder->textArea('description', $entity->getDescription())->addAttributes(['class' => 'form-control'])
-        )->addAttributes(['class' => 'form-group']);
-
-        $builder->block($builder->submit('Save')->addAttributes(['class' => 'btn btn-primary']))
-            ->addAttributes(['class' => 'form-group']);
         return $builder;
     }
 
     private function activities()
     {
-//        return array(
-//            0 => 'Choose your main activity',
-//            1 => 'Lingerie and Adult',
-//            2 => 'Animals and Pets',
-//            3 => 'Art and Culture',
-//            4 => 'Babies',
-//            5 => 'Beauty and Personal Care',
-//            6 => 'Cars',
-//            7 => 'Computer Hardware and Software',
-//            8 => 'Download',
-//            9 => 'Fashion and accessories',
-//            10 => 'Flowers, Gifts and Crafts',
-//            11 => 'Food and beverage',
-//            12 => 'HiFi, Photo and Video',
-//            13 => 'Home and Garden',
-//            14 => 'Home Appliances',
-//            15 => 'Jewelry',
-//            16 => 'Mobile and Telecom',
-//            17 => 'Services',
-//            18 => 'Shoes and accessories',
-//            19 => 'Sports and Entertainment',
-//            20 => 'Travel',
-//        );
-        return $this->doctrine()->getRepository(Activity::class)->getActivities();
+        return array(
+            0 => 'Choose your main activity',
+            1 => 'Lingerie and Adult',
+            2 => 'Animals and Pets',
+            3 => 'Art and Culture',
+            4 => 'Babies',
+            5 => 'Beauty and Personal Care',
+            6 => 'Cars',
+            7 => 'Computer Hardware and Software',
+            8 => 'Download',
+            9 => 'Fashion and accessories',
+            10 => 'Flowers, Gifts and Crafts',
+            11 => 'Food and beverage',
+            12 => 'HiFi, Photo and Video',
+            13 => 'Home and Garden',
+            14 => 'Home Appliances',
+            15 => 'Jewelry',
+            16 => 'Mobile and Telecom',
+            17 => 'Services',
+            18 => 'Shoes and accessories',
+            19 => 'Sports and Entertainment',
+            20 => 'Travel',
+        );
+//        return Category::all();
     }
 
     private function states()

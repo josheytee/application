@@ -88,14 +88,20 @@ services:
     arguments: ['@entity.manager']
   router.dumper:
     class: app\core\routing\Dumper
-    arguments: ['@entity.manager']
   router.builder:
     class: app\core\routing\RouteBuilder
     arguments: ['@module.manager','@router.dumper','@event.dispatcher']
+  access.checker:
+    class: app\core\access\AccessChecker
+    arguments: ['@access_checker.collector']
+  access_checker.collector:
+    class: app\core\access\AccessCheckerCollector
+    tags:
+      - { name: resolver_collector, tag: access_checker, call: addChecker }
+
   router.access:
     class: app\core\routing\AccessAwareRouter
-    arguments: ['@router.no_access_checks']
-#    arguments: ['@router.no_access_checks', '@access_manager', '@current_user']
+    arguments: ['@router.no_access_checks','@access.checker','@current_user']
   router.matcher:
     class: \Symfony\Cmf\Component\Routing\NestedMatcher\NestedMatcher
     arguments: ['@router.provider','@url.matcher']
@@ -164,6 +170,11 @@ services:
     class: Symfony\Component\HttpFoundation\Session\Session
 
 # middlewares
+  access.handler:
+    class: app\core\event\subscriber\HttpExceptionSubscriberBase
+#    arguments: ['@block.manager','@current.route.match']
+    tags:
+      - { name: event_subscriber }
   http_middleware.auth:
     class: app\core\middleware\AuthMiddleware
     parent: container.trait
@@ -182,7 +193,7 @@ services:
       - { name: event_subscriber }
   router.handler:
     class: Symfony\Component\HttpKernel\EventListener\RouterListener
-    arguments: ['@router.no_access_checks', '@request.stack', '@request.context', NULL]
+    arguments: ['@router.access', '@request.stack', '@request.context', NULL]
     tags:
       - { name: event_subscriber }
   route_enhancer_subscriber:

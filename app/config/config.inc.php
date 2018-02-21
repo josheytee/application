@@ -13,6 +13,7 @@ define('_COMPONENT_DIR_', $root . '/components');
 define('_ADMIN_DIR_', _ROOT_DIR_ . 'admin' . '/');
 define('_THEMES_DIR_', _ROOT_DIR_ . 'themes');
 define("_RESOURCE_DIR_", _ROOT_DIR_ . 'resource' . '/');
+define("_EXTENSION_DIR_", 'extensions/' );
 
 define('_RIJNDAEL_KEY_', 'diTesdwELQKtE1cC5nS1OA3BJjLrfPin');
 define('_RIJNDAEL_IV_', 'J2R3d6TpkRVdaJuvmUmcbw==');

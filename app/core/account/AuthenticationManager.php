@@ -18,7 +18,6 @@ class AuthenticationManager implements AuthenticationProviderInterface
 
     public function __construct(AuthenticationCollector $auth_collector)
     {
-
         $this->auth_collector = $auth_collector;
     }
 
@@ -30,7 +29,7 @@ class AuthenticationManager implements AuthenticationProviderInterface
     /**
      * Returns the id of the authentication provider for a request.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *   The incoming request.
      *
      * @return string|NULL

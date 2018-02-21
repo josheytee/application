@@ -3,6 +3,7 @@
 namespace app\core\controller;
 
 use app\core\http\Request;
+use Illuminate\Pagination\UrlWindow;
 
 
 /**
@@ -19,6 +20,7 @@ abstract class ListController extends ControllerBase
     protected $entities = [];
     protected $headOperations;
     private $paginatorData = [];
+    protected $elements;
 
     public function listing(Request $request)
     {
@@ -30,7 +32,8 @@ abstract class ListController extends ControllerBase
                 'headings' => $this->processHead(),
                 'form_body' => $this->processBody(),
                 'headOperations' => $this->headOperations,
-                'paginator' => $this->paginatorData
+                'paginator' => $this->paginatorData,
+                'elements' => $this->elements
             ], 'list/listing');
         return $return;
     }
@@ -38,9 +41,20 @@ abstract class ListController extends ControllerBase
     public function init(Request $request)
     {
         $page = $request->get('page', 1);
-        $paginator = $this->doctrine()->getRepository($this->getModel($request))->paginate((int)$page, 5);
-        $this->entities = $paginator['data'];
-        $this->paginatorData = $paginator['templateData'];
+        $s = $this->getModel($request);
+        $p = $s::paginate(3,null,null,$page);
+        $window = UrlWindow::make($p);
+
+        $this->elements = array_filter([
+            $window['first'],
+            is_array($window['slider']) ? '...' : null,
+            $window['slider'],
+            is_array($window['last']) ? '...' : null,
+            $window['last'],
+        ]);
+        $this->entities = $p;
+        $this->paginatorData = $p;
+
     }
 
     public function processHead()

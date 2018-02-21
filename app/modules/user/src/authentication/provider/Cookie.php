@@ -3,7 +3,7 @@
 namespace ntc\user\authentication\provider;
 
 use app\core\{
-    account\AccountInterface, account\AnonymousUser, account\AuthenticationProviderInterface, account\UserAccount, Context, entity\User, http\Request
+    account\AccountInterface, account\AnonymousUser, account\AuthenticationProviderInterface, account\UserAccount, entity\User, http\Request
 };
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -58,9 +58,7 @@ class Cookie implements AuthenticationProviderInterface
 //        dump($session->all());
         if ($uid = $session->get('logged')) {
             // @todo Load the User entity in SessionHandler so we don't need queries.
-
-            $user = Context::getContext()->manager->find(User::class, $uid);
-//            dump($user);
+            $user = User::find($uid);
             return new UserAccount($user);
         }
 

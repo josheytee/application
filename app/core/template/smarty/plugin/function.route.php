@@ -21,7 +21,5 @@ function smarty_function_route($params)
     if (empty($params['p'])) {
         $params['p'] = [];
     }
-//    dump($params);
     return Context::urlGenerator()->generate($params['n'], $params['p']);
-    return route($params['v']);
 }

@@ -2,7 +2,6 @@
 
 namespace app\core\account;
 
-use app\core\Context;
 use app\core\entity\User;
 
 /**
@@ -35,7 +34,6 @@ class AccountProxy implements AccountProxyInterface
                 $this->account = new AnonymousUser();
             }
         }
-//        dump($this->account);
         return $this->account;
     }
 
@@ -60,7 +58,7 @@ class AccountProxy implements AccountProxyInterface
      */
     protected function loadUserAccount($account_id)
     {
-        return Context::doctrine()->find(User::class, $account_id);
+        return User::find($account_id);
     }
 
     public function getCurrentShop()

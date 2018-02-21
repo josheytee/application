@@ -3,7 +3,7 @@
 namespace ntc\product\form;
 
 use app\core\controller\FormController;
-use app\core\entity\Section;
+use app\core\entity_doctrine\Section;
 use app\core\view\form\Formbuilder;
 
 class AssociationForm extends FormController

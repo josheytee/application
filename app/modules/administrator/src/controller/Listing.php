@@ -2,7 +2,7 @@
 
 namespace ntc\administrator\controller;
 
-use app\core\entity\controller\EntityListController;
+use app\core\entity_doctrine\controller\EntityListController;
 
 /**
  * Description of Listing

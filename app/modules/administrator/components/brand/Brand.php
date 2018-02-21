@@ -3,13 +3,14 @@
 namespace ntc\administrator\brand;
 
 use app\core\component\Component;
+use app\core\http\Request;
 
 class Brand extends Component
 {
 
     private $shop;
 
-    public function init()
+    public function init(Request $request)
     {
         $this->shop = $this->currentShop();
     }
@@ -17,8 +18,8 @@ class Brand extends Component
     public function render()
     {
         return $this->display('ntc/administrator/brand', [
-                'name' => $this->shop->getName(),
-                'url' => ['url' => $this->shop->getUrl()],
+               'name' => $this->shop->name,
+               'params' => ['url' => $this->shop->url],
                 'route' => 'shop.index'
 //                {route n='shop.index' p=$url|default:''}
             ]

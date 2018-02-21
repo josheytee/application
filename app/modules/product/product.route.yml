@@ -1,7 +1,7 @@
 admin.product.delete:
   path: admin/product/{id}/delete
   defaults:
-    _title: Amin | Create Shop
+    _title: Admin | Delete Product
     _form: ntc\product\form\ProductForm
     _model: app\core\entity\Product.delete
   requirements:
@@ -12,7 +12,7 @@ admin.product.create:
   path: admin/product/add
   defaults:
     tab: Information
-    _title: Amin | Product
+    _title: Admin | Product
     _form: ntc\product\form\ProductForm
     _model: app\core\entity\Product.create
   requirements:
@@ -23,7 +23,7 @@ admin.product.edit:
   path: admin/product/{id}/edit
   defaults:
     tab: information
-    _title: Amin | Product
+    _title: Admin | Edit Product
     _form: ntc\product\form\ProductForm
     _model: app\core\entity\Product.update
     id: 1
@@ -35,7 +35,7 @@ admin.product.edit:
 admin.product.list:
   path: admin/product/list
   defaults:
-    _title: Amin | User Shop List
+    _title: Admin | Product List
     _list: ntc\product\listing\ProductList
     _model: app\core\entity\Product
   requirements:
@@ -52,3 +52,17 @@ product.index:
     url: .+
   options:
     _shop_route: true
+
+  # image routes
+admin.product.image.upload:
+    path: /admin/product/image/upload
+    defaults:
+      _controller: ntc\product\form\ProductForm::ajaxUploadImage
+admin.product.image.delete:
+    path: /admin/product/image/delete/{id}
+    defaults:
+      _controller: ntc\product\form\ProductForm::ajaxDeleteImage
+admin.product.image.temp.url:
+    path: /app/modules/product/uploads/tmp/{name}
+    defaults:
+      _controller: ntc\product\form\ProductForm::ajaxUploadImage

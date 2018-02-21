@@ -4,6 +4,11 @@ services:
         arguments: ['@authentication.manager','@current_user']
         tags:
           - { name: event_subscriber }
+    user.permissions_checker:
+        class: ntc\user\access\PermissionsChecker
+#        arguments: ['@authentication.manager','@current_user']
+        tags:
+          - { name: access_checker ,priority: 10}
     user.authentication.cookie:
         class: ntc\user\authentication\provider\Cookie
 #        arguments: ['@entity.manager']

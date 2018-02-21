@@ -21,15 +21,15 @@ class ProductList extends ListController
 
     function row($entity)
     {
-        $row['id'] = $entity->getID();
-        $row['image'][] = $entity->getName();
+        $row['id'] = $entity->id;
+        $row['image'][] = $entity->images->first();
         $row['image']['callback'] = 'setImage';
-        $row['name'] = $entity->getName();
-        $row['price'] = $entity->getPrice();
-        $row['active'][] = $entity->getActive();
+        $row['name'] = $entity->name;
+        $row['price'] = $entity->price;
+        $row['active'][] = $entity->active;
         $row['active']['callback'] = 'setActiveIcon';
-        $row['quantity'] = $entity->getQuantity();
-        $row['section'] = $entity->getSection()->getName();
+        $row['quantity'] = $entity->quantity;
+        $row['section'] = $entity->section->name;
         return $row;
     }
 
@@ -41,7 +41,7 @@ class ProductList extends ListController
 
     public function setImage($product)
     {
-        return $product ? "<img src='/{$product}'>" : "";
+        return $product ? "<img src='{$product->path}' width='45' height='45'>" : "";
     }
 
     function bulkOperation()
@@ -56,22 +56,22 @@ class ProductList extends ListController
                 'name' => 'View',
                 'route' => 'product.index',
                 'params' => [
-                    'id' => $entity->getId(),
-                    'url' => $entity->getLinkRewrite()
+                    'id' => $entity->id,
+                    'url' => $entity->linkRewrite
                 ]
             ],
             'edit' => [
                 'name' => 'Edit',
                 'route' => 'admin.product.edit',
                 'params' => [
-                    'id' => $entity->getID()
+                    'id' => $entity->id
                 ]
             ],
             'delete' => [
                 'name' => 'Delete',
                 'route' => 'admin.product.delete',
                 'params' => [
-                    'id' => $entity->getID()
+                    'id' => $entity->id
                 ]
             ]
         ];

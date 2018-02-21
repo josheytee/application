@@ -7,7 +7,7 @@
  * Time: 8:47 PM
  */
 
-use app\core\entity\User;
+use app\core\entity_doctrine\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 

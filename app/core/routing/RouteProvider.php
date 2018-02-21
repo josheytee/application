@@ -2,6 +2,7 @@
 
 namespace app\core\routing;
 
+use app\core\entity\Route;
 use Doctrine\ORM\EntityManager;
 use Symfony\Cmf\Component\Routing\PagedRouteCollection;
 use Symfony\Cmf\Component\Routing\PagedRouteProviderInterface;
@@ -39,9 +40,9 @@ class RouteProvider implements PagedRouteProviderInterface
     public function getRoutes()
     {
         $collection = new RouteCollection();
-        $routes = $this->entity_manager->getRepository('app\core\entity\Routing')->findAll();
+        $routes = Route::all();
         foreach ($routes as $key => $router) {
-            $collection->add($router->getName(), $router->getRoute());
+            $collection->add($router->name, $router->object);
         }
         return $collection;
     }

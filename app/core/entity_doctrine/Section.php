@@ -1,0 +1,400 @@
+<?php
+
+namespace app\core\entity_doctrine;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+/**
+ * Section
+ */
+class Section
+{
+    /**
+     * @var integer
+     */
+    private $id = 0;
+
+    /**
+     * @var string
+     */
+    private $title;
+
+    /**
+     * @var string
+     */
+    private $url;
+
+    /**
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @var integer
+     */
+    private $lft;
+
+    /**
+     * @var integer
+     */
+    private $rgt;
+
+    /**
+     * @var integer
+     */
+    private $lvl;
+
+    /**
+     * @var Collection
+     */
+    private $children;
+
+    /**
+     * @var Section
+     */
+    private $root;
+
+    /**
+     * @var Section
+     */
+    private $parent;
+
+    /**
+     * @var Shop
+     */
+    private $shop;
+
+    /**
+     * @var SectionImage
+     */
+    private $images;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+//        $this->setShop();
+        $this->setParent($this);
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Section
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Section
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Section
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get lft
+     *
+     * @return integer
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     *
+     * @return Section
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+
+        return $this;
+    }
+
+    /**
+     * Get rgt
+     *
+     * @return integer
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     *
+     * @return Section
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+
+        return $this;
+    }
+
+    /**
+     * Get lvl
+     *
+     * @return integer
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * Set lvl
+     *
+     * @param integer $lvl
+     *
+     * @return Section
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+
+        return $this;
+    }
+
+    /**
+     * Add child
+     *
+     * @param Section $child
+     *
+     * @return Section
+     */
+    public function addChild(Section $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param Section $child
+     */
+    public function removeChild(Section $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Get root
+     *
+     * @return Section
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * Set root
+     *
+     * @param Section $root
+     *
+     * @return Section
+     */
+    public function setRoot(Section $root = null)
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return Section
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param Section $parent
+     *
+     * @return Section
+     */
+    public function setParent(Section $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return Shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param Shop $shop
+     *
+     * @return Section
+     */
+    public function setShop(Shop $shop = null)
+    {
+        $this->shop = $shop;
+
+        return $this;
+    }
+
+    /**
+     * Get images
+     *
+     * @return SectionImage
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Set images
+     *
+     * @param SectionImage $images
+     *
+     * @return Section
+     */
+    public function setImages(SectionImage $images = null)
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    public function hasParent()
+    {
+        return (bool)$this->parent->id > 0;
+    }
+    /**
+     * @var boolean
+     */
+    private $active = true;
+
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Section
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+}

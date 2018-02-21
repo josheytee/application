@@ -3,9 +3,8 @@
 namespace app\core\account;
 
 use app\core\Context;
-use app\core\entity\{
-    Role, User
-};
+use app\core\entity\User;
+
 
 /**
  *
@@ -27,12 +26,12 @@ class UserAccount implements AccountInterface
 
     public function getAccountName()
     {
-        return $this->user->getName();
+        return $this->user->firstname.' '.$this->user->lastname;
     }
 
     public function getEmail()
     {
-        return $this->user->getEmail();
+        return $this->user->email;
     }
 
     public function getLastAccessedTime()
@@ -47,46 +46,44 @@ class UserAccount implements AccountInterface
 
     public function getUsername()
     {
-        return $this->user->getUsername();
+        return $this->user->username;
     }
 
     public function hasPermissions($permission)
     {
-//        dump($this->id());
         return in_array($permission, $this->getPermissions());
     }
 
     public function getPermissions()
     {
-        return Context::doctrine()->getRepository(Role::class)
-            ->getUserPermisions($this->id(), $this->getCurrentShop()->getId());
+        return $this->user->permissions;
     }
 
     public function id()
     {
-        if ($this->user->getId())
-            return $this->user->getId();
+        if ($this->user->id)
+            return $this->user->id;
         return 0;
     }
 
     public function getCurrentShop()
     {
-        return $this->user->getCurrentShop();
+        return $this->user->currentShop;
     }
 
     public function isAnonymous()
     {
-        return $this->id() == 0;
+        return $this->id == 0;
     }
 
     public function isAuthenticated()
     {
-        return $this->id() > 0;
+        return $this->id > 0;
     }
 
     public function getPicture()
     {
-        return $this->user->getPicture();
+        return '';
     }
 
 }

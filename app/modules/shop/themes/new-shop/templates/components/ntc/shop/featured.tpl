@@ -8,10 +8,12 @@
                         <figure>
                             <a href="single.html">
                                 <div class="grid-img">
-                                    <img src="/application/app/themes/genesis/images/p28.jpg" class="img-responsive" alt="">
+                                    <img src="/application/app/themes/genesis/images/p28.jpg" class="img-responsive"
+                                         alt="">
                                 </div>
                                 <div class="grid-img">
-                                    <img src="/application/app/themes/genesis/images/p27.jpg" class="img-responsive" alt="">
+                                    <img src="/application/app/themes/genesis/images/p27.jpg" class="img-responsive"
+                                         alt="">
                                 </div>
                             </a>
                         </figure>
@@ -55,10 +57,12 @@
                         <figure>
                             <a href="single.html">
                                 <div class="grid-img">
-                                    <img src="/application/app/themes/genesis/images/p30.jpg" class="img-responsive" alt="">
+                                    <img src="/application/app/themes/genesis/images/p30.jpg" class="img-responsive"
+                                         alt="">
                                 </div>
                                 <div class="grid-img">
-                                    <img src="/application/app/themes/genesis/images/p29.jpg" class="img-responsive" alt="">
+                                    <img src="/application/app/themes/genesis/images/p29.jpg" class="img-responsive"
+                                         alt="">
                                 </div>
                             </a>
                         </figure>
@@ -99,10 +103,12 @@
                         <figure>
                             <a href="single.html">
                                 <div class="grid-img">
-                                    <img src="/application/app/themes/genesis/images/s2.jpg" class="img-responsive" alt="">
+                                    <img src="/application/app/themes/genesis/images/s2.jpg" class="img-responsive"
+                                         alt="">
                                 </div>
                                 <div class="grid-img">
-                                    <img src="/application/app/themes/genesis/images/s1.jpg" class="img-responsive" alt="">
+                                    <img src="/application/app/themes/genesis/images/s1.jpg" class="img-responsive"
+                                         alt="">
                                 </div>
                             </a>
                         </figure>
@@ -143,10 +149,12 @@
                         <figure>
                             <a href="single.html">
                                 <div class="grid-img">
-                                    <img src="/application/app/themes/genesis/images/s4.jpg" class="img-responsive" alt="">
+                                    <img src="/application/app/themes/genesis/images/s4.jpg" class="img-responsive"
+                                         alt="">
                                 </div>
                                 <div class="grid-img">
-                                    <img src="/application/app/themes/genesis/images/s3.jpg" class="img-responsive" alt="">
+                                    <img src="/application/app/themes/genesis/images/s3.jpg" class="img-responsive"
+                                         alt="">
                                 </div>
                             </a>
                         </figure>
@@ -172,7 +180,7 @@
                         </div>
                     </div>
                     <div class="women">
-                        <h6><a href="single.html">Sed ut perspiciatis unde</a></h6>
+                        <h6><a href="{route n='product.index' p=['id'=>1]}">Sed ut perspiciatis unde</a></h6>
                         <span class="size">XL / XXL / S </span>
                         <p>
                             <del>$100.00</del>

@@ -72,7 +72,7 @@ interface AccountInterface
     public function isAnonymous();
 
     /**
-     * @return \app\core\entity\Shop
+     * @return \app\core\entity_doctrine\Shop
      */
     public function getCurrentShop();
 

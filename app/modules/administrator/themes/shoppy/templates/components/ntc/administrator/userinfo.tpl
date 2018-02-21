@@ -5,11 +5,12 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <div class="profile_img">
                     <span class="prfil-img">
-                        <img src="{($picture) ? {$picture} : ""}" alt="">
+                        <img src="{$picture|default:"/application/app/modules/administrator/themes/shoppy/images/p1.png"}"
+                             alt="">
                     </span>
                     <div class="user-name">
-                        <p>{($name) ? {$name} : ""}</p>
-                        <span>{($role) ? {$role} : ""}</span>
+                        <p>{$name|default:"&nbsp;"}</p>
+                        <span>{$role|default : ""}</span>
                     </div>
                     <i class="fa fa-angle-down lnr"></i>
                     <i class="fa fa-angle-up lnr"></i>

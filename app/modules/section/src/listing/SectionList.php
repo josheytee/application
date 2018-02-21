@@ -19,11 +19,11 @@ class SectionList extends ListController
 
     function row($entity)
     {
-        $row['id'] = $entity->getID();
-        $row['name'] = $entity->getTitle();
-        $row['url'] = $entity->getUrl();
-        $row['description'] = $entity->getDescription();
-        $row['section'] = $entity->getParent()->getTitle();
+        $row['id'] = $entity->id;
+        $row['name'] = $entity->name;
+        $row['url'] = $entity->url;
+        $row['description'] = $entity->description;
+        $row['section'] = $entity->parent->name;
         return $row;
     }
 
@@ -39,21 +39,21 @@ class SectionList extends ListController
                 'name' => 'Edit',
                 'route' => 'admin.section.update',
                 'params' => [
-                    'id' => $entity->getID()
+                    'id' => $entity->id
                 ]
             ],
             'preview' => [
                 'name' => 'Preview',
                 'route' => 'section.index',
                 'params' => [
-                    'url' => $entity->getUrl()
+                    'url' => $entity->url
                 ]
             ],
             'delete' => [
                 'name' => 'Delete',
                 'route' => 'admin.section.delete',
                 'params' => [
-                    'id' => $entity->getID()
+                    'id' => $entity->id
                 ]
             ],
         ];

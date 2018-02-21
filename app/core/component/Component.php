@@ -5,6 +5,7 @@ namespace app\core\component;
 use app\core\controller\ControllerTrait;
 use app\core\http\Request;
 use app\core\validation\Validator;
+use app\core\view\form\FormBag;
 use app\core\view\form\Formbuilder;
 use app\core\view\RenderableTrait;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -110,7 +111,7 @@ abstract class Component implements ContainerAwareInterface
     public function getIcon()
     {
         $app_path = substr($this->path, strrpos($this->path, '/application'), strlen($this->path));
-        return  $app_path. DS . $this->icon;
+        return $app_path . DS . $this->icon;
     }
 
     /**
@@ -182,31 +183,24 @@ abstract class Component implements ContainerAwareInterface
         return $this->renderCustomTrait($this->defaultTemplate, $data);
     }
 
-    public function renderComponent($region = null)
+    public function renderComponent(Request $request, $region = null)
     {
         $this->region = $region;
-        $this->init();
-        $this->postProcess();
+        $this->init($request);
         return $this->renderTrait(['component' => $this->render()], 'layout/component');
     }
 
-    public function init()
+    public function init(Request $request)
     {
 
     }
 
-    public function postProcess()
-    {
-//        if (!empty($_POST) /* || isset($_GET) */) {
-//            var_dump($_POST);
-//        }
-    }
 
     abstract public function render();
 
     public function renderConfig(Request $request, Formbuilder $builder)
     {
-        $this->init();
+        $this->init($request);
         $this->processConfigure($request, $builder);
         return $this->configure($request, $builder);
     }
@@ -218,7 +212,7 @@ abstract class Component implements ContainerAwareInterface
 
     function configure(Request $request, Formbuilder $builder)
     {
-        return 'overwrite  '.__METHOD__.' for this page';
+        return $builder->setFormBag(new FormBag($request))->render();
     }
 
     public function validate($request)

@@ -3,9 +3,13 @@
 namespace ntc\user\form;
 
 use app\core\controller\FormController;
+use app\core\entity\User;
 use app\core\http\Request;
-use app\core\http\UploadedFile;
+use app\core\view\form\Checkbox;
 use app\core\view\form\FormBuilder;
+use app\core\view\form\Password;
+use app\core\view\form\Submit;
+use app\core\view\form\Text;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -21,42 +25,27 @@ class AuthForm extends FormController
         return new static();
     }
 
-    public function build(FormBuilder $builder, $entity)
+    public function build(FormBuilder $builder)
     {
-        $builder->block(
-            $builder->label('username')
-            , $builder->text('username', '')->addAttributes(['class' => 'form-control'])
-        )->addAttributes(['class' => 'form-group']);
-        $builder->block(
-            $builder->label('password')
-            , $builder->password('password', '')->addAttributes(['class' => 'form-control'])
-        )->addAttributes(['class' => 'form-group']);
+        $builder->add('username', Text::class);
+        $builder->add('password', Password::class);
+        $builder->add('remember_me', Checkbox::class, function ($r) {
+            $r->label = '';
+        });
 
-        $builder->block(
-            $builder->label('remember_me')
-            , $builder->checkbox('remember_me', '')
-        )->addAttributes(['class' => 'form-group']);
+        $builder->add('submit', Submit::class);
 
-        $builder->block($builder->submit('Login', 'Login')->addAttributes(['class' => 'btn btn-primary']))
-            ->addAttributes(['class' => 'form-group']);
         return $builder;
-    }
-
-    public function formID()
-    {
-        return 'user';
     }
 
     public function process(Request $request)
     {
+//        dump($request->session()->all());
         if (!$request->session()->has('logged')) {
-//            dump($request->all());
             if (isset($request->username)) {
-                $doctrine = $this->doctrine();
-                $user = $doctrine->getRepository('app\core\entity\User');
-                $data = $user->findOneBy(['username' => $request->username]);
-                if ($data) {
-                    $request->session()->set('logged', $data->getId());
+                $user = User::where('username', $request->username)->first();
+                if ($user) {
+                    $request->session()->set('logged', $user->id);
                     $this->redirect('admin.index');
                 }
             }
@@ -64,18 +53,4 @@ class AuthForm extends FormController
             $this->redirect('admin.index');
     }
 
-    function title()
-    {
-        // TODO: Implement title() method.
-    }
-
-    function handleFile($entity, UploadedFile $file)
-    {
-        // TODO: Implement handleFile() method.
-    }
-
-    public function validationRules()
-    {
-        // TODO: Implement validationRules() method.
-    }
 }

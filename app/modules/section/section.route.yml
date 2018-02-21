@@ -10,6 +10,24 @@ admin.section.image:
     _form: ntc\section\form\SectionImageForm
     _model: app\core\entity\SectionImage
     _title: create Section
+admin.section.image.upload:
+  path: /admin/section/image/upload
+  defaults:
+    _controller: ntc\section\form\SectionForm::ajaxUploadImage
+    _title: section image upload utitlity
+admin.section.image.delete:
+  path: /admin/section/image/delete/{id}
+  defaults:
+    _controller: ntc\section\form\SectionForm::ajaxDeleteImage
+    _title: section image upload utitlity
+admin.section.image.temp.url:
+  path: /app/modules/section/uploads/tmp/{name}
+  defaults:
+    _controller: ntc\section\form\SectionForm::ajaxUploadImage
+admin.section.image.url:
+  path: /app/modules/section/uploads/{id}/{name}
+  defaults:
+    _controller: ntc\section\form\SectionForm::ajaxUploadImage
 admin.section.update:
   path: /admin/section/{id}/edit
   defaults:
@@ -35,3 +53,5 @@ section.index:
     _title: section list
   options:
       _shop_route: true
+  requirements:
+    _permission: access section

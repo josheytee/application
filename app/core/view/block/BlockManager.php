@@ -55,7 +55,7 @@ class BlockManager implements BlockManagerInterface
         $page = [];
         $page['title'] = $this->titleResolver->getTitle($request, $routeMatch->getRouteObject());
         foreach ($this->default_regions as $region) {
-            $page[$region] = $this->region_manager->getContent($region);
+            $page[$region] = $this->region_manager->getContent($request, $region);
         }
 //    $libraries = $result['libraries'];
         $page['content'] = $result['content'];

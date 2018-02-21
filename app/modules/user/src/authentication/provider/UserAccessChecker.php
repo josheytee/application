@@ -20,13 +20,14 @@ class UserAccessChecker implements AuthenticationProviderInterface
      */
     public function __construct(AccountInterface $account)
     {
-
         $this->account = $account;
     }
 
     public function applies(Request $request)
     {
+        dump($request);
         $route = $request->get('_route_object');
+        dump($this->account->isAuthenticated());
         return $route->hasRequirement('_access');
     }
 
@@ -34,6 +35,7 @@ class UserAccessChecker implements AuthenticationProviderInterface
     {
         $route = $request->get('_route_object');
         $permission = $route->getRequirement('_access');
+        dump($request);
 //        dump($permission);
 //        dump($this->account->getPermissions());
 //        dump($this->account->hasPermissions($permission));

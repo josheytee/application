@@ -1,15 +1,15 @@
 paths:
-    migrations: app/model/migrations
-    seeds: app/model/seeds
+    migrations: app/core/entity/migration
+    seeds: app/core/entity/seed
 seed_base_class: app\core\database\Seeder
 migration_base_class: app\core\database\Migration
 environments:
-    default_migration_table: phinxlog
+    default_migration_table: ntc_eloquent_log
     default_database: development
     production:
         adapter: mysql
         host: localhost
-        name: ntc
+        name: eloquent
         user: root
         pass: ''
         port: 3306
@@ -18,7 +18,7 @@ environments:
     development:
         adapter: mysql
         host: localhost
-        name: ntc
+        name: eloquent
         user: root
         pass: ''
         port: 3306

@@ -28,7 +28,7 @@ class DatabaseManagementService extends KernelService
         $password = "";
 
         try {
-            $this->conn = new \PDO("mysql:host=$servername;dbname=ntc", $username, $password);
+            $this->conn = new \PDO("mysql:host=$servername;dbname=eloquent", $username, $password);
             // set the PDO error mode to exception
             $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->connected = true;

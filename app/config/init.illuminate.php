@@ -9,7 +9,7 @@ $capsule = new Capsule;
 $capsule->addConnection([
     'driver' => 'mysql',
     'host' => 'localhost',
-    'database' => 'ntc',
+    'database' => 'eloquent',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',

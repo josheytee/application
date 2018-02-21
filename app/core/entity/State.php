@@ -2,82 +2,17 @@
 
 namespace app\core\entity;
 
-/**
- * State
- */
-class State
+use Illuminate\Database\Eloquent\Model;
+
+
+class State extends Model
 {
-    /**
-     * @var integer
-     */
-    private $id = 0;
 
     /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $url;
-
-
-    /**
-     * Get id
+     * The attributes that aren't mass assignable.
      *
-     * @return integer
+     * @var array
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $guarded = [];
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return State
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return State
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
 }

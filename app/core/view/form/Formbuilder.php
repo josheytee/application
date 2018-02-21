@@ -2,232 +2,65 @@
 
 namespace app\core\view\form;
 
-use app\core\http\Request;
-use app\core\validation\Validator;
-use app\core\view\BuilderInterface;
-use app\core\view\form\elements;
-use app\core\view\form\elements\Select;
-use app\core\view\RenderableTrait;
 
-/**
- * handles form building
- * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
- */
-class Formbuilder implements BuilderInterface
+class FormBuilder
 {
+    protected $children = [];
+    protected $bag;
+    protected $form;
 
-    use RenderableTrait;
-
-    protected $elements = [];
-    protected $labels;
-    protected $help_blocks;
-    protected $attributes = '';
-    protected $method = 'POST';
-    protected $form_template = 'form/form';
-    protected $errors;
-    private $request;
-
-    public function __construct($template = null)
+    public function __construct()
     {
-        $this->setFormTemplate($template);
+        $this->form = Form::class;
     }
 
-    /**
-     * @param string $form_template
-     * @return $this
-     */
-    public function setFormTemplate($form_template)
+    function instantiate($child, $param)
     {
-        if ($form_template) {
-            $this->form_template = $form_template;
+        if (is_object($child) && $child instanceof FormChildren) {
+            return $child;
         }
+        return new $child($param);
+    }
+
+    public function add($name, $child, $callback = null)
+    {
+        $this->children[$name] = $this->instantiate($child, $name);
+        if (is_callable($callback)) {
+            call_user_func($callback, $this->children[$name]);
+        }
+    }
+
+    public function addSubmit($label)
+    {
+        $this->add('', Submit::class, function ($submit) use ($label) {
+            $submit->label = $label;
+        });
+    }
+
+    public function remove($name)
+    {
+        unset($this->children[$name]);
+    }
+
+    public function setFormBag($bag)
+    {
+        $this->bag = $bag;
         return $this;
     }
 
-    /**
-     * adds label for a element with the same name
-     * @param string $for
-     * @param string $value
-     * @return elements\Label
-     */
-    public function label($for, $value = '')
+    public function setForm($form)
     {
-        $this->labels[$for] = 'id_' . $for;
-        return $this->elements[md5($for)] = $this->element('label', $for, $value);
-    }
-
-    private function element($type, $name, $value = '', $default = null)
-    {
-        $type = \ucfirst($type);
-        $el_class = "app\\core\\view\\form\\elements\\{$type}";
-        return new $el_class($name, $value, $default);
-    }
-
-    public function text($name, $value = '')
-    {
-        (isset($this->request->$name) ? $value = $this->request->$name : '');
-        return $this->elements[$name] = $this->element('text', $name, $value);
-    }
-
-    public function email($name, $value = '')
-    {
-        (isset($this->request->$name) ? $value = $this->request->$name : '');
-        return $this->elements[$name] = $this->element('email', $name, $value);
-    }
-
-    public function password($name, $value = '')
-    {
-        (isset($this->request->$name) ? $value = $this->request->$name : '');
-        return $this->elements[$name] = $this->element('password', $name, $value);
-    }
-
-    public function file($name, $value = '')
-    {
-        return $this->elements[$name] = $this->element('file', $name, $value);
-    }
-
-    public function submit($value = '')
-    {
-        $name = '';
-        return $this->elements[$name] = $this->element('submit', $name, $value);
-    }
-
-    public function reset($name, $value = '')
-    {
-        return $this->elements[$name] = $this->element('reset', $name, $value);
-    }
-
-    public function radio($name, $value = '', $default = '')
-    {
-        (isset($this->request->$name) ? $default = $this->request->$name : '');
-        (isset($this->request->$name) ? $value = $this->request->$name : '');
-        if (is_array($value)) {
-            foreach ($value as $radio) {
-                $mu[$name][$radio] = $this->element('radio', $name, $radio, $default);
-            }
-            return $this->elements[$name] = $mu;
-        }
-        return $this->elements[$name] = $this->element('radio', $name, $value);
-    }
-
-    public function checkbox($name, $value = null, $default = null)
-    {
-        (isset($this->request->$name) ? $default = $this->request->$name : '');
-        if (is_array($value)) {
-            foreach ($value as $checkbox) {
-                $mu[$name][$checkbox] = $this->element('checkbox', $name, $checkbox);
-            }
-            return $this->elements[$name] = $mu;
-        }
-        return $this->elements[$name] = $this->element('checkbox', $name, $value, $default);
-    }
-
-    public function select($name, $value = '', $default = null)
-    {
-        return $this->elements[$name] = new Select($name, $value, $default);
-    }
-
-    public function block(...$elements)
-    {
-        $key = uniqid('block_');
-        $name = $attributes['name'] ?? '';
-        $block = new elements\Block($name);
-        if (isset($elements)) {
-            $block->addElements($elements);
-            foreach ($elements as $element) {
-                if (is_array($element)) {
-                    foreach ($element as $name => $group) {
-                        unset($this->elements[$name]);
-                    }
-                } else {
-                    unset($this->elements[$element->name]);
-                }
-            }
-        }
-        return $this->elements[$key] = $block;
-    }
-
-    public function help($text)
-    {
-        $name = uniqid();
-        $this->help_blocks[$name] = $name;
-        return $this->elements[$name] = $this->element('help', $name, $text);
-    }
-
-    public function textArea($name, $value = '')
-    {
-        (isset($this->request->$name) ? $value = $this->request->$name : '');
-        return $this->elements[$name] = $this->element('textArea', $name, $value);
-    }
-
-    public function hidden($name, $value = '')
-    {
-        (isset($this->request->$name) ? $value = $this->request->$name : '');
-        return $this->elements[$name] = $this->element('hidden', $name, $value);
-    }
-
-    public function validate(Request $request, $rules = [])
-    {
-        $validator = new Validator($request->all(), $rules);
-        return $validator->passes() ? true : $this->setErrors($validator->errors()->getMessages());
-    }
-
-    public function setErrors($error)
-    {
-        $this->errors = $error;
+        $this->form = $form;
         return $this;
     }
 
-    public function getMethod()
+    public function render()
     {
-        return $this->method;
-    }
-
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-        return $this;
-    }
-
-//    public function __toString()
-//    {
-//        return $this->fetch();
-//    }
-
-    public function fetch()
-    {
-        $form = '';
-        foreach ($this->elements as $element) {
-            if (is_array($element)) {
-                foreach ($element as $name => $group) {
-                    foreach ($group as $key => $button) {
-                        $form .= $button->render();
-                    }
-                }
-            }
-            $form .= $element->render();
+        $formClass = $this->form;
+        $form = new $formClass($this->bag);
+        foreach ($this->children as $name => $child) {
+            $form->addChildren($name, $child);
         }
-        return $this->renderTrait(
-            [
-                'attributes' => $this->getAttributes(),
-                'errors' => $this->errors,
-                'form_body' => $form
-            ], $this->form_template);
+        return $form->render();
     }
-
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * @param mixed $attributes
-     * @return $this
-     */
-    public function setAttributes($attributes)
-    {
-        $this->attributes = $attributes;
-        return $this;
-    }
-
 }

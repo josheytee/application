@@ -4,7 +4,6 @@ namespace ntc\shop\controller;
 
 use app\core\component\ComponentManager;
 use app\core\controller\ControllerBase;
-use app\core\entity\Shop;
 use app\core\http\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -33,10 +32,12 @@ class ShopController extends ControllerBase
 
     public function index(Request $request)
     {
-        $manager = $this->doctrine()->getRepository(Shop::class)->find(1);
-//        dump($manager);
         $components = $this->componentManager->getTargetComponents('shop');
-        return $this->render('ntc/shop/index', compact('components'));
+        $shop_components = '';
+        foreach ($components as $component) {
+            $shop_components .= $component->renderComponent($request);
+        }
+        return $this->render('ntc/shop/index', ['output' => $shop_components]);
     }
 
     public function home(Request $request)

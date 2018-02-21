@@ -3,6 +3,7 @@
 namespace app\core\theme\region;
 
 use app\core\component\ComponentManager;
+use app\core\http\Request;
 use app\core\theme\ThemeManager;
 use app\core\utility\ArrayHelper;
 use app\core\view\RenderableTrait;
@@ -56,15 +57,16 @@ class RegionManager implements RegionManagerInterface
     }
 
     /**
+     * @param Request $request
      * @param $region
      * @return null
      */
-    public function getContent($region)
+    public function getContent(Request $request, $region)
     {
         $components = $this->component_manager->getRegionComponents($region);
         $markup = [];
         foreach ($components as $id => $component) {
-            $markup[$id] = $component->renderComponent($region);
+            $markup[$id] = $component->renderComponent($request, $region);
         }
         return $this->renderTrait(['components' => $markup], 'layout/region');
 

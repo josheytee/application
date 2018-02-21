@@ -1,0 +1,3 @@
+create section:
+  title: 'Create new Section'
+  description: Makes user create section for the current shop

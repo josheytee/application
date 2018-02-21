@@ -4,7 +4,7 @@ use app\core\Context;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 
-$entitiesPath = array(__DIR__ . '/../core/entity/prototype');
+$entitiesPath = array(__DIR__ . '/../core/entity_doctrine/prototype');
 //$entitiesPath = array('C:\wamp\www\application\app\core\entity\prototype');
 // App configuration
 $dbParams = [
@@ -43,7 +43,7 @@ Gedmo\DoctrineExtensions::registerAbstractMappingIntoDriverChainORM(
 // for that we need another metadata driver used for Entity namespace
 $annotationDriver = new Doctrine\ORM\Mapping\Driver\AnnotationDriver(
     $cachedAnnotationReader, // our cached annotation reader
-    array(__DIR__ . '/../core/entity/prototype') // paths to look in
+    array(__DIR__ . '/../core/entity_doctrine/prototype') // paths to look in
 );
 // NOTE: driver for application Entity can be different, Yaml, Xml or whatever
 // register annotation driver for our application Entity fully qualified namespace

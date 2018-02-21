@@ -19,19 +19,20 @@ class Migration extends AbstractMigration
         $this->capsule = new Capsule;
         $this->capsule->addConnection([
             'driver' => 'mysql',
-            'host' => DB_HOST,
-            'port' => DB_PORT,
-            'database' => DB_NAME,
-            'username' => DB_USER,
-            'password' => DB_PASSWORD,
+            'host' => 'localhost',
+            'port' => 3306,
+            'database' => 'eloquent',
+            'username' => 'root',
+            'password' => '',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'engine' => 'Innodb'
         ]);
 
-        $this->capsule->bootEloquent();
         $this->capsule->setAsGlobal();
+        $this->capsule->bootEloquent();
         $this->schema = $this->capsule->schema();
+
     }
 
 }

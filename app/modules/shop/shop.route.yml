@@ -1,7 +1,7 @@
 admin.shop.add:
   path: admin/shop/create
   defaults:
-    _title: Amin | Home
+    _title: Amin | Create shop
     _form: ntc\shop\form\CreateShopForm
     _model: app\core\entity\Shop.create
 #    _key: url

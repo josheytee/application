@@ -3,21 +3,21 @@
         <div id="example1" class="core-slider core-slider__carousel example_1 is-loaded">
             <div class="core-slider_viewport">
                 <div class="core-slider_list" style="width: 3900px; transform: translateX(0px);">
+                    {*{foreach $paths as $path}{/foreach}*}
                     <div class="core-slider_item" style="width: 975px;">
-                        {*<img src="/application/app/themes/genesis/images/b1.jpg" class="img-responsive" alt="">*}
-                        <img src="/application/extensions/modules/ntc/shop/ntc/components/slider/img/b1.jpg"
+                        <img src="/application/app/modules/shop/public/1/slider/img/b1.jpg"
                              class="img-responsive" alt="">
                     </div>
                     <div class="core-slider_item" style="width: 975px;">
-                        <img src="/application/extensions/modules/ntc/shop/ntc/components/slider/img/b2.jpg"
+                        <img src="/application/app/modules/shop/public/1/slider/img/b2.jpg"
                              class="img-responsive" alt="">
                     </div>
                     <div class="core-slider_item" style="width: 975px;">
-                        <img src="/application/extensions/modules/ntc/shop/ntc/components/slider/img/b3.jpg"
+                        <img src="/application/app/modules/shop/public/1/slider/img/b3.jpg"
                              class="img-responsive" alt="">
                     </div>
                     <div class="core-slider_item" style="width: 975px;">
-                        <img src="/application/extensions/modules/ntc/shop/ntc/components/slider/img/b4.jpg"
+                        <img src="/application/app/modules/shop/public/1/slider/img/b4.jpg"
                              class="img-responsive" alt="">
                     </div>
                 </div>

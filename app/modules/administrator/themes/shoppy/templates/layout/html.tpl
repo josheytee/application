@@ -31,6 +31,8 @@
     <!-- js -->
     <script type="text/javascript"
             src="/application/app/modules/administrator/themes/shoppy/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript"
+            src="/application/app/modules/administrator/themes/shoppy/js/jquery.form.min.js"></script>
     <!-- js -->
     <!-- script-->
     <script type="application/x-javascript">

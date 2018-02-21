@@ -16,9 +16,9 @@ class ModuleRepositoryHandler extends BaseHandler
         return $this->parseFile('.route.yml');
     }
 
-    public function getPermission()
+    public function getPermissions()
     {
-        return $this->parseFile('.permission.yml');
+        return $this->parseFile('.permissions.yml');
     }
 
     public function getLibrary()

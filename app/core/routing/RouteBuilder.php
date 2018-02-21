@@ -66,22 +66,23 @@ class RouteBuilder
         foreach ($this->getRouteDefinitions() as $moduleId => $route_collection) {
             $collection[$moduleId] = new RouteCollection();
             foreach ($route_collection as $name => $route_info) {
-                $route_info += array(
-                    'defaults' => array(),
-                    'requirements' => array(),
-                    'options' => array(),
+                $route_info += [
+                    'defaults' => [],
+                    'requirements' => [],
+                    'options' => [],
                     'host' => NULL,
-                    'schemes' => array(),
-                    'methods' => array(),
+                    'schemes' => [],
+                    'methods' => [],
                     'condition' => '',
-                );
+                ];
 
                 $route = new Route($route_info['path'], $route_info['defaults'], $route_info['requirements'], $route_info['options'], $route_info['host'], $route_info['schemes'], $route_info['methods'], $route_info['condition']);
                 $collection[$moduleId]->add($name, $route);
             }
             $collection[$moduleId]->addOptions(['module' => $moduleId]);
-            $route_build_event[$moduleId] = $this->dispatcher->dispatch(RoutingEvents::ALTER, new RouteBuildEvent
-            ($collection[$moduleId]));
+            $route_build_event[$moduleId] = $this->dispatcher->dispatch(
+                RoutingEvents::ALTER, new RouteBuildEvent($collection[$moduleId])
+            );
             $this->dumper->addRoutes($route_build_event[$moduleId]->getRouteCollection());
         }
         $this->dumper->dump();

@@ -4,9 +4,16 @@ admin.user.register:
     _form: ntc\user\form\UserForm
     _model: app\core\entity\User
     _title: 'Add user'
+  requirements:
+      _permission: 'administer comments'
 admin.user.authorize:
   path: '/admin/user/auth'
   defaults:
     _form: ntc\user\form\AuthForm
     _title: 'Add user'
-
+admin.user.role:
+  path: '/admin/user/role'
+  defaults:
+    _form: ntc\user\form\RoleForm
+    _model: app\core\entity\Role
+    _title: user roles
