@@ -10,8 +10,8 @@ class RoleUserMigration extends Migration
         $this->schema->create('role_user', function (Illuminate\Database\Schema\Blueprint $table) {
             $table->engine = 'InnoDB';
             // Autoincrement id
-            $table->integer('role_id');
-            $table->integer('user_id');
+            $table->integer('role_id')->unsigned()->nullable()->index();
+            $table->integer('user_id')->unsigned()->nullable()->index();
             $table->index(['role_id', 'user_id']);
             $table->primary(['role_id', 'user_id']);
         });

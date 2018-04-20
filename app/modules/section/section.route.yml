@@ -46,6 +46,8 @@ admin.section.list:
     _list: ntc\section\listing\SectionList
     _model: app\core\entity\Section
     _title: section list
+  requirements:
+    _permission: view section
 section.index:
   path: /section/{url}
   defaults:
@@ -54,4 +56,4 @@ section.index:
   options:
       _shop_route: true
   requirements:
-    _permission: access section
+    _permission: create section

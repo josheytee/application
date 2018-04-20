@@ -9,8 +9,9 @@ class UserShopProductCategoryMigration extends Migration
         $this->schema->create('shop_user', function (Illuminate\Database\Schema\Blueprint $table) {
             $table->engine = 'InnoDB';
             // Autoincrement id
-            $table->integer('user_id');
-            $table->integer('shop_id');
+            $table->integer('user_id')->unsigned()->nullable()->index();
+            $table->integer('shop_id')->unsigned()->nullable()->index();
+            $table->integer('role_id')->unsigned()->nullable()->index();
             $table->primary(['shop_id', 'user_id']);
             $table->index(['shop_id', 'user_id']);
         });

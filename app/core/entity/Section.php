@@ -16,7 +16,7 @@ class Section extends Model
 
     public function parent()
     {
-        return $this->hasOne(Section::class, 'parent_id');
+        return $this->belongsTo(Section::class, 'parent_id');
     }
 
     public function images()

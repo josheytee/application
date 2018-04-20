@@ -3,7 +3,9 @@
 namespace ntc\user\access;
 
 use app\core\access\AccessCheckerInterface;
-use app\core\http\Request;
+use app\core\access\AccessResult;
+use app\core\account\AccountInterface;
+use Symfony\Component\Routing\Route;
 
 /**
  *
@@ -11,13 +13,21 @@ use app\core\http\Request;
 class PermissionsChecker implements AccessCheckerInterface
 {
 
-    public function check(Request $request, $account)
+
+    public function check(Route $route, AccountInterface $account)
     {
-        if ($permission = $request->get('_route_object')->hasRequirement('_permission')) {
-            dump($account->hasPermissions($permission));
+        $permission = $route->getRequirement('_permission');
+        if ($permission === NULL) {
+            return AccessResult::neutral();
         }
-//        dump($request->get('_route_object')->hasRequirement('_permission'));
-//        throw new \Exception('access denied');
-//        if($account->hasPermissions($request->))
+
+        // Allow to conjunct the permissions with OR ('+') or AND (',').
+        $split = explode(',', $permission);
+        if (count($split) > 1) {
+            return AccessResult::allowedIfHasPermissions($account, $split, 'AND');
+        } else {
+            $split = explode('+', $permission);
+            return AccessResult::allowedIfHasPermissions($account, $split, 'OR');
+        }
     }
 }

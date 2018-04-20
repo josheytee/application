@@ -2,8 +2,8 @@
 
 namespace app\core\access;
 
-use app\core\http\Request;
-
+use Symfony\Component\Routing\Route;
+use app\core\account\AccountInterface;
 
 /**
  *
@@ -11,5 +11,6 @@ use app\core\http\Request;
  */
 interface AccessCheckerInterface
 {
-    public function check(Request $request, $account);
+
+  public function check(Route $route, AccountInterface $account);
 }

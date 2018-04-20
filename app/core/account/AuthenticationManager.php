@@ -15,16 +15,13 @@ class AuthenticationManager implements AuthenticationProviderInterface
      * @var AuthenticationCollector
      */
     private $auth_collector;
+    private $provider_ids;
 
     public function __construct(AuthenticationCollector $auth_collector)
     {
         $this->auth_collector = $auth_collector;
     }
 
-    public function applies(Request $request)
-    {
-        return (bool)$this->getProvider($request);
-    }
 
     /**
      * Returns the id of the authentication provider for a request.
@@ -38,6 +35,7 @@ class AuthenticationManager implements AuthenticationProviderInterface
      */
     protected function getProvider(Request $request)
     {
+//        dump($this->auth_collector->getSortedProviders());
         foreach ($this->auth_collector->getSortedProviders() as $provider_id => $provider) {
             if ($provider->applies($request)) {
                 return $provider_id;
@@ -57,4 +55,8 @@ class AuthenticationManager implements AuthenticationProviderInterface
         return NULL;
     }
 
+    public function applies(Request $request)
+    {
+        return (bool) $this->getProvider($request);
+    }
 }

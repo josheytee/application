@@ -2,9 +2,8 @@
 
 namespace app\core\account;
 
-use app\core\Context;
+use app\core\entity\Role;
 use app\core\entity\User;
-
 
 /**
  *
@@ -22,11 +21,12 @@ class UserAccount implements AccountInterface
     {
 
         $this->user = $user;
+//        dump($user);
     }
 
     public function getAccountName()
     {
-        return $this->user->firstname.' '.$this->user->lastname;
+        return $this->user->firstname . ' ' . $this->user->lastname;
     }
 
     public function getEmail()
@@ -49,14 +49,19 @@ class UserAccount implements AccountInterface
         return $this->user->username;
     }
 
-    public function hasPermissions($permission)
+    public function getPermissions()
+    {
+        return $this->user->permissions();
+    }
+
+    public function hasPermission($permission): bool
     {
         return in_array($permission, $this->getPermissions());
     }
 
-    public function getPermissions()
+    public function getRole()
     {
-        return $this->user->permissions;
+        return Role::find($this->user->shops()->first());
     }
 
     public function id()
@@ -85,5 +90,6 @@ class UserAccount implements AccountInterface
     {
         return '';
     }
+
 
 }

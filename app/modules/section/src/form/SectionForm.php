@@ -62,7 +62,7 @@ class SectionForm extends FormController
     {
         $section = Section::create([
             'name' => $request->name,
-            'parent_id' => $request->parent,
+            'parent_id' => $request->parent_id,
             'url' => $request->url,
             'description' => $request->description,
             'shop_id' => $request->current_shop

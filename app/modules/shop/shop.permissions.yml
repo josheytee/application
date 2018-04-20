@@ -1,0 +1,6 @@
+create shop:
+  title: Create new shop
+  description: Makes user create section for the current shop
+view shop:
+  title: View Shop list
+  description: Makes user view the content of the shop

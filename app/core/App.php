@@ -201,6 +201,7 @@ class App implements AppInterface, TerminableInterface
         $container->addCompilerPass(new dependencyInjection\compiler\StackedKernelPass());
         $container->addCompilerPass(new dependencyInjection\compiler\RegisterLazyRouteEnhancersPass());
         $container->addCompilerPass(new dependencyInjection\compiler\DoctrineEnumPass());
+        $container->addCompilerPass(new dependencyInjection\compiler\RegisterAccessChecksPass());
     }
 
     /**
@@ -210,7 +211,7 @@ class App implements AppInterface, TerminableInterface
      */
     protected function getHttpKernel()
     {
-        return $this->container->get('stacked.http_kernel');
+        return $this->container->get('http_kernel');
     }
 
     public function terminate(BaseRequest $request, BaseResponse $response)

@@ -1,3 +1,6 @@
 create section:
-  title: 'Create new Section'
+  title: Create new Section
   description: Makes user create section for the current shop
+view section:
+  title: View Secion list
+  description: Makes user view sections for the current shop

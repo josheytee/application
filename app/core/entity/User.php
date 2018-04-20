@@ -4,7 +4,6 @@ namespace app\core\entity;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class User extends Model
 {
 
@@ -22,12 +21,17 @@ class User extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Shop::class)->withPivot('role');
+    }
+
+    public function permissions()
+    {
+        return Role::findOrFail($this->roles()->first()->pivot->role)->permissions;
     }
 
     public function shops()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Shop::class);
     }
 
 }

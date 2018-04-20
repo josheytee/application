@@ -2,6 +2,7 @@
 
 namespace app\core\routing;
 
+use app\core\access\AccessCheckerCollector;
 use app\core\module\ModuleManager;
 use app\core\routing\event\RouteBuildEvent;
 use app\core\routing\event\RoutingEvents;
@@ -28,11 +29,16 @@ class RouteBuilder
      */
     private $dispatcher;
     private $manager;
+    /**
+     * @var AccessCheckerCollector
+     */
+    private $checkerCollector;
 
-    public function __construct(ModuleManager $manager, Dumper $dumper, EventDispatcherInterface $dispatcher)
+    public function __construct(ModuleManager $manager, Dumper $dumper,AccessCheckerCollector $checkerCollector, EventDispatcherInterface $dispatcher)
     {
         $this->manager = $manager;
         $this->dispatcher = $dispatcher;
+        $this->checkerCollector = $checkerCollector;
         $this->dumper = $dumper;
     }
 
@@ -83,7 +89,9 @@ class RouteBuilder
             $route_build_event[$moduleId] = $this->dispatcher->dispatch(
                 RoutingEvents::ALTER, new RouteBuildEvent($collection[$moduleId])
             );
+            $this->checkerCollector->setChecks($collection[$moduleId]);
             $this->dumper->addRoutes($route_build_event[$moduleId]->getRouteCollection());
+
         }
         $this->dumper->dump();
         $this->building = FALSE;

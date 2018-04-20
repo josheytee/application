@@ -6,8 +6,8 @@ use app\core\access\AccessChecker;
 use app\core\account\AccountInterface;
 use Symfony\Cmf\Component\Routing\ChainRouter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\Route;
 
 /**
  * Description of AccessAwareRouter
@@ -20,38 +20,38 @@ class AccessAwareRouter implements AccessAwareRouterInterface
     /**
      * @var AccessChecker
      */
-    private $access_checker;
+    private $accessChecker;
 
     /**
      * @var ChainRouter
      */
-    private $chain_router;
+    private $chainRouter;
     /**
      * @var AccountInterface
      */
     private $account;
 
-    public function __construct(ChainRouter $chain_router, AccessChecker $access_checker, AccountInterface $account)
+    public function __construct(ChainRouter $chainRouter, AccessChecker $accessChecker, AccountInterface $account)
     {
 
-        $this->chain_router = $chain_router;
-        $this->access_checker = $access_checker;
+        $this->chainRouter = $chainRouter;
+        $this->accessChecker = $accessChecker;
         $this->account = $account;
     }
 
     public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH): string
     {
-        return $this->chain_router->generate($name, $parameters, $referenceType);
+        return $this->chainRouter->generate($name, $parameters, $referenceType);
     }
 
     public function getContext()
     {
-        return $this->chain_router->getContext();
+        return $this->chainRouter->getContext();
     }
 
     public function getRouteCollection()
     {
-        return $this->chain_router->getRouteCollection();
+        return $this->chainRouter->getRouteCollection();
     }
 
     public function match($pathinfo)
@@ -61,7 +61,10 @@ class AccessAwareRouter implements AccessAwareRouterInterface
 
     public function matchRequest(Request $request)
     {
-        $parameters = $this->chain_router->matchRequest($request);
+        $parameters = $this->chainRouter->matchRequest($request);
+
+//        dump($parameters);
+//        dump($request);
         $request->attributes->add($parameters);
         $this->checkAccess($request);
         // We can not return $parameters because the access check can change the
@@ -71,11 +74,15 @@ class AccessAwareRouter implements AccessAwareRouterInterface
 
     public function setContext(RequestContext $context)
     {
-        $this->chain_router->setContext($context);
+        $this->chainRouter->setContext($context);
     }
 
     protected function checkAccess(Request $request)
     {
-        $this->access_checker->checkRequest($request, $this->account);
+//        dump($this->account,'aacc');
+        $result = $this->accessChecker->checkRequest($request, $this->account, TRUE);
+        if (!$result->isAllowed()) {
+            throw new AccessDeniedHttpException();
+        }
     }
 }

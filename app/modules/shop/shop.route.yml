@@ -84,7 +84,7 @@ shop.index:
     _controller: ntc\shop\controller\ShopController::index
     url: hello
   requirements:
-    _access: fop
+    _permission: view shop
     url: .+
   options:
       _shop_route: true

@@ -90,14 +90,13 @@ services:
     class: app\core\routing\Dumper
   router.builder:
     class: app\core\routing\RouteBuilder
-    arguments: ['@module.manager','@router.dumper','@event.dispatcher']
+    arguments: ['@module.manager','@router.dumper','@access.checker.collector','@event.dispatcher']
   access.checker:
     class: app\core\access\AccessChecker
-    arguments: ['@access_checker.collector']
-  access_checker.collector:
+    arguments: ['@access.checker.collector','@current_user']
+  access.checker.collector:
     class: app\core\access\AccessCheckerCollector
-    tags:
-      - { name: resolver_collector, tag: access_checker, call: addChecker }
+    parent: container.trait
 
   router.access:
     class: app\core\routing\AccessAwareRouter
@@ -193,7 +192,7 @@ services:
       - { name: event_subscriber }
   router.handler:
     class: Symfony\Component\HttpKernel\EventListener\RouterListener
-    arguments: ['@router.access', '@request.stack', '@request.context', NULL]
+    arguments: ['@router.no_access_checks', '@request.stack', '@request.context', NULL]
     tags:
       - { name: event_subscriber }
   route_enhancer_subscriber:
