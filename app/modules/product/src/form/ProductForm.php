@@ -3,6 +3,7 @@
 namespace ntc\product\form;
 
 use app\core\controller\FormController;
+use app\core\entity\Product;
 use app\core\entity\ProductImage;
 use app\core\http\Request;
 use app\core\utility\ImageUploadTrait;
@@ -19,6 +20,7 @@ use ntc\shop\form\field\CurrentShop;
 
 class ProductForm extends FormController
 {
+
     use ImageUploadTrait;
 
     public function __construct()
@@ -43,16 +45,15 @@ class ProductForm extends FormController
         $builder->add('name', Text::class);
         $builder->add('description', TextArea::class);
         $builder->add('section_id', SectionParent::class, function ($section) {
-            $section->name = "section";
+            $section->label = "section";
         });
         $builder->add('price', Text::class);
         $builder->add('options', Checkbox::class, function ($options) {
             $options->checks = [
                 'active',
                 'availability' => [
-                    'text' => 'Available for order',
-                    'value' => 0,
-                    'toggle' => 'yes|no'
+                    'label' => 'Available for order',
+                    'value' => 1,
                 ],
             ];
         });
@@ -65,7 +66,7 @@ class ProductForm extends FormController
         });
 
 //        $builder->add('availability', Text::class);
-        $builder->add('mata_title', Text::class);
+        $builder->add('meta_title', Text::class);
         $builder->add('meta_description', Text::class);
         $builder->add('meta_keywords', Text::class);
         $builder->add('link_rewrite', Text::class);
@@ -77,12 +78,59 @@ class ProductForm extends FormController
             $images->deleteUrl = "http://localhost/application/admin/product/image/delete/";
         });
 
-        $builder->add('submit', Submit::class);
+        $builder->addSubmit('addProduct');
         return $builder;
     }
 
     public function createEntity(Request $request)
     {
-        dump($request->all());
+//        dump($request->all());
+        $rawProductData = $request->all();
+        $productModelData = array_diff_key($rawProductData, ['images' => []]);
+//        dump($productModelData);
+
+        $product = Product::create($productModelData);
+
+        $dir = $this->upload_dir . '/' . $product->id;
+        is_dir($dir) ?: mkdir($dir);
+        foreach ((array) $request->images as $id => $name) {
+            $from = realpath($this->tmp_dir . '/' . $name);
+            $to = $dir . '/' . $name;
+            if (rename($from, $to))
+            {
+                ProductImage::where('id', $id)->update([
+                    'path' => $this->generateUrl('admin.product.image.url', ['id' => $product->id, 'name' => $name]),
+                    'product_id' => $product->id
+                ]);
+            }
+        }
+        return true;
     }
+
+    protected function updateEntity(Request $request, $id)
+    {
+//        dump($request->all());
+        $rawProductData = $request->all();
+        $productModelData = array_diff_key($rawProductData, ['images' => []]);
+//        dump($productModelData);
+
+
+        Product::where('id', $id)->update($productModelData);
+
+        $dir = $this->upload_dir . '/' . $id;
+        is_dir($dir) ?: mkdir($dir);
+        foreach ((array) $request->images as $img_id => $name) {
+            $from = realpath($this->tmp_dir . '/' . $name);
+            $to = $dir . '/' . $name;
+            if (rename($from, $to))
+            {
+                ProductImage::where('id', $img_id)->update([
+                    'path' => $this->generateUrl('admin.product.image.url', ['id' => $id, 'name' => $name]),
+                    'product_id' => $id
+                ]);
+            }
+        }
+        return true;
+    }
+
 }

@@ -43,9 +43,9 @@ class AuthorizationSubscriber implements EventSubscriberInterface
 //            dump($this->accountProxy);
             $request = $event->getRequest();
             $result = $this->accessChecker->checkRequest($request, $this->accountProxy, TRUE);
-//            dump($result);
-            if (!$result->isAllowed()) {
-                throw new AccessDeniedHttpException();
+
+            if (!$result->isAllowed() && !$result->isNeutral()) {
+                throw new AccessDeniedHttpException('you are not allowed here sir');
             }
         }
     }

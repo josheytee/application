@@ -2,6 +2,8 @@ params:
   default-class:
     region
 regions:
+  usernav:
+    - ntc\user\topnav
   header_top:
     - ntc\shop\hotline
     - ntc\shop\account

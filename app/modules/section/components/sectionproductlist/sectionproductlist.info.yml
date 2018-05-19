@@ -1,6 +1,6 @@
 name: Section Product list
 description: Displays products list in section page
-target: section
+target: ntc\section
 author: ntc
 package: ntc\section\sectionproductlist
 icon: hello.png

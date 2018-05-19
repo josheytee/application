@@ -61,6 +61,8 @@ class ActiveTheme
      * @var array
      */
     protected $regions;
+
+    protected $main_region;
     protected $config;
     protected $extension;
 
@@ -89,6 +91,7 @@ class ActiveTheme
             'extension' => '.tpl',
             'base_themes' => [],
             'regions' => [],
+            'main_region' => 'content',
             'libraries_override' => [],
             'libraries_extend' => [],
             'config' => [],
@@ -103,6 +106,7 @@ class ActiveTheme
         $this->config = $values['config'];
         $this->base_themes = $values['base_themes'];
         $this->regions = $values['regions'];
+        $this->main_region = $values['main_region'];
         $this->libraries_override = $values['libraries_override'];
         $this->libraries_extend = $values['libraries_extend'];
     }
@@ -160,6 +164,10 @@ class ActiveTheme
         if (!is_null($this->regions))
             return array_keys($this->regions);
         throw new \Exception('regions must defined inside ' . $this->name . '.info.yml file');
+    }
+  public function getMainRegion()
+    {
+       return $this->main_region;
     }
 
     /**

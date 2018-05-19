@@ -26,7 +26,7 @@ admin.product.edit:
     _title: Admin | Edit Product
     _form: ntc\product\form\ProductForm
     _model: app\core\entity\Product.update
-    id: 1
+#    id: 1
   requirements:
     tab: .+
     id: \d+
@@ -66,3 +66,7 @@ admin.product.image.temp.url:
     path: /app/modules/product/uploads/tmp/{name}
     defaults:
       _controller: ntc\product\form\ProductForm::ajaxUploadImage
+admin.product.image.url:
+  path: /app/modules/product/uploads/{id}/{name}
+  defaults:
+    _controller: ntc\section\form\ProductForm::ajaxUploadImage

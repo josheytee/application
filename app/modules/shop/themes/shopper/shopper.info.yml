@@ -5,11 +5,14 @@ package: ntc\shop\shopper
 base theme: false
 engine: smarty
 regions:
-  header_top: Top Header
-  header_bottom: Bottom Header
+  top_bar: Top Header
+  navbar: Bottom Header
+  slider: slider
+  headerText: Header Text
   breadcrumb: Banner
 #  highlight: Highlight
   sidebar: SideBar
   container: Container
   footer: Footer
+  copyright: copyright
 libraries: makm.js

@@ -13,7 +13,7 @@ class AnonymousUser extends UserAccount
 
     public function __construct()
     {
-        $this->user = new User();
+        $this->user =  new User();
     }
 
 }

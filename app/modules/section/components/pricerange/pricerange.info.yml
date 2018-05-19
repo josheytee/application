@@ -1,6 +1,6 @@
 name: Price Range
 description: Displays the price range component
-target: front
+target: ntc\section
 author: ntc
 package: ntc\section\pricerange
 icon: hello.png

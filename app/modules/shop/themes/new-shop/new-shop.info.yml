@@ -5,6 +5,7 @@ package: ntc\shop\new-shop
 base theme: false
 engine: smarty
 regions:
+  usernav: nisjj
   header_top: Top Header
   header_bottom: Bottom Header
   breadcrumb: Banner

@@ -1,0 +1,12 @@
+name: Dashboard
+type: module
+description: Manages admin dash board components
+package: ntc\dashboard
+dependencies:
+  required:
+  - administrator
+  - user
+  - shop
+  optional:
+  - user
+

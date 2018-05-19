@@ -42,7 +42,7 @@ abstract class ListController extends ControllerBase
     {
         $page = $request->get('page', 1);
         $s = $this->getModel($request);
-        $p = $s::paginate(3,null,null,$page);
+        $p = $s::where('shop_id', $this->currentShop()->id)->paginate(3,null,null,$page);
         $window = UrlWindow::make($p);
 
         $this->elements = array_filter([

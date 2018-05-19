@@ -1,0 +1,9 @@
+cart.index:
+  path: '/cart/{key}'
+  defaults:
+    _title: 'Amin | Product'
+    _controller: 'ntc\order\controller\CartController::index'
+  requirements:
+    _permission: 'administer actions'
+  options:
+    _shop_route: true

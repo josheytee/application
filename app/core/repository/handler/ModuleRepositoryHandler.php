@@ -25,4 +25,8 @@ class ModuleRepositoryHandler extends BaseHandler
     {
         return $this->parseFile('.libraries.yml');
     }
+
+    public function getCustom($custom){
+        return $this->parseFile(".$custom.yml");
+    }
 }

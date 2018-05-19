@@ -32,8 +32,14 @@ class FormBag
             $return = $storage->$key;
         }
         return $return;
-
     }
-
+    public function all()
+    {
+      $return=[];
+      foreach ($this->storage as $storage) {
+          $return = $storage->all();
+      }
+      return $return;
+    }
 
 }

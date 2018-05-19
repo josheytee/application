@@ -7,11 +7,13 @@ use app\core\entity\Section;
 use app\core\entity\SectionImage;
 use app\core\http\Request;
 use app\core\utility\ImageUploadTrait;
+use app\core\view\form\Component;
 use app\core\view\form\File;
 use app\core\view\form\FormBuilder;
 use app\core\view\form\Submit;
 use app\core\view\form\Text;
 use app\core\view\form\TextArea;
+use ntc\component\form\field\ComponentField;
 use ntc\section\form\field\SectionParent;
 use ntc\shop\form\field\CurrentShop;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -53,6 +55,9 @@ class SectionForm extends FormController
         });
         $builder->add('url', Text::class);
         $builder->add('description', TextArea::class);
+        $builder->add('components', ComponentField::class, function ($component) {
+            $component->target = 'ntc\section';
+        });
 
         $builder->add('submit', Submit::class);
         return $builder;

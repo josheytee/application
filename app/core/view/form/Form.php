@@ -27,6 +27,8 @@ class Form
     public function render()
     {
         $form_body = '';
+        // dump($this->children);
+        // dump($this->bag);
         foreach ($this->children as $name => $child) {
             if ($this->bag->has($name)) {
                 $child->value = $this->bag->get($name);

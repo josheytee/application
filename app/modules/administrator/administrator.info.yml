@@ -8,3 +8,4 @@ theme: system
 configure: admin.settings
 dependencies:
   - user
+  - shop

@@ -5,7 +5,7 @@
             <div class="radio">
                 <label>
                     <input type="radio" name="{$name}" id="optionsRadios1"
-                           value="{$key}"{if $key==$value} selected{/if}>
+                           value="{$key}"{if $key==$value} checked{/if}>
                     {$text}
                 </label>
             </div>

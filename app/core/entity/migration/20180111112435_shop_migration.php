@@ -14,6 +14,8 @@ class ShopMigration extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('url');
+            $table->string('theme');
+            $table->text('components');
             // Required for Eloquent's created_at and updated_at columns
             $table->timestamps();
             $table->index('id');

@@ -80,7 +80,7 @@ admin.shop.activity.list:
 shop.index:
   path: shop/{url}
   defaults:
-    _title: ntc | Shop
+    _title_callback: ntc\shop\controller\ShopController::getTitle
     _controller: ntc\shop\controller\ShopController::index
     url: hello
   requirements:

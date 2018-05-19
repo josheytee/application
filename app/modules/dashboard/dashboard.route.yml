@@ -1,0 +1,9 @@
+admin.dashboard.index:
+  path: '/admin/dashboard'
+  defaults:
+    _title: 'Admin | dashboard'
+    _controller: 'ntc\dashboard\controller\DashBoardController::index'
+  requirements:
+    _permission: 'administer actions'
+  options:
+    _admin_route: true

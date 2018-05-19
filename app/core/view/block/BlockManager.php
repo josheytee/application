@@ -45,7 +45,6 @@ class BlockManager implements BlockManagerInterface
 
         $this->theme = $theme;
         $this->config = $config;
-        $this->default_regions = $this->theme->getActiveTheme()->getRegions();
         $this->region_manager = $region_manager;
         $this->titleResolver = $titleResolver;
     }
@@ -54,14 +53,13 @@ class BlockManager implements BlockManagerInterface
     {
         $page = [];
         $page['title'] = $this->titleResolver->getTitle($request, $routeMatch->getRouteObject());
-        foreach ($this->default_regions as $region) {
+        foreach ($this->theme->getActiveTheme()->getRegions() as $region) {
             $page[$region] = $this->region_manager->getContent($request, $region);
         }
 //    $libraries = $result['libraries'];
-        $page['content'] = $result['content'];
+        $page[$this->theme->getActiveTheme()->getMainRegion()] = $result['content'];
 
-        $response = new Response($this->render($page, $routeMatch));
-        return $response;
+        return new Response($this->render($page, $routeMatch));
     }
 
     public function render($page, RouteMatchInterface $routeMatch)

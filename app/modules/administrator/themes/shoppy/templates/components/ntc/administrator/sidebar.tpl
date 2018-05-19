@@ -43,7 +43,8 @@
             </li>
 
             <li><a href="charts.html"><i class="fa fa-bar-chart"></i><span style="position: absolute;">Cart</span></a></li>
-            <li><a href="#"><i class="fa fa-envelope"></i><span style="position: absolute;">Themes</span>
+            <li>
+                <a href="#"><i class="fa fa-envelope"></i><span style="position: absolute;">Themes</span>
                     <span class="fa fa-angle-right" style="float: right; position: absolute;"></span></a>
                 <ul id="menu-academico-sub">
                     <li id="menu-academico-avaliacoes"><a href="inbox.html">Inbox</a></li>

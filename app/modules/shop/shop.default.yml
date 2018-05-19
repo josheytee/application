@@ -1,0 +1,5 @@
+components:
+  - ntc\shop\slider
+  - ntc\shop\featured
+  - ntc\shop\trends
+default_theme: ntc\shop\new-shop

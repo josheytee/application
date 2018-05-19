@@ -36,7 +36,8 @@
     "stack/builder": "^1.0",
     "zendframework/zend-diactoros": "^1.5",
     "symfony/psr-http-message-bridge": "^1.0",
-    "gedmo/doctrine-extensions": "^2.4"
+    "gedmo/doctrine-extensions": "^2.4",
+    "kalnoy/nestedset": "^4.3"
   },
   "autoload": {
     "psr-0": {

@@ -1,0 +1,4 @@
+components:
+  - ntc\product\slider
+  - ntc\product\featured
+  - ntc\product\trends

@@ -8,12 +8,12 @@ namespace app\core\access;
 class AccessResultNeutral extends AccessResult
 {
 
-  /**
-   * {@inheritdoc}
-   */
-  public function isNeutral()
-  {
-    return TRUE;
-  }
+    /**
+     * {@inheritdoc}
+     */
+    public function isNeutral()
+    {
+        return TRUE;
+    }
 
 }

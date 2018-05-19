@@ -4,7 +4,6 @@
 	{$page.breadcrumb}
 	<div class="content">
 		<div class="products-agileinfo">
-			<h2 class="tittle">Women's Wear</h2>
 			<div class="container">
 				<div class="product-agileinfo-grids w3l">
 					{$page.highlight}

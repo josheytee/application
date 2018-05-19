@@ -49,14 +49,17 @@ trait ImageUploadTrait
 
     public function ajaxDeleteImage(Request $request, $id)
     {
-        $image = $this->image_model::find($id);
-        if (unlink('C:/wamp/www' . $image->path)) {
-            $image->delete();
-            echo json_encode(['message' => 'image deleted']);
+        try {
+            $image = $this->image_model::find($id);
+            if (unlink('C:/wamp/www' . $image->path)) {
+                $image->delete();
+                echo json_encode(['message' => 'image deleted']);
+                die;
+            }
+        } catch (\Exception $exception) {
+            echo json_encode(['message' => $exception->getMessage()]);
             die;
         }
-        echo json_encode(['message' => 'something went wrong']);
-        die;
     }
 
 }

@@ -16,7 +16,8 @@ use app\core\view\form\TextArea;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class CreateShopForm extends FormController
+class
+CreateShopForm extends FormController
 {
 
     public function build(Formbuilder $builder)

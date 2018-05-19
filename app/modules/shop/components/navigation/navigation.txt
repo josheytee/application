@@ -1,0 +1,12 @@
+dashboard
+orders
+products
+messages
+customers
+reports
+ratings
+payments
+
+
+modules
+components

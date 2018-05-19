@@ -4,6 +4,6 @@ services:
    arguments: ['@current.route.match']
   shop.theme.resolver:
    class: ntc\shop\theme\ShopThemeResolver
-   arguments: ['@context.shop']
+   arguments: ['@context.shop','@module.repository']
    tags:
      - { name: 'theme' ,priority : 30}

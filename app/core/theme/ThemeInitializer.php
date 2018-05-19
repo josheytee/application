@@ -28,6 +28,7 @@ class ThemeInitializer
         $value = [
             'name' => $theme_data['name'],
             'regions' => $theme_data['regions'],
+            'main_region' => $theme_data['main_region'] ?? 'content',
             'libraries' => $theme_data['libraries'],
             'path' => $this->getThemeData($name)['path'],
             'base_themes' => $theme_data['base_themes'] ?? null,

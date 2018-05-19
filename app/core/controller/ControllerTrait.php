@@ -2,8 +2,10 @@
 
 namespace app\core\controller;
 
+use app\core\account\AnonymousUser;
 use app\core\Context;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -41,12 +43,15 @@ trait ControllerTrait
 
     public function currentUser()
     {
+        if ($this->container->get('current_user') instanceof AnonymousUser) {
+            throw new AccessDeniedHttpException();
+        }
         return $this->container->get('current_user');
     }
 
     public function currentShop()
     {
-        return $this->container->get('current_user')->getCurrentShop();
+        return $this->currentUser()->getCurrentShop();
     }
 
     /**

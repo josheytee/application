@@ -2,30 +2,31 @@ params:
   default-class:
     region
 regions:
-  header_top:
-    - ntc\shop\hotline
+  top_bar:
+    - ntc\shop\search
+    # - ntc\shop\hotline
     - ntc\shop\account
-  header_bottom:
+  navbar:
     - ntc\shop\logo
     - ntc\shop\navigation
-    - ntc\shop\search
-    - ntc\shop\cart
-  breadcrumb:
-    - ntc\shop\breadcrumb
-  highlight:
+    # - ntc\shop\cart
+  slider:
+#    - ntc\shop\slider
+  headerText:
   sidebar:
-    - ntc\section\sections
-    - ntc\section\pricerange
-    - top\rates\product
-    - brand filter
-    - ads 4:7
-  container:
-    name: Container
+    # - ntc\section\sections
+    # - ntc\section\pricerange
+    # - top\rates\product
+    # - brand filter
+    # - ads 4:7
+  content:
+#    name: Container
+     - ntc\shop\featured
   footer:
-    - about
-    - ntc\shop\account
-    - information
-    - contacts
+    # - about
+    # - ntc\shop\account
+    # - information
+    # - contacts
 shop:
   components:
     -kdk

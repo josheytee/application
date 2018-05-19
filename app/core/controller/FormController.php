@@ -17,7 +17,9 @@ use Illuminate\Support\Str;
  */
 abstract class FormController extends ControllerBase
 {
+
     use ArrayHelper;
+
     protected $attributes = [];
     protected $redirctUrl = '/';
     protected $redirectRoute = 'admin.index';
@@ -25,10 +27,12 @@ abstract class FormController extends ControllerBase
     public function create(Request $request, Formbuilder $builder, $id = 0)
     {
 
-        if (!empty($request->all())) {
+        if (!empty($request->all()))
+        {
 //            $validator = $this->validate($request->all());
 //            $validator->passes() ?
-            if ($this->createEntity($request)) {
+            if ($this->createEntity($request))
+            {
                 $this->redirectToRoute($this->redirectRoute);
             }
 //                :$errors = $this->handleValidationErrors($validator);
@@ -38,11 +42,10 @@ abstract class FormController extends ControllerBase
         $formBag = new FormBag();
         $formBag->addStorage($request);
         $return['content'] = $this->build($builder)
-            ->setFormBag($formBag)
-            ->render();
+                ->setFormBag($formBag)
+                ->render();
         return $return;
     }
-                
 
     function validate($all)
     {
@@ -53,7 +56,7 @@ abstract class FormController extends ControllerBase
     {
         $validator = new Validator($request->all(), $params ?? []);
         return $validator->passes() ? $this->createEntity($request) :
-            $errors = $this->handleValidationErrors($validator);
+                $errors = $this->handleValidationErrors($validator);
     }
 
     public function createEntity(Request $request)
@@ -63,17 +66,21 @@ abstract class FormController extends ControllerBase
         $dependencies = $this->getDependencies();
         $entity = new $model();
 //        dump($entity);
-        if ($dependencies) {
-            if (is_array($dependencies)) {
+        if ($dependencies)
+        {
+            if (is_array($dependencies))
+            {
                 foreach ($dependencies as $property => $dependency) {
                     $propertyIdentifier = 'id';
                     $mappedProperty = $property;
-                    if (strpos($property, '|')) {
+                    if (strpos($property, '|'))
+                    {
                         list($mappedProperty, $propertyIdentifier) = explode('|', $property);
                         $propertyIdentifier = trim($propertyIdentifier);
                         $mappedProperty = trim($mappedProperty);
                     }
-                    if (property_exists($model, $mappedProperty)) {
+                    if (property_exists($model, $mappedProperty))
+                    {
                         $mappedPropertyObject = $doctrine->getRepository($dependency)->findOneBy([$propertyIdentifier => $request->{$mappedProperty}]);
                         if ($mappedPropertyObject == null)
                             $mappedPropertyObject = new $dependency();
@@ -82,12 +89,15 @@ abstract class FormController extends ControllerBase
                 }
                 $sett = array_replace_recursive($request->all(), $array_replacing);
             }
-        } else {
+        } else
+        {
             $sett = $request->all();
         }
-        if (isset($sett)) {
+        if (isset($sett))
+        {
             foreach ($sett as $key => $value) {
-                if ($key == 'file') {
+                if ($key == 'file')
+                {
 //                    $this->handleFile($entity, $value);
                     continue;
                 }
@@ -97,7 +107,8 @@ abstract class FormController extends ControllerBase
 //
         dump($entity);
         dump($request->all());
-        if (!empty($request->all())) {
+        if (!empty($request->all()))
+        {
             $doctrine->persist($entity);
             $doctrine->flush();
         }
@@ -114,7 +125,8 @@ abstract class FormController extends ControllerBase
      */
     function object_set($object, $key, $value = null)
     {
-        if (is_null($key) || trim($key) == '') {
+        if (is_null($key) || trim($key) == '')
+        {
             return $object;
         }
         $object = $object->{'set' . Str::studly($key)}($value);
@@ -131,7 +143,8 @@ abstract class FormController extends ControllerBase
     public function getEntity(Request $request, $id)
     {
         $model = $this->getModel($request);
-        if ($id === 0) {
+        if ($id === 0)
+        {
             return new $model();
         }
         return $this->doctrine()->find($model, $id);
@@ -140,12 +153,12 @@ abstract class FormController extends ControllerBase
     public function formAttributes()
     {
         return $this->processArray([
-                'id' => '',
-                'class' => '',
-                'method' => 'post',
-                'action' => '',
-                'enctype' => "multipart/form-data"
-            ] + $this->attributes);
+                    'id' => '',
+                    'class' => '',
+                    'method' => 'post',
+                    'action' => '',
+                    'enctype' => "multipart/form-data"
+                        ] + $this->attributes);
     }
 
     public function options($request, $params = [])
@@ -180,12 +193,13 @@ abstract class FormController extends ControllerBase
         $errors = null;
         $formBag = new FormBag();
         $formBag->addStorage($request);
-        if ($this->validate($request->all())) {
+        if ($this->validate($request->all()))
+        {
             $this->process($request);
         }
         $return['content'] = $this->build($builder)
-            ->setFormBag($formBag)
-            ->render();
+                ->setFormBag($formBag)
+                ->render();
         return $return;
     }
 
@@ -196,10 +210,12 @@ abstract class FormController extends ControllerBase
 
     public function update(Request $request, Formbuilder $builder, $id)
     {
-        if (!empty($request->all())) {
+        if (!empty($request->all()))
+        {
 //            $validator = $this->validate($request->all());
 //            $validator->passes() ?
-            if ($this->updateEntity($request)) {
+            if ($this->updateEntity($request, $id))
+            {
                 $this->redirectToRoute($this->redirectRoute);
             }
 //                :$errors = $this->handleValidationErrors($validator);
@@ -209,9 +225,10 @@ abstract class FormController extends ControllerBase
         $formBag = new FormBag();
         $formBag->addStorage($request);
         $formBag->addStorage($model::find($id));
+        //dump($model::find($id));
         $return['content'] = $this->build($builder)
-            ->setFormBag($formBag)
-            ->render();
+                ->setFormBag($formBag)
+                ->render();
         return $return;
     }
 
@@ -222,34 +239,41 @@ abstract class FormController extends ControllerBase
         $doctrine = $this->doctrine();
         $dependencies = $this->getDependencies();
         $entity = $doctrine->getRepository($model)->findOneBy([$key => $id]);
-        if ($dependencies) {
-            if (is_array($dependencies)) {
+        if ($dependencies)
+        {
+            if (is_array($dependencies))
+            {
                 foreach ($dependencies as $property => $dependency) {
                     $propertyIdentifier = 'id';
                     $mappedProperty = $property;
-                    if (strpos($property, '|')) {
+                    if (strpos($property, '|'))
+                    {
                         list($mappedProperty, $propertyIdentifier) = explode('|', $property);
                         $propertyIdentifier = trim($propertyIdentifier);
                         $mappedProperty = trim($mappedProperty);
                     }
-                    if (property_exists($model, $mappedProperty)) {
+                    if (property_exists($model, $mappedProperty))
+                    {
                         $mappedPropertyObject = $doctrine->getRepository($dependency)->findOneBy([$propertyIdentifier => $request->{$mappedProperty}]);
                     }
                     $array_replacing[$mappedProperty] = $mappedPropertyObject;
                 }
                 $sett = array_replace_recursive($request->all(), $array_replacing);
             }
-        } else {
+        } else
+        {
             $sett = $request->all();
         }
-        if (isset($sett)) {
+        if (isset($sett))
+        {
             foreach ($sett as $key => $value) {
                 $this->object_set($entity, $key, $value);
             }
         }
 //        dump($entity);
 //        dump($request->all());
-        if (!empty($request->all())) {
+        if (!empty($request->all()))
+        {
             $doctrine->flush();
         }
     }
@@ -263,7 +287,8 @@ abstract class FormController extends ControllerBase
     {
         $doctrine = $this->doctrine();
         $entity = $doctrine->find($this->getModel($request), $id);
-        if (!$entity) {
+        if (!$entity)
+        {
             throw new \Exception('Entity not found');
         }
 // Delete the entity and flush
@@ -281,12 +306,14 @@ abstract class FormController extends ControllerBase
      */
     function object_get($object, $key, $default = null)
     {
-        if (is_null($key) || trim($key) == '') {
+        if (is_null($key) || trim($key) == '')
+        {
             return $object;
         }
 
         foreach (explode('.', $key) as $segment) {
-            if (!is_object($object) || !isset($object->{$segment})) {
+            if (!is_object($object) || !isset($object->{$segment}))
+            {
                 return value($default);
             }
 

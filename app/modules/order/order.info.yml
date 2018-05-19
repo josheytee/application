@@ -1,0 +1,12 @@
+name: Order
+type: module
+description: Manages orders and cart
+package: ntc\order
+dependencies:
+  required:
+  - administrator
+  - user
+  - shop
+  optional:
+  - user
+

@@ -1,7 +1,7 @@
 name: Sections
 description: "lorep isum freeme lorep isum freeme lorep isum
 freeme lorep isum freeme lorep isum freeme "
-target: front
+target: ntc\section
 author: ntc
 package: ntc\section\sections
 icon: hello.png

@@ -19,7 +19,6 @@ class UserAccount implements AccountInterface
 
     public function __construct(User $user)
     {
-
         $this->user = $user;
 //        dump($user);
     }
@@ -78,12 +77,12 @@ class UserAccount implements AccountInterface
 
     public function isAnonymous()
     {
-        return $this->id == 0;
+        return $this->user->id == 0;
     }
 
     public function isAuthenticated()
     {
-        return $this->id > 0;
+        return $this->user->id > 0;
     }
 
     public function getPicture()

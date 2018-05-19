@@ -1,8 +1,7 @@
 name: Brand
 type: component
 package: ntc\administrator\brand
-description: "lorep isum freeme lorep isum freeme lorep isum
-freeme lorep isum freeme lorep isum freeme "
+description: manages the brand of a shop in the admin template
 target: admin
 author: ntc
 icon: hello.png

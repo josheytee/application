@@ -14,7 +14,7 @@ abstract class FormChildren
     public $value;
     public $type;
     public $defaultValue;
-    public $custom = false;
+    public $customTemplate = false;
 
     public function __construct($name)
     {
@@ -34,9 +34,13 @@ abstract class FormChildren
 
     public function setCustomTemplate($template)
     {
-        $this->custom = true;
-        $this->template = $template;
+        $this->customTemplate = $template;
         return $this;
+    }
+
+    public function getCustomTemplate()
+    {
+        return $this->customTemplate;
     }
 
     public function assign()
@@ -51,9 +55,9 @@ abstract class FormChildren
 
     public function render()
     {
-        if ($this->custom) {
-            return $this->renderCustomTrait($this->getTemplate(), $this->assign());
+        if ($this->templateExist($this->getTemplate())) {
+            return $this->renderTrait($this->assign(), $this->getTemplate());
         }
-        return $this->renderTrait($this->assign(), $this->getTemplate());
+        return $this->renderCustomTrait($this->getCustomTemplate(), $this->assign());
     }
 }

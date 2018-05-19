@@ -1,5 +1,5 @@
 {*{if $components}*}
 {foreach $components as $component}
-    {$component}
+  {$component}
 {/foreach}
 {*{/if}*}
