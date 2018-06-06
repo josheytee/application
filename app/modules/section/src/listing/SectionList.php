@@ -46,7 +46,7 @@ class SectionList extends ListController
             'name' => 'Preview',
             'route' => 'section.index',
             'params' => [
-                'url' => $entity->url
+                'shop_url' => $entity->url
             ]
         ],
         'delete' => [

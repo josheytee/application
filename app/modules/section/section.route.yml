@@ -49,9 +49,18 @@ admin.section.list:
   requirements:
     _permission: view section
 section.index:
-  path: /section/{url}
+  path: shop/{shop_url}/sections
   defaults:
     _controller: ntc\section\controller\SectionController::index
+    _title: Admin | Section List
+  options:
+      _shop_route: true
+  requirements:
+    _permission: create section
+section.single:
+  path: shop/{shop_url}/section/{section_url}
+  defaults:
+    _controller: ntc\section\controller\SectionController::single
     _title: section list
   options:
       _shop_route: true

@@ -4,6 +4,7 @@ namespace ntc\shop\navigation;
 
 use app\core\component\Component;
 use app\core\entity\Section;
+use app\core\entity\Shop;
 use app\core\http\Request;
 use app\core\view\form\Formbuilder;
 use app\core\view\form\Submit;
@@ -13,10 +14,11 @@ class Navigation extends Component
 {
 
     private $themeManager;
+    private $shop_url;
 
     public function init(Request $request)
     {
-//        dump($this->themeManager());
+        $this->shop_url = $request->get('shop_url');
         $this->themeManager = $this->themeManager();
     }
 
@@ -38,11 +40,12 @@ class Navigation extends Component
 
     public function render()
     {
-        $sections = Section::where('shop_id', $this->currentShop()->id)
+        $sections = Section::where('shop_id', Shop::where('url', $this->shop_url)->first()->id)
             ->orderBy('name', 'desc')
             ->take(10)
             ->get();
-        return $this->display('ntc/shop/navigation', compact('sections'));
+        return $this->display('ntc/shop/navigation', ['sections' => $sections,
+            'shop_url' => $this->shop_url]);
     }
 
 }

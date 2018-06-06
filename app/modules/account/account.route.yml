@@ -1,0 +1,43 @@
+admin.user.register:
+  path: '/admin/user/register'
+  defaults:
+    _form: ntc\account\form\UserForm
+    _model: app\core\entity\User
+    _title: 'Add user'
+  requirements:
+      _permission: 'administer comments'
+admin.user.address.create:
+  path: '/admin/user/address/create'
+  defaults:
+    _form: ntc\account\form\UserAddressForm
+    _model: app\core\entity\User
+    _title: 'Create Address'
+  requirements:
+      _permission: 'administer comments'
+admin.user.address.edit:
+  path: '/admin/user/address/{id}/edit'
+  defaults:
+    _form: ntc\account\form\UserAddressForm
+    _model: app\core\entity\User.update
+    _title: 'Update Address'
+  requirements:
+      _permission: 'administer comments'
+admin.user.address.delete:
+  path: '/admin/user/address/{id}/delete'
+  defaults:
+    _form: ntc\account\form\UserAddressForm
+    _model: app\core\entity\User.delete
+    _title: 'Delete Address'
+  requirements:
+      _permission: 'administer comments'
+admin.user.authorize:
+  path: '/admin/user/auth'
+  defaults:
+    _form: ntc\account\form\AuthForm
+    _title: 'Authorize user'
+admin.user.role:
+  path: '/admin/user/role'
+  defaults:
+    _form: ntc\account\form\RoleForm
+    _model: app\core\entity\Role
+    _title: user roles

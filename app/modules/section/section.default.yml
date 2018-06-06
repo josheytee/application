@@ -1,4 +1,9 @@
-components:
-  - ntc\section\slider
+index:
+  - ntc\section\sections
+  - ntc\shop\featured
+  - ntc\shop\trends
+single:
+  - ntc\section\sectionimages
+  - ntc\section\sectionproductlist
   - ntc\shop\featured
   - ntc\shop\trends

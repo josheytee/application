@@ -13,9 +13,9 @@ class Sections extends Component
 
     public function init(Request $request)
     {
-        if (!isset($request->url)) {
-            throw new NotFoundHttpException();
-        }
+//        if (!isset($request->url)) {
+//            throw new NotFoundHttpException();
+//        }
         $this->name = $request->url;
 //        dump(Section::where('name', $this->name)->first());
 //        dump($this->name);

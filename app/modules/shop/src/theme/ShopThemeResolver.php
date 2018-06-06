@@ -37,7 +37,7 @@ class ShopThemeResolver implements ActiveThemeResolverInterface
 
     public function resolveActiveTheme(RouteMatchInterface $route_match)
     {
-        $url = $route_match->getParameter('url');
+        $url = $route_match->getParameter('shop_url');
         $shop = Shop::where('url', $url)->first();
         if (isset($url) && !empty($shop->theme)) {
             return $shop->theme;

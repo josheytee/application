@@ -42,7 +42,7 @@ abstract class ListController extends ControllerBase
     {
         $page = $request->get('page', 1);
         $s = $this->getModel($request);
-        $p = $s::where('shop_id', $this->currentShop()->id)->paginate(3,null,null,$page);
+        $p = $s::where('shop_id', $this->currentShop()->id)->paginate(3, null, null, $page);
         $window = UrlWindow::make($p);
 
         $this->elements = array_filter([
@@ -57,9 +57,19 @@ abstract class ListController extends ControllerBase
 
     }
 
+    // Only validates empty or completely associative arrays
+    function is_assoc($arr)
+    {
+        return (is_array($arr) && count(array_filter(array_keys($arr), 'is_string')) == count($arr));
+    }
+
     public function processHead()
     {
-        return $this->head();
+        if ($this->is_assoc($this->head()))
+            return $this->head();
+        return array_map(function ($e) {
+            return ucwords($e);
+        }, $this->head());
     }
 
     abstract function head();

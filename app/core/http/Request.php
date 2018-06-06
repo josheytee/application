@@ -270,4 +270,15 @@ class Request extends BaseRequest implements \ArrayAccess
     {
 
     }
+    /**
+     * Retrieve a file from the request.
+     *
+     * @param  string  $key
+     * @param  mixed  $default
+     * @return \Symfony\Component\HttpFoundation\File\UploadedFile|array|null
+     */
+    public function file($key = null, $default = null)
+    {
+        return data_get($this->allFiles(), $key, $default);
+    }
 }

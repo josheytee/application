@@ -1,0 +1,11 @@
+name: cart
+type: component
+package: ntc\order\cart
+description: cart component for the order wizard
+target: ntc\order
+author: ntc
+icon: hello.png
+version: 1.2.3
+region:  header
+#dependencies:
+#    - type guesser

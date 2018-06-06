@@ -11,6 +11,7 @@
         </div>
     {/foreach}
 {/if}
+
 <form method="post" action="" enctype="multipart/form-data" class="form-horizontal">
     {if isset($form_body)}{$form_body}{/if}
 </form>

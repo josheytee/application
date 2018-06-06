@@ -1,0 +1,12 @@
+name: Carrier
+type: module
+description: Manages all that deals with shippments
+package: ntc\carrier
+dependencies:
+  required:
+  - administrator
+  - user
+  - shop
+  optional:
+  - user
+

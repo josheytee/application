@@ -1,0 +1,8 @@
+name: Address
+type: component
+package: ntc\account\address
+description: Displays the address of the current user
+target: ntc\account
+author: ntc
+icon: address.png
+version: 1.0.0

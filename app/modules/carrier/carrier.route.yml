@@ -1,0 +1,63 @@
+carrier.index:
+  path: /carrier
+  defaults:
+    name: ~
+    _title: Carrier | NTC
+    _controller: ntc\carrier\controller\CarrierController::index
+  requirements:
+    _permission: administer actions
+carrier.single:
+  path: /carrier/{url}
+  defaults:
+    name: ~
+    _title: Carrier | NTC
+    _controller: ntc\carrier\controller\CarrierController::single
+  requirements:
+    _permission: administer actions
+carrier.logo.url:
+  path: /app/modules/carrier/uploads/{id}/{name}
+  defaults:
+    _controller: ntc\section\form\SectionForm::ajaxUploadImage
+admin.carrier.list:
+  path: /admin/carriers
+  defaults:
+    name: ~
+    _title: Carrier | NTC
+    _list: ntc\carrier\listing\CarrierList
+    _model: app\core\entity\Carrier
+  requirements:
+    _permission: administer actions
+
+admin.carrier.delete:
+  path: admin/carrier/{id}/delete
+  defaults:
+    _title: Admin | Delete Carrier
+    _form: ntc\carrier\form\CarrierForm
+    _model: app\core\entity\carrier.delete
+  requirements:
+    id: \d+
+    _permission: administer actions
+
+admin.carrier.create:
+  path: admin/carrier/add
+  defaults:
+    tab: Information
+    _title: Admin | Carrier
+    _form: ntc\carrier\form\CarrierForm
+    _model: app\core\entity\Carrier.create
+  requirements:
+    tab: .+
+    _permission: administer actions
+
+admin.carrier.edit:
+  path: admin/carrier/{id}/edit
+  defaults:
+    tab: information
+    _title: Admin | Edit Carrier
+    _form: ntc\carrier\form\CarrierForm
+    _model: app\core\entity\Carrier.update
+#    id: 1
+  requirements:
+    tab: .+
+    id: \d+
+    _permission: administer actions

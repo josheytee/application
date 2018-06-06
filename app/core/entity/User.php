@@ -34,4 +34,9 @@ class User extends Model
         return $this->belongsToMany(Shop::class);
     }
 
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
 }

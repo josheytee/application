@@ -1,0 +1,11 @@
+name: Shipping
+type: component
+package: ntc\carrier\shipping
+description: top navigation that shows user panel and settings 
+target: ntc\carrier
+author: ntc
+icon: topnav.png
+version: 1.0.0
+region:  header
+#dependencies:
+#    - type guesser

@@ -78,13 +78,13 @@ admin.shop.activity.list:
     _permission: administer actions
 
 shop.index:
-  path: shop/{url}
+  path: shop/{shop_url}
   defaults:
     _title_callback: ntc\shop\controller\ShopController::getTitle
     _controller: ntc\shop\controller\ShopController::index
-    url: hello
+    shop_url: hello
   requirements:
     _permission: view shop
-    url: .+
+    shop_url: .+
   options:
       _shop_route: true

@@ -1,8 +1,26 @@
 cart.index:
   path: '/cart/{key}'
   defaults:
-    _title: 'Amin | Product'
+    _title: 'cart | ntc'
     _controller: 'ntc\order\controller\CartController::index'
+  requirements:
+    _permission: 'administer actions'
+  options:
+    _shop_route: true
+order.index:
+  path: '/order/{step}'
+  defaults:
+    _title: 'order | ntc'
+    step: 0
+    _controller: 'ntc\order\controller\OrderController::index'
+  requirements:
+    _permission: 'administer actions'
+  options:
+    _shop_route: true
+order.cart.add:
+  path: '/cart/add/{shop_id}/{product_id}'
+  defaults:
+    _controller: 'ntc\order\controller\CartController::addToCart'
   requirements:
     _permission: 'administer actions'
   options:

@@ -37,10 +37,10 @@ class ShopController extends ControllerBase
         return new static($container->get('module.repository'), $container->get('component.manager'));
     }
 
-    public function index(Request $request, $url)
+    public function index(Request $request, $shop_url)
     {
         $shop_components = '';
-        $shop = Shop::where('url', $url)->first();
+        $shop = Shop::where('url', $shop_url)->first();
         $default = $this->moduleRepository->getRepository('ntc\shop')->getCustom('default');
         if (is_array($shop->components)) {
             $default['components'] = $shop->components;
@@ -57,8 +57,8 @@ class ShopController extends ControllerBase
         dump($this->componentManager->getTargetComponents('shop'));
     }
 
-    public function getTitle($url){
-        return "ntc | $url";
+    public function getTitle($shop_url){
+        return "ntc | $shop_url";
     }
 
 }

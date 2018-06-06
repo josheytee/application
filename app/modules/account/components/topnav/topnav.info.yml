@@ -1,0 +1,11 @@
+name: Topnav
+type: component
+package: ntc\account\topnav
+description: top navigation that shows user panel and settings 
+target: admin
+author: ntc
+icon: topnav.png
+version: 1.0.0
+region:  header
+#dependencies:
+#    - type guesser

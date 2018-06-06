@@ -1,0 +1,8 @@
+payment.index:
+  path: '/payment'
+  defaults:
+    name: ~
+    _title: 'Payment | NTC'
+    _controller: 'ntc\payment\controller\PaymentController::index'
+  requirements:
+    _permission: 'administer actions'

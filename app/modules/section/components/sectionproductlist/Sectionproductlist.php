@@ -16,10 +16,10 @@ class Sectionproductlist extends Component
 
     public function init(Request $request)
     {
-        if (!isset($request->url)) {
+        if (!isset($request->section_url)) {
             throw new NotFoundHttpException("url does not exist");
         }
-        $this->url = $request->url;
+        $this->url = $request->section_url;
         $this->section = Section::where('url', $this->url)
             ->where('shop_id', $this->currentShop()->id)
             ->first();

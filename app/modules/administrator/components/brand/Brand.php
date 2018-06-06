@@ -19,7 +19,7 @@ class Brand extends Component
     {
         return $this->display('ntc/administrator/brand', [
                'name' => $this->shop->name,
-               'params' => ['url' => $this->shop->url],
+               'params' => ['shop_url' => $this->shop->url],
                 'route' => 'shop.index'
 //                {route n='shop.index' p=$url|default:''}
             ]

@@ -16,7 +16,11 @@
                 {foreach $sections as $section}
                     {*{$section->images}*}
                     <li class="">
-                        <a href="{route n='section.index' p=['url'=>$section->url]}" class="act">{$section->name}</a>
+                        <a href="{route n='section.single' p=[
+                        'shop_url' => $shop_url,
+                        'section_url' => $section->url
+                        ]}"
+                           class="act">{$section->name}</a>
                     </li>
                 {/foreach}
             </ul>

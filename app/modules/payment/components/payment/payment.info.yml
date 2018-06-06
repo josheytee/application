@@ -1,0 +1,11 @@
+name: Brand
+type: component
+package: ntc\payment\payment
+description: manages the payments
+target: ntc\payment
+author: ntc
+icon: hello.png
+version: 1.0.0
+region:  header
+#dependencies:
+#    - type guesser

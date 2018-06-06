@@ -1,0 +1,12 @@
+name: Payment
+type: module
+description: Manages all that has to do with payment
+package: ntc\payment
+dependencies:
+  required:
+  - administrator
+  - user
+  - shop
+  optional:
+  - user
+
