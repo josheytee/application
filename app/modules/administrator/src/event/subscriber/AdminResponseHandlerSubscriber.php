@@ -4,7 +4,7 @@ namespace ntc\administrator\event\subscriber;
 
 use app\core\routing\AdminContext;
 use app\core\routing\RouteMatchInterface;
-use app\core\view\block\BlockManagerInterface;
+use app\core\theme\block\BlockManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;

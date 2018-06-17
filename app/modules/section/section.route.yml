@@ -41,7 +41,7 @@ admin.section.delete:
     _model: app\core\entity\Section
     _title: delete Section
 admin.section.list:
-  path: /admin/section/list
+  path: /admin/sections
   defaults:
     _list: ntc\section\listing\SectionList
     _model: app\core\entity\Section

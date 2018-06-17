@@ -1,42 +1,50 @@
 admin.user.register:
-  path: '/admin/user/register'
+  path: /admin/user/register
   defaults:
     _form: ntc\account\form\UserForm
     _model: app\core\entity\User
-    _title: 'Add user'
+    _title: Add user
   requirements:
-      _permission: 'administer comments'
+      _permission: administer comments
 admin.user.address.create:
-  path: '/admin/user/address/create'
+  path: /admin/user/address/create
   defaults:
     _form: ntc\account\form\UserAddressForm
     _model: app\core\entity\User
-    _title: 'Create Address'
+    _title: Create Address
   requirements:
-      _permission: 'administer comments'
+      _permission: administer comments
 admin.user.address.edit:
-  path: '/admin/user/address/{id}/edit'
+  path: /admin/user/address/{id}/edit
   defaults:
     _form: ntc\account\form\UserAddressForm
-    _model: app\core\entity\User.update
-    _title: 'Update Address'
+    _model: app\core\entity\UserAddress.update
+    _title: Update Address
   requirements:
-      _permission: 'administer comments'
+      _permission: administer comments
+admin.user.address.list:
+  path: /admin/user/addresses
+  defaults:
+    _list: ntc\account\listing\UserAddressList
+    _model: app\core\entity\UserAddress
+    _title: Update Address
+  requirements:
+      _permission: administer comments
 admin.user.address.delete:
-  path: '/admin/user/address/{id}/delete'
+  path: /admin/user/address/{id}/delete
   defaults:
     _form: ntc\account\form\UserAddressForm
-    _model: app\core\entity\User.delete
-    _title: 'Delete Address'
+    _model: app\core\entity\UserAddress.delete
+    _title: Delete Address
   requirements:
-      _permission: 'administer comments'
+      _permission: administer comments
 admin.user.authorize:
-  path: '/admin/user/auth'
+  path: /admin/user/auth
   defaults:
     _form: ntc\account\form\AuthForm
-    _title: 'Authorize user'
+    _title: Authorize user
 admin.user.role:
-  path: '/admin/user/role'
+  path: /admin/user/role
   defaults:
     _form: ntc\account\form\RoleForm
     _model: app\core\entity\Role

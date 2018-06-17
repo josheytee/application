@@ -33,7 +33,7 @@ admin.product.edit:
     _permission: administer actions
 
 admin.product.list:
-  path: admin/product/list
+  path: admin/products
   defaults:
     _title: Admin | Product List
     _list: ntc\product\listing\ProductList

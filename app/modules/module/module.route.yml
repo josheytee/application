@@ -1,0 +1,23 @@
+module.index:
+  path: admin/modules
+  defaults:
+    id: ~
+    _title: Admin | Modules
+    _controller: ntc\module\controller\ModuleController::index
+  requirements:
+    _permission: administer actions
+
+module.single:
+  path: admin/module/{id}
+  defaults:
+    id: ~
+    _title: Admin | Module
+    _controller: ntc\module\controller\ModuleController::single
+
+
+module.configure:
+  path: admin/module/{id}/configure
+  defaults:
+    id: ~
+    _title: Admin | Module
+    _controller: ntc\module\controller\ModuleController::configure

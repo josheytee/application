@@ -1,62 +1,49 @@
 <?php
 
-namespace ntc\account\controller;
+namespace ntc\account\listing;
 
-use app\core\controller\ControllerBase;
 use app\core\controller\ListController;
-use app\core\http\Request;
-use app\core\repository\ModuleRepository;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class UserAddressList extends ListController
 {
-    /**
-     * @var ModuleRepository
-     */
-    private $moduleRepository;
-
-    public function __construct(ModuleRepository $moduleRepository)
+    public function __construct()
     {
-        $this->moduleRepository = $moduleRepository;
-    }
-
-    public static function inject(ContainerInterface $container)
-    {
-        return new static($container->get('module.repository'));
-    }
-
-    public function listing(Request $request)
-    {
-        dump(serialize([]));
-//        dump($this->moduleRepository->getRepositories());
-        foreach ($this->moduleRepository->getRepositories() as $namespace => $handler) {
-            dump($handler->getPermissions());
-        }
-        return ['content' => 'dnmw;oqm'];
+        $this->shop_dependent = false;
     }
 
     function head()
     {
-        // TODO: Implement head() method.
+        return ['ID', 'state', 'alias', 'address1', 'address2'];
     }
 
     function row($entity)
     {
-        // TODO: Implement row() method.
-    }
-
-    function rowOperations($entity)
-    {
-        // TODO: Implement rowOperations() method.
-    }
-
-    function headOperations($entity)
-    {
-        // TODO: Implement headOperations() method.
+        $row['id'] = $entity->id;
+        $row['state'] = $entity->state->name;
+        $row['alias'] = $entity->alias;
+        $row['address1'] = $entity->address1;
+        $row['address2'] = $entity->address2;
+        return $row;
     }
 
     function bulkOperation()
     {
         // TODO: Implement bulkOperation() method.
     }
+
+    function rowOperations($entity)
+    {
+        return ['edit' => ['name' => 'Edit', 'route' => 'admin.user.address.edit', 'params' => ['id' => $entity->id]],  'delete' => ['name' => 'Delete', 'route' => 'admin.user.address.delete', 'params' => ['id' => $entity->id]]];
+    }
+
+    function title()
+    {
+        return 'User Addresses';
+    }
+
+    public function headOperations($entity)
+    {
+        return ['add' => ['name' => 'Add', 'route' => 'admin.section.create', 'icon' => 'glyphicon glyphicon-plus-sign']];
+    }
+
 }

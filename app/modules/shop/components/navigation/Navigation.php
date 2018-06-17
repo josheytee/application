@@ -25,7 +25,7 @@ class Navigation extends Component
     public function configure(Request $request, Formbuilder $builder)
     {
         $builder->add('name', Text::class);
-        $builder->add('submit', Submit::class);
+        $builder->addSubmit('submit');
         return parent::configure($request, $builder);
     }
 

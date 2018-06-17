@@ -6,3 +6,8 @@ product.add:
     - core/jquery
     - core/drupal
     - core/drupal.form
+product.cart:
+  js:
+    product.js: {}
+  version: 1.0.0
+  dependencies:

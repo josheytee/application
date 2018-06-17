@@ -10,7 +10,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @author Agbeja Oluwatobiloba <tobiagbeja4 at gmail.com>
  */
-class Repository implements RepositoryInterface, RepositoryValidator
+class Repository implements RepositoryInterface,RepositoryValidator
 {
 
     protected $repository;
@@ -57,11 +57,13 @@ class Repository implements RepositoryInterface, RepositoryValidator
     public function validate($dir)
     {
         if (file_exists($dir->getPathName() . DS . $dir->getFileName() . '.info.yml')) {
-//        dump($this->getDirectories());
-//        dump($dir->getPathName());
+//            dump($this->getDirectories());
+//            dump($dir->getPathName());
+//            dump($dir->getFileName());
+//            dump($dir);
             $info = $dir->getPathName() . DS . $dir->getFileName() . '.info.yml';
             $yml = Yaml::parse(file_get_contents($info));
-            $this->repository[$yml['package'] ?? ''] = new $this->handler($dir->getFileName(), $dir->getPathName());
+            $this->repository[$yml['package'] ?? ''] = new $this->handler($dir->getFileName(),$dir->getPathName());
         }
     }
 

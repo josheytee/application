@@ -16,17 +16,15 @@ class Cart extends Component
         $this->user = $this->currentUser();
     }
 
-    public function getProductsFromCart()
-    {
-        $cart = CartEntity::where('user_id', $this->user->id())->first();
-//        dump($cart->products)
-        return ($cart->products);
-    }
 
     public function render()
     {
+        $cart = CartEntity::where('user_id', $this->user->id())->first();
+//        dump($cart);
+//        dump($cart->products);
         return $this->display('ntc/order/cart', [
-                'products' => $this->getProductsFromCart()
+                'cart_id' => $cart->id,
+                'products' => $cart->products
             ]
         );
     }

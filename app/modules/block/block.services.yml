@@ -1,6 +1,0 @@
-services:
-  block.layout_filter:
-    class: ntc\block\subscriber\LayoutFilterSubscriber
-    arguments: ["@theme.manager"]
-    tags:
-#      - { name: event_subscriber }

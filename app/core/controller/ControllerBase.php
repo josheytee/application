@@ -55,7 +55,6 @@ abstract class ControllerBase implements ContainerInjectionInterface, ContainerA
     public function renderCustom($template, $content = '')
     {
         $return = [];
-        $return['libraries'] = '';
         $return['content'] = $this->renderCustomTrait($template, $content);
         return $return;
     }
@@ -63,7 +62,6 @@ abstract class ControllerBase implements ContainerInjectionInterface, ContainerA
     public function render($template, $content = '')
     {
         $return = [];
-        $return['libraries'] = '';
         $return['content'] = $this->renderTrait($content, $template);
         return $return;
     }

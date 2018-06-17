@@ -147,9 +147,12 @@ services:
   title.resolver:
     class: app\core\controller\TitleResolver
     arguments: ['@controller.resolver','@argument.resolver']
+  library.manager:
+    class: app\core\theme\library\LibraryManager
+    arguments: ['@theme.manager','@library.handler.resolver']
   block.manager:
-    class: app\core\view\block\BlockManager
-    arguments: ['@theme.manager','@region.manager','@title.resolver']
+    class: app\core\theme\block\BlockManager
+    arguments: ['@theme.manager','@region.manager','@library.manager','@title.resolver']
   region.manager:
     class: app\core\theme\region\RegionManager
     arguments: ['@component.manager','@theme.manager']
@@ -226,7 +229,21 @@ services:
   active.theme.resolver:
     class: app\core\theme\ActiveThemeResolver
     tags:
-      - {name : 'resolver_collector',tag: 'theme', call: 'addResolver'}
+      - {name : resolver_collector,tag: theme, call: addResolver}
+  library.handler.resolver:
+    class: app\core\theme\library\LibraryHandlerResolver
+    tags:
+      - {name : resolver_collector,tag: library_handler}
+  js.library.handler:
+    class: app\core\theme\library\handler\JsLibraryHandler
+    arguments: ['@theme.manager']
+    tags:
+      - { name: library_handler}
+  css.library.handler:
+    class: app\core\theme\library\handler\CssLibraryHandler
+    arguments: ['@theme.manager']
+    tags:
+      - { name: library_handler}
   front.theme.resolver:
     class: app\core\theme\DefaultThemeResolver
     tags:

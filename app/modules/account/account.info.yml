@@ -5,6 +5,7 @@ package: ntc\account
 # version: VERSION
 # core: 8.x
 configure: admin.settings
+author: ntc
 dependencies:
   required:
   - administrator

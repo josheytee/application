@@ -3,7 +3,7 @@
 namespace app\core\event\subscriber;
 
 use app\core\routing\RouteMatchInterface;
-use app\core\view\block\BlockManager;
+use app\core\theme\block\BlockManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -19,31 +19,31 @@ class DefaultResponseHandlerSubscriber implements EventSubscriberInterface
     /**
      * @var RouteMatchInterface
      */
-    private $route_match;
+    private $routeMatch;
 
     /**
-     * @var BlockManager
+     * @var BlockManagerInterface
      */
-    private $block;
+    private $blockManager;
 
-    public function __construct(BlockManager $block, RouteMatchInterface $route_match)
+    public function __construct(BlockManagerInterface $blockManager,RouteMatchInterface $routeMatch)
     {
 
-        $this->block = $block;
-        $this->route_match = $route_match;
+        $this->blockManager = $blockManager;
+        $this->routeMatch = $routeMatch;
     }
 
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::VIEW => ['controller', 1]];
+        return [KernelEvents::VIEW => ['controller',1]];
     }
 
     public function controller(GetResponseForControllerResultEvent $event)
     {
         $result = $event->getControllerResult();
         $request = $event->getRequest();
-//        dump($this->route_match);
-        $response = $this->block->generateResponse($result, $request, $this->route_match);
+//        dump($this->routeMatch);
+        $response = $this->blockManager->generateResponse($result,$request,$this->routeMatch);
 
         $event->setResponse($response);
     }

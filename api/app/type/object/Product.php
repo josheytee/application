@@ -22,9 +22,6 @@ class Product extends ObjectType {
                 return [
                     'id' => [
                         'type' => Type::id(),
-                        'resolve' => function ($product) {
-                            return $product->id_product;
-                        }
                     ],
                     'shop' => [
                         'type' => Types::shop(),
@@ -35,7 +32,17 @@ class Product extends ObjectType {
                     'name' => Type::string(),
                     'description' => Type::string(),
                     'price' => Type::float(),
+                    'condition' => Type::string(),
+                    'type' => Type::string(),
                     'availability' => Type::boolean(),
+                    'meta_title' => Type::string(),
+                    'meta_description' => Type::string(),
+                    'meta_keywords' => Type::string(),
+                    'link_rewrite' => Type::string(),
+                    'quantity' => Type::int(),
+                    'quantity_discount' => Type::int(),
+                    'minimal_discount' => Type::float(),
+                    'active' => Type::boolean(),
                     'created_at' => Type::string(),
                     'updated_at' => Type::string()
                 ];

@@ -3,15 +3,21 @@
 <head>
     <title>
         {block 'title'}
-            {($page.title)?{$page.title}: 'ntc|| guess title'}
+            {$page.title|default:'ntc|| guess title'}
         {/block}
     </title>
+    {foreach $page.libraries.css as $path => $attribure}
+        <link rel="stylesheet" type="text/css" href="{$path}" {$attribure}/>
+    {/foreach}
+    {foreach $page.libraries.js as  $path}
+        <script type="application/javascript" src="{$path}"></script>
+    {/foreach}
     <!--css-->
-    <link href="/application/app/modules/shop/themes/new-shop/css/bootstrap.css" rel="stylesheet" type="text/css"
-          media="all"/>
-    <link href="/application/app/modules/shop/themes/new-shop/css/style.css" rel="stylesheet" type="text/css"
-          media="all"/>
-    <link href="/application/app/modules/shop/themes/new-shop/css/font-awesome.css" rel="stylesheet">
+    {*<link href="/application/app/modules/shop/themes/new-shop/css/bootstrap.css" rel="stylesheet" type="text/css"*}
+          {*media="all"/>*}
+    {*<link href="/application/app/modules/shop/themes/new-shop/css/style.css" rel="stylesheet" type="text/css"*}
+          {*media="all"/>*}
+    {*<link href="/application/app/modules/shop/themes/new-shop/css/font-awesome.css" rel="stylesheet">*}
     <!--css-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -24,22 +30,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         function hideURLbar() {
             window.scrollTo(0, 1);
         } </script>
-    <script src="/application/app/modules/shop/themes/new-shop/js/jquery.min.js"></script>
+    {*<script src="/application/app/modules/shop/themes/new-shop/js/jquery.min.js"></script>*}
     <link href='//fonts.googleapis.com/css?family=Cagliostro' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,600,400italic,300italic,300'
           rel='stylesheet' type='text/css'>
     <!--search jQuery-->
-    <script src="/application/app/modules/shop/themes/new-shop/js/main.js"></script>
-    <!--search jQuery-->
-    <script type="text/javascript"
-            src="/application/app/modules/shop/themes/new-shop/js/bootstrap-3.1.1.min.js"></script>
-    <!-- cart -->
-    <script src="/application/app/modules/shop/themes/new-shop/js/simpleCart.min.js"></script>
-    <!-- cart -->
-    <script defer src="/application/app/modules/shop/themes/new-shop/js/jquery.flexslider.js"></script>
-    <link rel="stylesheet" href="/application/app/modules/shop/themes/new-shop/css/flexslider.css" type="text/css"
-          media="screen"/>
-    <script src="/application/app/modules/shop/themes/new-shop/js/imagezoom.js"></script>
+    {*<script src="/application/app/modules/shop/themes/new-shop/js/main.js"></script>*}
+    {*<!--search jQuery-->*}
+    {*<script type="text/javascript"*}
+            {*src="/application/app/modules/shop/themes/new-shop/js/bootstrap-3.1.1.min.js"></script>*}
+    {*<!-- cart -->*}
+    {*<script src="/application/app/modules/shop/themes/new-shop/js/simpleCart.min.js"></script>*}
+    {*<!-- cart -->*}
+    {*<script defer src="/application/app/modules/shop/themes/new-shop/js/jquery.flexslider.js"></script>*}
+    {*<link rel="stylesheet" href="/application/app/modules/shop/themes/new-shop/css/flexslider.css" type="text/css"*}
+          {*media="screen"/>*}
+    {*<script src="/application/app/modules/shop/themes/new-shop/js/imagezoom.js"></script>*}
     <script>
         // Can also be used with $(document).ready()
         $(window).load(function () {
@@ -52,9 +58,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     <!--mycart-->
     <!--start-rate-->
-    <script src="/application/app/modules/shop/themes/new-shop/js/jstarbox.js"></script>
-    <link rel="stylesheet" href="/application/app/modules/shop/themes/new-shop/css/jstarbox.css" type="text/css"
-          media="screen" charset="utf-8"/>
+    {*<script src="/application/app/modules/shop/themes/new-shop/js/jstarbox.js"></script>*}
+    {*<link rel="stylesheet" href="/application/app/modules/shop/themes/new-shop/css/jstarbox.css" type="text/css"*}
+          {*media="screen" charset="utf-8"/>*}
     <script type="text/javascript">
         jQuery(function () {
             jQuery('.starbox').each(function () {
@@ -77,8 +83,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
     </script>
     <!--//End-rate-->
-    <link href="/application/app/modules/shop/themes/new-shop/css/owl.carousel.css" rel="stylesheet">
-    <script src="/application/app/modules/shop/themes/new-shop/js/owl.carousel.js"></script>
+    {*<link href="/application/app/modules/shop/themes/new-shop/css/owl.carousel.css" rel="stylesheet">*}
+    {*<script src="/application/app/modules/shop/themes/new-shop/js/owl.carousel.js"></script>*}
     <script>
         $(document).ready(function () {
             $("#owl-demo").owlCarousel({

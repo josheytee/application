@@ -6,6 +6,4 @@ version: '1.0'
 configure: admin.settings
 dependencies:
   - product
-sugest:
-  - file
 

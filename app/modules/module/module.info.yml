@@ -1,0 +1,12 @@
+name: Module
+type: module
+description: 'Manages modules across the application'
+package: ntc\module
+dependencies:
+  required:
+  - administrator
+  - user
+  - shop
+  optional:
+  - user
+

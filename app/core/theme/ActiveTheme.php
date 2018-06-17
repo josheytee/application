@@ -26,6 +26,8 @@ class ActiveTheme
      * @var string
      */
     protected $path;
+    protected $canonicalPath;
+
 
     /**
      * The engine of the theme.
@@ -85,6 +87,7 @@ class ActiveTheme
     {
         $values += [
             'path' => '',
+            'canonicalPath' => '',
             'engine' => 'smarty',
             'owner' => 'smarty',
             'libraries' => [],
@@ -92,13 +95,12 @@ class ActiveTheme
             'base_themes' => [],
             'regions' => [],
             'main_region' => 'content',
-            'libraries_override' => [],
-            'libraries_extend' => [],
             'config' => [],
         ];
 
         $this->name = $values['name'];
         $this->path = $values['path'];
+        $this->canonicalPath = $values['canonicalPath'];
         $this->engine = $values['engine'];
         $this->owner = $values['owner'];
         $this->libraries = $values['libraries'];
@@ -107,8 +109,6 @@ class ActiveTheme
         $this->base_themes = $values['base_themes'];
         $this->regions = $values['regions'];
         $this->main_region = $values['main_region'];
-        $this->libraries_override = $values['libraries_override'];
-        $this->libraries_extend = $values['libraries_extend'];
     }
 
     /**
@@ -145,11 +145,12 @@ class ActiveTheme
     /**
      * Returns the libraries provided by the theme.
      *
+     * @param $section
      * @return mixed
      */
-    public function getLibraries()
+    public function getLibraries($section)
     {
-        return $this->libraries;
+        return $section ? $this->libraries[$section] ?? [] : $this->libraries ?? [];
     }
 
     /**
@@ -163,34 +164,14 @@ class ActiveTheme
     {
         if (!is_null($this->regions))
             return array_keys($this->regions);
-        throw new \Exception('regions must defined inside ' . $this->name . '.info.yml file');
-    }
-  public function getMainRegion()
-    {
-       return $this->main_region;
+        throw new \Exception('regions must defined inside ' . str_slug($this->name) . '.info.yml file');
     }
 
-    /**
-     * Returns the libraries or library assets overridden by the active theme.
-     *
-     * @return array
-     *   The list of libraries overrides.
-     */
-    public function getLibrariesOverride()
+    public function getMainRegion()
     {
-        return $this->libraries_override;
+        return $this->main_region;
     }
 
-    /**
-     * Returns the libraries extended by the active theme.
-     *
-     * @return array
-     *   The list of libraries-extend definitions.
-     */
-    public function getLibrariesExtend()
-    {
-        return $this->libraries_extend;
-    }
 
     /**
      *
@@ -215,6 +196,16 @@ class ActiveTheme
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Returns the canonical path to the theme directory.
+     *
+     * @return string
+     */
+    public function getCanonicalPath()
+    {
+        return $this->canonicalPath;
     }
 
     public function getTemplateDir()
@@ -254,7 +245,7 @@ class ActiveTheme
         return $section ? $this->config[$section] ?? [] : $this->config ?? [];
     }
 
-    public function setConfig($key, $value)
+    public function setConfig($key,$value)
     {
 
     }

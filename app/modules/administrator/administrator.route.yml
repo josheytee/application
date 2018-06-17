@@ -6,7 +6,7 @@ admin.index:
   requirements:
     _permission: administer actions
 admin.list:
-  path: admin/list
+  path: admins
   defaults:
     _title: Amin | Home
     _list: ntc\administrator\controller\Listing

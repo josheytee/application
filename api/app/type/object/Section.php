@@ -2,28 +2,30 @@
 
 namespace api\app\type\object;
 
-use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
-use GraphQL\Type\Definition\ResolveInfo;
 use api\app\Types;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ResolveInfo;
+use GraphQL\Type\Definition\Type;
 
 /**
  * Description of Section
  *
  * @author Tobi
  */
-class Section extends ObjectType {
+class Section extends ObjectType
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $config = [
             'name' => 'Section',
             'description' => 'Section of products in a shop',
-            'fields' => function() {
+            'fields' => function () {
                 return [
                     'id' => [
                         'type' => Type::id(),
                         'resolve' => function ($section) {
-                            return $section->id_section;
+                            return $section->id;
                         }
                     ],
                     'parent' => [
@@ -51,7 +53,7 @@ class Section extends ObjectType {
                     ],
                 ];
             },
-            'resolveField' => function($value, $args, $context, ResolveInfo $info) {
+            'resolveField' => function ($value, $args, $context, ResolveInfo $info) {
                 if (method_exists($this, $info->fieldName)) {
                     return $this->{$info->fieldName}($value, $args, $context, $info);
                 } else {

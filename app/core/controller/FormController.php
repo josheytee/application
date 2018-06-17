@@ -24,7 +24,7 @@ abstract class FormController extends ControllerBase
     protected $redirctUrl = '/';
     protected $redirectRoute = 'admin.index';
 
-    public function create(Request $request, Formbuilder $builder, $id = 0)
+    public function create(Request $request,Formbuilder $builder,$id = 0)
     {
 
         if (!empty($request->all())) {
@@ -50,9 +50,9 @@ abstract class FormController extends ControllerBase
         return true;
     }
 
-    public function handleValidate($request, $params = [])
+    public function handleValidate($request,$params = [])
     {
-        $validator = new Validator($request->all(), $params ?? []);
+        $validator = new Validator($request->all(),$params ?? []);
         return $validator->passes() ? $this->createEntity($request) :
             $errors = $this->handleValidationErrors($validator);
     }
@@ -72,7 +72,7 @@ abstract class FormController extends ControllerBase
      * @internal param mixed $default
      * @return mixed
      */
-    function object_set($object, $key, $value = null)
+    function object_set($object,$key,$value = null)
     {
         if (is_null($key) || trim($key) == '') {
             return $object;
@@ -88,13 +88,13 @@ abstract class FormController extends ControllerBase
 
     abstract public function build(Formbuilder $builder);
 
-    public function getEntity(Request $request, $id)
+    public function getEntity(Request $request,$id)
     {
         $model = $this->getModel($request);
         if ($id === 0) {
             return new $model();
         }
-        return $this->doctrine()->find($model, $id);
+        return $this->doctrine()->find($model,$id);
     }
 
     public function formAttributes()
@@ -108,7 +108,7 @@ abstract class FormController extends ControllerBase
             ] + $this->attributes);
     }
 
-    public function options($request, $params = [])
+    public function options($request,$params = [])
     {
         return [
             'file' => true,
@@ -125,7 +125,7 @@ abstract class FormController extends ControllerBase
      * @return mixed
      * @internal param int $entity
      */
-    public function add(Request $request, Formbuilder $builder)
+    public function add(Request $request,Formbuilder $builder)
     {
 
 //        if (!empty($request->all())) {
@@ -154,12 +154,12 @@ abstract class FormController extends ControllerBase
 
     }
 
-    public function update(Request $request, Formbuilder $builder, $id)
+    public function update(Request $request,Formbuilder $builder,$id)
     {
         if (!empty($request->all())) {
 //            $validator = $this->validate($request->all());
 //            $validator->passes() ?
-            if ($this->updateEntity($request, $id)) {
+            if ($this->updateEntity($request,$id)) {
                 $this->redirectToRoute($this->redirectRoute);
             }
 //                :$errors = $this->handleValidationErrors($validator);
@@ -176,32 +176,26 @@ abstract class FormController extends ControllerBase
         return $return;
     }
 
-    protected function updateEntity(Request $request, $id)
+    protected function updateEntity(Request $request,$id)
     {
         $model = $this->getModel($request);
-        $entity = $model::find($id);
         $key = $request->get('_key');
-        return $entity::where($key, $id)
+        return $model::where($key,$id)
             ->update($request->all());
 
 
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request,$id)
     {
-        return $this->deleteEntity($request, $id);
+        return $this->deleteEntity($request,$id);
     }
 
-    public function deleteEntity(Request $request, $id)
+    public function deleteEntity(Request $request,$id)
     {
-        $doctrine = $this->doctrine();
-        $entity = $doctrine->find($this->getModel($request), $id);
-        if (!$entity) {
-            throw new \Exception('Entity not found');
-        }
-// Delete the entity and flush
-        $doctrine->remove($entity);
-        $doctrine->flush();
+        $model = $this->getModel($request);
+        $key = $request->get('_key');
+        return $model::where($key,$id)->delete();
     }
 
     /**
@@ -212,13 +206,13 @@ abstract class FormController extends ControllerBase
      * @param  mixed $default
      * @return mixed
      */
-    function object_get($object, $key, $default = null)
+    function object_get($object,$key,$default = null)
     {
         if (is_null($key) || trim($key) == '') {
             return $object;
         }
 
-        foreach (explode('.', $key) as $segment) {
+        foreach (explode('.',$key) as $segment) {
             if (!is_object($object) || !isset($object->{$segment})) {
                 return value($default);
             }

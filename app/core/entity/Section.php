@@ -16,7 +16,12 @@ class Section extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Section::class, 'parent_id');
+        return $this->belongsTo(Section::class,'parent_id');
+    }
+
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
     }
 
     public function images()

@@ -14,9 +14,9 @@ class Category extends Model
      */
     protected $guarded = [];
 
-    public function shop()
+    public function shops()
     {
-        $this->belongsTo(Shop::class);
+        return $this->hasMany(Shop::class);
     }
 
 }

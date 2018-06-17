@@ -30,7 +30,7 @@ admin.shop.delete:
     _permission: administer actions
 
 admin.shop.list:
-  path: admin/shop/list
+  path: admin/shops
   defaults:
     _title: Amin | User Shop List
     _list: ntc\shop\listing\ShopUserList
@@ -69,7 +69,7 @@ admin.shop.activity.delete:
     _permission: administer actions
 
 admin.shop.activity.list:
-  path: admin/shop/activity/list
+  path: admin/shop/activities
   defaults:
     _title: Amin | User Shop List
     _list: ntc\shop\listing\ShopActivityList

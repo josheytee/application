@@ -5,9 +5,10 @@ namespace ntc\administrator\block;
 use app\core\http\Request;
 use app\core\http\Response;
 use app\core\routing\RouteMatchInterface;
+use app\core\theme\block\BlockManagerInterface;
+use app\core\theme\library\LibraryManager;
 use app\core\theme\region\RegionManager;
 use app\core\theme\ThemeManagerInterface;
-use app\core\view\block\BlockManagerInterface;
 use app\core\view\RenderableTrait;
 
 /**
@@ -33,33 +34,36 @@ class AdminBlockManager implements BlockManagerInterface
      * @var RegionManager
      */
     private $regionManager;
+    /**
+     * @var LibraryManager
+     */
+    private $libraryManager;
 
-    public function __construct(ThemeManagerInterface $theme, RegionManager $regionManager, ConfigManager $config = null)
+    public function __construct(ThemeManagerInterface $theme,LibraryManager $libraryManager,RegionManager $regionManager,ConfigManager $config = null)
     {
 
         $this->theme = $theme;
         $this->regionManager = $regionManager;
         $this->default_regions = $this->theme->getActiveTheme()->getRegions();
         $this->config = $config;
+        $this->libraryManager = $libraryManager;
     }
 
-    public function generateResponse($result, Request $request, RouteMatchInterface $routeMatch)
+    public function generateResponse($result,Request $request,RouteMatchInterface $routeMatch)
     {
-        $page = null;
-        foreach ($this->default_regions as $region) {
-//      if (!empty($page[$region])) {
-//      $page[$region]['#theme_wrappers'][] = 'region';
-            $page[$region] = $this->regionManager->getContent($region);
-//      }
+        $page = [];
+        $page['title'] = $this->titleResolver->getTitle($request,$routeMatch->getRouteObject());
+        foreach ($this->theme->getActiveTheme()->getRegions() as $region) {
+            $page[$region] = $this->regionManager->getContent($request,$region);
         }
-//    $libraries = $result['libraries'];
-        $page['content'] = $result['content'];
+        $page['libraries'] = $this->libraryManager->loadLibraries($routeMatch);
+        $page[$this->theme->getActiveTheme()->getMainRegion()] = $result['content'];
 
-        $response = new Response($this->render($page, $routeMatch));
-        return $response;
+        return new Response($this->render($page,$routeMatch));
+
     }
 
-    public function render($page, RouteMatchInterface $routeMatch)
+    public function render($page,RouteMatchInterface $routeMatch)
     {
 //        if ($routeMatch->getRouteObject()->hasOption('module')) {
 //            $template = $routeMatch->getRouteObject()->getOption('module');
@@ -68,11 +72,6 @@ class AdminBlockManager implements BlockManagerInterface
 //                return $this->rendertrait(['page' => $page], "layout/page__{$template}");
 //        }
 
-        return $this->renderTrait(['page' => $page], 'layout/page');
-    }
-
-    public function init()
-    {
-        // TODO: Implement init() method.
+        return $this->renderTrait(['page' => $page],'layout/page');
     }
 }

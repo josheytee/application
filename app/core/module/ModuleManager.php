@@ -4,6 +4,7 @@ namespace app\core\module;
 
 use app\core\Context;
 use app\core\repository\ModuleRepository;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Description of ModuleManager
@@ -24,7 +25,7 @@ class ModuleManager implements ModuleManagerInterafce
 
     public function install()
     {
-        $module_info = Yaml\Yaml::parse(file_get_contents($com), 0);
+        $module_info = Yaml::parse(file_get_contents($com), 0);
         if (!$this->isInstalled($module_info['name'])) {
             $module = new \model\Module();
             $module->setName($module_info['name']);

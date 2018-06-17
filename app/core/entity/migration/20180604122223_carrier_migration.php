@@ -11,11 +11,13 @@ class CarrierMigration extends Migration
             // Autoincrement id
             $table->increments('id');
             $table->integer('shop_id')->unsigned();
-            $table->text('name');
-            $table->text('url');
+            $table->string('name');
+            $table->string('url');
+            $table->decimal('price');
+            $table->string('logo');
             $table->boolean('active');
             $table->boolean('is_free');
-            $table->text('delay');
+            $table->string('delay');
             $table->integer('grade');
             $table->integer('max_width');
             $table->integer('max_height');

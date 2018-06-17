@@ -21,20 +21,13 @@ abstract class ListController extends ControllerBase
     protected $headOperations;
     private $paginatorData = [];
     protected $elements;
+    protected $shop_dependent = true;
 
     public function listing(Request $request)
     {
         $this->init($request);
         $return['library'] = '';
-        $return['content'] = $this->renderTrait(
-            [
-                'title' => $this->title(),
-                'headings' => $this->processHead(),
-                'form_body' => $this->processBody(),
-                'headOperations' => $this->headOperations,
-                'paginator' => $this->paginatorData,
-                'elements' => $this->elements
-            ], 'list/listing');
+        $return['content'] = $this->renderTrait(['title' => $this->title(), 'headings' => $this->processHead(), 'form_body' => $this->processBody(), 'headOperations' => $this->headOperations, 'paginator' => $this->paginatorData, 'elements' => $this->elements], 'list/listing');
         return $return;
     }
 
@@ -42,16 +35,14 @@ abstract class ListController extends ControllerBase
     {
         $page = $request->get('page', 1);
         $s = $this->getModel($request);
-        $p = $s::where('shop_id', $this->currentShop()->id)->paginate(3, null, null, $page);
+        if ($this->shop_dependent) {
+            $p = $s::where('shop_id', $this->currentShop()->id)->paginate(3, null, null, $page);
+        } else {
+            $p = $s::paginate(3, null, null, $page);
+        }
         $window = UrlWindow::make($p);
 
-        $this->elements = array_filter([
-            $window['first'],
-            is_array($window['slider']) ? '...' : null,
-            $window['slider'],
-            is_array($window['last']) ? '...' : null,
-            $window['last'],
-        ]);
+        $this->elements = array_filter([$window['first'], is_array($window['slider']) ? '...' : null, $window['slider'], is_array($window['last']) ? '...' : null, $window['last'],]);
         $this->entities = $p;
         $this->paginatorData = $p;
 
@@ -65,8 +56,7 @@ abstract class ListController extends ControllerBase
 
     public function processHead()
     {
-        if ($this->is_assoc($this->head()))
-            return $this->head();
+        if ($this->is_assoc($this->head())) return $this->head();
         return array_map(function ($e) {
             return ucwords($e);
         }, $this->head());
@@ -78,9 +68,7 @@ abstract class ListController extends ControllerBase
     {
         $rows = [];
         foreach ($this->entities as $entity) {
-            $rows[] = $this->processRow($entity) + [
-                    'operations' => $this->processOperation($entity),
-                ];
+            $rows[] = $this->processRow($entity) + ['operations' => $this->processOperation($entity),];
             $this->headOperations = $this->processHeadOperations($entity);
         }
         return $rows;
@@ -127,10 +115,7 @@ abstract class ListController extends ControllerBase
         $compiled[] = $this->renderTrait($first + ['first' => true], 'list/operation/' . $first_template[0]);
         if (!empty($operations)) {
             foreach ($operations as $name => $operation) {
-                $compiled[] = [
-                    'name' => $name,
-                    'action' => $this->renderTrait($operation, 'list/operation/' . $name)
-                ];
+                $compiled[] = ['name' => $name, 'action' => $this->renderTrait($operation, 'list/operation/' . $name)];
             }
         }
         return $compiled;

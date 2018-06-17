@@ -10,7 +10,7 @@ abstract class BaseHandler
     protected $name;
     protected $path;
 
-    public function __construct($name, $path)
+    public function __construct($name,$path)
     {
         $this->name = $name;
         $this->path = $path;
@@ -18,10 +18,10 @@ abstract class BaseHandler
 
     public function getInfo($key = null)
     {
-        return $this->parseFile('.info.yml', $key);
+        return $this->parseFile('.info.yml',$key);
     }
 
-    public function parseFile($extension, $key = null)
+    public function parseFile($extension,$key = null)
     {
         $info = file_exists($this->path . DS . $this->name . $extension) ?
             Yaml::parse(file_get_contents($this->getPath() . DS . $this->getName() . $extension)) : [];
@@ -29,6 +29,11 @@ abstract class BaseHandler
             return $info[$key] ?? '';
         }
         return $info;
+    }
+
+    public function getCanonicalPath()
+    {
+        return str_replace(_LOCAL_DIR_,'',$this->getPath());
     }
 
     public function getPath()

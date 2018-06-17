@@ -16,12 +16,18 @@ class Shop extends Model
 
     public function Category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function users()
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function sections()
+    {
+        return $this->hasMany(Section::class);
+    }
+
 
 }
