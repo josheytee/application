@@ -8,18 +8,11 @@ use app\core\http\Request;
 class Account extends Component
 {
 
-    private $shop;
-
-    public function init(Request $request)
-    {
-        $this->shop = $this->currentShop();
-    }
-
-    public function render()
+    public function render(Request $request)
     {
         return $this->display('ntc/account/account', [
                 'user' => $this->currentUser(),
-                'name' => $this->shop->name,
+                'name' => $this->currentShop()->name,
                 'params' => ['url' => $this->shop->url],
                 'route' => 'shop.index'
 //                {route n='shop.index' p=$url|default:''}

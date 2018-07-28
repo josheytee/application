@@ -1,9 +1,8 @@
 <div class="product-agileinfon-top">
-	<div class="col-md-6 product-agileinfon-top-left">
-		<img class="img-responsive " src="/application/app/modules/shop/themes/new-shop/images/img1.jpg" alt="">
-	</div>
-	<div class="col-md-6 product-agileinfon-top-left">
-		<img class="img-responsive " src="/application/app/modules/shop/themes/new-shop/images/img2.jpg" alt="">
-	</div>
-	<div class="clearfix"></div>
+    {foreach $images as $image}
+        <div class="col-md-6 product-agileinfon-top-left">
+            <img class="img-responsive" src="{$image->path}" alt="{$image->name}">
+        </div>
+    {/foreach}
+    <div class="clearfix"></div>
 </div>

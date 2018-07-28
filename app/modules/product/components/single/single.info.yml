@@ -1,6 +1,6 @@
 name: Section Images
 description: Displays images of section pages
-target: prouct
+target: product
 author: ntc
 package: ntc\product\single
 icon: hello.png

@@ -55,7 +55,7 @@ class UserAccount implements AccountInterface
 
     public function hasPermission($permission): bool
     {
-        return in_array($permission, $this->getPermissions());
+        return in_array($permission, $this->getPermissions())??false;
     }
 
     public function getRole()

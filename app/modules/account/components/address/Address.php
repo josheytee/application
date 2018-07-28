@@ -9,16 +9,7 @@ use app\core\http\Request;
 class Address extends Component
 {
 
-    private $shop;
-
-    public function init(Request $request)
-    {
-
-        $this->shop = $this->currentShop();
-
-    }
-
-    public function render()
+    public function render(Request $request)
     {
         $user = User::find($this->currentUser()->id());
         return $this->display('ntc/account/address', [

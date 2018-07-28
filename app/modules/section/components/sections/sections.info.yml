@@ -1,8 +1,0 @@
-name: Sections
-description: "lorep isum freeme lorep isum freeme lorep isum
-freeme lorep isum freeme lorep isum freeme "
-target: ntc\section
-author: ntc
-package: ntc\section\sections
-icon: hello.png
-version: 1.2.3

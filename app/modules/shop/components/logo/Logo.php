@@ -25,7 +25,7 @@ class Logo extends Component
 //            ]
 //        );
 //    }
-    public function render()
+   public function render(Request $request)
     {
         return $this->display('ntc/shop/logo', [
             'shop_name' => 'New Shop',

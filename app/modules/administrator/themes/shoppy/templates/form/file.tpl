@@ -7,7 +7,7 @@
       <span class="sr-only">Loading...</span>
     </span>
         <div class="success">
-            {if (isset($value))}
+            {if (isset($value))&& !is_null($value)}
                 {foreach $value as $files}
                     <div class="col-xs-6 col-md-3" id="{$name}_' + result.id + '">
                         <input type="hidden" name="{$name}[{$files->id}]" value="{$files->name}">

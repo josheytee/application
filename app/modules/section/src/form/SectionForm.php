@@ -55,9 +55,9 @@ class SectionForm extends FormController
         });
         $builder->add('url', Text::class);
         $builder->add('description', TextArea::class);
-        $builder->add('components', ComponentField::class, function ($component) {
-            $component->target = 'ntc\section';
-        });
+//        $builder->add('components', ComponentField::class, function ($component) {
+//            $component->target = 'ntc\section';
+//        });
 
         $builder->add('submit', Submit::class);
         return $builder;
@@ -75,7 +75,7 @@ class SectionForm extends FormController
 
         $dir = $this->upload_dir . '/' . $section->id;
         is_dir($dir) ?: mkdir($dir);
-        foreach ((array)$request->image as $id => $name) {
+        foreach ((array)$request->images as $id => $name) {
             $from = realpath($this->tmp_dir . '/' . $name);
             $to = $dir . '/' . $name;
             if (rename($from, $to)) {

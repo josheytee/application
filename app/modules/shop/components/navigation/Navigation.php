@@ -38,8 +38,9 @@ class Navigation extends Component
         }
     }
 
-    public function render()
+   public function render(Request $request)
     {
+        $this->init($request);
         $sections = Section::where('shop_id', Shop::where('url', $this->shop_url)->first()->id)
             ->orderBy('name', 'desc')
             ->take(10)

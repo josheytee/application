@@ -3,6 +3,7 @@
 namespace ntc\administrator\quickaccess;
 
 use app\core\component\Component;
+use app\core\http\Request;
 
 /**
  * Description of QuickAccess
@@ -12,7 +13,7 @@ use app\core\component\Component;
 class Quickaccess extends Component
 {
 
-    public function render()
+   public function render(Request $request)
     {
         return $this->display('ntc/administrator/quickaccess');
     }

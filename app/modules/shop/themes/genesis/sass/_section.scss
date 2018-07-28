@@ -1,0 +1,38 @@
+.section-card {
+  margin: 10px;
+  h2 {
+    color: $brand-primary;
+    border-bottom: lighten($brand-primary, 30%) 1px solid;
+    width: 40%;
+  }
+  .image {
+    img {
+      position: relative;
+      &:nth-child(1) {
+        width: 285px;
+        height: 300px;
+        left: 0;
+      }
+      &:nth-child(2) {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      &:nth-child(3) {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+      width: 150px;
+      height: 150px;
+    }
+    color: #0f98ce;
+  }
+  .section-product-list{
+    list-style-type: none;
+  }
+}

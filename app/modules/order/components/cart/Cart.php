@@ -9,17 +9,9 @@ use app\core\http\Request;
 class Cart extends Component
 {
 
-    private $user;
-
-    public function init(Request $request)
+    public function render(Request $request)
     {
-        $this->user = $this->currentUser();
-    }
-
-
-    public function render()
-    {
-        $cart = CartEntity::where('user_id', $this->user->id())->first();
+        $cart = CartEntity::where('user_id', $this->currentUser()->id())->first();
 //        dump($cart);
 //        dump($cart->products);
         return $this->display('ntc/order/cart', [

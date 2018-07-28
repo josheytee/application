@@ -1,119 +1,56 @@
-<div class="logo-nav-left1">
-    <nav class="navbar navbar-default">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header nav_2">
-            <button type="button" class="navbar-toggle navbar-toggle1" data-toggle="collapse"
-                    data-target="#bs-megadropdown-tabs">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" href="#">Brand</a>
         </div>
-        <div class="navbar-collapse collapse in" id="bs-megadropdown-tabs" style="height: auto;">
-            {*{$sections}*}
-            <ul class="nav navbar-nav">
-                {foreach $sections as $section}
-                    {*{$section->images}*}
-                    <li class="">
-                        <a href="{route n='section.single' p=[
-                        'shop_url' => $shop_url,
-                        'section_url' => $section->url
-                        ]}"
-                           class="act">{$section->name}</a>
-                    </li>
-                {/foreach}
-            </ul>
-        </div>
-    </nav>
-</div>
 
-{*<ul class="nav navbar-nav">*}
-{*<li class="active"><a href="index.html" class="act">Home</a></li>*}
-{*<!-- Mega Menu -->*}
-{*<li class="dropdown">*}
-{*<a href="#" class="dropdown-toggle" data-toggle="dropdown">Women<b class="caret"></b></a>*}
-{*<ul class="dropdown-menu multi-column columns-3">*}
-{*<div class="row">*}
-{*<div class="col-sm-3  multi-gd-img">*}
-{*<ul class="multi-column-dropdown">*}
-{*<h6>Submenu1</h6>*}
-{*<li><a href="products.html">Clothing</a></li>*}
-{*<li><a href="products.html">Wallets</a></li>*}
-{*<li><a href="products.html">Shoes</a></li>*}
-{*<li><a href="products.html">Watches</a></li>*}
-{*<li><a href="products.html"> Underwear </a></li>*}
-{*<li><a href="products.html">Accessories</a></li>*}
-{*</ul>*}
-{*</div>*}
-{*<div class="col-sm-3  multi-gd-img">*}
-{*<ul class="multi-column-dropdown">*}
-{*<h6>Submenu2</h6>*}
-{*<li><a href="products.html">Sunglasses</a></li>*}
-{*<li><a href="products.html">Wallets,Bags</a></li>*}
-{*<li><a href="products.html">Footwear</a></li>*}
-{*<li><a href="products.html">Watches</a></li>*}
-{*<li><a href="products.html">Accessories</a></li>*}
-{*<li><a href="products.html">Jewellery</a></li>*}
-{*</ul>*}
-{*</div>*}
-{*<div class="col-sm-3  multi-gd-img">*}
-{*<a href="products.html">*}
-{*<img src="/application/extensions/modules/ntc/shop/ntc/components/navigation/img/woo.jpg"*}
-{*alt=" ">*}
-{*</a>*}
-{*</div>*}
-{*<div class="col-sm-3  multi-gd-img">*}
-{*<a href="products.html">*}
-{*<img src="/application/extensions/modules/ntc/shop/ntc/components/navigation/img/woo1.jpg"*}
-{*alt=" ">*}
-{*</a>*}
-{*</div>*}
-{*<div class="clearfix"></div>*}
-{*</div>*}
-{*</ul>*}
-{*</li>*}
-{*<li class="dropdown">*}
-{*<a href="#" class="dropdown-toggle" data-toggle="dropdown">Men <b class="caret"></b></a>*}
-{*<ul class="dropdown-menu multi-column columns-3">*}
-{*<div class="row">*}
-{*<div class="col-sm-3  multi-gd-img">*}
-{*<ul class="multi-column-dropdown">*}
-{*<h6>Submenu1</h6>*}
-{*<li><a href="products.html">Clothing</a></li>*}
-{*<li><a href="products.html">Wallets</a></li>*}
-{*<li><a href="products.html">Shoes</a></li>*}
-{*<li><a href="products.html">Watches</a></li>*}
-{*<li><a href="products.html"> Underwear </a></li>*}
-{*<li><a href="products.html">Accessories</a></li>*}
-{*</ul>*}
-{*</div>*}
-{*<div class="col-sm-3  multi-gd-img">*}
-{*<ul class="multi-column-dropdown">*}
-{*<h6>Submenu2</h6>*}
-{*<li><a href="products.html">Sunglasses</a></li>*}
-{*<li><a href="products.html">Wallets,Bags</a></li>*}
-{*<li><a href="products.html">Footwear</a></li>*}
-{*<li><a href="products.html">Watches</a></li>*}
-{*<li><a href="products.html">Accessories</a></li>*}
-{*<li><a href="products.html">Jewellery</a></li>*}
-{*</ul>*}
-{*</div>*}
-{*<div class="col-sm-3  multi-gd-img">*}
-{*<a href="products1.html">*}
-{*<img src="/application/extensions/modules/ntc/shop/ntc/components/navigation/img/woo3.jpg"*}
-{*alt=" ">*}
-{*</a>*}
-{*</div>*}
-{*<div class="col-sm-3  multi-gd-img">*}
-{*<a href="products1.html">*}
-{*<img src="/application/extensions/modules/ntc/shop/ntc/components/navigation/img/woo4.jpg"*}
-{*alt=" "></a>*}
-{*</div>*}
-{*<div class="clearfix"></div>*}
-{*</div>*}
-{*</ul>*}
-{*</li>*}
-{*<li><a href="codes.html">Short Codes</a></li>*}
-{*<li><a href="mail.html">Mail Us</a></li>*}
-{*</ul>*}
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

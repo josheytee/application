@@ -41,12 +41,13 @@ class RouteProvider implements PagedRouteProviderInterface
     {
         $collection = new RouteCollection();
         $routes = Route::all();
+
         foreach ($routes as $key => $router) {
             $collection->add($router->name, $router->object);
         }
         return $collection;
     }
-
+//@todo make this function better
     public function getRouteCollectionForRequest(Request $request): RouteCollection
     {
 

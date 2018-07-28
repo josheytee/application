@@ -16,8 +16,9 @@ class Overview extends Component
         $this->product = Product::find($id);
     }
 
-    public function render()
+   public function render(Request $request)
     {
+        $this->init($request);
         return $this->display('ntc/product/overview', [
             'name' => $this->product->name,
             'description' => $this->product->description,

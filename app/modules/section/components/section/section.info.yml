@@ -1,0 +1,7 @@
+name: Section
+description: A configurable section component for the section page
+target: ntc\section
+author: ntc
+package: ntc\section\section
+icon: hello.png
+version: 1.2.3

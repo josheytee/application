@@ -45,11 +45,6 @@ class LibraryHandlerResolver
 
 
     /**
-     * Returns the sorted array of theme negotiators.
-     *
-     * @return array LibraryHandlerInterface[]
-     *   An array of theme negotiator objects.
-     *
      *
      * @return LibraryHandlerInterface[]|array
      */

@@ -186,8 +186,7 @@ abstract class Component implements ContainerAwareInterface
     public function renderComponent(Request $request, $region = null)
     {
         $this->region = $region;
-        $this->init($request);
-        return $this->renderTrait(['component' => $this->render()], 'layout/component');
+        return $this->renderTrait(['component' => $this->render($request)], 'layout/component');
     }
 
     public function init(Request $request)
@@ -196,11 +195,14 @@ abstract class Component implements ContainerAwareInterface
     }
 
 
-    abstract public function render();
+    abstract public function render(Request $request);
+
+    public function renderWithParams($params)
+    {
+    }
 
     public function renderConfig(Request $request, Formbuilder $builder)
     {
-        $this->init($request);
         $this->processConfigure($request, $builder);
         return $this->configure($request, $builder);
     }

@@ -29,12 +29,17 @@ class Sectionproductlist extends Component
         $this->sectionProducts = Product::where('section_id', $this->section->id ?? 0)->get();
     }
 
-    public function render()
+   public function render(Request $request)
     {
-        return $this->display('ntc/section/sectionproductlist', [
-            'section' => $this->section,
-            'sectionProducts' => $this->sectionProducts
+        $this->init($request);
+        return $this->display('ntc/section/sectionproductlist', ['sectionProducts' => $this->sectionProducts
         ]);
     }
 
+    public function renderWithParams($params)
+    {
+        return $this->display('ntc/section/sectionproductlist', [
+            'sectionProducts' => $params
+        ]);
+    }
 }

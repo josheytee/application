@@ -42,6 +42,7 @@ class ShopController extends ControllerBase
         $shop_components = '';
         $shop = Shop::where('url', $shop_url)->first();
         $default = $this->moduleRepository->getRepository('ntc\shop')->getCustom('default');
+//        dump($shop);
         if (is_array($shop->components)) {
             $default['components'] = $shop->components;
         }

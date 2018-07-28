@@ -34,7 +34,7 @@ class RouteBuilder
      */
     private $checkerCollector;
 
-    public function __construct(ModuleManager $manager, Dumper $dumper,AccessCheckerCollector $checkerCollector, EventDispatcherInterface $dispatcher)
+    public function __construct(ModuleManager $manager, Dumper $dumper, AccessCheckerCollector $checkerCollector,  EventDispatcherInterface $dispatcher)
     {
         $this->manager = $manager;
         $this->dispatcher = $dispatcher;
@@ -82,8 +82,8 @@ class RouteBuilder
                     'condition' => '',
                 ];
 
-                $route = new Route($route_info['path'], $route_info['defaults'], $route_info['requirements'], $route_info['options'], $route_info['host'], $route_info['schemes'], $route_info['methods'], $route_info['condition']);
-                $collection[$moduleId]->add($name, $route);
+                $route = new Route($route_info['path'],$route_info['defaults'],$route_info['requirements'],$route_info['options'],$route_info['host'],$route_info['schemes'],$route_info['methods'],$route_info['condition']);
+                $collection[$moduleId]->add($name,$route);
             }
             $collection[$moduleId]->addOptions(['module' => $moduleId]);
             $route_build_event[$moduleId] = $this->dispatcher->dispatch(

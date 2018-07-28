@@ -3,9 +3,11 @@
 namespace app\core\entity;
 
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
 
 class Section extends Model
 {
+    use NodeTrait;
 
     /**
      * The attributes that aren't mass assignable.
@@ -13,6 +15,7 @@ class Section extends Model
      * @var array
      */
     protected $guarded = [];
+
 
     public function parent()
     {

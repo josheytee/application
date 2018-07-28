@@ -14,8 +14,8 @@ definitions:
       bootstrap-3.1.1.min.js: {}
       main.js: {}
     css:
-      bootstrap.css: {media: all}
-      style.css: {media: all}
+#      bootstrap.css: {media: all}
+      styles.css: {media: all}
   jstarbox:
     version: 020
     js:

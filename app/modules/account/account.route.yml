@@ -30,6 +30,14 @@ admin.user.address.list:
     _title: Update Address
   requirements:
       _permission: administer comments
+admin.user.list:
+  path: /admin/users
+  defaults:
+    _list: ntc\account\listing\UserList
+    _model: app\core\entity\User
+    _title: Users
+  requirements:
+      _permission: administer comments
 admin.user.address.delete:
   path: /admin/user/address/{id}/delete
   defaults:

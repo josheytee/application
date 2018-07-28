@@ -12,21 +12,12 @@ use app\core\http\Request;
  */
 class Userinfo extends Component
 {
-
-    private $user;
-
-    public function init(Request $request)
+    public function render(Request $request)
     {
-//    dump($this->currentUser());
-        $this->user = $this->currentUser();
-    }
-
-    public function render()
-    {
-
+$user=$this->currentUser();
         return $this->display('ntc/administrator/userinfo', [
-            'name' => $this->user->getAccountName(),
-            'picture' => $this->user->getPicture(),
+            'name' =>$user ->getAccountName(),
+            'picture' => $user->getPicture(),
             'role' => 'super admin'
         ]);
     }

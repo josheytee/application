@@ -1,0 +1,7 @@
+name: Section Card
+description: Displays section card on the shop
+target: ntc\section
+author: ntc
+package: ntc\section\card
+icon: hello.png
+version: 1.2.3

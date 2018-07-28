@@ -1,6 +1,7 @@
 <?php
 
 use app\core\database\Migration;
+use Kalnoy\Nestedset\NestedSet;
 
 class SectionMigration extends Migration
 {
@@ -10,15 +11,14 @@ class SectionMigration extends Migration
             $table->engine = 'InnoDB';
             // Autoincrement id
             $table->increments('id');
-            $table->integer('parent_id')->unsigned()->default(0);
-            $table->integer('shop_id')->unsigned();
+            $table->integer('shop_id')->unsigned()->default(1);
             $table->string('name');
             $table->text('description');
             $table->string('url')->default('default_section_url');
+            NestedSet::columns($table);
             // Required for Eloquent's created_at and updated_at columns
             $table->timestamps();
-            $table->index(['id', 'parent_id', 'shop_id']);
-            $table->foreign('shop_id')->references('id')->on('shops');
+
         });
     }
 

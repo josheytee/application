@@ -15,8 +15,9 @@ class Brand extends Component
         $this->shop = $this->currentShop();
     }
 
-    public function render()
+    public function render(Request $request)
     {
+        $this->init($request);
         return $this->display('ntc/administrator/brand', [
                'name' => $this->shop->name,
                'params' => ['shop_url' => $this->shop->url],

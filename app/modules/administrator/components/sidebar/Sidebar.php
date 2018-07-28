@@ -3,6 +3,7 @@
 namespace ntc\administrator\sidebar;
 
 use app\core\component\Component;
+use app\core\http\Request;
 
 /**
  *
@@ -12,7 +13,7 @@ use app\core\component\Component;
 class Sidebar extends Component
 {
 
-    public function render()
+   public function render(Request $request)
     {
         $this->setDefaultTemplate(__DIR__ . '/templates/sidebar.tpl');
         return $this->display('ntc/administrator/sidebar');

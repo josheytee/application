@@ -1,9 +1,9 @@
 index:
-  - ntc\section\sections
+  - ntc\section\card
   - ntc\shop\featured
   - ntc\shop\trends
 single:
-  - ntc\section\sectionimages
-  - ntc\section\sectionproductlist
+  - ntc\section\section
+#  - ntc\section\sectionproductlist
   - ntc\shop\featured
   - ntc\shop\trends

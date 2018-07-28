@@ -26,7 +26,7 @@ class User extends Model
 
     public function permissions()
     {
-        return Role::findOrFail($this->roles()->first()->pivot->role)->permissions;
+        return Role::find($this->roles()->first()->pivot->role)->permissions;
     }
 
     public function shops()

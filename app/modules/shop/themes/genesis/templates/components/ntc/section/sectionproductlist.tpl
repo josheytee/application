@@ -1,4 +1,9 @@
-<h2 class="tittle">{$section->name}</h2>
+<script>
+    $('#myTabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+</script>
 <div class="mens-toolbar">
     <p>Showing 1–9 of 21 results</p>
     <p class="showing">Sorting By

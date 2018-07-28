@@ -1,0 +1,7 @@
+name: Product card
+description: Displays products details on a single card
+target: product
+author: ntc
+package: ntc\product\card
+icon: hello.png
+version: 1.2.3

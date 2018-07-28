@@ -33,7 +33,7 @@ admin.shop.list:
   path: admin/shops
   defaults:
     _title: Amin | User Shop List
-    _list: ntc\shop\listing\ShopUserList
+    _list: ntc\shop\listing\ShopList
     _model: app\core\entity\Shop
   requirements:
     _permission: administer actions
