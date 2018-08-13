@@ -1,4 +1,4 @@
-components.index:
+admin.components:
   path: admin/components
   defaults:
     id: ~

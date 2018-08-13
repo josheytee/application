@@ -38,15 +38,18 @@ class Navigation extends Component
         }
     }
 
-   public function render(Request $request)
+    public function render(Request $request)
     {
         $this->init($request);
-        $sections = Section::where('shop_id', Shop::where('url', $this->shop_url)->first()->id)
-            ->orderBy('name', 'desc')
-            ->take(10)
-            ->get();
-        return $this->display('ntc/shop/navigation', ['sections' => $sections,
-            'shop_url' => $this->shop_url]);
+        if (isset($this->shop_url)) {
+            $shop = Shop::where('url', $this->shop_url)->first();
+            $sections = $shop->sections()
+                ->orderBy('name', 'asc')
+                ->take(10)
+                ->get();
+            return $this->display('ntc/shop/navigation', ['sections' => $sections,
+                'shop_url' => $this->shop_url]);
+        }
     }
 
 }

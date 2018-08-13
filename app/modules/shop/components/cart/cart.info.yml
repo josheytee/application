@@ -1,9 +1,0 @@
-name: Cart
-description: "default cart for ntc shop"
-target: front
-author: ntc
-package: ntc\shop\cart
-icon: hello.png
-version: 1.2.3
-dependency:
-    - type guesser

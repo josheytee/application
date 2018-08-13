@@ -16,11 +16,9 @@ class Section extends Component
         $name = $section->name;
         $images = $section->images;
         $products = $section->products;
-        return $this->display('ntc/section/section', [
-            'name' => $name,
-            'images' => $images,
-            'products' => $products
-        ]);
+        $shop_url = $request->shop_url;
+        return $this->display('ntc/section/section',
+            compact('name', 'images', 'products', 'shop_url'));
     }
 
 }

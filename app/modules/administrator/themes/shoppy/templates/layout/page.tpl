@@ -5,10 +5,10 @@
             <div class="mother-grid-inner">
                 <div class="header-main">
                     <div class="header-left">
-                        {$page.header_left}
+                        {$page.regions.header_left}
                     </div>
                     <div class="header-right">
-                        {$page.header_right}
+                        {$page.regions.header_right}
                     </div>
                 </div>
                 <script>
@@ -25,20 +25,20 @@
 
                     });
                 </script>
-                {$page.breadcrumb}
+                {$page.regions.breadcrumb}
                 <div class="inner-block">
-                    {$page.help}
+                    {$page.regions.help}
                     {$page.content}
                 </div>
             </div>
         </div>
-        {if $page.sidebar}
-            {$page.sidebar}
+        {if $page.regions.sidebar}
+            {$page.regions.sidebar}
         {/if}
         <div class="clearfix"></div>
-        {if $page.footer }
+        {if $page.regions.footer }
             <footer role="contentinfo">
-                {$page.footer}
+                {$page.regions.footer}
             </footer>
         {/if}
         <div class="copyrights">

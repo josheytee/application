@@ -3,6 +3,7 @@
 namespace app\core\entity;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kalnoy\Nestedset\NodeTrait;
 
 class Section extends Model
@@ -19,7 +20,7 @@ class Section extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Section::class,'parent_id');
+        return $this->belongsTo(Section::class, 'parent_id');
     }
 
     public function shop()

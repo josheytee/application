@@ -1,0 +1,7 @@
+name: Trends
+descrptions: Shows trends in a particular shop
+target: shop
+package: ntc\shop\information
+version: 1.0.0
+author: ntc
+type: component

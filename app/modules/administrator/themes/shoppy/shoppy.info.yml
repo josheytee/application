@@ -9,7 +9,7 @@ regions:
   header_right: Header Right
   breadcrumb: Breadcrumb
   help: Help
-  sidebar: 'Sidebar'
+  sidebar: Sidebar
 #  container: Container
   footer: Footer
 libraries: makm.js

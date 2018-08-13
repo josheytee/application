@@ -5,7 +5,14 @@ admin.index:
     _controller: ntc\administrator\controller\AdminController::hello
   requirements:
     _permission: administer actions
-admin.list:
+admin.seed:
+  path: admin/seed
+  defaults:
+    _title: Amin | Home
+    _controller: ntc\administrator\controller\AdminController::seed
+  requirements:
+    _permission: administer actions
+admins:
   path: admins
   defaults:
     _title: Amin | Home

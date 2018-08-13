@@ -56,8 +56,9 @@ class ProductList extends ListController
                 'name' => 'View',
                 'route' => 'product.index',
                 'params' => [
-                    'id' => $entity->id,
-                    'url' => $entity->linkRewrite
+                    'shop_url' => $this->currentShop()->url,
+                    'product_id' => $entity->id,
+                    'product_url' => $entity->link_rewrite
                 ]
             ],
             'edit' => [

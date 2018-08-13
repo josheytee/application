@@ -1,9 +1,9 @@
 {extends './html.tpl'}
 {block 'page'}
-    {include "../partials/header.tpl"}
-    {$page.banner}
+    {*{include "../partials/header.tpl"}*}
+    {$page.regions.breadcrumb}
     <div class="content">
-        {$page.highlight}
+        {$page.regions.highlight}
         {$page.content}
     </div>
     {include "../partials/footer.tpl"}

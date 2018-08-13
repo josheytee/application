@@ -12,11 +12,11 @@ class Overview extends Component
 
     public function init(Request $request)
     {
-        $id = $request->get('id');
+        $id = $request->get('product_id');
         $this->product = Product::find($id);
     }
 
-   public function render(Request $request)
+    public function render(Request $request)
     {
         $this->init($request);
         return $this->display('ntc/product/overview', [

@@ -5,7 +5,9 @@ namespace ntc\section\sectionproductlist;
 use app\core\component\Component;
 use app\core\entity\Product;
 use app\core\entity\Section;
+use app\core\entity\Shop;
 use app\core\http\Request;
+use Faker\Factory;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Sectionproductlist extends Component
@@ -13,6 +15,7 @@ class Sectionproductlist extends Component
     private $url;
     private $section;
     private $sectionProducts = [];
+    private $shop_url;
 
     public function init(Request $request)
     {
@@ -29,17 +32,15 @@ class Sectionproductlist extends Component
         $this->sectionProducts = Product::where('section_id', $this->section->id ?? 0)->get();
     }
 
-   public function render(Request $request)
+    public function render(Request $request)
     {
         $this->init($request);
-        return $this->display('ntc/section/sectionproductlist', ['sectionProducts' => $this->sectionProducts
+        return $this->display('ntc/section/sectionproductlist', ['shop_url' => $this->shop_url, 'sectionProducts' => $this->sectionProducts
         ]);
     }
 
     public function renderWithParams($params)
     {
-        return $this->display('ntc/section/sectionproductlist', [
-            'sectionProducts' => $params
-        ]);
+        return $this->display('ntc/section/sectionproductlist', $params);
     }
 }

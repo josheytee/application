@@ -23,6 +23,7 @@ CreateShopForm extends FormController
     public function build(Formbuilder $builder)
     {
         $builder->add('name', Text::class);
+        $builder->add('slogan', Text::class);
         $builder->add('category_id', Select::class, function ($category) {
             $category->options = $this->activities();
             $category->label='category';

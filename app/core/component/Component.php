@@ -176,8 +176,7 @@ abstract class Component implements ContainerAwareInterface
     {
         if ($this->templateExist("components/{$template}-{$this->region}")) {
             return $this->renderTrait($data, "components/{$template}-{$this->region}");
-        }
-        if ($this->templateExist("components/{$template}")) {
+        } elseif ($this->templateExist("components/{$template}")) {
             return $this->renderTrait($data, 'components/' . $template);
         }
         return $this->renderCustomTrait($this->defaultTemplate, $data);

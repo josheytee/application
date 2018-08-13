@@ -11,12 +11,10 @@ admin.product.delete:
 admin.product.create:
   path: admin/product/add
   defaults:
-    tab: Information
     _title: Admin | Product
     _form: ntc\product\form\ProductForm
     _model: app\core\entity\Product.create
   requirements:
-    tab: .+
     _permission: administer actions
 
 admin.product.edit:
@@ -32,7 +30,7 @@ admin.product.edit:
     id: \d+
     _permission: administer actions
 
-admin.product.list:
+admin.products:
   path: admin/products
   defaults:
     _title: Admin | Product List
@@ -42,14 +40,15 @@ admin.product.list:
     _permission: administer actions
 
 product.index:
-  path: product/{id}/{url}
+  path: shop/{shop_url}/product/{product_id}/{product_url}
   defaults:
-    id: 0
-    url: default
+    product_id: 0
+    product_url: default
     _controller: ntc\product\controller\ProductController::index
   requirements:
-    id: \d+
-    url: .+
+    shop_url: "[a-zA-Z0-9-_/]+"
+    product_id: \d+
+    product_url: .+
   options:
     _shop_route: true
 

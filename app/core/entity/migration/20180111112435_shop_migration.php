@@ -12,6 +12,7 @@ class ShopMigration extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->string('name');
+            $table->string('slogan')->nullable();
             $table->text('description');
             $table->string('url');
             $table->string('theme');

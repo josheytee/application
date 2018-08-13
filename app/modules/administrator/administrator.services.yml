@@ -19,8 +19,11 @@ services:
 #    arguments: ['@router.provider']
     tags:
       - { name: event_subscriber }
+  admin.block.manager:
+    class: ntc\administrator\block\AdminBlockManager
+    arguments: ['@theme.manager','@region.manager','@library.manager','@title.resolver']
   admin.response.handler:
     class: ntc\administrator\event\subscriber\AdminResponseHandlerSubscriber
-    arguments: ['@context.admin','@block.manager','@current.route.match']
+    arguments: ['@context.admin','@admin.block.manager','@current.route.match']
     tags:
       - { name: event_subscriber }

@@ -1,0 +1,10 @@
+name: Brand
+description: displays the shop logo and motto
+type: component
+target: front
+author: ntc
+package: ntc\shop\brand
+icon: hello.png
+version: 1.0.0
+dependency:
+    - type guesser

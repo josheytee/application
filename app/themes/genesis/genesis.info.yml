@@ -1,13 +1,14 @@
 name: Genesis
 type: theme
-description: A default base theme
+description: A default shop theme
 package: ntc\genesis
 base theme: false
 engine: smarty
 regions:
-  header: Header
-  banner: Banner
+  header_top: Top Header
+  header_bottom: Bottom Header
+  breadcrumb: Banner
   highlight: Highlight
+  sidebar: SideBar
   container: Container
   footer: Footer
-libraries: makm.js

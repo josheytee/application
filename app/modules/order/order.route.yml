@@ -5,8 +5,6 @@ cart.index:
     _controller: ntc\order\controller\CartController::index
   requirements:
     _permission: administer actions
-  options:
-    _shop_route: true
 order.index:
   path: /order/{step}
   defaults:
@@ -15,8 +13,6 @@ order.index:
     _controller: ntc\order\controller\OrderController::index
   requirements:
     _permission: administer actions
-  options:
-    _shop_route: true
 order.cart.add:
   path: /cart/add/{shop_id}/{product_id}
   defaults:

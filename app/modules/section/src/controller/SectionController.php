@@ -29,7 +29,10 @@ class SectionController extends ControllerBase
 
     public static function inject(ContainerInterface $container)
     {
-        return new static($container->get('module.repository'), $container->get('component.manager'));
+        return new static(
+            $container->get('module.repository'),
+            $container->get('component.manager')
+        );
     }
 
     public function index(Request $request, $shop_url)
@@ -55,7 +58,7 @@ class SectionController extends ControllerBase
         $shop = Shop::where('url', $shop_url)->first();
         $section = Section::where('url', $section_url)->where('shop_id', $shop->id)->first();
         $default = $this->moduleRepository->getRepository('ntc\section')->getCustom('default');
-        if (is_array($section->components)) {
+        if (isset($section->components) && is_array($section->components)) {
             $default['single'] = $section->components;
         }
         foreach ($default['single'] as $key) {

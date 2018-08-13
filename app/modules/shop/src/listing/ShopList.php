@@ -9,6 +9,7 @@ class ShopList extends ListController
     public function __construct()
     {
         $this->shop_dependent = false;
+//        $this->user_dependent = true;
     }
 
     function head()
@@ -16,7 +17,7 @@ class ShopList extends ListController
         $head['id'] = "ID";
         $head['name'] = "Name";
         $head['url'] = "Url";
-        $head['description'] = "Description";
+        $head['slogan'] = "Slogan";
 //        $head['activity'] = "Activity";
 //        $head['state'] = "State";
         return $head;
@@ -27,7 +28,7 @@ class ShopList extends ListController
         $row['id'] = $entity->id;
         $row['name'] = $entity->name;
         $row['url'] = $entity->url;
-        $row['description'] = $entity->description;
+        $row['slogan'] = $entity->slogan;
 //        $row['activity'] = $entity->activity->name;
 //        $row['state'] = $entity->state->name;
         return $row;
@@ -52,7 +53,7 @@ class ShopList extends ListController
                 'name' => 'Preview',
                 'route' => 'shop.index',
                 'params' => [
-                    'url' => $entity->url
+                    'shop_url' => $entity->url
                 ]
             ],
             'delete' => [

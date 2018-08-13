@@ -40,7 +40,7 @@ admin.section.delete:
     _form: ntc\section\form\SectionForm
     _model: app\core\entity\Section
     _title: delete Section
-admin.section.list:
+admin.sections:
   path: /admin/sections
   defaults:
     _list: ntc\section\listing\SectionList

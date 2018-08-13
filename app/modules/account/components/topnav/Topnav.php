@@ -13,7 +13,7 @@ class Topnav extends Component
         return $this->display('ntc/account/topnav', [
                 'user' => $this->currentUser(),
                 'name' => $this->currentShop()->name,
-                'params' => ['url' => $this->shop->url],
+                'params' => ['url' => $this->currentShop()->url],
                 'route' => 'shop.index'
 //                {route n='shop.index' p=$url|default:''}
             ]

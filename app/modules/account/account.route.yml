@@ -22,7 +22,7 @@ admin.user.address.edit:
     _title: Update Address
   requirements:
       _permission: administer comments
-admin.user.address.list:
+admin.user.addresses:
   path: /admin/user/addresses
   defaults:
     _list: ntc\account\listing\UserAddressList
@@ -30,7 +30,7 @@ admin.user.address.list:
     _title: Update Address
   requirements:
       _permission: administer comments
-admin.user.list:
+admin.users:
   path: /admin/users
   defaults:
     _list: ntc\account\listing\UserList

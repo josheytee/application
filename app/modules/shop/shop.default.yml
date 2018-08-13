@@ -2,4 +2,5 @@ components:
   - ntc\shop\slider
   - ntc\section\card
   - ntc\shop\trends
-default_theme: ntc\shop\genesis
+  - ntc\shop\information
+default_theme: ntc\genesis

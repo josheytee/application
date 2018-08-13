@@ -1,0 +1,38 @@
+.section-card {
+  margin: 10px;
+  h2 {
+    color: $brand-primary;
+    border-bottom: lighten($brand-primary, 30%) 1px solid;
+    width: 40%;
+  }
+  .left-block {
+    .image {
+      float: left;
+      width: 60%;
+      img {
+        width: 285px;
+        height: 300px;
+      }
+      color: $color1;
+    }
+    .section-siblings {
+      float: left;
+      width: 40%;
+      ul {
+        list-style-type: none;
+        width: 100%;
+        li {
+          padding: 10px;
+          &:hover {
+            background: $color2;
+            text-decoration: none;
+          }
+
+        }
+      }
+    }
+  }
+  .section-product-list {
+    list-style-type: none;
+  }
+}

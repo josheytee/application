@@ -19,6 +19,11 @@ class Shop extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function Carrier()
+    {
+        return $this->belongsTo(Carrier::class);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

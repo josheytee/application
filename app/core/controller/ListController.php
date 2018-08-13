@@ -22,6 +22,7 @@ abstract class ListController extends ControllerBase
     private $paginatorData = [];
     protected $elements;
     protected $shop_dependent = true;
+    protected $user_dependent = false;
 
     public function listing(Request $request)
     {
@@ -33,12 +34,15 @@ abstract class ListController extends ControllerBase
 
     public function init(Request $request)
     {
+        $no_per_Page = 10;
         $page = $request->get('page', 1);
         $s = $this->getModel($request);
         if ($this->shop_dependent) {
-            $p = $s::where('shop_id', $this->currentShop()->id)->paginate(3, null, null, $page);
+            $p = $s::where('shop_id', $this->currentShop()->id)->paginate($no_per_Page, null, null, $page);
+        } else if ($this->user_dependent) {
+            $p = $s::where('user_id', $this->currentUser()->id)->paginate($no_per_Page, null, null, $page);
         } else {
-            $p = $s::paginate(3, null, null, $page);
+            $p = $s::paginate($no_per_Page, null, null, $page);
         }
         $window = UrlWindow::make($p);
 

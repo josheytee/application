@@ -41,11 +41,12 @@ class CartController extends ControllerBase
     {
         $cart_components = '';
         $cart = Cart::where('key', $key)->first();
-        $default = $this->moduleRepository->getRepository('ntc\order')->getCustom('cart.index');
+        $default = $this->moduleRepository->getRepository('ntc\order')->getCustom('default');
+
         if (is_array($cart->components)) {
-            $default['components'] = $cart->components;
+            $default[] = $cart->components;
         }
-        foreach ($default['components'] as $key) {
+        foreach ($default['cart.index'] as $key) {
             $component = $this->componentManager->getComponent($key, 0);
             $cart_components .= $component->renderComponent($request);
         }

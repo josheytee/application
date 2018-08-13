@@ -15,5 +15,9 @@ class Carrier extends Model
      */
     protected $guarded = [];
 
+    public function shops()
+    {
+        return $this->hasMany(Shop::class);
+    }
 
 }
